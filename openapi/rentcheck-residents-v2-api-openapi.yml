@@ -1,0 +1,940 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Residents V2 API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Residents V2
+paths:
+  /v2/residents:
+    post:
+      summary: Create a resident
+      tags:
+      - Residents V2
+      description: This resource allows you to create a Resident in RentCheck. Residents are used to provide contact information for inspections.
+      parameters:
+      - in: header
+        name: x-app-id
+        required: false
+        description: 'Optional creation-source identifier. Persisted on the resident''s
+
+          `creation_source` field. Used as a fallback when
+
+          no `appId` is available on the decoded bearer token.
+
+          '
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resident_v2_create_request_model'
+      responses:
+        '200':
+          description: Returns the created resident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/resident_v2_response_model'
+        '400':
+          description: "Bad request — request body failed validation. The raw message\nidentifies the invalid field, e.g.:\n  - `\"data.first_name\" is required`\n  - `\"data.last_name\" is required`\n  - `\"data.emails\" must contain at least 1 items`\n  - `\"data.emails[0]\" must be a valid email`\n\nInvalid phone numbers are rejected by a custom validator.\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.first_name" is required'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — the caller is not a member of the requested `organization_id`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    example: invalid organization
+        '404':
+          description: Not Found — `organization not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: organization not found
+    get:
+      x-internal: true
+      summary: Get all residents
+      tags:
+      - Residents V2
+      description: This resource allows you to list Residents in RentCheck. Supports both the new `filters[...]` / `options[...]` query schema and the legacy `occupancy_status[]` multi-value syntax.
+      parameters:
+      - in: query
+        name: filters[search]
+        schema:
+          type: string
+        description: Search string to match against resident name, email, and phone number.
+      - in: query
+        name: filters[deleted]
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'false'
+        description: When `true`, returns soft-deleted residents. Defaults to `false`.
+      - in: query
+        name: filters[active]
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        description: When provided, filters residents by whether they currently have an active occupancy.
+      - in: query
+        name: filters[emails]
+        schema:
+          type: string
+        description: Email(s) to filter residents by. Multiple values may be comma-separated — the string is split on `,` and matched by array-overlap. Single-value requests remain a comma-free string.
+      - in: query
+        name: filters[property_id]
+        schema:
+          type: string
+        description: Property ID to filter residents by. Only residents with an occupancy on this property are returned.
+      - in: query
+        name: filters[occupancy_status][value]
+        schema:
+          type: string
+          pattern: ^(future|past|current)(\|(future|past|current))*$
+        description: 'Occupancy status(es) to filter residents by. Multiple values should be concatenated with a `|`. Allowed individual values are `future`, `past`, and `current`. When either `filters[occupancy_status][value]` or `filters[occupancy_status][condition]` is supplied, both are required.
+
+          '
+      - in: query
+        name: filters[occupancy_status][condition]
+        schema:
+          type: string
+          enum:
+          - any_of
+        description: Condition to be used to filter by occupancy status. The validator only accepts `any_of`. Must be paired with `filters[occupancy_status][value]` (see above). Note also that `filters[active]` and `filters[occupancy_status]` are mutually exclusive — supplying both is rejected by the request validator.
+      - in: query
+        name: occupancy_status[]
+        deprecated: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: Legacy multi-value occupancy status filter. Prefer `filters[occupancy_status][value]`.
+      - in: query
+        name: options[pagination][page_size]
+        schema:
+          type: integer
+          default: 20
+        description: The number of elements in the data collection.
+      - in: query
+        name: options[pagination][page_number]
+        schema:
+          type: integer
+          default: 0
+        description: The page number of the collection. This value is based on the page size.
+      - in: query
+        name: options[sort][sort_by]
+        schema:
+          type: string
+          default: first_name
+          enum:
+          - first_name
+          - last_name
+          - emails
+          - property_address
+          - lease_start
+          - lease_end
+          - status
+        description: Sort results by one of the available fields.
+      - in: query
+        name: options[sort][sort_type]
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          - asc
+          - desc
+          default: ASC
+        description: Sort direction. Case-insensitive.
+      responses:
+        '200':
+          description: Returns the matching residents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/resident_v2_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Amount of total elements according to search criteria.
+        '400':
+          description: 'The query parameters failed validation. Common causes: `filters[active]` and
+
+            `filters[occupancy_status]` supplied together (rejected as mutually exclusive), an
+
+            `options[sort][sort_by]` value outside the enum, or a malformed
+
+            `filters[occupancy_status][value]` string.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: '"options.sort.sort_by" must be one of [first_name, last_name, emails, property_address, lease_start, lease_end, status]'
+        '401':
+          $ref: '#/components/responses/401'
+  /v2/residents/{id}:
+    delete:
+      summary: Delete resident
+      tags:
+      - Residents V2
+      description: Delete selected resident by id
+      parameters:
+      - name: id
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successful deletion of resident
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `resident not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: resident not found
+    get:
+      summary: Get a resident by ID
+      tags:
+      - Residents V2
+      description: This resource allows you to get a Resident in RentCheck. Residents are used to provide contact information for inspections.
+      parameters:
+      - name: id
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the requested resident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/resident_v2_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `resident not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: resident not found
+    put:
+      summary: Update a resident
+      tags:
+      - Residents V2
+      description: This resource allows you to update a Resident in RentCheck. Residents are used to provide contact information for inspections.
+      parameters:
+      - name: id
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resident_v2_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated resident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/resident_v2_response_model'
+        '400':
+          description: 'Bad request — request body failed validation. All body fields are optional;
+
+            the raw message identifies the invalid field, e.g.
+
+            `"data.emails" must contain at least 1 items` or
+
+            `"data.emails[0]" must be a valid email`. Invalid phone numbers are rejected by a
+
+            custom validator.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.emails[0]" must be a valid email'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — the caller is not a member of the requested `organization_id`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    example: invalid organization
+        '404':
+          description: Not Found — `resident not found` or `organization not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: resident not found
+components:
+  schemas:
+    resident_v2_response_model:
+      type: object
+      required:
+      - id
+      - first_name
+      - last_name
+      - phone_numbers
+      - emails
+      - created_date
+      - updated_date
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        user:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User name
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+        owner_id:
+          type: string
+          description: User ID of the resident entity
+          example: 00BRcZPSakXz6w7RYoE
+        organization_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        creation_source:
+          type: string
+          description: App that perform the entity creation.
+          enum:
+          - zapier
+          - rentmanager
+          - flatfile
+          - 365connect
+          - appfolio
+          - yardi
+          - rentvine
+          - test_app_id
+          example: zapier
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        updated_date:
+          type: string
+          description: Entity last update date, in ISO format
+          example: 2023-10-04 14:15:37.925000
+        deleted:
+          type: boolean
+          description: Whether the user is deleted or not.
+        primary_occupancy:
+          type: object
+          required:
+          - id
+          - tenant_id
+          - status
+          - tags
+          - property
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            tenant_id:
+              type: string
+              description: Entity id of the resident this lease belongs to.
+              example: 00BRcZPSakXz6w7RYoE
+            status:
+              type: string
+              description: Indicates if the tenant is a future, past or current one
+              enum:
+              - future
+              - past
+              - current
+            tags:
+              type: array
+              description: Tags associated with the lease if it was evicted or is in notice
+              items:
+                type: string
+                enum:
+                - evict
+                - notice
+            property:
+              type: object
+              required:
+              - id
+              - address
+              - city
+              - zip_code
+              description: This is the entity id of the Unit, Building, or Community that the entity is for.
+              properties:
+                id:
+                  type: string
+                  description: Selected entity's property id
+                  example: 00BRcZPSakXz6w7RYoE
+                address:
+                  type: string
+                  description: Selected entity's property address
+                  example: 2001 Red Gates
+                address_2:
+                  type: string
+                  description: Selected entity's property additional address info
+                  example: Apt. 4B
+                city:
+                  type: string
+                  description: Selected entity's property city
+                  example: New Orleans
+                region:
+                  type: string
+                  description: Selected entity's property region
+                  example: Orleans
+                zip_code:
+                  type: string
+                  description: Selected entity's property zip_code
+                  example: '70130'
+            lease_start:
+              type: string
+              description: The date the Resident's current lease starts.
+              example: 2021-01-15 00:00:00
+            lease_end:
+              type: string
+              description: The date the Resident's current lease should end.
+              example: 2022-01-15 00:00:00
+            rent:
+              type: number
+              description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+              example: 100
+            security_deposit:
+              type: number
+              description: Unit security deposit
+              example: 1500
+            move_out_date:
+              type: string
+              description: The date that the Resident is scheduled to move out of the current Property.
+              example: 2022-01-15 00:00:00
+            move_in_date:
+              type: string
+              description: The date that the Resident is scheduled to move in to the current Property.
+              example: 2022-01-15 00:00:00
+        sync_data:
+          oneOf:
+          - title: RentManager Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              vendor:
+                type: string
+                enum:
+                - rentmanager
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              x_id:
+                type: string
+              location_id:
+                type: string
+              integration_id:
+                type: string
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+          - title: Yardi Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              vendor:
+                type: string
+                enum:
+                - yardi
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              code:
+                type: string
+              parent_code:
+                type: string
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+          - title: AppFolio Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              vendor:
+                type: string
+                enum:
+                - appfolio
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              short_property_id:
+                type: string
+              short_unit_id:
+                type: string
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+              upload_response:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - resource
+                  - resource_id
+                  - uploaded_id
+                  properties:
+                    resource:
+                      type: string
+                      enum:
+                      - units
+                      - properties
+                      - occupancies
+                    resource_id:
+                      type: string
+                    uploaded_id:
+                      type: string
+          - title: Buildium Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              vendor:
+                type: string
+                enum:
+                - buildium
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+          - title: Jenark Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              vendor:
+                type: string
+                enum:
+                - jenark
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+          - title: Rentvine Sync
+            type: object
+            required:
+            - vendor
+            - last_sync
+            properties:
+              vendor:
+                type: string
+                enum:
+                - rentvine
+              last_sync:
+                type: string
+                description: The last time the resident was synced with external sources.
+                example: 2024-12-02 14:15:37.925000
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              x_id:
+                type: string
+              status:
+                type: string
+                description: Latest manual-sync lifecycle state, when the integration exposes it.
+                enum:
+                - scheduled
+                - processing
+                - success
+                - error
+              error:
+                type: string
+                nullable: true
+    resident_v2_create_request_model:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - emails
+      properties:
+        organization_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+        user_id:
+          type: string
+          description: Optional RentCheck user id to associate with the resident on creation.
+          example: 00BRcZPSakXz6w7RYoE
+    rentvine_sync:
+      type: object
+      required:
+      - last_sync
+      description: Rentvine sync metadata.
+      properties:
+        id:
+          type: string
+          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
+        x_id:
+          type: string
+          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
+        x_property_id:
+          type: string
+          description: Rentvine property id. When the property type is a unit, this points at the building id.
+        last_sync:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
+        status:
+          type: string
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+          description: Job orchestration and terminal outcome for the most recent sync.
+        error:
+          type: string
+          nullable: true
+          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
+        upload_response:
+          type: array
+          description: Per-destination upload outcomes for inspection PDF uploads.
+          items:
+            type: object
+            additionalProperties: true
+        excluded_inspection_upload_destinations:
+          type: array
+          description: Destinations to skip on the next inspection-report upload retry.
+          items:
+            type: string
+            enum:
+            - properties
+            - tenants
+            - inspections
+    resident_v2_update_request_model:
+      type: object
+      properties:
+        organization_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+          nullable: true
+          minItems: 1
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

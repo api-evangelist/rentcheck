@@ -1,0 +1,748 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Subscriptions API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Subscriptions
+paths:
+  /v1/subscriptions/trial:
+    post:
+      x-internal: true
+      summary: Create a free trial subscription
+      tags:
+      - Subscriptions
+      description: 'Starts a free trial subscription for the caller. Reads the `x-app-id` header to determine which
+
+        Chargebee site / app the trial should be created in.
+
+        '
+      parameters:
+      - in: header
+        name: x-app-id
+        required: true
+        schema:
+          type: string
+        description: 'App id identifying which Chargebee site the trial should be created in.
+
+          '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscription_create_trial_request_model'
+      responses:
+        '200':
+          description: Returns the newly-created trial subscription.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/subscription_get_by_user_response_model'
+        '400':
+          description: 'Bad request — request body validation rejected the body. The
+
+            `x-app-id` header is also required, so a missing header surfaces
+
+            here rather than as a 401.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.user_name" is required'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — the authenticated token''s user id does not
+
+            resolve to a profile.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - user not found
+                    example: user not found
+  /v1/subscriptions/me:
+    get:
+      x-internal: true
+      summary: Get subscription
+      tags:
+      - Subscriptions
+      description: 'Returns the subscription associated with the authenticated user. Used by the web and mobile apps
+
+        to render plan / billing information for the logged-in user.
+
+        '
+      responses:
+        '200':
+          description: Returns the user's subscription.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/subscription_get_by_user_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — the authenticated user has no subscription record.
+
+            No `user not found` 404 is raised on this path (a
+
+            missing profile flows through as an empty subscription lookup).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - subscription not found
+                    example: subscription not found
+  /v1/subscriptions/invoices/{invoiceId}/get-download-url:
+    get:
+      x-internal: true
+      summary: Get a download URL for an invoice
+      tags:
+      - Subscriptions
+      description: 'Returns a short-lived URL that can be used to download the PDF for the supplied Chargebee invoice.
+
+        The invoice must belong to the caller''s subscription.
+
+        '
+      parameters:
+      - name: invoiceId
+        in: path
+        description: Chargebee invoice id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the download URL for the invoice PDF.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: string
+                    description: Pre-signed download URL for the invoice PDF.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` or `invoice not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - subscription not found
+                    - invoice not found
+                    example: invoice not found
+  /v1/subscriptions/invoices:
+    get:
+      x-internal: true
+      summary: Get invoices for the caller's subscription
+      tags:
+      - Subscriptions
+      description: 'Lists Chargebee invoices associated with the caller''s subscription. Returns the curated subset of
+
+        Chargebee invoice fields surfaced by the web app; refer to Chargebee''s API docs for the full set.
+
+        '
+      responses:
+        '200':
+          description: Returns the list of invoices for the caller's subscription.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/subscription_invoice_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` for the caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: subscription not found
+  /v1/subscriptions/me/requests:
+    post:
+      x-internal: true
+      summary: Request a new plan / trial for the caller's subscription
+      tags:
+      - Subscriptions
+      description: 'Submits an internal request for sales / support to switch the caller''s subscription to the
+
+        supplied Chargebee plan. Optional `note` is forwarded to the team that fulfills the request.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscription_create_request_request_model'
+      responses:
+        '200':
+          description: The request has been submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: 'null'
+                    description: 'Always `null` — the response returns no data on success.
+
+                      '
+        '400':
+          description: Bad request — request body validation rejected the body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.plan_id" is required'
+        '401':
+          description: "Unauthorized — a standard auth-token failure, or the caller's\nsubscription state disallows the request (`unauthorized` message) when:\n- the caller already has permission to edit the plan directly, or\n- the caller requested the plan they are already on and the\n  subscription is active or in trial.\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    enum:
+                    - token is not valid
+                    - authorization header is empty
+                    - authorization header is not valid
+                    - 'format for Authorization must be: Bearer [token]'
+                    - refresh token is not valid for resources
+                    - not well-formed token
+                    - unauthorized
+                    example: unauthorized
+        '404':
+          description: "Not Found — one of the resources needed to fulfil the request could\nnot be located:\n- `subscription not found` — the caller has no subscription attached.\n- `plan not found` — the supplied `plan_id` does not resolve in Chargebee.\n- `permission group not found` — no permission group on the subscription\n  grants `allow_billing_plan_editing`, so there is no billing admin to notify.\n- `admin users not found` — the billing admin permission group exists\n  but has no members.\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - subscription not found
+                    - plan not found
+                    - permission group not found
+                    - admin users not found
+                    example: subscription not found
+  /v1/subscriptions:
+    put:
+      x-internal: true
+      summary: Update the caller's subscription
+      tags:
+      - Subscriptions
+      description: 'Updates the Chargebee plan and/or addons on the caller''s subscription. Supply only the keys you
+
+        want to change; both `plan` and `addons` are optional. Returns the updated subscription.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscription_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated subscription.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/subscription_get_by_user_response_model'
+        '400':
+          description: Bad request — Chargebee rejected the update (invalid plan id, addon id, etc.).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` for the caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: subscription not found
+components:
+  schemas:
+    subscription_create_request_request_model:
+      x-internal: true
+      type: object
+      required:
+      - plan_id
+      description: Used to request a trial extension or plan change.
+      properties:
+        plan_id:
+          type: string
+          description: Chargebee plan id the user is requesting.
+        note:
+          type: string
+    subscription_get_by_user_response_model:
+      type: object
+      required:
+      - id
+      - status
+      - created_at
+      - teams
+      - plan
+      - addons
+      - rentcheck_contact
+      - coupons
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        status:
+          type: string
+          description: Current status of subscription
+          enum:
+          - active
+          - future
+          - in_trial
+          - non_renewing
+          - paused
+          - cancelled
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        cancelled_at:
+          type: string
+          description: Subscription cancellation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        next_billing_at:
+          type: string
+          description: Next billing date for the subscription, in ISO format.
+          example: 2022-12-02 14:15:37.925000
+        teams:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - internal_label
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: The name field is the Team name that is displayed on recipient facing reports and communication.
+                example: The best company
+              internal_label:
+                type: string
+                description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+                example: The best company label
+              logo:
+                type: string
+                description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        plan:
+          type: object
+          required:
+          - sub_id
+          - plan_id
+          - plan_name
+          - customer_id
+          - billing_email
+          - plan_unit_price
+          - plan_amount
+          - plan_qty
+          - pricing_model
+          - active_units
+          properties:
+            sub_id:
+              type: string
+            plan_id:
+              type: string
+            plan_name:
+              type: string
+            invoice_name:
+              type: string
+              description: Optional label used on invoices for this plan.
+            customer_id:
+              type: string
+            billing_email:
+              type: string
+            plan_unit_price:
+              type: number
+            plan_amount:
+              type: number
+            plan_qty:
+              type: number
+            pricing_model:
+              type: string
+              enum:
+              - flat_fee
+              - per_unit
+              - tiered
+              - volume
+              - stairstep
+            active_units:
+              type: number
+              description: Number of billable units currently active on this plan.
+        addons:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - amount
+            - quantity
+            - unit_price
+            - pricing_model
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              amount:
+                type: number
+              quantity:
+                type: number
+              unit_price:
+                type: number
+              pricing_model:
+                type: string
+                enum:
+                - flat_fee
+                - per_unit
+                - tiered
+                - volume
+                - stairstep
+        payment_method:
+          type: object
+          description: Optional payment method associated with the subscription. The full Chargebee payload (id, updated_at, type, reference_id, status, plus optional `card` / `bank_account` blocks) is passed through as-is.
+          additionalProperties: true
+        plan_trial:
+          type: object
+          description: Details of the most recent plan trial, when the subscription has an active or completed plan-trial.
+          required:
+          - plan_id
+          - duration_in_days
+          properties:
+            plan_id:
+              type: string
+            duration_in_days:
+              type: number
+            start:
+              type: string
+              description: Trial start date, in ISO format.
+              example: 2022-12-02 14:15:37.925000
+            end:
+              type: string
+              description: Trial end date, in ISO format.
+              example: 2022-12-02 14:15:37.925000
+        plan_free_trials:
+          type: array
+          description: List of plan free trials the caller has already participated in — used server-side to avoid re-offering the same trial. An omitted value is normalised to `[]`, so the field is always present on the wire.
+          items:
+            type: object
+            required:
+            - id
+            properties:
+              id:
+                type: string
+        addon_free_trials:
+          type: array
+          items:
+            type: object
+            required:
+            - status
+            - trial_start
+            - trial_end
+            - paid_addon_id
+            properties:
+              status:
+                type: string
+                enum:
+                - active
+                - expired
+              trial_start:
+                type: string
+              trial_end:
+                type: string
+              paid_addon_id:
+                type: string
+        rentcheck_contact:
+          type: object
+          required:
+          - id
+          - name
+          - email
+          - company
+          - company_id
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            company_id:
+              type: string
+        coupons:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - discount_type
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              discount_type:
+                type: string
+                enum:
+                - fixed_amount
+                - percentage
+              discount_amount:
+                type: number
+              discount_percentage:
+                type: number
+    subscription_update_request_model:
+      x-internal: true
+      type: object
+      description: At least one of `plan` or `addons` should be supplied.
+      properties:
+        plan:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: Chargebee plan id to switch to.
+        addons:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            properties:
+              id:
+                type: string
+                description: Chargebee addon id.
+    subscription_create_trial_request_model:
+      x-internal: true
+      type: object
+      required:
+      - user_name
+      - company
+      - portfolio_size
+      description: Request body for creating a subscription trial.
+      properties:
+        user_name:
+          type: string
+        company:
+          type: string
+        portfolio_size:
+          type: integer
+    subscription_invoice_response_model:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - date
+      - status
+      - amount_due
+      description: Subset of the Chargebee invoice payload surfaced to clients.
+      properties:
+        id:
+          type: string
+          description: Chargebee invoice id.
+        date:
+          type: integer
+          description: Unix-second timestamp the invoice was issued.
+        status:
+          type: string
+          enum:
+          - paid
+          - posted
+          - payment_due
+          - not_paid
+          - voided
+          - pending
+        amount_due:
+          type: integer
+          description: Amount due on the invoice (in the smallest currency unit).
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

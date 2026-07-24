@@ -1,0 +1,1024 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Automations API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Automations
+paths:
+  /v1/automations:
+    post:
+      x-internal: true
+      summary: Create an automation
+      tags:
+      - Automations
+      description: "Creates a new automation for the caller's active subscription. New\nautomations are created in the deactivated state (`active: false`) and\nmust be enabled via a follow-up `PUT` call.\n\nThe following cross-field validation rules apply:\n  * `selection_type.ids` is required when `selection_type.type` is\n    `specific_units` or `specific_teams`.\n  * `assignment_type.emails` is required when `assignment_type.type` is\n    `emails`; `assignment_type.teammate_emails` is required when type is\n    `teammates`; `assignment_type.resident_type` is required when type\n    is `residents`.\n  * When `trigger_type` is `tenant-move-out` or `lease-end`,\n    `recurrence.frequency` must be `does_not_repeat`. The schema applies\n    a default of `{ frequency: 'does_not_repeat' }` when `recurrence`\n    is omitted.\n  * Automation names must be unique within the subscription — a duplicate\n    throws 409.\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/automation_create_request_model'
+      responses:
+        '201':
+          description: Returns the newly created automation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 201
+                  data:
+                    $ref: '#/components/schemas/api_automation'
+        '400':
+          description: "Bad request — body validation failed, or one of the automation\nchecks rejected the request. Examples:\n  - Validation messages such as `\"data.name\" is required`,\n    `\"data.selection_type.type\" must be one of [all_units, specific_teams, specific_units]`,\n    `\"data.creation_date.value\" must be less than or equal to 999`.\n  - `inspection template not published` (target template is\n    unpublished).\n  - `fast track not enabled for this inspection template`.\n  - `a teammate must be provided for all teams` (teammate\n    assignment is missing teams from the selection).\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          description: 'Unauthorized — standard auth failures, plus
+
+            `User does not have permissions to create automation` when the
+
+            caller lacks permission to create automations.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    example: User does not have permissions to create automation
+        '404':
+          description: 'Not Found — one of `user`, `subscription`, `inspection template`,
+
+            `unit`, `team`, or `teammate` referenced by the request could not be
+
+            resolved.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: inspection template not found
+        '409':
+          description: 'Conflict — `An automation with this name already exists on the
+
+            subscription`, or `too many subscriptions` when more than one
+
+            active subscription is associated with the caller.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 409
+                  error:
+                    type: string
+                    enum:
+                    - An automation with this name already exists on the subscription
+                    - too many subscriptions
+                    example: An automation with this name already exists on the subscription
+    get:
+      x-internal: true
+      summary: List automations for the caller's subscription
+      tags:
+      - Automations
+      description: 'Returns automations belonging to the caller''s active subscription, with
+
+        pagination and sorting controlled via `options[pagination]` /
+
+        `options[sort]` query parameters. Defaults are
+
+        `page_size=20`, `page_number=0`, `sort_by=created_at`,
+
+        `sort_type=DESC`. Allowed `sort_by` values are listed below.
+
+        '
+      parameters:
+      - in: query
+        name: options[pagination][page_size]
+        schema:
+          type: integer
+          default: 20
+        description: Page size for pagination.
+      - in: query
+        name: options[pagination][page_number]
+        schema:
+          type: integer
+          default: 0
+        description: Zero-indexed page number.
+      - in: query
+        name: options[sort][sort_by]
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - name
+          - assignment_type
+          - selection_type
+          - trigger_type
+          - created_at
+        description: Field to sort by.
+      - in: query
+        name: options[sort][sort_type]
+        schema:
+          type: string
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          - asc
+          - desc
+        description: 'Sort direction. The value is uppercased before use, so both upper-
+
+          and lower-case forms are accepted.
+
+          '
+      responses:
+        '200':
+          description: Paginated list of automations for the caller's subscription.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/automation_get_all_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Total number of automations matching the query.
+        '400':
+          description: 'Bad request — `options[sort][sort_by]` is not one of the allowed
+
+            values, or `options[pagination]` failed validation.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` (the caller has no active subscription).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: subscription not found
+  /v1/automations/{automationId}:
+    delete:
+      x-internal: true
+      summary: Delete an automation
+      tags:
+      - Automations
+      description: 'Hard-removes the automation. RC default automations
+
+        (`is_rc_automation: true`) cannot be removed, and the caller must hold
+
+        the `canEditAutomation` permission **and** the subscription must have
+
+        the inspection automation addon. Returns 204 on success.
+
+        '
+      parameters:
+      - name: automationId
+        in: path
+        description: Automation ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 1
+      responses:
+        '204':
+          description: Automation successfully deleted.
+        '400':
+          description: 'Bad request — `automationId` failed validation
+
+            (`"automationId" must be a valid GUID`).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: '"automationId" must be a valid GUID'
+        '401':
+          description: 'Unauthorized — standard auth failures, plus
+
+            `User does not have permissions to delete automations` (caller is
+
+            missing the user record, lacks the inspection automation addon, or
+
+            can''t edit automations), or
+
+            `User does not have permissions to delete automation` (target is
+
+            an RC default automation), or
+
+            `User does not have permissions to delete default automation`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    example: User does not have permissions to delete automations
+        '404':
+          description: Not Found — `automation not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: automation not found
+    get:
+      x-internal: true
+      summary: Get an automation by ID
+      tags:
+      - Automations
+      description: 'Returns the requested automation. The automation must exist and belong
+
+        to the caller''s active subscription; otherwise `automation not found` is
+
+        returned.
+
+        '
+      parameters:
+      - name: automationId
+        in: path
+        description: Automation ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the requested automation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_automation'
+        '400':
+          description: 'Bad request — `automationId` failed validation
+
+            (`"automationId" must be a valid GUID`).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: '"automationId" must be a valid GUID'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `automation not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: automation not found
+    put:
+      x-internal: true
+      summary: Update an automation
+      tags:
+      - Automations
+      description: "Patch an existing automation. All body fields are optional; if\n`recurrence` is supplied, `trigger_type` must be supplied as well.\n\nSide-effects worth noting:\n  * If the resolved template has `is_fast_track_enabled: false`,\n    `fast_track` is forced to `false` on the stored automation\n    regardless of what the request body says.\n  * If the resulting `trigger_type` is `tenant-move-out` or `lease-end`,\n    `recurrence` is reset to `does_not_repeat` (with all\n    custom fields cleared).\n  * If after applying the update the automation has an invalid\n    assignment (e.g. `emails` type with no emails, or `teammates` type\n    with no teammates), the automation is automatically deactivated\n    (`active: false`).\n\nRC default automations (`is_rc_automation: true`) cannot be edited.\n"
+      parameters:
+      - name: automationId
+        in: path
+        description: Automation ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/automation_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated automation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_automation'
+        '400':
+          description: "Bad request — request validation failed, or one of the cross-field\nrules rejected the change. Examples:\n  - Validation messages such as `\"data.creation_date.value\" must be less than or equal to 999`.\n  - `inspection template not published`.\n  - `fast track not enabled for this inspection template`.\n  - `a teammate must be provided for all teams`.\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          description: 'Unauthorized — standard auth failures, plus
+
+            `User does not have permissions to update automations` when the
+
+            caller can''t edit automations (or lacks the inspection automation
+
+            addon for custom automations).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    example: User does not have permissions to update automations
+        '404':
+          description: 'Not Found — `automation not found`, `inspection template not
+
+            found`, `unit not found`, `team not found`, `teammate not found`,
+
+            `user not found`, or `subscription not found`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: automation not found
+        '409':
+          description: 'Conflict — `An automation with this name already exists on the
+
+            subscription` (when renaming), or `too many subscriptions`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 409
+                  error:
+                    type: string
+                    enum:
+                    - An automation with this name already exists on the subscription
+                    - too many subscriptions
+                    example: An automation with this name already exists on the subscription
+components:
+  schemas:
+    api_automation:
+      x-internal: true
+      type: object
+      description: Inspection automation record.
+      required:
+      - id
+      - name
+      - creator
+      - subscription_id
+      - active
+      - is_rc_automation
+      - fast_track
+      - selection_type
+      - inspection_template
+      - creation_date
+      - trigger_type
+      - assignment_type
+      - recurrence
+      - created_at
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: Automation name.
+        creator:
+          type: object
+          required:
+          - id
+          - name
+          - email
+          - type
+          description: Basic user identity fields.
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: Name of the user
+            email:
+              type: string
+              description: Email of the user
+            type:
+              type: string
+              enum:
+              - Renter
+              - Property Manager
+              - Landlord
+              - System
+              description: User type discriminator.
+        subscription_id:
+          type: string
+          description: Subscription that owns the automation.
+        active:
+          type: boolean
+          description: Whether the automation is currently active. Newly created automations are inactive until manually enabled.
+        is_rc_automation:
+          type: boolean
+          description: '`true` when the automation was created by default by RentCheck; `false` for user-created automations.'
+        fast_track:
+          type: boolean
+          description: When true, generated inspections are created in fast-track mode.
+        selection_type:
+          type: object
+          required:
+          - type
+          description: Determines which properties the automation targets.
+          properties:
+            type:
+              type: string
+              enum:
+              - all_units
+              - specific_teams
+              - specific_units
+            ids:
+              type: array
+              items:
+                type: string
+              description: Required when `type` is `specific_teams` or `specific_units`; must contain at least one id.
+        inspection_template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          - is_fast_track_enabled
+          - property_type
+          - is_rc_template
+          description: Snapshot of the inspection template fields needed by the automation runtime.
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+            internal_label:
+              type: string
+            is_fast_track_enabled:
+              type: boolean
+            property_type:
+              type: string
+              enum:
+              - unit
+              - building
+              - community
+            is_rc_template:
+              type: boolean
+        creation_date:
+          type: object
+          required:
+          - unit
+          - value
+          - condition
+          - due_date_after_days
+          description: Window relative to the trigger that determines when inspections are scheduled.
+          properties:
+            unit:
+              type: string
+              enum:
+              - days
+              - weeks
+            value:
+              type: integer
+              minimum: 0
+              maximum: 999
+              description: Amount of `unit`. Validated 0–999 inclusive.
+            condition:
+              type: string
+              enum:
+              - before
+              - after
+            due_date_after_days:
+              type: integer
+              minimum: 0
+              maximum: 99
+              description: Days between the inspection creation date and its due date (0–99).
+        trigger_type:
+          type: string
+          enum:
+          - tenant-move-in
+          - tenant-move-out
+          - lease-end
+          - lease-start
+          description: Event that triggers the automation.
+        assignment_type:
+          type: object
+          required:
+          - type
+          description: Who the generated inspections are assigned to. The required follow-up fields depend on `type`.
+          properties:
+            type:
+              type: string
+              enum:
+              - residents
+              - self-perform
+              - emails
+              - teammates
+            emails:
+              oneOf:
+              - type: array
+                items:
+                  type: string
+                  format: email
+                minItems: 1
+              - type: 'null'
+              description: Required (min 1) when `type` is `emails`; must be null otherwise.
+            teammate_emails:
+              oneOf:
+              - type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                    format: email
+                  minItems: 1
+              - type: 'null'
+              description: Required when `type` is `teammates`. Maps team id → non-empty array of teammate emails. Must be null otherwise.
+            resident_type:
+              oneOf:
+              - type: string
+                enum:
+                - current
+                - future
+              - type: 'null'
+              description: Required when `type` is `residents`; must be null otherwise.
+        recurrence:
+          type: object
+          required:
+          - frequency
+          description: How often the automation repeats after its initial inspection. When `trigger_type` is `tenant-move-out` or `lease-end`, `frequency` must be `does_not_repeat`.
+          properties:
+            frequency:
+              type: string
+              enum:
+              - does_not_repeat
+              - monthly
+              - quarterly
+              - semi_annually
+              - annually
+              - custom
+            custom_interval:
+              type: integer
+              minimum: 1
+              description: Required when `frequency` is `custom`.
+            custom_unit:
+              type: string
+              enum:
+              - days
+              - weeks
+              - months
+              description: Required when `frequency` is `custom`.
+            end_trigger:
+              type: string
+              enum:
+              - move_out
+              - lease_end
+              description: Required when `frequency` is anything other than `does_not_repeat`.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO timestamp when the automation was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO timestamp of the last automation update.
+    automation_create_request_model:
+      x-internal: true
+      type: object
+      description: Request body for creating an automation.
+      required:
+      - name
+      - selection_type
+      - inspection_template_id
+      - creation_date
+      - trigger_type
+      - assignment_type
+      properties:
+        name:
+          type: string
+          description: Automation name. Must be unique within the subscription — duplicates throw 409.
+        selection_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - all_units
+              - specific_teams
+              - specific_units
+            ids:
+              type: array
+              items:
+                type: string
+              minItems: 1
+              description: Required when `type` is `specific_teams` or `specific_units`.
+        fast_track:
+          type: boolean
+          description: 'Optional. Requires the selected template to have `is_fast_track_enabled: true`.'
+        inspection_template_id:
+          type: string
+          description: Id of the inspection template to clone for each run.
+        creation_date:
+          type: object
+          required:
+          - unit
+          - value
+          - condition
+          - due_date_after_days
+          properties:
+            unit:
+              type: string
+              enum:
+              - days
+              - weeks
+            value:
+              type: integer
+              minimum: 0
+              maximum: 999
+            condition:
+              type: string
+              enum:
+              - before
+              - after
+            due_date_after_days:
+              type: integer
+              minimum: 0
+              maximum: 99
+        trigger_type:
+          type: string
+          enum:
+          - tenant-move-in
+          - tenant-move-out
+          - lease-end
+          - lease-start
+        assignment_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - residents
+              - self-perform
+              - emails
+              - teammates
+            emails:
+              type: array
+              items:
+                type: string
+                format: email
+              minItems: 1
+            teammate_emails:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+                  format: email
+                minItems: 1
+            resident_type:
+              type: string
+              enum:
+              - current
+              - future
+        recurrence:
+          type: object
+          description: 'Optional. Defaults to `{ frequency: "does_not_repeat" }` when omitted. Must be `does_not_repeat` when `trigger_type` is `tenant-move-out` or `lease-end`.'
+          required:
+          - frequency
+          properties:
+            frequency:
+              type: string
+              enum:
+              - does_not_repeat
+              - monthly
+              - quarterly
+              - semi_annually
+              - annually
+              - custom
+            custom_interval:
+              type: integer
+              minimum: 1
+            custom_unit:
+              type: string
+              enum:
+              - days
+              - weeks
+              - months
+            end_trigger:
+              type: string
+              enum:
+              - move_out
+              - lease_end
+    automation_get_all_response_model:
+      x-internal: true
+      type: array
+      description: Paginated list of automations.
+      items:
+        $ref: '#/components/schemas/api_automation'
+    automation_update_request_model:
+      x-internal: true
+      type: object
+      description: All fields are optional, but if `recurrence` is supplied then `trigger_type` must also be supplied.
+      properties:
+        name:
+          type: string
+        active:
+          type: boolean
+          description: Toggle the automation on or off.
+        selection_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - all_units
+              - specific_teams
+              - specific_units
+            ids:
+              type: array
+              items:
+                type: string
+              minItems: 1
+        fast_track:
+          type: boolean
+        inspection_template_id:
+          type: string
+        creation_date:
+          type: object
+          required:
+          - unit
+          - value
+          - condition
+          - due_date_after_days
+          properties:
+            unit:
+              type: string
+              enum:
+              - days
+              - weeks
+            value:
+              type: integer
+              minimum: 0
+              maximum: 999
+            condition:
+              type: string
+              enum:
+              - before
+              - after
+            due_date_after_days:
+              type: integer
+              minimum: 0
+              maximum: 99
+        trigger_type:
+          type: string
+          enum:
+          - tenant-move-in
+          - tenant-move-out
+          - lease-end
+          - lease-start
+        assignment_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - residents
+              - self-perform
+              - emails
+              - teammates
+            emails:
+              type: array
+              items:
+                type: string
+                format: email
+              minItems: 1
+            teammate_emails:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+                  format: email
+                minItems: 1
+            resident_type:
+              type: string
+              enum:
+              - current
+              - future
+        recurrence:
+          type: object
+          required:
+          - frequency
+          properties:
+            frequency:
+              type: string
+              enum:
+              - does_not_repeat
+              - monthly
+              - quarterly
+              - semi_annually
+              - annually
+              - custom
+            custom_interval:
+              type: integer
+              minimum: 1
+            custom_unit:
+              type: string
+              enum:
+              - days
+              - weeks
+              - months
+            end_trigger:
+              type: string
+              enum:
+              - move_out
+              - lease_end
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

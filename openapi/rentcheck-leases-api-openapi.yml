@@ -1,0 +1,1585 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Leases API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Leases
+paths:
+  /v2/residents/{residentId}/leases:
+    post:
+      summary: Create a lease for a resident
+      tags:
+      - Leases
+      description: This resource allows you to create a Lease for a Resident in RentCheck.
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lease_v2_create_request_model'
+      responses:
+        '200':
+          description: Returns the created lease
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/lease_v2_response_model'
+        '400':
+          description: 'Bad request — request body failed validation. The raw
+
+            message identifies the invalid field, e.g. `"data.status" is required`,
+
+            `"data.status" must be one of [future, past, current]`,
+
+            `"data.tags" must be an array`, or
+
+            `"data.tags[0]" must be one of [evict, notice]`. A missing or unknown
+
+            `property_id` surfaces as `404 unit not found`, not a 400.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.status" is required'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `resident not found` (the resident at `residentId`
+
+            does not exist or is inaccessible) or `unit not found` (the unit
+
+            identified by `property_id` does not exist or is inaccessible).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: resident not found
+    get:
+      summary: Get all leases for resident
+      tags:
+      - Leases
+      description: This resource allows you to get all Leases for a Resident.
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns all leases for a resident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/lease_v2_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Amount of total elements according to search criteria.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `resident not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: resident not found
+  /v2/residents/{residentId}/leases/{leaseId}:
+    delete:
+      summary: Delete lease
+      tags:
+      - Leases
+      description: Delete selected lease by ID for a resident.
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      - name: leaseId
+        in: path
+        description: Lease ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successful deletion of lease
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `resident not found` or `lease not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: lease not found
+                    enum:
+                    - resident not found
+                    - lease not found
+    get:
+      summary: Get a lease by ID for a resident
+      tags:
+      - Leases
+      description: This resource allows you to get a lease for a resident Resident in RentCheck.
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      - name: leaseId
+        in: path
+        description: Lease ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the requested lease
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/lease_v2_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `resident not found` or `lease not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: lease not found
+                    enum:
+                    - resident not found
+                    - lease not found
+    put:
+      summary: Update a lease for a resident
+      tags:
+      - Leases
+      description: This resource allows you to update a Lease for a Resident in RentCheck.
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      - name: leaseId
+        in: path
+        description: Lease ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lease_v2_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated lease
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/lease_v2_response_model'
+        '400':
+          description: 'Bad request — request body failed validation. All body fields are
+
+            optional; the raw message identifies the invalid field, e.g.
+
+            `"data.status" must be one of [future, past, current]`,
+
+            `"data.tags" must be an array`, or
+
+            `"data.tags[0]" must be one of [evict, notice]`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.status" must be one of [future, past, current]'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `lease not found`, `resident not found`, or `unit not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: lease not found
+                    enum:
+                    - lease not found
+                    - resident not found
+                    - unit not found
+  /v2/residents/{residentId}/leases/{leaseId}/move-in:
+    patch:
+      summary: Update a lease move in date and status
+      tags:
+      - Leases
+      description: This resource sets a Lease move_in_date to the current date and the status to "current".
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      - name: leaseId
+        in: path
+        description: Lease ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the updated lease
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/lease_v2_response_model'
+        '400':
+          description: Bad request — the lease's current status does not allow a move-in transition.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - lease status has an invalid value
+                    example: lease status has an invalid value
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `lease not found` or `resident not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: lease not found
+                    enum:
+                    - lease not found
+                    - resident not found
+  /v2/residents/{residentId}/leases/{leaseId}/move-out:
+    patch:
+      summary: Update a lease move out date and status
+      tags:
+      - Leases
+      description: This resource sets a Lease move_out_date to the current date and the status to "past".
+      parameters:
+      - name: residentId
+        in: path
+        description: Resident ID
+        required: true
+        schema:
+          type: string
+      - name: leaseId
+        in: path
+        description: Lease ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the updated lease
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/lease_v2_response_model'
+        '400':
+          description: Bad request — the lease's current status does not allow a move-out transition.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - lease status has an invalid value
+                    example: lease status has an invalid value
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `lease not found` or `resident not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: lease not found
+                    enum:
+                    - lease not found
+                    - resident not found
+  /v1/properties/{propertyId}/leases:
+    get:
+      x-internal: true
+      summary: List every lease on a property
+      tags:
+      - Leases
+      description: 'Returns every lease (occupancy) associated with the unit identified by
+
+        `propertyId`. The property is resolved through the unit fetcher — so
+
+        building and community IDs are rejected.
+
+
+        Not to be confused with `GET /v1/properties/resident-leases`, which
+
+        returns only the leases the authenticated renter has access to.
+
+        '
+      parameters:
+      - name: propertyId
+        in: path
+        description: Property (unit) id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns every lease on the property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/lease_v2_response_model'
+                  count:
+                    type: integer
+                    description: Number of leases returned.
+                  total_results:
+                    type: integer
+                    description: Total number of leases on the property.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `unit not found` when the property does not exist, is a
+
+            building/community, or the caller is not on its authorized user list.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: unit not found
+  /v1/properties/{propertyId}/resident-leases:
+    post:
+      x-internal: true
+      summary: Create a resident lease
+      tags:
+      - Leases
+      description: Creates a new resident lease for the given property.
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        description: ID of the property the new lease belongs to.
+        schema:
+          type: string
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tenant_occupancy_create_request_model'
+      responses:
+        '200':
+          description: Returns the newly created resident lease.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_tenant_occupancy'
+        '400':
+          description: 'Bad request — request body validation failed. The raw message
+
+            identifies the invalid field, e.g.
+
+            `"data.status" is required`,
+
+            `"data.status" must be one of [past, current]`, or
+
+            `"data.move_in_date" must be in one of the allowed formats`
+
+            (the field also allows `null`).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.status" is required'
+        '401':
+          $ref: '#/components/responses/resident_lease_unauthorized'
+        '403':
+          description: 'Forbidden — only renters can call this endpoint.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - Only renters can create resident leases
+                    example: Only renters can create resident leases
+        '404':
+          description: Not Found — `property not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - property not found
+                    example: property not found
+  /v1/properties/{propertyId}/resident-leases/{residentLeaseId}:
+    delete:
+      x-internal: true
+      summary: Delete a resident lease
+      tags:
+      - Leases
+      description: Deletes a resident lease for the given property.
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        description: ID of the property the lease belongs to.
+        schema:
+          type: string
+          minLength: 1
+      - name: residentLeaseId
+        in: path
+        required: true
+        description: 'ID of the resident lease. Must be a valid UUID — a non-UUID id is
+
+          interpreted as a property-manager lease id and rejected with a 400.
+
+          '
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Returns the deleted resident lease.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_tenant_occupancy'
+        '400':
+          description: 'Bad request — the `residentLeaseId` is not a valid UUID, which is interpreted by the
+
+            handler as a property-manager lease id that cannot be soft-deleted via this endpoint.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: A PM lease can't be deleted
+        '401':
+          $ref: '#/components/responses/resident_lease_unauthorized'
+        '403':
+          description: 'Forbidden — only `Renter` users can delete resident leases. Property-manager and admin
+
+            accounts get a `403` with the error string below.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    example: Only renters can delete resident leases
+        '404':
+          description: 'Not Found — either `property not found` (the property does not exist) or
+
+            `lease not found` (the lease does not exist or has already been soft-deleted).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - property not found
+                    - lease not found
+    get:
+      x-internal: true
+      summary: Get a resident lease by id
+      tags:
+      - Leases
+      description: Returns a single resident lease for the given property.
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        description: ID of the property the lease belongs to.
+        schema:
+          type: string
+          minLength: 1
+      - name: residentLeaseId
+        in: path
+        required: true
+        description: ID of the resident lease.
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the resident lease.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_tenant_occupancy'
+        '401':
+          $ref: '#/components/responses/resident_lease_unauthorized'
+        '403':
+          description: 'Forbidden — either the caller is not a `Renter` user, or the lease being looked up is
+
+            a property-manager lease (non-UUID id) whose underlying tenant record does not match
+
+            the authenticated user.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - Only renters can get resident leases
+                    - Lease does not belong to user
+                    example: Only renters can get resident leases
+        '404':
+          description: 'Not Found — the resource referenced in the path (or a related resource looked up while
+
+            building the response) could not be found. For PM-lease ids (non-UUID), `tenant not found`
+
+            is also possible when the authenticated user has no tenant record linked to the lease.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - property not found
+                    - lease not found
+                    - tenant not found
+                    example: lease not found
+    put:
+      x-internal: true
+      summary: Update a resident lease
+      tags:
+      - Leases
+      description: Updates a resident lease for the given property.
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        description: ID of the property the lease belongs to.
+        schema:
+          type: string
+          minLength: 1
+      - name: residentLeaseId
+        in: path
+        required: true
+        description: ID of the resident lease.
+        schema:
+          type: string
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tenant_occupancy_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated resident lease.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_tenant_occupancy'
+        '400':
+          description: 'Bad request — request body validation failed. The raw message
+
+            identifies the invalid field, e.g.
+
+            `"data.status" must be one of [past, current]` or
+
+            `"data.move_in_date" must be in one of the allowed formats`
+
+            (the field also allows `null`).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.status" must be one of [past, current]'
+        '401':
+          $ref: '#/components/responses/resident_lease_unauthorized'
+        '403':
+          description: 'Forbidden — either the caller is not a `Renter` user, or the lease being updated does
+
+            not belong to the authenticated user.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - Only renters can update resident leases
+                    - Lease does not belong to user
+                    example: Only renters can update resident leases
+        '404':
+          description: 'Not Found — the property the lease belongs to does not exist, or the lease itself does
+
+            not exist (or has already been soft-deleted).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - property not found
+                    - lease not found
+                    example: lease not found
+  /v1/properties/resident-leases:
+    get:
+      x-internal: true
+      summary: Get all resident leases
+      tags:
+      - Leases
+      description: 'Returns every resident lease the caller has access to, optionally filtered by status, lease
+
+        type, and a free-form search string. Results are returned without pagination.
+
+        '
+      parameters:
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Free-form search string matched across resident and property fields.
+      - in: query
+        name: filters[status][value]
+        schema:
+          type: string
+          pattern: ^(past|current)(\|(past|current))*$
+        description: 'List of lease statuses to filter by. Multiple values are concatenated with `|`. When either `filters[status][value]` or `filters[status][condition]` is supplied, both are required.
+
+          '
+      - in: query
+        name: filters[status][condition]
+        schema:
+          type: string
+          enum:
+          - any_of
+        description: Condition to apply to the status filter. The validator only accepts `any_of`. Must be paired with `filters[status][value]` (see above).
+      - in: query
+        name: filters[lease_type][value]
+        schema:
+          type: string
+          pattern: ^(renter|pm)(\|(renter|pm))*$
+        description: 'List of lease types to filter by. Multiple values are concatenated with `|`. When either `filters[lease_type][value]` or `filters[lease_type][condition]` is supplied, both are required (same paired-required rule as `filters[status]` above).
+
+          '
+      - in: query
+        name: filters[lease_type][condition]
+        schema:
+          type: string
+          enum:
+          - any_of
+        description: Condition to apply to the lease_type filter. The validator only accepts `any_of`. Must be paired with `filters[lease_type][value]` (see above).
+      - in: query
+        name: sort_by
+        required: true
+        schema:
+          type: string
+          enum:
+          - created_date
+        description: 'Field to sort by. Only `created_date` is currently supported. Required —
+
+          omitting it yields `400 "options.sort.sort_by" is required`.
+
+          '
+      - in: query
+        name: sort_type
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+        description: 'Sort direction. `sort_type` is technically required, but a default of
+
+          `ASC` is injected when the query string omits it — so callers never see
+
+          the 400 for a missing value in practice.
+
+          '
+      responses:
+        '200':
+          description: Returns the list of resident leases.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/api_tenant_occupancy'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Amount of total elements according to search criteria.
+        '400':
+          description: 'The query parameters failed validation.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: '"options.sort.sort_by" is required'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — only `Renter` users can read resident leases. Property-manager and admin
+
+            accounts get a `403` with the error string below.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    example: Only renters can read resident leases
+  /v1/properties/{propertyId}/resident-leases/move-out:
+    patch:
+      x-internal: true
+      summary: Move out the current resident from a property
+      tags:
+      - Leases
+      description: 'Marks the current resident lease(s) for the property as moved-out, and updates any associated
+
+        inspections accordingly. Returns the updated leases and inspections impacted by the move-out.
+
+        '
+      parameters:
+      - name: propertyId
+        in: path
+        required: true
+        description: ID of the property the lease(s) belong to.
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the leases and inspections affected by the move-out.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/resident_moved_out_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — only `Renter` users can perform the resident move-out action.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    example: Only renters can perform this action
+        '404':
+          description: 'Not Found — either `property not found` (the property does not exist) or
+
+            `occupancy not found` (the caller has no current occupancy to move out of on this property).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - property not found
+                    - occupancy not found
+components:
+  schemas:
+    api_tenant_occupancy:
+      type: object
+      required:
+      - id
+      - status
+      - lease_type
+      - created_date
+      - property
+      - permissions
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        status:
+          type: string
+          enum:
+          - current
+          - past
+          description: Whether the tenant currently occupies the property or has moved out.
+        lease_type:
+          type: string
+          enum:
+          - renter
+          - pm
+          description: '`renter` for a resident-managed lease; `pm` when the lease is owned and synced by the property manager / integration.'
+        pm_occupancy_id:
+          type: string
+          description: Reference to the underlying RentCheck occupancy row that this tenant-occupancy wraps. Set for both `renter`- and `pm`-typed leases when the row was created from an existing occupancy.
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        move_in_date:
+          type: string
+          description: Move-in date for the lease, in ISO format. Optional — emitted as `undefined` when unset, never `null`.
+        lease_end_date:
+          type: string
+          description: Lease end date, in ISO format. Optional — emitted as `undefined` when unset, never `null`.
+        property:
+          type: object
+          required:
+          - id
+          - address
+          - city
+          - zip_code
+          description: This is the entity id of the Unit, Building, or Community that the entity is for.
+          properties:
+            id:
+              type: string
+              description: Selected entity's property id
+              example: 00BRcZPSakXz6w7RYoE
+            address:
+              type: string
+              description: Selected entity's property address
+              example: 2001 Red Gates
+            address_2:
+              type: string
+              description: Selected entity's property additional address info
+              example: Apt. 4B
+            city:
+              type: string
+              description: Selected entity's property city
+              example: New Orleans
+            region:
+              type: string
+              description: Selected entity's property region
+              example: Orleans
+            zip_code:
+              type: string
+              description: Selected entity's property zip_code
+              example: '70130'
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+        permissions:
+          type: object
+          required:
+          - can_update_status
+          - can_update_dates
+          - can_delete
+          properties:
+            can_update_status:
+              type: boolean
+            can_update_dates:
+              type: boolean
+            can_delete:
+              type: boolean
+    tenant_occupancy_create_request_model:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - current
+          - past
+          description: Initial status for the new lease.
+        move_in_date:
+          type: string
+          nullable: true
+          description: Optional move-in date, in ISO format.
+        lease_end_date:
+          type: string
+          nullable: true
+          description: Optional lease end date, in ISO format.
+    tenant_occupancy_update_request_model:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - current
+          - past
+          description: New lease status.
+        move_in_date:
+          type: string
+          nullable: true
+          description: Move-in date, ISO format.
+        lease_end_date:
+          type: string
+          nullable: true
+          description: Lease end date, ISO format.
+    rentvine_sync:
+      type: object
+      required:
+      - last_sync
+      description: Rentvine sync metadata.
+      properties:
+        id:
+          type: string
+          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
+        x_id:
+          type: string
+          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
+        x_property_id:
+          type: string
+          description: Rentvine property id. When the property type is a unit, this points at the building id.
+        last_sync:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
+        status:
+          type: string
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+          description: Job orchestration and terminal outcome for the most recent sync.
+        error:
+          type: string
+          nullable: true
+          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
+        upload_response:
+          type: array
+          description: Per-destination upload outcomes for inspection PDF uploads.
+          items:
+            type: object
+            additionalProperties: true
+        excluded_inspection_upload_destinations:
+          type: array
+          description: Destinations to skip on the next inspection-report upload retry.
+          items:
+            type: string
+            enum:
+            - properties
+            - tenants
+            - inspections
+    lease_v2_create_request_model:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: Indicates if the tenant is a future, past or current one
+          enum:
+          - future
+          - past
+          - current
+        tags:
+          type: array
+          description: Tags associated with the lease if it was evicted or is in notice
+          items:
+            type: string
+            enum:
+            - evict
+            - notice
+        lease_start:
+          type: string
+          description: The date the Resident's current lease starts.
+          example: 2021-01-15 00:00:00
+          nullable: true
+        lease_end:
+          type: string
+          description: The date the Resident's current lease should end.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        rent:
+          type: number
+          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+          example: 100
+          nullable: true
+        security_deposit:
+          type: number
+          description: Unit security deposit
+          example: 1500
+          nullable: true
+        move_out_date:
+          type: string
+          description: The date that the Resident is scheduled to move out of the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        move_in_date:
+          type: string
+          description: The date that the Resident is scheduled to move in to the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        property_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+    lease_v2_update_request_model:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Indicates if the tenant is a future, past or current one
+          enum:
+          - future
+          - past
+          - current
+        tags:
+          type: array
+          description: Tags associated with the lease if it was evicted or is in notice
+          items:
+            type: string
+            enum:
+            - evict
+            - notice
+        lease_start:
+          type: string
+          description: The date the Resident's current lease starts.
+          example: 2021-01-15 00:00:00
+          nullable: true
+        lease_end:
+          type: string
+          description: The date the Resident's current lease should end.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        rent:
+          type: number
+          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+          example: 100
+          nullable: true
+        security_deposit:
+          type: number
+          description: Unit security deposit
+          example: 1500
+          nullable: true
+        move_out_date:
+          type: string
+          description: The date that the Resident is scheduled to move out of the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        move_in_date:
+          type: string
+          description: The date that the Resident is scheduled to move in to the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        property_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+    lease_v2_response_model:
+      type: object
+      required:
+      - id
+      - tenant_id
+      - status
+      - tags
+      - property
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        tenant_id:
+          type: string
+          description: Entity id of the resident this lease belongs to.
+          example: 00BRcZPSakXz6w7RYoE
+        status:
+          type: string
+          description: Indicates if the tenant is a future, past or current one
+          enum:
+          - future
+          - past
+          - current
+        tags:
+          type: array
+          description: Tags associated with the lease if it was evicted or is in notice
+          items:
+            type: string
+            enum:
+            - evict
+            - notice
+        property:
+          type: object
+          required:
+          - id
+          - address
+          - city
+          - zip_code
+          description: This is the entity id of the Unit, Building, or Community that the entity is for.
+          properties:
+            id:
+              type: string
+              description: Selected entity's property id
+              example: 00BRcZPSakXz6w7RYoE
+            address:
+              type: string
+              description: Selected entity's property address
+              example: 2001 Red Gates
+            address_2:
+              type: string
+              description: Selected entity's property additional address info
+              example: Apt. 4B
+            city:
+              type: string
+              description: Selected entity's property city
+              example: New Orleans
+            region:
+              type: string
+              description: Selected entity's property region
+              example: Orleans
+            zip_code:
+              type: string
+              description: Selected entity's property zip_code
+              example: '70130'
+        lease_start:
+          type: string
+          description: The date the Resident's current lease starts.
+          example: 2021-01-15 00:00:00
+        lease_end:
+          type: string
+          description: The date the Resident's current lease should end.
+          example: 2022-01-15 00:00:00
+        rent:
+          type: number
+          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+          example: 100
+        security_deposit:
+          type: number
+          description: Unit security deposit
+          example: 1500
+        move_out_date:
+          type: string
+          description: The date that the Resident is scheduled to move out of the current Property.
+          example: 2022-01-15 00:00:00
+        move_in_date:
+          type: string
+          description: The date that the Resident is scheduled to move in to the current Property.
+          example: 2022-01-15 00:00:00
+    resident_moved_out_response_model:
+      type: object
+      required:
+      - leases
+      - inspections
+      properties:
+        leases:
+          type: array
+          items:
+            $ref: '#/components/schemas/api_tenant_occupancy'
+          description: The leases for the property after the move-out.
+        inspections:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Inspection documents affected by the move-out.
+  responses:
+    resident_lease_unauthorized:
+      description: Unauthorized — either a standard auth-token failure, or the authenticated renter does not have access to the property the lease belongs to (or the lease belongs to a different property).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                - User does not have access to this property
+                - property not found
+                - User either lacks property access or the lease belongs to a different property
+                - Lease belongs to a different property than the one provided
+                example: User either lacks property access or the lease belongs to a different property
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

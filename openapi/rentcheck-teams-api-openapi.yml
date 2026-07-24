@@ -1,0 +1,1774 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Teams API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Teams
+paths:
+  /v1/teams/invites/accept:
+    post:
+      summary: Accept all team invites
+      tags:
+      - Teams
+      description: This resource accepts all team invitations for the user that calls it.
+      responses:
+        '200':
+          description: Returns all invites that were accepted by user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/team_invite_accept_all_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/teams/{teamId}/invites:
+    post:
+      summary: Create team invite
+      tags:
+      - Teams
+      description: Invite a user to team
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_invite_create_request_model'
+      responses:
+        '200':
+          description: Returns the updated team info along two lists of users that were and weren't invited
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_invite_create_response_model'
+        '400':
+          description: "Bad request — request body validation failed, or the target\nemail resolves to a `System` account. Examples:\n  - `\"data.emails\" is required`\n  - `\"data.emails\" must be an array`\n  - `user type has an invalid value: System`\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.emails" is required'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — the caller is not permitted to invite for this team, or
+
+            the underlying subscription is missing/inactive.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - user must be an admin
+                    - user must be a member of the team
+                    - subscription not found or inactive
+                    example: user must be an admin
+        '404':
+          description: 'Not Found — the caller or the target team could not be resolved.
+
+            `invite not found` is returned when the caller''s user record is
+
+            missing; `team not found` is returned when the target team is missing.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    - invite not found
+                    example: team not found
+        '409':
+          description: 'Conflict — the caller has more than one active subscription and the
+
+            business rules require exactly one.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 409
+                  error:
+                    type: string
+                    enum:
+                    - too many subscriptions
+                    example: too many subscriptions
+    get:
+      summary: Get all team invites
+      tags:
+      - Teams
+      description: This resource retrieves information about team invites that have yet not been accepted.
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns all invites for a specific team
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/team_invite_get_all_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/users/{userId}/invites:
+    delete:
+      x-internal: true
+      summary: Delete all open invites of a user
+      tags:
+      - Teams
+      description: 'Cancels every outstanding (not yet accepted) team invite addressed to the target user. Used by
+
+        admin / cleanup flows that need to revoke a user''s pending invitations across all teams in one
+
+        call.
+
+        '
+      parameters:
+      - name: userId
+        in: path
+        description: ID of the user whose pending invites should be cancelled.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: All outstanding invites for the user have been cancelled.
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — the target user is already a member of a team, so their
+
+            outstanding invites cannot be cancelled through this endpoint.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - user is already part of a team
+                    example: user is already part of a team
+        '404':
+          description: 'Not Found — the target user has no cancellable invites, or one of the
+
+            invites references a team that no longer exists. `invite not found`
+
+            is returned both for the top-level "no invites for this user" case
+
+            and for any per-invite failure.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - invite not found
+                    example: invite not found
+  /v1/teams/{teamId}/invites/{inviteId}:
+    delete:
+      summary: Delete team invite
+      tags:
+      - Teams
+      description: Delete invite sent to user.
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      - name: inviteId
+        in: path
+        description: Invite ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the updated team info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '400':
+          description: 'Bad request — the invite is not in `sent` state, so it cannot be
+
+            removed.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: 'status has an invalid value: accepted'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — the caller is not an admin of the team.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - invalid user role
+                    example: invalid user role
+        '404':
+          description: 'Not Found — the invite could not be resolved for the caller.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - invite not found
+                    example: invite not found
+    put:
+      summary: Update team invite
+      tags:
+      - Teams
+      description: Update a team invite that hasn't been accepted yet.
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      - name: inviteId
+        in: path
+        description: Invite ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_invite_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated team invite.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_invite_update_response_model'
+        '400':
+          description: 'Bad request — the invite is not in `sent` state, so it cannot be
+
+            updated.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: 'status has an invalid value: accepted'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — the team or invite could not be resolved for the caller.
+
+            `team not found` is returned when the team cannot be resolved and
+
+            `invite not found` when the invite cannot be resolved.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    - invite not found
+                    example: invite not found
+  /v1/teams/{teamId}/invites/{inviteId}/reminders:
+    post:
+      summary: Team invite reminder
+      tags:
+      - Teams
+      description: Sends an email to users that have not yet accepted specified team invite.
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      - name: inviteId
+        in: path
+        description: Invite ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the invite that was called.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_invite_reminder_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `team not found` is returned when the team cannot be
+
+            resolved for the caller, and `invite not found` is returned when the
+
+            invite id does not resolve, or when it resolves to a different team.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    - invite not found
+                    example: invite not found
+  /v1/users/{userId}/invites/reminders:
+    post:
+      x-internal: true
+      summary: Send reminders for all open invites of a user
+      tags:
+      - Teams
+      description: 'Re-sends invite reminders for every outstanding (not yet accepted) team invite addressed to the
+
+        target user. Used by admin flows that want to nudge a single invitee about all the teams they
+
+        have pending invitations for.
+
+        '
+      parameters:
+      - name: userId
+        in: path
+        description: ID of the user whose pending invites should be reminded.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the list of team invites that were reminded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/team_invite_reminder_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — no team invites addressed to the target user could be
+
+            reminded. `invite not found` is returned when the target user has no
+
+            open invites, and any invite that has already been claimed/expired
+
+            surfaces the same error. `team not found` can also occur when the
+
+            invite''s referenced team was deleted.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - invite not found
+                    - team not found
+                    example: invite not found
+  /v1/teams/{teamId}/members/{memberId}:
+    delete:
+      summary: Delete team member
+      tags:
+      - Teams
+      description: Delete member/user from the team.
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      - name: memberId
+        in: path
+        description: Member ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the updated team info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — the requested team or member could not be resolved for
+
+            the caller.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    - member not found
+                    example: member not found
+    put:
+      summary: Update team member
+      tags:
+      - Teams
+      description: Update team member information
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      - name: memberId
+        in: path
+        description: Member ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_member_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated team info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '400':
+          description: Bad request — the supplied role / body was rejected by validation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.role" must be one of [admin, manager, none]'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `team not found` or `member not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    - member not found
+                    example: team not found
+  /v1/teams:
+    post:
+      summary: Create a team
+      tags:
+      - Teams
+      description: Create a team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_create_request_model'
+      responses:
+        '200':
+          description: Returns the updated team info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '400':
+          description: Bad request — request body validation failed (for example, `name` or `internal_label` missing or empty), or the caller is in a subscription state that does not allow team creation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - '"data.name" is required'
+                    - '"data.internal_label" is required'
+                    - '"data.name" is not allowed to be empty'
+                    - '"data.internal_label" is not allowed to be empty'
+                    - there is no subscription for this user
+                    - user has more than one active subscription
+                    example: '"data.name" is required'
+        '401':
+          $ref: '#/components/responses/401'
+    get:
+      summary: Get all teams
+      tags:
+      - Teams
+      description: 'This resource allows you to retrieve information about Team entities. Teams are a way to organize groups of users and the properties they manage.
+
+
+        By default the response excludes the caller''s "All teams" pseudo-team. Pass `filters[include_all_teams]=true` to include it.
+
+        '
+      parameters:
+      - in: query
+        name: filters[include_all_teams]
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'false'
+        description: When `true`, include the caller's "All teams" pseudo-team in the result.
+      responses:
+        '200':
+          description: Returns all teams
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/team_get_all_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Total amount of teams matching the request (irrespective of paging).
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/teams/{teamId}:
+    delete:
+      x-internal: true
+      summary: Delete a team
+      tags:
+      - Teams
+      description: 'Hard-deletes a team. The caller must be an admin of the team. The team cannot be deleted if any
+
+        of the following apply: it is the only team on the subscription, it still contains other
+
+        members, it still has properties associated with it, it is the only team referenced by an
+
+        inspection template, or it is currently bound to a Latchel/Rentvine/AppFolio/RentManager
+
+        integration mapping.
+
+        '
+      parameters:
+      - name: teamId
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Team successfully deleted.
+        '400':
+          description: "Bad request — examples:\n  - `Only admin users can delete teams.`\n  - `You cannot delete '<name>' because every subscription requires at least one team. ...`\n  - `Cannot delete team. Remove all other team members before deleting.`\n  - `This team contains <N> properties that need to be moved before deletion. ...`\n  - `This team cannot be deleted because it's currently the only team that has access to the following inspection template(s): <names>. ...`\n  - `This team is linked to the Latchel integration. Update the integration's team, then try again.`\n  - `This team is linked to the <Rentvine|AppFolio|RentManager> integration. Update the integration's team assignment, then try again.`\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `team not found` or `subscription not found` (the team is not in any of the caller's subscriptions).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: team not found
+  /v1/teams/{id}:
+    get:
+      summary: Get a team by ID
+      tags:
+      - Teams
+      description: Get a team by ID
+      parameters:
+      - name: id
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the requested team
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — the team does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: team not found
+    put:
+      summary: Update team information
+      tags:
+      - Teams
+      description: Update team information
+      parameters:
+      - name: id
+        in: path
+        description: Team ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated team info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/team_get_by_id_response_model'
+        '400':
+          description: 'Bad request — request body validation failed. All string fields are
+
+            optional but must be strings when supplied. Example:
+
+            `"data.name" must be a string`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.name" must be a string'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — the requested team could not be resolved for the caller.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - team not found
+                    example: team not found
+  /v1/latchel/integrations:
+    get:
+      x-internal: true
+      summary: Get all Latchel integrations
+      tags:
+      - Teams
+      description: This resource allows you to retrieve information about Latchel entities for the user that called the endpoint.
+      responses:
+        '200':
+          description: Returns all Latchel integrations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/team_integration_latchel_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+    post:
+      x-internal: true
+      summary: Integrate Latchel to RentCheck
+      tags:
+      - Teams
+      description: This resource allows you to save your Latchel's credentials into a Team.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/team_integration_latchel_request_model'
+      responses:
+        '201':
+          description: Successful integration.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - team_ids is missing
+                    - api_key is missing
+                    - invalid user_id
+                    - invalid team_ids
+                    - invalid api_key
+                    - user doesn't have permission to all team_ids
+                    example: api_key is missing
+        '401':
+          $ref: '#/components/responses/401'
+    delete:
+      x-internal: true
+      summary: Delete Latchel integrations
+      tags:
+      - Teams
+      description: 'Removes a Latchel API key from one or more teams. The integration is identified by `api_key`
+
+        and `team_ids` are the specific teams the integration should be removed from. Returns the
+
+        teams the Latchel integration was removed from.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/latchel_integration_delete_request_model'
+      responses:
+        '200':
+          description: Returns the teams the Latchel integration was removed from.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/latchel_integration_delete_response_model'
+        '400':
+          description: Bad request — request body validation failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.team_ids" is required'
+        '401':
+          $ref: '#/components/responses/401'
+components:
+  schemas:
+    latchel_integration_delete_response_model:
+      x-internal: true
+      type: object
+      required:
+      - teams
+      description: The `teams` array contains the teams from which the Latchel integration was removed.
+      properties:
+        teams:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - internal_label
+            - user_role
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: The name field is the Team name that is displayed on recipient facing reports and communication.
+                example: The best company
+              internal_label:
+                type: string
+                description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+                example: The best company label
+              logo:
+                type: string
+                description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+              user_role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+    team_get_by_id_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - internal_label
+      - user_role
+      - users
+      - pending_users
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        user_role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        users:
+          type: array
+          description: A list of users with their info and role that belong to a team.
+          items:
+            type: object
+            required:
+            - id
+            - user_name
+            - email
+            - role
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              user_name:
+                type: string
+                description: User full name.
+              email:
+                type: string
+                description: User email
+                example: user@email.com
+              role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+        pending_users:
+          type: array
+          description: A list of users and their info that have not yet accepted their invitation to a team.
+          items:
+            type: object
+            required:
+            - id
+            - email
+            - role
+            - created_at
+            - created_by
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              email:
+                type: string
+                description: User email
+                example: user@email.com
+              role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+              created_at:
+                type: string
+                description: Entity creation date, in ISO format
+                example: 2022-12-02 14:15:37.925000
+              created_by:
+                type: object
+                required:
+                - id
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  name:
+                    type: string
+                    description: User full name
+    team_integration_latchel_response_model:
+      type: object
+      required:
+      - api_key
+      - company_name
+      - created_by
+      - created_date
+      - team
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key
+        company_name:
+          type: string
+          description: Company name
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          - user_role
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+            logo:
+              type: string
+              description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+            user_role:
+              type: string
+              description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+              enum:
+              - admin
+              - manager
+              - none
+              example: admin
+    team_get_all_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - internal_label
+      - user_role
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        user_role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_member_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_invite_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_create_request_model:
+      type: object
+      required:
+      - name
+      - internal_label
+      properties:
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
+    team_invite_reminder_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_invite_create_response_model:
+      type: object
+      required:
+      - team
+      - invited
+      - not_invited
+      - new_profiles
+      properties:
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          - user_role
+          - users
+          - pending_users
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+            logo:
+              type: string
+              description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+            user_role:
+              type: string
+              description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+              enum:
+              - admin
+              - manager
+              - none
+              example: admin
+            users:
+              type: array
+              description: A list of users with their info and role that belong to a team.
+              items:
+                type: object
+                required:
+                - id
+                - user_name
+                - email
+                - role
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  user_name:
+                    type: string
+                    description: User full name.
+                  email:
+                    type: string
+                    description: User email
+                    example: user@email.com
+                  role:
+                    type: string
+                    description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                    enum:
+                    - admin
+                    - manager
+                    - none
+                    example: admin
+            pending_users:
+              type: array
+              description: A list of users and their info that have not yet accepted their invitation to a team.
+              items:
+                type: object
+                required:
+                - id
+                - email
+                - role
+                - created_at
+                - created_by
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  email:
+                    type: string
+                    description: User email
+                    example: user@email.com
+                  role:
+                    type: string
+                    description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                    enum:
+                    - admin
+                    - manager
+                    - none
+                    example: admin
+                  created_at:
+                    type: string
+                    description: Entity creation date, in ISO format
+                    example: 2022-12-02 14:15:37.925000
+                  created_by:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    properties:
+                      id:
+                        type: string
+                        description: Entity ID
+                        example: 00BRcZPSakXz6w7RYoE
+                      name:
+                        type: string
+                        description: User full name
+        invited:
+          type: array
+          description: List of users that were invited to team.
+          items:
+            type: string
+          example:
+          - invited1@email.com
+          - invited2@email.com
+        not_invited:
+          type: array
+          description: List of users that were not invited to team. For example, users that are already part of the team.
+          items:
+            type: string
+          example:
+          - notinvited1@email.com
+          - notinvited2@email.com
+        new_profiles:
+          type: array
+          description: Profile digests for users that did not exist before the invite and have just been created.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              email:
+                type: string
+              name:
+                type: string
+    team_integration_latchel_request_model:
+      x-internal: true
+      type: object
+      required:
+      - api_key
+      - team_ids
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key.
+          example: awd30j1894asd098afokasmd8971238asc8ca12c
+        team_ids:
+          type: array
+          description: Id of the Teams who created or administers the Entity.
+          items:
+            type: string
+          example:
+          - 05fDGZRKp4nVmlmEwjsv
+    team_invite_create_request_model:
+      type: object
+      required:
+      - emails
+      properties:
+        emails:
+          type: array
+          minItems: 1
+          description: List of users to be invited to team. Must contain at least one valid email; invalid addresses are rejected.
+          items:
+            type: string
+            format: email
+          example:
+          - pm1@email.com
+          - pm2@email.com
+        role:
+          type: string
+          enum:
+          - admin
+          - manager
+          - none
+          description: Optional team membership role to assign to the invited users. Defaults to `manager` when omitted.
+    team_invite_update_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_invite_get_all_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    latchel_integration_delete_request_model:
+      x-internal: true
+      type: object
+      required:
+      - api_key
+      - team_ids
+      description: Request body for deleting a Latchel integration.
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key.
+          example: awd30j1894asd098afokasmd8971238asc8ca12c
+        team_ids:
+          type: array
+          description: Id of the Teams who created or administers the Entity.
+          items:
+            type: string
+          example:
+          - 05fDGZRKp4nVmlmEwjsv
+    team_invite_accept_all_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_update_request_model:
+      type: object
+      required: []
+      properties:
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

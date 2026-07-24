@@ -1,0 +1,1896 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Account Settings
+paths:
+  /v1/account-settings/email-customizations/{customizationId}:
+    delete:
+      x-internal: true
+      summary: Delete an email customization
+      tags:
+      - Account Settings
+      description: 'Removes the supplied email customization. After deletion the affected template + email type
+
+        falls back to the platform default content.
+
+        '
+      parameters:
+      - name: customizationId
+        in: path
+        description: Email customization ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The email customization has been removed.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` or `email customization not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - subscription not found
+                    - email customization not found
+                    example: email customization not found
+    get:
+      x-internal: true
+      summary: Get an email customization by ID
+      tags:
+      - Account Settings
+      description: 'Returns a single email customization, including the rendered subject
+
+        merge tags available for the template / email type.
+
+        '
+      parameters:
+      - name: customizationId
+        in: path
+        description: Email customization ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the requested email customization.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_email_customization'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` or `email customization not found`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    enum:
+                    - subscription not found
+                    - email customization not found
+                    example: email customization not found
+  /v1/account-settings/email-customizations:
+    get:
+      x-internal: true
+      summary: List email customizations
+      tags:
+      - Account Settings
+      description: 'Returns every email customization configured on the caller''s subscription, one entry per
+
+        inspection template / email type combination.
+
+        '
+      responses:
+        '200':
+          description: Returns the email customizations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/basic_email_customization'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Not Found — `subscription not found` for the caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: subscription not found
+    post:
+      x-internal: true
+      summary: Upsert email customizations
+      tags:
+      - Account Settings
+      description: 'Creates or updates the email customization for a given `email_type_id` across one or more
+
+        inspection templates. Returns the resulting set of customizations.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/email_customization_upsert_request_model'
+      responses:
+        '200':
+          description: Returns the upserted email customizations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/basic_email_customization'
+        '400':
+          description: Bad request — request validation rejected the body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.email_type_id" is required'
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/account-settings/email-customizations/test-email:
+    post:
+      x-internal: true
+      summary: Send a test email customization
+      tags:
+      - Account Settings
+      description: 'Renders the supplied email customization content using the supplied property + inspection
+
+        template context and sends it to the listed recipients. Used by the email builder UI to
+
+        preview the final email.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/email_customization_test_request_model'
+      responses:
+        '200':
+          description: Test email accepted for delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+        '400':
+          description: Bad request — request validation rejected the body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.recipients" is required'
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/account-settings:
+    get:
+      summary: Get account settings
+      tags:
+      - Account Settings
+      description: Get account settings for user's subscription.
+      responses:
+        '200':
+          description: 'Returns the account settings for the caller''s subscription. When the
+
+            caller has no subscription or no settings record yet, the server
+
+            falls back to `defaultAccountSettings` so this endpoint never 4xx''s
+
+            on a successfully authenticated caller.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_account_settings'
+        '401':
+          $ref: '#/components/responses/401'
+    put:
+      summary: Update account settings
+      tags:
+      - Account Settings
+      description: Update parameters of the subscription's account settings.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_settings_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated account settings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_account_settings'
+        '400':
+          description: 'Bad request — request body validation failed, an unknown room name was
+
+            supplied, two-step inspection approval / custom maintenance
+
+            fields / AI damage-detection settings did not pass the
+
+            subscription-aware validations, or one of the validated values is
+
+            otherwise invalid.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `subscription not found` (caller has no subscription) or
+
+            `account setting not found` (subscription has no settings record).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: subscription not found
+  /v1/account-settings/rooms:
+    delete:
+      x-internal: true
+      summary: Delete custom rooms from account settings
+      tags:
+      - Account Settings
+      description: 'Removes one or more custom rooms from the supplied `property_type` bucket on the caller''s
+
+        account settings.
+
+        Unlike most DELETE endpoints, this one accepts a JSON request body — required because the
+
+        removal is scoped both by `property_type` and by individual room entry.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_settings_delete_rooms_request_model'
+      responses:
+        '200':
+          description: Returns the updated account settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/api_account_settings'
+        '400':
+          description: Bad request — request validation rejected the body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.property_type" is required'
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/account-settings/signature-acknowledgements/{templateId}:
+    delete:
+      x-internal: true
+      summary: Delete a signature acknowledgement override
+      tags:
+      - Account Settings
+      description: 'Removes the signature acknowledgement override for the supplied inspection template. After
+
+        deletion the template falls back to the subscription-wide acknowledgement (or to the platform
+
+        default if no subscription-wide override is set). Returns the post-delete state in the same
+
+        shape as `GET /v1/account-settings/signature-acknowledgements`.
+
+        '
+      parameters:
+      - name: templateId
+        in: path
+        description: Inspection template ID whose acknowledgement override should be removed.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the post-delete state of the signature acknowledgements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/signature_acknowledgements_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+  /v1/account-settings/signature-acknowledgements:
+    get:
+      x-internal: true
+      summary: Get signature acknowledgements
+      tags:
+      - Account Settings
+      description: 'Returns the platform-default signature acknowledgement text, the subscription-wide override
+
+        (if any), and the per-inspection-template overrides (if any).
+
+        '
+      responses:
+        '200':
+          description: Returns the signature acknowledgements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/signature_acknowledgements_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+    put:
+      x-internal: true
+      summary: Update signature acknowledgements
+      tags:
+      - Account Settings
+      description: 'Upserts one or more signature acknowledgements. Each entry''s `id` is either the literal string
+
+        `default` (to update the subscription-wide acknowledgement) or an inspection template id
+
+        (to scope the change to a single template). Returns the post-update state in the same shape as
+
+        `GET /v1/account-settings/signature-acknowledgements`.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signature_acknowledgements_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated signature acknowledgements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/signature_acknowledgements_response_model'
+        '400':
+          description: Bad request — request validation rejected the body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"data.signature_acknowledgements" is required'
+        '401':
+          $ref: '#/components/responses/401'
+  /v1/notifications-preferences/{preferencesId}:
+    get:
+      x-internal: true
+      security: []
+      summary: Get notification preferences by token
+      tags:
+      - Account Settings
+      description: 'Resolve a notifications-preferences document from the encrypted token included
+
+        in RentCheck-issued notification emails. The token decrypts to the recipient''s
+
+        email; if no preferences document exists for that email yet, the default
+
+        preferences shape is returned with `user_email` populated. This endpoint is
+
+        reachable without an authenticated session — clients land on it from
+
+        "manage your notification preferences" links.
+
+
+        For the equivalent authenticated endpoint, use
+
+        `GET /v1/me/notifications-preferences`.
+
+        '
+      parameters:
+      - name: preferencesId
+        in: path
+        description: The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links.
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      responses:
+        '200':
+          description: Returns the notification preferences for the resolved recipient.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/notifications_preferences_response_model'
+        '401':
+          description: 'Unauthorized — the token failed to decrypt. Example: `invalid notifications preferences id`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    example: invalid notifications preferences id
+    put:
+      x-internal: true
+      security: []
+      summary: Update notification preferences via token
+      tags:
+      - Account Settings
+      description: 'Update a notifications-preferences document for the recipient identified by
+
+        the encrypted token. Used by the "manage your notification preferences"
+
+        experience opened from RentCheck notification emails — no authenticated
+
+        session is required. Supplied fields are merged onto the current preferences;
+
+        if no preferences document exists yet, one is created and then patched.
+
+
+        For the equivalent authenticated endpoint, use
+
+        `PUT /v1/me/notifications-preferences`.
+
+        '
+      parameters:
+      - name: preferencesId
+        in: path
+        description: The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links.
+        required: true
+        schema:
+          type: string
+          minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notifications_preferences_update_request_model'
+      responses:
+        '200':
+          description: Returns the updated notification preferences document.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/notifications_preferences_response_model'
+        '400':
+          description: 'Bad request — validation on the request body failed. `enabled` is
+
+            optional on every preference, so the only messages actually emitted
+
+            come from the `email` enum check on the three preferences that expose
+
+            it (`inspections_awaiting_review`, `inspections_in_revision_review`,
+
+            `inspections_completed`). Example:
+
+            `"inspections_awaiting_review.email" must be one of [all, created_by_me]`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"inspections_awaiting_review.email" must be one of [all, created_by_me]'
+        '401':
+          description: 'Unauthorized — the token failed to decrypt or did not resolve to a
+
+            well-formed email address. Example: `invalid notifications preferences id`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 401
+                  error:
+                    type: string
+                    example: invalid notifications preferences id
+  /v1/sales/rev-share-prospects:
+    post:
+      x-internal: true
+      security: []
+      summary: Create a rev-share prospect
+      tags:
+      - Account Settings
+      description: 'Onboards a new revenue-share prospect: provisions a RentCheck user with a
+
+        temporary password for the supplied email, attaches the requested Chargebee
+
+        plan + addons to the user''s `prospect_data`, persists the self-reported
+
+        portfolio size, and triggers the rev-share-prospect welcome email.
+
+
+        Reachable without an authenticated session; the endpoint is invoked by the
+
+        public RentCheck marketing flow.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rev_share_prospect_create_request_model'
+      responses:
+        '200':
+          description: Returns the prospect's RentCheck user profile after enrollment.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: object
+                    description: The RentCheck user profile for the newly-created prospect, with the rev-share `prospect_data` block populated.
+                    additionalProperties: true
+        '400':
+          description: "Bad request — request body validation failed, or the supplied\nChargebee plan / addons could not be resolved against the live\nChargebee catalog. Examples:\n  - `\"prospect_email\" is required`\n  - `\"prospect_email\" must be a valid email`\n  - `\"total_properties\" is required`\n  - `\"chargebee_plan_id\" is required`\n  - `\"chargebee_addon_ids\" is required`\n  - `Can't find selected plan`\n  - `Some of the addons couldn't be found, found these [...]`\n"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    example: '"prospect_email" must be a valid email'
+        '409':
+          description: 'Conflict — a RentCheck user already exists for the supplied
+
+            `prospect_email`. Example: `user already exists`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 409
+                  error:
+                    type: string
+                    example: user already exists
+components:
+  schemas:
+    api_signature_acknowledgement:
+      x-internal: true
+      type: object
+      required:
+      - text
+      - updated_by
+      description: Signature acknowledgement.
+      properties:
+        text:
+          type: string
+        updated_by:
+          type: object
+          required:
+          - id
+          - username
+          - email
+          - updated_date
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    api_email_customization:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - content
+      - message
+      - subject
+      - template
+      description: Email customization.
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+          description: HTML / template body of the email customization.
+        message:
+          type: object
+          required:
+          - email_title
+          - email_type
+          - email_explanatory_text
+          properties:
+            email_title:
+              type: string
+            email_type:
+              type: string
+              enum:
+              - inspection_invitation_new_to_rentcheck
+              - inspection_invitation_existing_rentcheck_users
+              - final_inspection_reminder_3_days_overdue
+              - inspection_approval_confirmation
+              - inspection_review_request
+              description: Allowed email-customization types.
+            email_explanatory_text:
+              type: string
+        subject:
+          type: object
+          required:
+          - title
+          - merge_tags
+          properties:
+            title:
+              type: string
+            merge_tags:
+              type: array
+              items:
+                type: object
+                required:
+                - value
+                - display_name
+                properties:
+                  value:
+                    type: string
+                  display_name:
+                    type: string
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    rev_share_prospect_create_request_model:
+      type: object
+      required:
+      - prospect_email
+      - total_properties
+      - chargebee_plan_id
+      properties:
+        prospect_email:
+          type: string
+          format: email
+          description: Email address of the prospect being onboarded.
+        user_name:
+          type: string
+          description: Optional display name to assign to the newly-created prospect user.
+        total_properties:
+          type: string
+          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
+        chargebee_plan_id:
+          type: string
+          description: Chargebee plan id the prospect should be associated with.
+        chargebee_addon_ids:
+          type: array
+          items:
+            type: string
+          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
+    email_customization_upsert_request_model:
+      x-internal: true
+      type: object
+      required:
+      - content
+      - email_type_id
+      - inspection_template_ids
+      description: Request body for upserting an email customization.
+      properties:
+        content:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        inspection_template_ids:
+          type: array
+          items:
+            type: string
+    signature_acknowledgements_update_request_model:
+      x-internal: true
+      type: object
+      required:
+      - signature_acknowledgements
+      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
+      properties:
+        signature_acknowledgements:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - id
+            - text
+            properties:
+              id:
+                type: string
+                description: Either the literal string 'default' or an inspection template id.
+              text:
+                type: string
+    basic_email_customization:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - email_type_id
+      - email_title
+      - email_explanatory_text
+      - template
+      description: Basic email customization.
+      properties:
+        id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        email_title:
+          type: string
+        email_explanatory_text:
+          type: string
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    api_account_settings:
+      type: object
+      required:
+      - id
+      - subscription_id
+      - rooms
+      - is_maintenance_flag_default_photos_enabled
+      - is_resident_reported_maintenance_enabled
+      - is_inspection_review_autoapproval_enabled
+      - custom_maintenance_fields
+      - inspection_report_templates
+      - inspection_contact_info
+      - two_step_inspection_approval
+      - ai_settings
+      - beta_access
+      description: Account settings. `signature_acknowledgement` uses the API-facing shape.
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        subscription_id:
+          type: string
+          description: The subscription id for the user that created this template.
+        is_maintenance_flag_default_photos_enabled:
+          type: boolean
+          title: is_maintenance_flag_default_photos_enabled
+          default: false
+        is_resident_reported_maintenance_enabled:
+          type: boolean
+          title: is_resident_reported_maintenance_enabled
+          default: false
+        is_inspection_review_autoapproval_enabled:
+          type: boolean
+          description: When true, submitted inspections skip manual review and are approved automatically.
+          default: false
+        custom_maintenance_fields:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - title
+            - selection_type
+            - options
+            - template_ids
+            - enabled
+            description: Custom maintenance field setting.
+            properties:
+              id:
+                type: string
+                maxLength: 30
+              title:
+                type: string
+                maxLength: 30
+              description:
+                type: string
+                maxLength: 100
+              selection_type:
+                type: string
+                enum:
+                - single
+                - multiple
+              options:
+                type: array
+                items:
+                  type: string
+                minItems: 2
+                description: The options that the user can select. Minimum of two.
+              template_ids:
+                type: array
+                items:
+                  type: string
+                description: Inspection template ids the field is enabled for. Include `'*'` to apply to every template.
+              required:
+                type: boolean
+              enabled:
+                type: boolean
+          description: Custom fields the account applies to maintenance flags on inspections.
+        two_step_inspection_approval:
+          type: object
+          required:
+          - enabled
+          - template_ids
+          description: '`template_ids` accepts the wildcard `[''*'']` to opt every template in.'
+          properties:
+            enabled:
+              type: boolean
+            template_ids:
+              type: array
+              items:
+                type: string
+              description: Inspection template ids requiring two-step approval. Include `'*'` to apply to every template.
+        ai_settings:
+          type: object
+          required:
+          - damage_detection
+          description: AI settings.
+          properties:
+            damage_detection:
+              type: object
+              required:
+              - automatic_scanning
+              - manual_scanning
+              - free_scans_used
+              - free_scans_limit
+              description: The `free_scans_*` counters and `open_ai_model` are populated server-side and not accepted on `PUT /v1/account-settings`.
+              properties:
+                automatic_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  - template_ids
+                  properties:
+                    enabled:
+                      type: boolean
+                    template_ids:
+                      type: array
+                      items:
+                        type: string
+                      description: Inspection template ids automatic scanning is enabled for. Include `'*'` to apply to every template.
+                manual_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  properties:
+                    enabled:
+                      type: boolean
+                free_scans_used:
+                  type: integer
+                  description: Number of complimentary scans already used.
+                free_scans_limit:
+                  type: integer
+                  description: Maximum number of complimentary scans the account may use.
+                open_ai_model:
+                  type: string
+                  description: Model id used for damage detection. `gpt-*` routes through OpenAI, `gemini-*` routes through Gemini. When unset, falls back to the application-wide default model.
+        signature_acknowledgement:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        inspection_tab_backsync_modal_shown:
+          type: boolean
+          description: Whether the user has been shown the backsync confirmation modal after enabling the inspection tab sync destination.
+        beta_access:
+          type: object
+          title: beta_access
+          description: Early-access ("beta") feature flags the account is enrolled in.
+          required:
+          - resident_insights
+          properties:
+            resident_insights:
+              type: boolean
+              description: Whether the account is enrolled in the Resident Insights (Pioneer) beta.
+              default: false
+        rooms:
+          type: object
+          title: rooms
+          required:
+          - unit
+          - building
+          - community
+          properties:
+            unit:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - interior
+                    - exterior
+                    - other
+            building:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - building
+                    - other
+            community:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - community
+                    - other
+        skills:
+          type: array
+          items:
+            type: object
+            title: skills
+            required:
+            - category
+            - is_default
+            properties:
+              category:
+                type: string
+              sub_category:
+                type: string
+              is_default:
+                type: boolean
+        inspection_report_templates:
+          type: object
+          title: inspection_report_templates
+          properties:
+            default:
+              type: object
+              required:
+              - name
+              - summary_section
+              - inspection_features_section
+              - maintenance_flags_section
+              properties:
+                name:
+                  type: string
+                summary_section:
+                  type: object
+                  required:
+                  - section_active
+                  - resident_info
+                  - summary_page
+                  - table_of_contents
+                  - inspection_label
+                  - summary_note
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    resident_info:
+                      type: boolean
+                      default: false
+                    summary_page:
+                      type: boolean
+                      default: true
+                    table_of_contents:
+                      type: boolean
+                      default: true
+                    inspection_label:
+                      type: boolean
+                      default: true
+                    summary_note:
+                      type: boolean
+                      default: false
+                inspection_features_section:
+                  type: object
+                  required:
+                  - section_active
+                  - questions_answers
+                  - images
+                  - notes
+                  - ratings
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    questions_answers:
+                      type: boolean
+                      default: true
+                    images:
+                      type: boolean
+                      default: true
+                    notes:
+                      type: boolean
+                      default: true
+                    ratings:
+                      type: boolean
+                      default: true
+                maintenance_flags_section:
+                  type: object
+                  required:
+                  - section_active
+                  - owner_flags
+                  - uncategorized_flags
+                  - resident_flags
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    owner_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    uncategorized_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    resident_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+        inspection_contact_info:
+          type: object
+          title: inspection_contact_info
+          properties:
+            email:
+              type: string
+            phone_number:
+              type: string
+    email_customization_test_request_model:
+      x-internal: true
+      type: object
+      required:
+      - recipients
+      - content
+      - property_id
+      - inspection_template_id
+      - email_type_id
+      description: Request body for sending a test email customization.
+      properties:
+        recipients:
+          type: array
+          items:
+            type: string
+            format: email
+          minItems: 1
+        content:
+          type: string
+        property_id:
+          type: string
+        inspection_template_id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+    signature_acknowledgements_response_model:
+      x-internal: true
+      type: object
+      required:
+      - default
+      description: Signature acknowledgements grouped by inspection template.
+      properties:
+        default:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        global:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        templates:
+          type: array
+          items:
+            type: object
+            required:
+            - inspection_template
+            properties:
+              inspection_template:
+                type: object
+                required:
+                - id
+                - name
+                - display_name
+                - internal_label
+                - description
+                - is_deleted
+                - is_rc_template
+                - is_published
+                - property_type
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  display_name:
+                    type: string
+                  internal_label:
+                    type: string
+                  description:
+                    type: string
+                  is_deleted:
+                    type: boolean
+                  is_rc_template:
+                    type: boolean
+                  is_published:
+                    type: boolean
+                  property_type:
+                    type: string
+                    description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+                    enum:
+                    - ''
+                    - Single-Family
+                    - Multi-Family
+                    - Apartment or Condo
+                    - Commercial
+                    example: Single-Family
+              customization:
+                $ref: '#/components/schemas/api_signature_acknowledgement'
+    notification_preference:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+        email:
+          type: string
+          enum:
+          - all
+          - created_by_me
+          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    account_settings_update_request_model:
+      type: object
+      description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
+      properties:
+        skills:
+          type: array
+          items:
+            type: object
+            title: skills
+            required:
+            - category
+            - is_default
+            properties:
+              category:
+                type: string
+              sub_category:
+                type: string
+              is_default:
+                type: boolean
+        rooms:
+          type: object
+          title: rooms
+          required:
+          - unit
+          - building
+          - community
+          properties:
+            unit:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - interior
+                    - exterior
+                    - other
+            building:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - building
+                    - other
+            community:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - community
+                    - other
+        inspection_report_templates:
+          type: object
+          title: inspection_report_templates
+          properties:
+            default:
+              type: object
+              required:
+              - name
+              - summary_section
+              - inspection_features_section
+              - maintenance_flags_section
+              properties:
+                name:
+                  type: string
+                summary_section:
+                  type: object
+                  required:
+                  - section_active
+                  - resident_info
+                  - summary_page
+                  - table_of_contents
+                  - inspection_label
+                  - summary_note
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    resident_info:
+                      type: boolean
+                      default: false
+                    summary_page:
+                      type: boolean
+                      default: true
+                    table_of_contents:
+                      type: boolean
+                      default: true
+                    inspection_label:
+                      type: boolean
+                      default: true
+                    summary_note:
+                      type: boolean
+                      default: false
+                inspection_features_section:
+                  type: object
+                  required:
+                  - section_active
+                  - questions_answers
+                  - images
+                  - notes
+                  - ratings
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    questions_answers:
+                      type: boolean
+                      default: true
+                    images:
+                      type: boolean
+                      default: true
+                    notes:
+                      type: boolean
+                      default: true
+                    ratings:
+                      type: boolean
+                      default: true
+                maintenance_flags_section:
+                  type: object
+                  required:
+                  - section_active
+                  - owner_flags
+                  - uncategorized_flags
+                  - resident_flags
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    owner_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    uncategorized_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    resident_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+        is_resident_reported_maintenance_enabled:
+          type: boolean
+          title: is_resident_reported_maintenance_enabled
+          default: false
+        is_maintenance_flag_default_photos_enabled:
+          type: boolean
+          title: is_maintenance_flag_default_photos_enabled
+          default: false
+        is_inspection_review_autoapproval_enabled:
+          type: boolean
+          description: When true, submitted inspections skip manual review and are approved automatically.
+          default: false
+        custom_maintenance_fields:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - title
+            - selection_type
+            - options
+            - template_ids
+            - enabled
+            description: Custom maintenance field setting.
+            properties:
+              id:
+                type: string
+                maxLength: 30
+              title:
+                type: string
+                maxLength: 30
+              description:
+                type: string
+                maxLength: 100
+              selection_type:
+                type: string
+                enum:
+                - single
+                - multiple
+              options:
+                type: array
+                items:
+                  type: string
+                minItems: 2
+                description: The options that the user can select. Minimum of two.
+              template_ids:
+                type: array
+                items:
+                  type: string
+                description: Inspection template ids the field is enabled for. Include `'*'` to apply to every template.
+              required:
+                type: boolean
+              enabled:
+                type: boolean
+          description: Custom fields the account applies to maintenance flags on inspections.
+        two_step_inspection_approval:
+          type: object
+          required:
+          - enabled
+          - template_ids
+          description: '`template_ids` accepts the wildcard `[''*'']` to opt every template in.'
+          properties:
+            enabled:
+              type: boolean
+            template_ids:
+              type: array
+              items:
+                type: string
+              description: Inspection template ids requiring two-step approval. Include `'*'` to apply to every template.
+        ai_settings:
+          type: object
+          additionalProperties: false
+          properties:
+            damage_detection:
+              type: object
+              description: Update surface for damage detection. Only `automatic_scanning` and `manual_scanning` are accepted; `free_scans_*` and `open_ai_model` are server-managed.
+              additionalProperties: false
+              properties:
+                automatic_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  - template_ids
+                  additionalProperties: false
+                  properties:
+                    enabled:
+                      type: boolean
+                    template_ids:
+                      type: array
+                      items:
+                        type: string
+                      minItems: 1
+                      description: Inspection template ids automatic scanning is enabled for. Include `'*'` to apply to every template.
+                manual_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  additionalProperties: false
+                  properties:
+                    enabled:
+                      type: boolean
+        inspection_tab_backsync_modal_shown:
+          type: boolean
+          description: Whether the user has been shown the backsync confirmation modal after enabling the inspection tab sync destination.
+        inspection_contact_info:
+          type: object
+          title: inspection_contact_info
+          properties:
+            email:
+              type: string
+            phone_number:
+              type: string
+    notifications_preferences_response_model:
+      type: object
+      required:
+      - id
+      - inspections_awaiting_review
+      - inspections_in_revision_review
+      - inspections_completed
+      - automation_failures
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        user_id:
+          type: string
+          description: Set when the preferences belong to a registered RentCheck user.
+        user_email:
+          type: string
+          description: Set when the preferences belong to an unregistered recipient managing settings via an emailed token.
+        subscription_id:
+          type: string
+          description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
+    account_settings_delete_rooms_request_model:
+      x-internal: true
+      type: object
+      required:
+      - property_type
+      - rooms
+      description: Request body for deleting rooms.
+      properties:
+        property_type:
+          type: string
+          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+          enum:
+          - ''
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+          example: Single-Family
+        rooms:
+          type: array
+          items:
+            type: object
+          description: List of room entries to remove.
+    notifications_preferences_update_request_model:
+      type: object
+      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
+      properties:
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 404
+              error:
+                type: string
+                description: Error message describing the missing resource
+                example: property not found
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Maintenance Flags API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Maintenance Flags
+paths:
+  /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags:
+    get:
+      x-internal: true
+      summary: Get all maintenance flags for a given inspection and feature
+      tags:
+      - Maintenance Flags
+      description: Get all maintenance flags for a given inspection ID and feature ID
+      parameters:
+      - name: inspectionId
+        in: path
+        description: Inspection ID
+        required: true
+        schema:
+          type: string
+      - name: featureId
+        in: path
+        description: Feature ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns all maintenance flags for the inspection feature
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/maintenance_flag_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Amount of total elements according to search criteria.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `user not found`, `inspection not found`,
+
+            `property not found`, or `inspection feature not found`. The
+
+            inspection-access guard maps permission failures to
+
+            `inspection not found` instead of 401, so a 404 here can also
+
+            indicate that the inspection exists but the caller cannot read it.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: inspection feature not found
+  /v1/inspections/{inspectionId}/maintenanceFlags:
+    get:
+      x-internal: true
+      summary: Get all maintenance flags for an inspection
+      tags:
+      - Maintenance Flags
+      description: Get all maintenance flags for a given inspection ID
+      parameters:
+      - name: inspectionId
+        in: path
+        description: Inspection ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns all maintenance flags for the inspection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/maintenance_flag_response_model'
+                  count:
+                    type: integer
+                    description: Amount of elements in `data`.
+                  total_results:
+                    type: integer
+                    description: Amount of total elements according to search criteria.
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found — `user not found`, `inspection not found`, or
+
+            `property not found`. The inspection-access guard maps permission
+
+            failures to `inspection not found` instead of 401, so a 404 here
+
+            can also indicate that the inspection exists but the caller cannot
+
+            read it.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: inspection not found
+  /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags/{maintenanceFlagId}:
+    get:
+      x-internal: true
+      summary: Get a maintenance flag by ID for a given inspection and feature
+      tags:
+      - Maintenance Flags
+      description: Get a maintenance flag by ID for a given inspection and feature.
+      parameters:
+      - name: inspectionId
+        in: path
+        description: Inspection ID
+        required: true
+        schema:
+          type: string
+      - name: featureId
+        in: path
+        description: Feature ID
+        required: true
+        schema:
+          type: string
+      - name: maintenanceFlagId
+        in: path
+        description: Maintenance flag ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the requested maintenance flag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/maintenance_flag_response_model'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: 'Not Found. The inspection-access guard maps permission failures to
+
+            `inspection not found` instead of 401, so a 404 here can also
+
+            indicate that the inspection exists but the caller cannot read it.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 404
+                  error:
+                    type: string
+                    example: maintenance flag not found
+                    enum:
+                    - user not found
+                    - inspection not found
+                    - property not found
+                    - inspection feature not found
+                    - maintenance flag not found
+components:
+  schemas:
+    maintenance_flag_response_model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        room:
+          type: string
+          description: Maintenance flag's room.
+        feature_name:
+          type: string
+          description: Maintenance flag's feature name (`feature_name` on the wire — aliased from the stored `feature` field).
+        feature_id:
+          type: string
+          description: Maintenance flag's feature ID.
+        created_date:
+          type: string
+          description: Feature creation date, ISO format
+          example: 2022-01-15 00:00:00
+        created_by:
+          type: object
+          description: User that created the flag.
+          required:
+          - id
+          - name
+          - type
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: Name of the user that created the flag.
+            type:
+              type: string
+              description: User type.
+        responsibility:
+          type: string
+          description: Maintenance flag's responsibility
+          enum:
+          - OWNER
+          - RESIDENT
+          - ''
+        note:
+          type: string
+          description: Maintenance flag's notes
+        internal_note:
+          type: string
+          description: Maintenance flag's internal note.
+        image_urls:
+          type: array
+          description: Maintenance flag's images
+          items:
+            type: string
+            description: URL links to images related to the maintenance flags
+        cost:
+          type: number
+          description: Maintenance flag's cost
+        skill:
+          type: string
+          description: Maintenance flag's required skill.
+        custom_fields:
+          type: array
+          description: Custom-field values captured for this flag.
+          items:
+            type: object
+            required:
+            - id
+            - value
+            properties:
+              id:
+                type: string
+                description: Stable identifier of the custom field (chosen by the user when the field was created).
+              value:
+                type: array
+                description: Selected/entered values. Always an array of strings even for single-select fields.
+                items:
+                  type: string
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true

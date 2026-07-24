@@ -1,0 +1,455 @@
+openapi: 3.1.0
+info:
+  title: RentCheck REST Account Settings Dashboard API
+  version: 1.0.0
+  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  contact:
+    name: RentCheck Support
+    email: support@getrentcheck.com
+servers:
+- url: https://prod-public-api.getrentcheck.com
+  description: Production server
+security:
+- bearerAuth: []
+  x-app-id: []
+  x-app-secret: []
+tags:
+- name: Dashboard
+paths:
+  /v1/dashboard:
+    get:
+      x-internal: true
+      summary: Get dashboard data
+      tags:
+      - Dashboard
+      description: Get all dashboard data related to stats and to do list
+      parameters:
+      - in: query
+        name: date_range_start
+        schema:
+          type: string
+        description: Initial value to filter stats by inspection creation date.
+      - in: query
+        name: date_range_end
+        schema:
+          type: string
+        description: Final value to filter stats by inspection creation date.
+      - in: query
+        name: property_type
+        schema:
+          type: string
+          enum:
+          - Building
+          - Community
+          - Unit
+        description: 'Filter stats by property type. The value is accepted
+
+          case-insensitively, so `building` / `unit` / `community` are also
+
+          accepted.
+
+          '
+      - in: query
+        name: property_id[]
+        schema:
+          type: array
+          items:
+            type: string
+        description: Array of property ids to filter stats by.
+      - in: query
+        name: team_id[]
+        schema:
+          type: array
+          items:
+            type: string
+        description: Array of team ids to filter stats by.
+      - in: query
+        name: inspection_type[]
+        schema:
+          type: array
+          items:
+            type: string
+        description: Array of inspection types to filter stats by.
+      responses:
+        '200':
+          description: Returns all data to support the dashboard
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/dashboard_get_all_response_model'
+        '400':
+          description: 'Bad request — the query string failed validation.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - date_range_start can not be empty
+                    - date_range_end can not be empty
+                    - date_range_start has an invalid value
+                    - date_range_end has an invalid value
+                    - property_type has an invalid value
+                    example: date_range_start can not be empty
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: 'Forbidden — at least one entry in `team_id[]` is not one of the
+
+            caller''s authorized teams (`invalid team informed`).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 403
+                  error:
+                    type: string
+                    enum:
+                    - invalid team informed
+                    example: invalid team informed
+  /v1/dashboard/{todoItem}:
+    get:
+      x-internal: true
+      summary: Get dashboard resource
+      tags:
+      - Dashboard
+      description: Get a dashboard resource based on the passed identifier
+      parameters:
+      - in: path
+        name: todoItem
+        required: true
+        schema:
+          type: string
+          enum:
+          - inspectionsAwaitingReview
+          - overdueInspections
+          - almostDueInspections
+          - undeliveredEmails
+          - revisionRequestedInspections
+          - awaitingSignatureInspections
+          - propertiesAtRisk
+          - unassignedInspections
+        description: Resource name
+      - in: query
+        name: page_number
+        schema:
+          type: integer
+          default: 0
+        description: Page number (zero-indexed)
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 20
+        description: Page size
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        description: Attribute to sort by
+      - in: query
+        name: sort_type
+        schema:
+          type: string
+          enum:
+          - DESC
+          - ASC
+        description: Sort direction (ascending or descending)
+      responses:
+        '200':
+          description: 'Returns the requested to-do list. The outer `data` is a response
+
+            envelope (a `{ data, totalResults }` object); the inner `data` array
+
+            is the paginated rows.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 200
+                  data:
+                    $ref: '#/components/schemas/dashboard_get_resource_response_model'
+        '400':
+          description: 'Bad request — the `{todoItem}` path parameter is not one of the
+
+            supported resources. The error message reads
+
+            `todoItem query parameter has an invalid value` — the field is a
+
+            path parameter despite what the message string says.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: HTTP status code
+                    example: 400
+                  error:
+                    type: string
+                    enum:
+                    - todoItem query parameter has an invalid value
+                    example: todoItem query parameter has an invalid value
+        '401':
+          $ref: '#/components/responses/401'
+components:
+  schemas:
+    dashboard_get_all_response_model:
+      x-internal: true
+      type: object
+      properties:
+        stats:
+          type: object
+          properties:
+            all_star_status:
+              type: string
+              enum:
+              - Rookie
+              - Rising Star
+              - RentCheck All Star
+              description: Status given by RentCheck of your account, based on completion rate and risk value
+            total_inspections:
+              type: number
+              description: Total amount of inspections within the date range
+            overall_total_inspections:
+              type: number
+              description: Total amount of inspections
+            total_inspections_on_time:
+              type: number
+              description: Total amount of inspections completed on time within the date range
+            total_rejected_inspections:
+              type: number
+              description: Total amount of inspections rejected within the date range
+            total_inspection_ratings:
+              type: number
+              description: Total amount of inspections with ratings within the date range
+            average_inspection_rating:
+              type: number
+              description: Average rating of inspections completed within the date range
+            total_properties:
+              type: number
+              description: Total amount of properties
+            total_inspections_completed:
+              type: number
+              description: Total amount of inspections completed within the date range
+            total_requested_inspections:
+              type: number
+              description: Total amount of requested inspections within the date range
+            total_approved_inspections:
+              type: number
+              description: Total amount of inspections approved within the date range
+            total_requested_inspections_completed:
+              type: number
+              description: Total amount of requested inspections completed within the date range
+            total_internal_inspections_completed:
+              type: number
+              description: Total amount of internal inspections completed within the date range
+        todo_list:
+          type: object
+          properties:
+            inspections_awaiting_review_count:
+              type: number
+              description: Total amount of inspections awaiting review
+            overdue_inspections_count:
+              type: number
+              description: Total amount of overdue inspections
+            almost_due_inspections_count:
+              type: number
+              description: Total amount of almost due inspections
+            undelivered_emails_count:
+              type: number
+              description: Total amount of inspections with undelivered emails
+            revision_requested_inspections_count:
+              type: number
+              description: Total amount of inspections with revision requested
+            awaiting_signature_inspections_count:
+              type: number
+              description: Total amount of inspections awaiting signature
+            properties_at_risk_count:
+              type: number
+              description: Total amount of properties at risk
+            unassigned_inspections_count:
+              type: number
+              description: Total amount of inspections that are not yet assigned to a performer.
+        last_updated_date:
+          type: string
+          description: Last dashboard data updated date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+    dashboard_get_resource_response_model:
+      x-internal: true
+      type: object
+      description: Envelope returned from `GET /v1/dashboard/{todoItem}`, with a single nested `data` array plus `totalResults`. When `todoItem === "propertiesAtRisk"` the items are properties; for every other `todoItem`, the items are inspection digests.
+      required:
+      - data
+      - totalResults
+      properties:
+        data:
+          type: array
+          items:
+            anyOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                  description: Entity ID
+                  example: 00BRcZPSakXz6w7RYoE
+                property_id:
+                  type: string
+                  description: Entity ID
+                  example: 00BRcZPSakXz6w7RYoE
+                property:
+                  type: object
+                  required:
+                  - id
+                  - address
+                  - city
+                  - zip_code
+                  description: This is the entity id of the Unit, Building, or Community that the entity is for.
+                  properties:
+                    id:
+                      type: string
+                      description: Selected entity's property id
+                      example: 00BRcZPSakXz6w7RYoE
+                    address:
+                      type: string
+                      description: Selected entity's property address
+                      example: 2001 Red Gates
+                    address_2:
+                      type: string
+                      description: Selected entity's property additional address info
+                      example: Apt. 4B
+                    city:
+                      type: string
+                      description: Selected entity's property city
+                      example: New Orleans
+                    region:
+                      type: string
+                      description: Selected entity's property region
+                      example: Orleans
+                    zip_code:
+                      type: string
+                      description: Selected entity's property zip_code
+                      example: '70130'
+                inspection_status:
+                  type: string
+                  description: Inspection status represents the actual status of the current inspection.
+                  enum:
+                  - Scheduled
+                  - Not Started
+                  - Started
+                  - In Review
+                  - Completed
+                  - Awaiting Review
+                  - Revision Requested
+                  - Revision Review
+                  - Approved
+                inspection_type:
+                  type: string
+                  description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
+                  enum:
+                  - Move-in
+                  - Move-out
+                  - Annual
+                  - Turn
+                  - Periodic
+                  - Maintenance Check
+                  - Exterior
+                  - Pre-Acquisition
+                  - RV Lot
+                  - Maintenance / Safety Check
+                  - Community Maintenance Check
+                inspection_label:
+                  type: string
+                due_date:
+                  type: string
+                  description: The inspection due date (legacy) is the original date by which the recipient must complete the inspection.
+                  example: 2021-12-02 14:15:37.925000
+                completed_date:
+                  type: string
+                  description: Completed Date is the date that the user submitted the inspection for approval or completed the inspection if it was self-performed.
+                  example: 2021-12-02 14:15:37.925000
+                approval:
+                  type: boolean
+                  description: Weather or not this inspection has been approved
+                rejection:
+                  type: boolean
+                  description: Weather or not this inspection has been rejected
+                fast_track:
+                  type: boolean
+            - type: object
+              description: Property row returned when `todoItem === "propertiesAtRisk"`, with `last_completed_inspection` flattened into `{ id, date }`.
+              additionalProperties: true
+        totalResults:
+          type: integer
+          description: Total number of items matching the query, ignoring pagination.
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  securitySchemes:
+    bearerAuth:
+      description: Authorization key needed to use the API
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    x-app-id:
+      description: Represents the identification of you application
+      type: apiKey
+      name: x-app-id
+      in: header
+      required: true
+    x-app-secret:
+      description: Represents the secret for your application
+      type: apiKey
+      name: x-app-secret
+      in: header
+      required: true
