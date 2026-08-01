@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/rentcheck-openapi-original.yml
+note: >-
+  Agent Skills packaged from the RentCheck OpenAPI. The spec declares no operationIds;
+  steps are grounded in verified HTTP method + path references.
+skills:
+- file: rentcheck-schedule-inspection.md
+  name: Schedule a RentCheck inspection
+  api: openapi/rentcheck-openapi-original.yml
+  operations:
+  - "POST /v1/oAuth2/emailPasswordAuth"
+  - "GET /v1/inspection-templates"
+  - "POST /v2/inspections"
+  - "POST /v1/inspections/reminders"
+- file: rentcheck-process-inspection-results.md
+  name: Process RentCheck inspection results
+  api: openapi/rentcheck-openapi-original.yml
+  operations:
+  - "GET /v2/inspections"
+  - "GET /v1/inspections/{inspectionId}"
+  - "GET /v2/inspections/{inspectionId}/features"
+  - "POST /v2/inspections/{inspectionId}/features/{featureId}/flags"
+  - "POST /v1/inspections/{inspectionId}/approve"

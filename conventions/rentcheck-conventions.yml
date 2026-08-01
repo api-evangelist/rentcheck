@@ -1,0 +1,69 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/rentcheck-openapi-original.yml
+docs: https://developers.getrentcheck.com/
+summary: >-
+  Cross-cutting request/response semantics for the RentCheck REST API, captured from the
+  published OpenAPI (developers.getrentcheck.com) and the API description. JSON in/out,
+  resource-oriented, page-number pagination, a flat error envelope, and documented rate limits.
+authentication:
+  style: bearer-jwt-plus-app-credentials
+  headers:
+  - Authorization (Bearer <JWT access token>)
+  - x-app-id
+  - x-app-secret
+  detail: authentication/rentcheck-authentication.yml
+media_type:
+  request: application/json
+  response: application/json
+idempotency:
+  supported: false
+  note: >-
+    RentCheck documents no general Idempotency-Key retry contract. Only one operation
+    (inspection feature submit) is described as idempotent by nature; there is no
+    idempotency key header parameter in the spec. Do not assume safe automatic retries
+    on write operations.
+pagination:
+  style: page-number
+  params:
+    page_size:
+      type: integer
+      default: null
+      maximum: 250
+      note: Values above 250 are clamped to 250.
+    page_number:
+      type: integer
+      default: 0
+      note: Zero-based; page 0 is the first page.
+  response_envelope:
+    status: HTTP status code echoed in the body
+    data: array of items
+    count: number of elements in data
+    total_results: total number of items matching the query
+rate_limiting:
+  documented: true
+  limits:
+    per_second: 8
+    per_minute: 256
+    per_10_minutes: 1024
+  over_limit_status: 429
+  detail: lifecycle/rentcheck-lifecycle.yml
+error_envelope:
+  shape: '{ "status": <int http status>, "error": "<machine-readable string>" }'
+  format: custom-envelope (not RFC 9457 problem+json)
+  detail: errors/rentcheck-problem-types.yml
+versioning:
+  scheme: uri-path
+  observed: [v1, v2, v3]
+  note: >-
+    Resource families are independently versioned in the path (e.g. Properties V2/V3,
+    Residents V2/V3, Inspections/Inspections V2). Older families such as /v1/residents
+    are marked deprecated in the spec.
+  detail: lifecycle/rentcheck-lifecycle.yml
+metadata:
+  note: Resource ids are string identifiers; the property hierarchy is community -> building -> unit.
+cross_links:
+  errors: errors/rentcheck-problem-types.yml
+  lifecycle: lifecycle/rentcheck-lifecycle.yml
+  authentication: authentication/rentcheck-authentication.yml
+  data_model: data-model/rentcheck-data-model.yml

@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for RentCheck REST API
+  version: 1.0.0
+extends: openapi/rentcheck-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-20'
+    x-apievangelist-notes: >-
+      Enrichment overlay from the API Evangelist pipeline. The original RentCheck spec
+      declares no operationIds and no application/problem+json error responses; downstream
+      artifacts (mcp/, skills/, errors/) reference operations by HTTP method + path.
+    x-apievangelist-artifacts:
+      authentication: authentication/rentcheck-authentication.yml
+      conventions: conventions/rentcheck-conventions.yml
+      errors: errors/rentcheck-problem-types.yml
+      lifecycle: lifecycle/rentcheck-lifecycle.yml
+      data_model: data-model/rentcheck-data-model.yml
+- target: $.info
+  update:
+    x-apievangelist-rate-limits:
+      per_second: 8
+      per_minute: 256
+      per_10_minutes: 1024
+      over_limit_status: 429
+- target: $.info
+  update:
+    x-apievangelist-gap-operationids: >-
+      Every operation is missing an operationId. Recommend adding stable operationIds
+      to enable SDK generation, MCP tool naming, and Arazzo/skill grounding.

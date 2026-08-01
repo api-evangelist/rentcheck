@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/rentcheck-openapi-original.yml
+docs: https://developers.getrentcheck.com/
+versioning:
+  scheme: uri-path
+  observed_versions: [v1, v2, v3]
+  current: mixed
+  note: >-
+    Resource families are versioned independently in the URL path (Properties V2/V3,
+    Residents V2/V3, Inspections / Inspections V2, Maintenance Reports / V2, Work Orders / V2).
+deprecation:
+  policy_url: https://help.getrentcheck.com/en/articles/9045668-rentcheck-api-updates
+  policy_summary: >-
+    RentCheck announces API changes via the Help Center API release notes and provides a
+    transition window (the March 2024 inspection_type -> inspection_template_id change gave
+    a two-month window with no breaking changes).
+  sunset_header: false
+  transition_window_example: two months (inspection_type field, 2024-03-07 -> 2024-05-07)
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+rate_limits:
+  per_second: 8
+  per_minute: 256
+  per_10_minutes: 1024
+  over_limit_status: 429
+deprecated_operations:
+- 'openapi/rentcheck-openapi-original.yml#POST /v1/residents'
+- 'openapi/rentcheck-openapi-original.yml#GET /v1/residents/{residentId}'
+- 'openapi/rentcheck-openapi-original.yml#PUT /v1/residents/{residentId}'
+- 'openapi/rentcheck-openapi-original.yml#POST /v1/zapier/residents'
+deprecated_fields:
+- field: inspection_type
+  operation: 'POST /v2/inspections'
+  replaced_by: inspection_template_id
+  announced: '2024-03-07'
+  sunset: '2024-05-07'
+notes: >-
+  No public status page (status.getrentcheck.com did not resolve) and no published SLA
+  or Sunset/Deprecation response-header support were found as of 2026-07-20. Deprecation is
+  communicated via the Help Center release notes rather than RFC 8594 headers.

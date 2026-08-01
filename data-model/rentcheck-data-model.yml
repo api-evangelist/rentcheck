@@ -1,0 +1,111 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentcheck-openapi-original.yml
+note: Entity graph derived from OpenAPI response schemas and *_id / *_ids reference fields. RentCheck
+  models a property hierarchy (community -> building -> unit) with inspections performed on units, tied
+  to residents on a lease, under a subscription/team.
+hierarchy: community -> building -> unit ; unit -> inspection -> inspection_feature ; resident -> lease
+  -> unit
+entities:
+- entity: unit
+  schema: unit_response_model
+  relationships:
+  - field: building_id
+    target: building
+    kind: belongs_to
+  - field: latchel_property_id
+    target: latchel_property
+    kind: belongs_to
+- entity: building
+  schema: building_response_model
+  relationships:
+  - field: additional_team_ids
+    target: additional_team
+    kind: has_many
+  - field: unit_ids
+    target: unit
+    kind: has_many
+- entity: community
+  schema: community_response_model
+  relationships:
+  - field: additional_team_ids
+    target: additional_team
+    kind: has_many
+  - field: building_ids
+    target: building
+    kind: has_many
+- entity: resident
+  schema: resident_response_model
+  relationships:
+  - field: user_id
+    target: user
+    kind: belongs_to
+  - field: owner_id
+    target: owner
+    kind: belongs_to
+  - field: current_property_id
+    target: current_property
+    kind: belongs_to
+- entity: inspection
+  schema: inspection_v1_response_model
+  relationships:
+  - field: team_id
+    target: team
+    kind: belongs_to
+- entity: inspection_template
+  schema: inspection_template_v1_get_by_id_response_model
+  relationships:
+  - field: team_ids
+    target: team
+    kind: has_many
+  - field: subscription_id
+    target: subscription
+    kind: belongs_to
+- entity: lease
+  schema: lease_v2_response_model
+  relationships:
+  - field: tenant_id
+    target: tenant
+    kind: belongs_to
+- entity: user
+  schema: user_get_by_id_response_model
+  relationships: null
+- entity: team
+  schema: team_get_by_id_response_model
+  relationships: null
+- entity: work_order
+  schema: work_order_response_model
+  relationships:
+  - field: organization_id
+    target: organization
+    kind: belongs_to
+- entity: maintenance_report
+  schema: null
+  relationships: null
+- entity: maintenance_flag
+  schema: maintenance_flag_response_model
+  relationships:
+  - field: feature_id
+    target: feature
+    kind: belongs_to
+- entity: automation
+  schema: automation_get_all_response_model
+  relationships: null
+- entity: permission_group
+  schema: permission_group_get_all_response_model
+  relationships: null
+- entity: filter_segment
+  schema: filter_segment_response_model
+  relationships: null
+- entity: subscription
+  schema: subscription_get_by_user_response_model
+  relationships: null
+- entity: inspection_feature
+  schema: inspection_feature_response_model
+  relationships:
+  - field: inspection_id
+    target: inspection
+    kind: belongs_to
+- entity: file_request
+  schema: file_request_response_model
+  relationships: null

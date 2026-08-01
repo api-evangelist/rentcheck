@@ -1,0 +1,1535 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/rentcheck-openapi-original.yml
+note: 'Candidate MCP tool surface DERIVED from the RentCheck OpenAPI operations (one tool per operation). The spec declares
+  no operationIds, so tool names are synthesized from HTTP method + path and each tool cites its method+path source_operation.
+  No official RentCheck MCP server was found as of 2026-07-20. status: candidate.'
+server:
+  name: rentcheck
+  transport: http
+  url: null
+  auth: Bearer JWT + x-app-id + x-app-secret headers
+tool_count: 217
+tools:
+- name: delete_account_settings_email_customizations
+  description: Delete an email customization
+  method: DELETE
+  path: /v1/account-settings/email-customizations/{customizationId}
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/account-settings/email-customizations/{customizationId}
+- name: get_account_settings_email_customizations
+  description: Get an email customization by ID
+  method: GET
+  path: /v1/account-settings/email-customizations/{customizationId}
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/account-settings/email-customizations/{customizationId}
+- name: get_account_settings_email_customizations_2
+  description: List email customizations
+  method: GET
+  path: /v1/account-settings/email-customizations
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/account-settings/email-customizations
+- name: create_account_settings_email_customizations
+  description: Upsert email customizations
+  method: POST
+  path: /v1/account-settings/email-customizations
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/account-settings/email-customizations
+- name: create_account_settings_email_customizations_test_email
+  description: Send a test email customization
+  method: POST
+  path: /v1/account-settings/email-customizations/test-email
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/account-settings/email-customizations/test-email
+- name: get_account_settings
+  description: Get account settings
+  method: GET
+  path: /v1/account-settings
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/account-settings
+- name: update_account_settings
+  description: Update account settings
+  method: PUT
+  path: /v1/account-settings
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/account-settings
+- name: delete_account_settings_rooms
+  description: Delete custom rooms from account settings
+  method: DELETE
+  path: /v1/account-settings/rooms
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/account-settings/rooms
+- name: delete_account_settings_signature_acknowledgements
+  description: Delete a signature acknowledgement override
+  method: DELETE
+  path: /v1/account-settings/signature-acknowledgements/{templateId}
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/account-settings/signature-acknowledgements/{templateId}
+- name: get_account_settings_signature_acknowledgements
+  description: Get signature acknowledgements
+  method: GET
+  path: /v1/account-settings/signature-acknowledgements
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/account-settings/signature-acknowledgements
+- name: update_account_settings_signature_acknowledgements
+  description: Update signature acknowledgements
+  method: PUT
+  path: /v1/account-settings/signature-acknowledgements
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/account-settings/signature-acknowledgements
+- name: create_oauth2_access
+  description: Grant OAuth2 access and redirect back to the integration
+  method: POST
+  path: /v1/oAuth2/access
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/access
+- name: get_oauth2_authentication
+  description: Render the RentCheck OAuth2 login form
+  method: GET
+  path: /v1/oAuth2/authentication
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/oAuth2/authentication
+- name: create_oauth2_emailpasswordauth
+  description: Creates an access/refresh token pair
+  method: POST
+  path: /v1/oAuth2/emailPasswordAuth
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/emailPasswordAuth
+- name: create_oauth2_me
+  description: Identify the caller by their OAuth2 access token
+  method: POST
+  path: /v1/oAuth2/me
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/me
+- name: create_oauth2_refreshtoken
+  description: Refresh tokens
+  method: POST
+  path: /v1/oAuth2/refreshToken
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/refreshToken
+- name: create_oauth2_token
+  description: Exchange an OAuth2 authorization code for access + refresh tokens
+  method: POST
+  path: /v1/oAuth2/token
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/token
+- name: create_oauth2_validateorg
+  description: Confirm the organisation the OAuth2 code should be scoped to
+  method: POST
+  path: /v1/oAuth2/validateOrg
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/validateOrg
+- name: create_oauth2_validateuser
+  description: Validate user credentials during the OAuth2 login form submit
+  method: POST
+  path: /v1/oAuth2/validateUser
+  tags:
+  - oAuth2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/oAuth2/validateUser
+- name: create_automations
+  description: Create an automation
+  method: POST
+  path: /v1/automations
+  tags:
+  - Automations
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/automations
+- name: get_automations
+  description: List automations for the caller's subscription
+  method: GET
+  path: /v1/automations
+  tags:
+  - Automations
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/automations
+- name: delete_automations
+  description: Delete an automation
+  method: DELETE
+  path: /v1/automations/{automationId}
+  tags:
+  - Automations
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/automations/{automationId}
+- name: get_automations_2
+  description: Get an automation by ID
+  method: GET
+  path: /v1/automations/{automationId}
+  tags:
+  - Automations
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/automations/{automationId}
+- name: update_automations
+  description: Update an automation
+  method: PUT
+  path: /v1/automations/{automationId}
+  tags:
+  - Automations
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/automations/{automationId}
+- name: create_buildings
+  description: Create a building
+  method: POST
+  path: /v1/buildings
+  tags:
+  - Buildings
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/buildings
+- name: delete_buildings
+  description: Delete buildings
+  method: DELETE
+  path: /v1/buildings
+  tags:
+  - Buildings
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/buildings
+- name: get_buildings
+  description: Get a building by id
+  method: GET
+  path: /v1/buildings/{buildingId}
+  tags:
+  - Buildings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/buildings/{buildingId}
+- name: update_buildings
+  description: Update a building
+  method: PUT
+  path: /v1/buildings/{buildingId}
+  tags:
+  - Buildings
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/buildings/{buildingId}
+- name: get_chargebee_addons
+  description: List Chargebee addons
+  method: GET
+  path: /v1/chargebee/addons
+  tags:
+  - Chargebee
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/chargebee/addons
+- name: get_chargebee_plans
+  description: List Chargebee plans
+  method: GET
+  path: /v1/chargebee/plans
+  tags:
+  - Chargebee
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/chargebee/plans
+- name: get_chargebee_subscriptions
+  description: Get a Chargebee subscription by ID
+  method: GET
+  path: /v1/chargebee/subscriptions/{subscriptionId}
+  tags:
+  - Chargebee
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/chargebee/subscriptions/{subscriptionId}
+- name: create_communities
+  description: Create a community
+  method: POST
+  path: /v1/communities
+  tags:
+  - Communities
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/communities
+- name: delete_communities
+  description: Delete communities
+  method: DELETE
+  path: /v1/communities
+  tags:
+  - Communities
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/communities
+- name: get_communities
+  description: Get a community by id
+  method: GET
+  path: /v1/communities/{communityId}
+  tags:
+  - Communities
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/communities/{communityId}
+- name: update_communities
+  description: Update a community
+  method: PUT
+  path: /v1/communities/{communityId}
+  tags:
+  - Communities
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/communities/{communityId}
+- name: get_dashboard
+  description: Get dashboard data
+  method: GET
+  path: /v1/dashboard
+  tags:
+  - Dashboard
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/dashboard
+- name: get_dashboard_2
+  description: Get dashboard resource
+  method: GET
+  path: /v1/dashboard/{todoItem}
+  tags:
+  - Dashboard
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/dashboard/{todoItem}
+- name: get_inspections_features
+  description: Get all features
+  method: GET
+  path: /v1/inspections/{inspectionId}/features
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/features
+- name: get_inspections_features_2
+  description: Get a feature by ID for a given inspection
+  method: GET
+  path: /v1/inspections/{inspectionId}/features/{featureId}
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/features/{featureId}
+- name: update_features_rotatephoto
+  description: Rotate feature photo
+  method: PUT
+  path: /v1/features/{featureId}/rotatePhoto
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/features/{featureId}/rotatePhoto
+- name: create_filerequests
+  description: Create a file request
+  method: POST
+  path: /v1/fileRequests
+  tags:
+  - File Requests
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/fileRequests
+- name: get_filerequests
+  description: Get all file requests
+  method: GET
+  path: /v1/fileRequests
+  tags:
+  - File Requests
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/fileRequests
+- name: get_filerequests_2
+  description: Get a file request by ID
+  method: GET
+  path: /v1/fileRequests/{fileRequestId}
+  tags:
+  - File Requests
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/fileRequests/{fileRequestId}
+- name: create_filter_segments
+  description: Create a filter segment
+  method: POST
+  path: /v2/filter-segments
+  tags:
+  - Filter Segments
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/filter-segments
+- name: get_filter_segments
+  description: Get all filter segments
+  method: GET
+  path: /v2/filter-segments
+  tags:
+  - Filter Segments
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/filter-segments
+- name: delete_filter_segments
+  description: Delete a filter segment
+  method: DELETE
+  path: /v2/filter-segments/{filterSegmentId}
+  tags:
+  - Filter Segments
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v2/filter-segments/{filterSegmentId}
+- name: update_filter_segments
+  description: Update a filter segment
+  method: PUT
+  path: /v2/filter-segments/{filterSegmentId}
+  tags:
+  - Filter Segments
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/filter-segments/{filterSegmentId}
+- name: create_inspections_events
+  description: Record an event against an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/events
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/events
+- name: get_inspections_events
+  description: Get all events for an inspection
+  method: GET
+  path: /v1/inspections/{inspectionId}/events
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/events
+- name: get_inspections_features_metadata
+  description: Get image metadata for an inspection feature
+  method: GET
+  path: /v1/inspections/{inspectionId}/features/{featureId}/metadata
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/features/{featureId}/metadata
+- name: update_inspections_features_metadata
+  description: Update image metadata for an inspection feature
+  method: PUT
+  path: /v1/inspections/{inspectionId}/features/{featureId}/metadata/{metadataId}
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspections/{inspectionId}/features/{featureId}/metadata/{metadataId}
+- name: create_inspections_features_review_approve
+  description: Approve a feature review
+  method: POST
+  path: /v2/inspections/{inspectionId}/features/{featureId}/review/approve
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/inspections/{inspectionId}/features/{featureId}/review/approve
+- name: create_inspections_features_flags
+  description: Create a maintenance flag on a feature
+  method: POST
+  path: /v2/inspections/{inspectionId}/features/{featureId}/flags
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/inspections/{inspectionId}/features/{featureId}/flags
+- name: delete_inspections_features_flags
+  description: Delete a maintenance flag from a feature
+  method: DELETE
+  path: /v2/inspections/{inspectionId}/features/{featureId}/flags/{flagId}
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v2/inspections/{inspectionId}/features/{featureId}/flags/{flagId}
+- name: update_inspections_features_flags
+  description: Upsert a maintenance flag on a feature
+  method: PUT
+  path: /v2/inspections/{inspectionId}/features/{featureId}/flags/{flagId}
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/inspections/{inspectionId}/features/{featureId}/flags/{flagId}
+- name: delete_inspections_features_revision
+  description: Delete a revision request on a feature
+  method: DELETE
+  path: /v2/inspections/{inspectionId}/features/{featureId}/revision
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v2/inspections/{inspectionId}/features/{featureId}/revision
+- name: update_inspections_features_revision
+  description: Upsert a revision request on a feature
+  method: PUT
+  path: /v2/inspections/{inspectionId}/features/{featureId}/revision
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/inspections/{inspectionId}/features/{featureId}/revision
+- name: update_inspections_features_edit
+  description: Edit an inspection feature
+  method: PUT
+  path: /v2/inspections/{inspectionId}/features/{featureId}/edit
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/inspections/{inspectionId}/features/{featureId}/edit
+- name: get_inspections_features_3
+  description: Get all features for an inspection (v2)
+  method: GET
+  path: /v2/inspections/{inspectionId}/features
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/inspections/{inspectionId}/features
+- name: get_inspections_features_4
+  description: Get an inspection feature by id
+  method: GET
+  path: /v2/inspections/{inspectionId}/features/{featureId}
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/inspections/{inspectionId}/features/{featureId}
+- name: create_inspections_features_submit
+  description: Submit an inspection feature
+  method: POST
+  path: /v2/inspections/{inspectionId}/features/submit
+  tags:
+  - Inspection Features
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/inspections/{inspectionId}/features/submit
+- name: create_inspections_rate
+  description: Rate an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/rate
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/rate
+- name: create_inspections_reject
+  description: Reject an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/reject
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/reject
+- name: create_inspections_reminders
+  description: Send reminders for one or more inspections
+  method: POST
+  path: /v1/inspections/reminders
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/reminders
+- name: create_inspections_scan
+  description: Queue a manual AI damage scan for an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/scan
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/scan
+- name: create_inspections_share
+  description: Share an inspection PDF
+  method: POST
+  path: /v1/inspections/{inspectionId}/share
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/share
+- name: create_inspections_sign
+  description: Sign an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/sign
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/sign
+- name: create_inspections_start
+  description: Start an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/start
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/start
+- name: create_inspections_submit
+  description: Submit an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/submit
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/submit
+- name: create_inspections_approve
+  description: Approve inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/approve
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/approve
+- name: update_inspections_invites_accept
+  description: Accept invite
+  method: PATCH
+  path: /v1/inspections/invites/accept
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#PATCH /v1/inspections/invites/accept
+- name: get_inspections_invites
+  description: Get all inspection invites
+  method: GET
+  path: /v1/inspections/invites
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/invites
+- name: delete_inspections_review
+  description: Cancel inspection review
+  method: DELETE
+  path: /v1/inspections/{inspectionId}/review
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/inspections/{inspectionId}/review
+- name: create_inspections_review
+  description: Review an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/review
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/review
+- name: get_inspections_skills
+  description: Get all inspection skills
+  method: GET
+  path: /v1/inspections/{inspectionId}/skills
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/skills
+- name: create_inspections
+  description: Create inspections
+  method: POST
+  path: /v2/inspections
+  tags:
+  - Inspections V2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/inspections
+- name: get_inspections
+  description: Get all inspections
+  method: GET
+  path: /v2/inspections
+  tags:
+  - Inspections V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/inspections
+- name: get_inspections_creators
+  description: Get all inspection creators
+  method: GET
+  path: /v2/inspections/creators
+  tags:
+  - Inspections V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/inspections/creators
+- name: delete_inspections
+  description: Remove the current renter from an inspection
+  method: DELETE
+  path: /v1/inspections/{inspectionId}
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/inspections/{inspectionId}
+- name: get_inspections_2
+  description: Get an inspection by ID
+  method: GET
+  path: /v1/inspections/{inspectionId}
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}
+- name: update_inspections
+  description: Update an inspection
+  method: PUT
+  path: /v1/inspections/{inspectionId}
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspections/{inspectionId}
+- name: delete_inspections_revision
+  description: Cancel inspection revision
+  method: DELETE
+  path: /v1/inspections/{inspectionId}/revision
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/inspections/{inspectionId}/revision
+- name: delete_inspections_2
+  description: Delete inspections
+  method: DELETE
+  path: /v1/inspections
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/inspections
+- name: update_inspections_2
+  description: Update multiple inspections at once
+  method: PUT
+  path: /v1/inspections
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspections
+- name: get_inspections_3
+  description: Get all inspections (v3)
+  method: GET
+  path: /v3/inspections
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/inspections
+- name: get_inspections_permissions
+  description: Get inspection permissions for the current user
+  method: GET
+  path: /v3/inspections/permissions
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/inspections/permissions
+- name: create_inspections_media_upload_urls
+  description: Request pre-signed media upload URLs
+  method: POST
+  path: /v1/inspections/{inspectionId}/media/upload-urls
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/media/upload-urls
+- name: create_inspections_reminder_recipients
+  description: Resolve reminder recipients for inspections
+  method: POST
+  path: /v3/inspections/reminder-recipients
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v3/inspections/reminder-recipients
+- name: create_inspection_templates
+  description: Create an inspection template
+  method: POST
+  path: /v1/inspection-templates
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspection-templates
+- name: get_inspection_templates
+  description: Get all inspection templates
+  method: GET
+  path: /v1/inspection-templates
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspection-templates
+- name: delete_inspection_templates
+  description: Delete an inspection template
+  method: DELETE
+  path: /v1/inspection-templates/{inspectionTemplateId}
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/inspection-templates/{inspectionTemplateId}
+- name: get_inspection_templates_2
+  description: Get an inspection template by ID
+  method: GET
+  path: /v1/inspection-templates/{inspectionTemplateId}
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspection-templates/{inspectionTemplateId}
+- name: update_inspection_templates
+  description: Update an inspection template
+  method: PUT
+  path: /v1/inspection-templates/{inspectionTemplateId}
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspection-templates/{inspectionTemplateId}
+- name: update_inspection_templates_automations
+  description: Edit automation flags on an inspection template
+  method: PUT
+  path: /v1/inspection-templates/{inspectionTemplateId}/automations
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspection-templates/{inspectionTemplateId}/automations
+- name: update_inspection_templates_permission_groups
+  description: Replace the permission groups attached to an inspection template
+  method: PUT
+  path: /v1/inspection-templates/{inspectionTemplateId}/permission-groups
+  tags:
+  - Inspections Templates
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/inspection-templates/{inspectionTemplateId}/permission-groups
+- name: create_integrations_rentcheck
+  description: Rotate RentCheck-API integration credentials
+  method: POST
+  path: /v1/integrations/rentcheck
+  tags:
+  - Integrations
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/integrations/rentcheck
+- name: get_integrations_rentcheck
+  description: Get RentCheck-API integration credentials
+  method: GET
+  path: /v1/integrations/rentcheck
+  tags:
+  - Integrations
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/integrations/rentcheck
+- name: get_intercom_articles
+  description: List Intercom help-center articles under a parent collection or section
+  method: GET
+  path: /v1/intercom/articles
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/intercom/articles
+- name: get_intercom_messenger_jwt
+  description: Mint an Intercom Messenger JWT for the caller
+  method: GET
+  path: /v1/intercom/messenger-jwt
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/intercom/messenger-jwt
+- name: update_intercom_users_companies
+  description: Attach the caller to an Intercom company
+  method: PUT
+  path: /v1/intercom/users/companies
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/intercom/users/companies
+- name: get_latchel_properties
+  description: Get all latchel properties
+  method: GET
+  path: /v1/latchel/{orgId}/properties
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/properties
+- name: get_latchel_tenants
+  description: Get all latchel tenants
+  method: GET
+  path: /v1/latchel/{orgId}/tenants
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/tenants
+- name: get_latchel_vendor_companies
+  description: Get all latchel vendor companies
+  method: GET
+  path: /v1/latchel/{orgId}/vendor-companies
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/vendor-companies
+- name: get_latchel_vendor_companies_prioritized
+  description: Get all latchel vendor companies prioritized
+  method: GET
+  path: /v1/latchel/{orgId}/vendor-companies/prioritized
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/vendor-companies/prioritized
+- name: get_latchel_properties_2
+  description: Get a latchel property
+  method: GET
+  path: /v1/latchel/{orgId}/properties/{id}
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/properties/{id}
+- name: get_latchel_properties_vendor_companies
+  description: Get a latchel property's prioritized vendors
+  method: GET
+  path: /v1/latchel/{orgId}/properties/{id}/vendor-companies
+  tags:
+  - LatchelProxy
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/{orgId}/properties/{id}/vendor-companies
+- name: create_residents_leases
+  description: Create a lease for a resident
+  method: POST
+  path: /v2/residents/{residentId}/leases
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/residents/{residentId}/leases
+- name: get_residents_leases
+  description: Get all leases for resident
+  method: GET
+  path: /v2/residents/{residentId}/leases
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/residents/{residentId}/leases
+- name: delete_residents_leases
+  description: Delete lease
+  method: DELETE
+  path: /v2/residents/{residentId}/leases/{leaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v2/residents/{residentId}/leases/{leaseId}
+- name: get_residents_leases_2
+  description: Get a lease by ID for a resident
+  method: GET
+  path: /v2/residents/{residentId}/leases/{leaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/residents/{residentId}/leases/{leaseId}
+- name: update_residents_leases
+  description: Update a lease for a resident
+  method: PUT
+  path: /v2/residents/{residentId}/leases/{leaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/residents/{residentId}/leases/{leaseId}
+- name: update_residents_leases_move_in
+  description: Update a lease move in date and status
+  method: PATCH
+  path: /v2/residents/{residentId}/leases/{leaseId}/move-in
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#PATCH /v2/residents/{residentId}/leases/{leaseId}/move-in
+- name: update_residents_leases_move_out
+  description: Update a lease move out date and status
+  method: PATCH
+  path: /v2/residents/{residentId}/leases/{leaseId}/move-out
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#PATCH /v2/residents/{residentId}/leases/{leaseId}/move-out
+- name: create_maintenance_reports
+  description: Create a maintenance report
+  method: POST
+  path: /v1/maintenance_reports
+  tags:
+  - Maintenance Reports
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/maintenance_reports
+- name: delete_maintenance_reports
+  description: Delete a maintenance report
+  method: DELETE
+  path: /v1/maintenance_reports
+  tags:
+  - Maintenance Reports
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/maintenance_reports
+- name: get_maintenance_reports
+  description: Get all maintenance reports
+  method: GET
+  path: /v2/maintenance_reports
+  tags:
+  - Maintenance Reports V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/maintenance_reports
+- name: get_maintenance_reports_2
+  description: Get a maintenance report by ID
+  method: GET
+  path: /v1/maintenance_reports/{maintenanceReportId}
+  tags:
+  - Maintenance Reports
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/maintenance_reports/{maintenanceReportId}
+- name: get_inspections_features_maintenanceflags
+  description: Get all maintenance flags for a given inspection and feature
+  method: GET
+  path: /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags
+  tags:
+  - Maintenance Flags
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags
+- name: get_inspections_maintenanceflags
+  description: Get all maintenance flags for an inspection
+  method: GET
+  path: /v1/inspections/{inspectionId}/maintenanceFlags
+  tags:
+  - Maintenance Flags
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/maintenanceFlags
+- name: get_inspections_features_maintenanceflags_2
+  description: Get a maintenance flag by ID for a given inspection and feature
+  method: GET
+  path: /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags/{maintenanceFlagId}
+  tags:
+  - Maintenance Flags
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/features/{featureId}/maintenanceFlags/{maintenanceFlagId}
+- name: delete_me_fcm_token
+  description: Clear the caller's FCM device tokens
+  method: DELETE
+  path: /v1/me/fcm-token
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/me/fcm-token
+- name: update_me_fcm_token
+  description: Register an FCM device token for the caller
+  method: PUT
+  path: /v1/me/fcm-token
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/me/fcm-token
+- name: delete_me
+  description: Disable the authenticated user
+  method: DELETE
+  path: /v1/me
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/me
+- name: get_me
+  description: Get the authenticated user
+  method: GET
+  path: /v1/me
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me
+- name: update_me
+  description: Update the authenticated user
+  method: PUT
+  path: /v1/me
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/me
+- name: get_me_firebase_token
+  description: Mint a Firebase custom auth token for the caller
+  method: GET
+  path: /v1/me/firebase-token
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/firebase-token
+- name: get_me_notifications_preferences
+  description: Get the caller's personal notifications preferences
+  method: GET
+  path: /v1/me/notifications-preferences
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/notifications-preferences
+- name: update_me_notifications_preferences
+  description: Update the caller's personal notifications preferences
+  method: PUT
+  path: /v1/me/notifications-preferences
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/me/notifications-preferences
+- name: get_me_settings
+  description: Get the authenticated user's settings
+  method: GET
+  path: /v1/me/settings
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/settings
+- name: update_me_settings
+  description: Update the authenticated user's settings
+  method: PUT
+  path: /v1/me/settings
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/me/settings
+- name: get_me_subscriptions_notifications_preferences
+  description: Get the subscription-level notifications preferences for the caller
+  method: GET
+  path: /v1/me/subscriptions/notifications-preferences
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/subscriptions/notifications-preferences
+- name: update_me_subscriptions_notifications_preferences
+  description: Update the subscription-level notifications preferences for the caller
+  method: PUT
+  path: /v1/me/subscriptions/notifications-preferences
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/me/subscriptions/notifications-preferences
+- name: get_me_integration_token
+  description: Get the caller's long-lived integration token
+  method: GET
+  path: /v1/me/integration-token
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/integration-token
+- name: create_me_link_with_tenant
+  description: Link the authenticated user to a tenant record
+  method: POST
+  path: /v1/me/link-with-tenant
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/me/link-with-tenant
+- name: get_me_metabase_embed_token
+  description: Mint a Metabase static-embedding token for Resident Insights
+  method: GET
+  path: /v1/me/metabase-embed-token
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/metabase-embed-token
+- name: get_me_pm_contact_info
+  description: Get the caller's property manager contact info
+  method: GET
+  path: /v1/me/pm-contact-info
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/pm-contact-info
+- name: get_me_requests
+  description: Get the caller's pending inspection requests
+  method: GET
+  path: /v1/me/requests
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/me/requests
+- name: get_notifications_preferences
+  description: Get notification preferences by token
+  method: GET
+  path: /v1/notifications-preferences/{preferencesId}
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/notifications-preferences/{preferencesId}
+- name: update_notifications_preferences
+  description: Update notification preferences via token
+  method: PUT
+  path: /v1/notifications-preferences/{preferencesId}
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/notifications-preferences/{preferencesId}
+- name: create_permission_groups
+  description: Create permission group
+  method: POST
+  path: /v1/permission-groups
+  tags:
+  - Permission Groups
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/permission-groups
+- name: delete_permission_groups
+  description: Delete permission groups
+  method: DELETE
+  path: /v1/permission-groups
+  tags:
+  - Permission Groups
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/permission-groups
+- name: get_permission_groups
+  description: Get all permission groups
+  method: GET
+  path: /v1/permission-groups
+  tags:
+  - Permission Groups
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/permission-groups
+- name: get_permission_groups_2
+  description: Get permission group by ID
+  method: GET
+  path: /v1/permission-groups/{id}
+  tags:
+  - Permission Groups
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/permission-groups/{id}
+- name: update_permission_groups
+  description: Update permission group
+  method: PUT
+  path: /v1/permission-groups/{id}
+  tags:
+  - Permission Groups
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/permission-groups/{id}
+- name: get_properties_buildings
+  description: Get buildings
+  method: GET
+  path: /v2/properties/buildings
+  tags:
+  - Properties V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/properties/buildings
+- name: get_properties_communities
+  description: Get communities
+  method: GET
+  path: /v2/properties/communities
+  tags:
+  - Properties V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/properties/communities
+- name: get_properties_buildings_2
+  description: Get all buildings (v3 digest)
+  method: GET
+  path: /v3/properties/buildings
+  tags:
+  - Properties V3
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/properties/buildings
+- name: get_properties_communities_2
+  description: Get all communities (v3 digest)
+  method: GET
+  path: /v3/properties/communities
+  tags:
+  - Properties V3
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/properties/communities
+- name: get_properties_units
+  description: Get all units (v3 digest)
+  method: GET
+  path: /v3/properties/units
+  tags:
+  - Properties V3
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/properties/units
+- name: get_properties_permissions
+  description: Get property permissions for the current user
+  method: GET
+  path: /v3/properties/permissions
+  tags:
+  - Properties V3
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/properties/permissions
+- name: get_properties
+  description: Get a property by ID
+  method: GET
+  path: /v2/properties/{propertyId}
+  tags:
+  - Properties V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/properties/{propertyId}
+- name: update_properties_merge
+  description: Merge two properties
+  method: PUT
+  path: /v1/properties/{propertyId}/merge/{targetPropertyId}
+  tags:
+  - Buildings
+  - Communities
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/properties/{propertyId}/merge/{targetPropertyId}
+- name: get_properties_units_2
+  description: Get units
+  method: GET
+  path: /v2/properties/units
+  tags:
+  - Properties V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/properties/units
+- name: get_properties_leases
+  description: List every lease on a property
+  method: GET
+  path: /v1/properties/{propertyId}/leases
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/properties/{propertyId}/leases
+- name: create_properties_resident_leases
+  description: Create a resident lease
+  method: POST
+  path: /v1/properties/{propertyId}/resident-leases
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/properties/{propertyId}/resident-leases
+- name: delete_properties_resident_leases
+  description: Delete a resident lease
+  method: DELETE
+  path: /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+- name: get_properties_resident_leases
+  description: Get a resident lease by id
+  method: GET
+  path: /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+- name: update_properties_resident_leases
+  description: Update a resident lease
+  method: PUT
+  path: /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/properties/{propertyId}/resident-leases/{residentLeaseId}
+- name: get_properties_resident_leases_2
+  description: Get all resident leases
+  method: GET
+  path: /v1/properties/resident-leases
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/properties/resident-leases
+- name: update_properties_resident_leases_move_out
+  description: Move out the current resident from a property
+  method: PATCH
+  path: /v1/properties/{propertyId}/resident-leases/move-out
+  tags:
+  - Leases
+  source_operation: openapi/rentcheck-openapi-original.yml#PATCH /v1/properties/{propertyId}/resident-leases/move-out
+- name: create_residents
+  description: Create a resident
+  method: POST
+  path: /v2/residents
+  tags:
+  - Residents V2
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v2/residents
+- name: get_residents
+  description: Get all residents
+  method: GET
+  path: /v2/residents
+  tags:
+  - Residents V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/residents
+- name: create_residents_2
+  description: Create a resident (v1, deprecated)
+  method: POST
+  path: /v1/residents
+  tags:
+  - Residents (deprecated)
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/residents
+- name: delete_residents
+  description: Delete resident
+  method: DELETE
+  path: /v2/residents/{id}
+  tags:
+  - Residents V2
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v2/residents/{id}
+- name: get_residents_2
+  description: Get a resident by ID
+  method: GET
+  path: /v2/residents/{id}
+  tags:
+  - Residents V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/residents/{id}
+- name: update_residents
+  description: Update a resident
+  method: PUT
+  path: /v2/residents/{id}
+  tags:
+  - Residents V2
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v2/residents/{id}
+- name: get_residents_3
+  description: Get all residents (v3)
+  method: GET
+  path: /v3/residents
+  tags:
+  - Residents V3
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v3/residents
+- name: get_residents_4
+  description: Get a resident by ID (v1, deprecated)
+  method: GET
+  path: /v1/residents/{residentId}
+  tags:
+  - Residents (deprecated)
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/residents/{residentId}
+- name: update_residents_2
+  description: Update a resident (v1, deprecated)
+  method: PUT
+  path: /v1/residents/{residentId}
+  tags:
+  - Residents (deprecated)
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/residents/{residentId}
+- name: create_sales_rev_share_prospects
+  description: Create a rev-share prospect
+  method: POST
+  path: /v1/sales/rev-share-prospects
+  tags:
+  - Account Settings
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/sales/rev-share-prospects
+- name: update_inspections_signature_requests
+  description: Accept all open signature requests for an inspection
+  method: PATCH
+  path: /v1/inspections/{inspectionId}/signature-requests
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#PATCH /v1/inspections/{inspectionId}/signature-requests
+- name: create_inspections_signature_requests
+  description: Create signature request(s) for an inspection
+  method: POST
+  path: /v1/inspections/{inspectionId}/signature-requests
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/signature-requests
+- name: create_inspections_signature_requests_claim
+  description: Claim a signature request from a deep link
+  method: POST
+  path: /v1/inspections/{inspectionId}/signature-requests/{requestId}/claim
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/signature-requests/{requestId}/claim
+- name: get_inspections_signature_requests
+  description: Get a signature request by ID
+  method: GET
+  path: /v1/inspections/{inspectionId}/signature-requests/{requestId}
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/inspections/{inspectionId}/signature-requests/{requestId}
+- name: create_inspections_signature_requests_sign
+  description: Complete a signature request by submitting a signature
+  method: POST
+  path: /v1/inspections/{inspectionId}/signature-requests/sign
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/inspections/{inspectionId}/signature-requests/sign
+- name: create_subscriptions_trial
+  description: Create a free trial subscription
+  method: POST
+  path: /v1/subscriptions/trial
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/subscriptions/trial
+- name: get_subscriptions_me
+  description: Get subscription
+  method: GET
+  path: /v1/subscriptions/me
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/subscriptions/me
+- name: get_subscriptions_invoices_get_download_url
+  description: Get a download URL for an invoice
+  method: GET
+  path: /v1/subscriptions/invoices/{invoiceId}/get-download-url
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/subscriptions/invoices/{invoiceId}/get-download-url
+- name: get_subscriptions_invoices
+  description: Get invoices for the caller's subscription
+  method: GET
+  path: /v1/subscriptions/invoices
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/subscriptions/invoices
+- name: create_subscriptions_me_requests
+  description: Request a new plan / trial for the caller's subscription
+  method: POST
+  path: /v1/subscriptions/me/requests
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/subscriptions/me/requests
+- name: update_subscriptions
+  description: Update the caller's subscription
+  method: PUT
+  path: /v1/subscriptions
+  tags:
+  - Subscriptions
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/subscriptions
+- name: create_teams_invites_accept
+  description: Accept all team invites
+  method: POST
+  path: /v1/teams/invites/accept
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/teams/invites/accept
+- name: create_teams_invites
+  description: Create team invite
+  method: POST
+  path: /v1/teams/{teamId}/invites
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/teams/{teamId}/invites
+- name: get_teams_invites
+  description: Get all team invites
+  method: GET
+  path: /v1/teams/{teamId}/invites
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/teams/{teamId}/invites
+- name: delete_users_invites
+  description: Delete all open invites of a user
+  method: DELETE
+  path: /v1/users/{userId}/invites
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/users/{userId}/invites
+- name: delete_teams_invites
+  description: Delete team invite
+  method: DELETE
+  path: /v1/teams/{teamId}/invites/{inviteId}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/teams/{teamId}/invites/{inviteId}
+- name: update_teams_invites
+  description: Update team invite
+  method: PUT
+  path: /v1/teams/{teamId}/invites/{inviteId}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/teams/{teamId}/invites/{inviteId}
+- name: create_teams_invites_reminders
+  description: Team invite reminder
+  method: POST
+  path: /v1/teams/{teamId}/invites/{inviteId}/reminders
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/teams/{teamId}/invites/{inviteId}/reminders
+- name: create_users_invites_reminders
+  description: Send reminders for all open invites of a user
+  method: POST
+  path: /v1/users/{userId}/invites/reminders
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/users/{userId}/invites/reminders
+- name: delete_teams_members
+  description: Delete team member
+  method: DELETE
+  path: /v1/teams/{teamId}/members/{memberId}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/teams/{teamId}/members/{memberId}
+- name: update_teams_members
+  description: Update team member
+  method: PUT
+  path: /v1/teams/{teamId}/members/{memberId}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/teams/{teamId}/members/{memberId}
+- name: create_teams
+  description: Create a team
+  method: POST
+  path: /v1/teams
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/teams
+- name: get_teams
+  description: Get all teams
+  method: GET
+  path: /v1/teams
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/teams
+- name: delete_teams
+  description: Delete a team
+  method: DELETE
+  path: /v1/teams/{teamId}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/teams/{teamId}
+- name: get_teams_2
+  description: Get a team by ID
+  method: GET
+  path: /v1/teams/{id}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/teams/{id}
+- name: update_teams
+  description: Update team information
+  method: PUT
+  path: /v1/teams/{id}
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/teams/{id}
+- name: get_latchel_integrations
+  description: Get all Latchel integrations
+  method: GET
+  path: /v1/latchel/integrations
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/latchel/integrations
+- name: create_latchel_integrations
+  description: Integrate Latchel to RentCheck
+  method: POST
+  path: /v1/latchel/integrations
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/latchel/integrations
+- name: delete_latchel_integrations
+  description: Delete Latchel integrations
+  method: DELETE
+  path: /v1/latchel/integrations
+  tags:
+  - Teams
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/latchel/integrations
+- name: create_units
+  description: Create a unit
+  method: POST
+  path: /v1/units
+  tags:
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/units
+- name: delete_units
+  description: Delete units
+  method: DELETE
+  path: /v1/units
+  tags:
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/units
+- name: get_units
+  description: Get a unit by ID
+  method: GET
+  path: /v1/units/{unitId}
+  tags:
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/units/{unitId}
+- name: update_units
+  description: Update a unit
+  method: PUT
+  path: /v1/units/{unitId}
+  tags:
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/units/{unitId}
+- name: update_users_permission_groups
+  description: Bulk-edit users' permission groups
+  method: PUT
+  path: /v1/users/permission-groups
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/users/permission-groups
+- name: create_users
+  description: Create a user account
+  method: POST
+  path: /v1/users
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/users
+- name: get_users
+  description: Get all users
+  method: GET
+  path: /v1/users
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/users
+- name: delete_users
+  description: Deactivate a user
+  method: DELETE
+  path: /v1/users/{userId}
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#DELETE /v1/users/{userId}
+- name: get_users_2
+  description: Get a user by ID
+  method: GET
+  path: /v1/users/{id}
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/users/{id}
+- name: create_users_invite
+  description: Invite users
+  method: POST
+  path: /v1/users/invite
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/users/invite
+- name: update_users_access
+  description: Update a user's team and permission group access
+  method: PUT
+  path: /v1/users/{userId}/access
+  tags:
+  - Users
+  source_operation: openapi/rentcheck-openapi-original.yml#PUT /v1/users/{userId}/access
+- name: create_work_orders_providers
+  description: Create a work order
+  method: POST
+  path: /v1/work_orders/providers/{provider}
+  tags:
+  - Work Orders
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/work_orders/providers/{provider}
+- name: get_work_orders
+  description: Get all work orders
+  method: GET
+  path: /v2/work_orders
+  tags:
+  - Work Orders V2
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v2/work_orders
+- name: get_work_orders_2
+  description: Get a work order by ID
+  method: GET
+  path: /v1/work_orders/{workOrderId}
+  tags:
+  - Work Orders
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/work_orders/{workOrderId}
+- name: get_work_orders_skills
+  description: Get all work order skills
+  method: GET
+  path: /v1/work_orders/skills
+  tags:
+  - Work Orders
+  source_operation: openapi/rentcheck-openapi-original.yml#GET /v1/work_orders/skills
+- name: create_zapier_inspections
+  description: Create an inspection from a Zapier trigger
+  method: POST
+  path: /v1/zapier/inspections
+  tags:
+  - Inspections
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/zapier/inspections
+- name: create_zapier_properties
+  description: Create a property (unit) from a Zapier trigger
+  method: POST
+  path: /v1/zapier/properties
+  tags:
+  - Units
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/zapier/properties
+- name: create_zapier_residents
+  description: Create a resident from a Zapier trigger
+  method: POST
+  path: /v1/zapier/residents
+  tags:
+  - Residents (deprecated)
+  source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/zapier/residents

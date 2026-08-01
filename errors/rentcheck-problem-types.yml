@@ -1,0 +1,139 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentcheck-openapi-original.yml
+format: custom-envelope
+envelope:
+  shape: '{ "status": <int http status>, "error": "<machine string>" }'
+  status_field: status
+  message_field: error
+  note: RentCheck returns a flat JSON error envelope (HTTP status + machine-readable error string); it
+    is not RFC 9457 problem+json.
+rate_limit_error:
+  status: 429
+  meaning: Too Many Requests
+  limits:
+    per_second: 8
+    per_minute: 256
+    per_10_minutes: 1024
+problems:
+- status: 400
+  title: Bad Request
+  occurrences: 121
+  known_messages:
+  - '"data.allow_billing_plan_editing" is required'
+  - '"data.ids" is required'
+  - '"data.ids" must contain at least 1 items'
+  - '"data.inspection_template_ids" is required'
+  - '"data.internal_label" is not allowed to be empty'
+  - '"data.internal_label" is required'
+  - '"data.name" is not allowed to be empty'
+  - '"data.name" is required'
+  - '"data.user_ids" is required'
+  - Inspection is not completed
+  - api_key is missing
+  - channels is missing
+  - companyId has an invalid value
+  - date_range_end can not be empty
+  - date_range_end has an invalid value
+  - date_range_start can not be empty
+  - date_range_start has an invalid value
+  - document_id has an invalid value
+  - document_id is missing
+  - document_type has an invalid value
+  - document_type is missing
+  - 'due_date has an invalid value: must be a valid date in the future'
+  - export_type has an invalid value
+  - export_type is missing
+  - id has an invalid value
+- status: 401
+  title: Unauthorized
+  occurrences: 212
+  known_messages:
+  - App not authorized or missing client_id
+  - App not valid
+  - Code not valid
+  - Invalid token
+  - User does not have permissions to create permission group
+  - User does not have permissions to delete permission group
+  - User does not have permissions to update permission group
+  - authorization header is empty
+  - authorization header is not valid
+  - 'format for Authorization must be: Bearer [token]'
+  - invalid credentials
+  - not well-formed token
+  - refresh token is not valid for resources
+  - token is not valid
+  - unauthorized
+- status: 403
+  title: Forbidden
+  occurrences: 45
+  known_messages:
+  - At least one permission group must remain on the subscription
+  - Lease does not belong to user
+  - Manual sync setting is false for subscription
+  - Only renters can create resident leases
+  - Only renters can get resident leases
+  - Only renters can update resident leases
+  - This feature is only available on the Professional plan.
+  - User does not have access to the inspection template
+  - User does not have access to the provided team ids
+  - User does not have access to this maintenance report
+  - User must be a member of the team
+  - invalid permissions
+  - invalid team informed
+  - invalid user role
+  - subscription not found or inactive
+  - user is already part of a team
+  - user must be a member of the team
+  - user must be an admin
+- status: 404
+  title: Not Found
+  occurrences: 137
+  known_messages:
+  - Property not found
+  - admin users not found
+  - company not found
+  - email customization not found
+  - feature not found
+  - image data not found
+  - inspection feature not found
+  - inspection metadata not found
+  - inspection not found
+  - inspection template not found (<id>)
+  - integration not found
+  - invite not found
+  - invoice not found
+  - lease not found
+  - maintenance flag not found
+  - member not found
+  - occupancy not found
+  - permission group not found
+  - photoURL not found
+  - plan not found
+  - property not found
+  - resident not found
+  - subscription not found
+  - team not found
+  - tenant not found
+- status: 409
+  title: Conflict
+  occurrences: 16
+  known_messages:
+  - An automation with this name already exists on the subscription
+  - Inspection has already had a manual scan
+  - This invite code has already been claimed by another user.
+  - too many subscriptions
+  - user has more than one active subscription
+- status: 413
+  title: Payload Too Large
+  occurrences: 1
+  known_messages: null
+- status: 500
+  title: Internal Server Error
+  occurrences: 8
+  known_messages:
+  - Must have work order sync switched ON in order to create work orders. Please adjust your data sync
+    settings.
+  - Unable to queue inspection scan
+  - invalid provider
+  - property not synced with Jenark

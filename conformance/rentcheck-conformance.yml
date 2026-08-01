@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentcheck-openapi-original.yml
+note: >-
+  Cross-cutting standards conformance DERIVED from the RentCheck OpenAPI and API description.
+  No published compliance certifications (SOC 2 / ISO 27001 / etc.) were found on a public
+  trust or security page as of 2026-07-20, so no Compliance pointer is emitted.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Published OpenAPI 3.1.0 document at rentcheck-lambdas-static-files.s3 (doc_specs.yml).
+- id: rest-json
+  conforms: true
+  evidence: Resource-oriented REST, JSON request/response, adheres broadly to RFC 7231 HTTP/1.1.
+- id: bearer-jwt-auth
+  conforms: true
+  evidence: securitySchemes bearerAuth (http bearer, bearerFormat JWT) applied globally.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    Token endpoints exist under /v1/oAuth2/* but the securityScheme type is http bearer, not
+    oauth2; no oauth2 flows or scopes are declared in the spec.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a flat custom envelope ({status,error}), not application/problem+json.
+- id: pagination-page-number
+  conforms: true
+  evidence: page_size (max 250) + zero-based page_number; response carries count + total_results.
+- id: rate-limiting
+  conforms: true
+  evidence: Documented per-second/minute/10-minute limits with HTTP 429 on exceed.
+- id: rfc8594-sunset-headers
+  conforms: false
+  evidence: Deprecation communicated via Help Center release notes, no Sunset/Deprecation headers.

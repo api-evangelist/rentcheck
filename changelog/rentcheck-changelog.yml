@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://help.getrentcheck.com/en/collections/8678312-api-release-notes
+docs: https://help.getrentcheck.com/en/articles/9045668-rentcheck-api-updates
+scheme: dated-release-notes
+current_version: mixed uri-path (v1/v2/v3)
+note: >-
+  RentCheck publishes API changes as dated release notes in its Help Center (API Release Notes
+  collection). Recent-window entries captured below; the live Help Center is the source of truth.
+entries:
+- date: '2025-10-23'
+  title: Inspection Customization & Template Management
+  breaking: false
+  highlights:
+  - New endpoints GET /v1/inspection-templates and GET /v1/inspection-templates/{id}.
+  - inspection_template embed added to GET /v2/inspections and GET /v1/inspections/{id}.
+  - POST /v2/inspections gains inspection_template_id (preferred over inspection_type).
+- date: '2024-03-07'
+  title: inspection_type deprecated in favor of inspection_template_id
+  breaking: false
+  highlights:
+  - POST /v2/inspections field inspection_type deprecated with a two-month transition window.
+  - Replacement field inspection_template_id introduced; sunset 2024-05-07.

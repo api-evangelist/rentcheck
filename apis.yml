@@ -1,7 +1,26 @@
 aid: rentcheck
 name: RentCheck
-description: RentCheck is a company surfaced as a portfolio company of techstars and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  RentCheck is a resident-led property inspection platform used by 1,000+ property management
+  companies to run guided move-in, move-out, routine, and maintenance inspections that residents
+  complete from their smartphone, producing standardized, time-stamped photo reports. Its REST API
+  (OpenAPI 3.1, 160 paths / 217 operations) lets developers pull property, unit, building, community,
+  and resident data, schedule and create inspections from customizable templates, review inspection
+  features and photos, flag maintenance issues, and wire results into property-management systems
+  such as AppFolio, Rent Manager, Rentvine, Buildium, Latchel, and Zapier.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/64c252917dda086383e12e96/6945920e3577a32b09f7b34d_RentCheck_Open_Graph.png
 url: https://raw.githubusercontent.com/api-evangelist/rentcheck/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,15 +30,453 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Property Management
+- Property Inspection
+- Real Estate
+- PropTech
+- Inspections
+- Maintenance
+- Rental
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: rentcheck:rentcheck-account-settings-api
+  name: RentCheck Account Settings API
+  description: The Account Settings API from RentCheck — 9 operation(s) for account settings.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Account Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-account-settings-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-automations-api
+  name: RentCheck Automations API
+  description: The Automations API from RentCheck — 2 operation(s) for automations.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-automations-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-buildings-api
+  name: RentCheck Buildings API
+  description: The Buildings API from RentCheck — 3 operation(s) for buildings.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Buildings
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-buildings-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-chargebee-api
+  name: RentCheck Chargebee API
+  description: The Chargebee API from RentCheck — 3 operation(s) for chargebee.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Chargebee
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-chargebee-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-communities-api
+  name: RentCheck Communities API
+  description: The Communities API from RentCheck — 3 operation(s) for communities.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Communities
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-communities-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-dashboard-api
+  name: RentCheck Dashboard API
+  description: The Dashboard API from RentCheck — 2 operation(s) for dashboard.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-dashboard-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-file-requests-api
+  name: RentCheck File Requests API
+  description: The File Requests API from RentCheck — 2 operation(s) for file requests.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - File Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-file-requests-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-filter-segments-api
+  name: RentCheck Filter Segments API
+  description: The Filter Segments API from RentCheck — 2 operation(s) for filter segments.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Filter Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-filter-segments-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-inspection-features-api
+  name: RentCheck Inspection Features API
+  description: The Inspection Features API from RentCheck — 13 operation(s) for inspection features.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Inspection Features
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-inspection-features-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-inspections-api
+  name: RentCheck Inspections API
+  description: The Inspections API from RentCheck — 26 operation(s) for inspections.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Inspections
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-inspections-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-inspections-templates-api
+  name: RentCheck Inspections Templates API
+  description: The Inspections Templates API from RentCheck — 4 operation(s) for inspections templates.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Inspections Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-inspections-templates-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-inspections-v2-api
+  name: RentCheck Inspections V2 API
+  description: The Inspections V2 API from RentCheck — 2 operation(s) for inspections v2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Inspections V2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-inspections-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-integrations-api
+  name: RentCheck Integrations API
+  description: The Integrations API from RentCheck — 1 operation(s) for integrations.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-integrations-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-latchelproxy-api
+  name: RentCheck LatchelProxy API
+  description: The LatchelProxy API from RentCheck — 6 operation(s) for latchelproxy.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - LatchelProxy
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-latchelproxy-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-leases-api
+  name: RentCheck Leases API
+  description: The Leases API from RentCheck — 9 operation(s) for leases.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Leases
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-leases-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-maintenance-flags-api
+  name: RentCheck Maintenance Flags API
+  description: The Maintenance Flags API from RentCheck — 3 operation(s) for maintenance flags.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Maintenance Flags
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-maintenance-flags-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-maintenance-reports-api
+  name: RentCheck Maintenance Reports API
+  description: The Maintenance Reports API from RentCheck — 2 operation(s) for maintenance reports.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Maintenance Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-maintenance-reports-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-maintenance-reports-v2-api
+  name: RentCheck Maintenance Reports V2 API
+  description: >-
+    The Maintenance Reports V2 API from RentCheck — 1 operation(s) for maintenance reports v2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Maintenance Reports V2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-maintenance-reports-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-oauth2-api
+  name: RentCheck oAuth2 API
+  description: The oAuth2 API from RentCheck — 8 operation(s) for oauth2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - oAuth2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-oauth2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-permission-groups-api
+  name: RentCheck Permission Groups API
+  description: The Permission Groups API from RentCheck — 2 operation(s) for permission groups.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Permission Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-permission-groups-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-properties-v2-api
+  name: RentCheck Properties V2 API
+  description: The Properties V2 API from RentCheck — 4 operation(s) for properties v2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Properties V2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-properties-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-properties-v3-api
+  name: RentCheck Properties V3 API
+  description: The Properties V3 API from RentCheck — 4 operation(s) for properties v3.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Properties V3
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-properties-v3-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-residents-deprecated-api
+  name: RentCheck Residents (deprecated) API
+  description: >-
+    The Residents (deprecated) API from RentCheck — 3 operation(s) for residents (deprecated).
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Residents (deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-residents-deprecated-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-residents-v2-api
+  name: RentCheck Residents V2 API
+  description: The Residents V2 API from RentCheck — 2 operation(s) for residents v2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Residents V2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-residents-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-residents-v3-api
+  name: RentCheck Residents V3 API
+  description: The Residents V3 API from RentCheck — 1 operation(s) for residents v3.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Residents V3
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-residents-v3-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-subscriptions-api
+  name: RentCheck Subscriptions API
+  description: The Subscriptions API from RentCheck — 6 operation(s) for subscriptions.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-subscriptions-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-teams-api
+  name: RentCheck Teams API
+  description: The Teams API from RentCheck — 11 operation(s) for teams.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-teams-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-units-api
+  name: RentCheck Units API
+  description: The Units API from RentCheck — 4 operation(s) for units.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Units
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-units-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-users-api
+  name: RentCheck Users API
+  description: The Users API from RentCheck — 20 operation(s) for users.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-users-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-work-orders-api
+  name: RentCheck Work Orders API
+  description: The Work Orders API from RentCheck — 3 operation(s) for work orders.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Work Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-work-orders-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-work-orders-v2-api
+  name: RentCheck Work Orders V2 API
+  description: The Work Orders V2 API from RentCheck — 1 operation(s) for work orders v2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - Work Orders V2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-work-orders-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
 common:
+- type: Authentication
+  url: authentication/rentcheck-authentication.yml
+- type: DomainSecurity
+  url: security/rentcheck-domain-security.yml
+- type: Conventions
+  url: conventions/rentcheck-conventions.yml
+- type: ErrorCatalog
+  url: errors/rentcheck-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rentcheck-lifecycle.yml
+- type: Deprecation
+  url: https://help.getrentcheck.com/en/articles/9045668-rentcheck-api-updates
+- type: Conformance
+  url: conformance/rentcheck-conformance.yml
+- type: DataModel
+  url: data-model/rentcheck-data-model.yml
+- type: MCPServer
+  url: mcp/rentcheck-mcp.yml
+- type: LLMsTxt
+  url: llms/rentcheck-llms.txt
+- type: AgentSkill
+  url: skills/rentcheck-schedule-inspection.md
+- type: AgentSkill
+  url: skills/rentcheck-process-inspection-results.md
+- type: ChangeLog
+  url: changelog/rentcheck-changelog.yml
+- type: DeveloperPortal
+  url: https://developers.getrentcheck.com/
+- type: Documentation
+  url: https://developers.getrentcheck.com/
+- type: GettingStarted
+  url: https://app.getrentcheck.com/account/integrations/rentcheck-api
+- type: Support
+  url: https://help.getrentcheck.com/en/
+- type: HelpCenter
+  url: https://help.getrentcheck.com/en/
+- type: Blog
+  url: https://www.getrentcheck.com/blog
+- type: GitHubOrganization
+  url: https://github.com/getrentcheck
+- type: Pricing
+  url: https://www.getrentcheck.com/pricing
+- type: SignUp
+  url: https://app.getrentcheck.com/get-started
+- type: Login
+  url: https://app.getrentcheck.com/signin
+- type: TermsOfService
+  url: https://www.getrentcheck.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.getrentcheck.com/privacy-policy
+- type: Integrations
+  url: https://www.getrentcheck.com/integrations
 - type: Website
   url: https://getrentcheck.com/
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1

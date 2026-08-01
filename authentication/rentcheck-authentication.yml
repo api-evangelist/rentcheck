@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/rentcheck-openapi-original.yml
+docs: https://developers.getrentcheck.com/
+notes: >-
+  Requests require three headers: a Bearer JWT access token (Authorization),
+  plus x-app-id and x-app-secret application credentials issued by RentCheck.
+  Access tokens are obtained via the /v1/oAuth2 token endpoints
+  (emailPasswordAuth -> access/token, refreshToken). App id/secret are provisioned
+  from the RentCheck API integration page (app.getrentcheck.com/account/integrations/rentcheck-api).
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Authorization key needed to use the API
+  sources:
+  - openapi/rentcheck-openapi-original.yml
+- name: x-app-id
+  type: apiKey
+  in: header
+  parameter: x-app-id
+  description: Represents the identification of you application
+  sources:
+  - openapi/rentcheck-openapi-original.yml
+- name: x-app-secret
+  type: apiKey
+  in: header
+  parameter: x-app-secret
+  description: Represents the secret for your application
+  sources:
+  - openapi/rentcheck-openapi-original.yml
