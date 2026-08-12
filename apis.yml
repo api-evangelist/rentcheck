@@ -421,6 +421,8 @@ apis:
   - type: APIReference
     url: https://developers.getrentcheck.com/
 common:
+- type: Overlay
+  url: overlays/rentcheck-openapi-overlay.yaml
 - type: Authentication
   url: authentication/rentcheck-authentication.yml
 - type: DomainSecurity
