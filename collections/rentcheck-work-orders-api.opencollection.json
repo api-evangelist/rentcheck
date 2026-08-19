@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Work Orders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a work order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/work_orders/providers/:provider",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The integration provider that should fulfill this work order.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Work Order in RentCheck and dispatches it to the requested\nintegration provider. The path parameter `provider` selects the\ndestination integration; the request body shape varies per provider.\n"
+        },
+        {
+          "info": {
+            "name": "Get a work order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/work_orders/:workOrderId",
+            "params": [
+              {
+                "name": "workOrderId",
+                "value": "",
+                "type": "path",
+                "description": "work order ID"
+              }
+            ]
+          },
+          "docs": "Get a work order by ID"
+        },
+        {
+          "info": {
+            "name": "Get all work order skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/work_orders/skills"
+          },
+          "docs": "Returns the list of skills that can be selected when creating a work order. The\nsame static list is always returned, regardless of the caller's enabled integrations.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

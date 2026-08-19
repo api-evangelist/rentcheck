@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Maintenance Flags API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance Flags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all maintenance flags for a given inspection and feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features/:featureId/maintenanceFlags",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ]
+          },
+          "docs": "Get all maintenance flags for a given inspection ID and feature ID"
+        },
+        {
+          "info": {
+            "name": "Get all maintenance flags for an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/maintenanceFlags",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Get all maintenance flags for a given inspection ID"
+        },
+        {
+          "info": {
+            "name": "Get a maintenance flag by ID for a given inspection and feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features/:featureId/maintenanceFlags/:maintenanceFlagId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              },
+              {
+                "name": "maintenanceFlagId",
+                "value": "",
+                "type": "path",
+                "description": "Maintenance flag ID"
+              }
+            ]
+          },
+          "docs": "Get a maintenance flag by ID for a given inspection and feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

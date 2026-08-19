@@ -1,0 +1,473 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Intercom help-center articles under a parent collection or section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/intercom/articles",
+            "params": [
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query",
+                "description": "Intercom collection or section id to list articles for. Required —\na 400 is returned when this is missing.\n"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter articles by publication state. Defaults to `published` when\nthe parameter is omitted.\n"
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "Optional cap on the number of articles returned after filtering.\nWhen omitted, all matching articles are returned.\n"
+              }
+            ]
+          },
+          "docs": "Returns Intercom Help Center articles that live under the given `parent_id`\ncollection or section, optionally filtered by publication state and\ncapped at a maximum number of results. Results are read from a cache\nbacked by the Intercom Help Center API.\n"
+        },
+        {
+          "info": {
+            "name": "Mint an Intercom Messenger JWT for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/intercom/messenger-jwt",
+            "params": [
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Which Messenger client is booting. Determines which platform-specific\nMessenger secret the JWT is signed with — `INTERCOM_MESSENGER_SECRET_WEB`,\n`INTERCOM_MESSENGER_SECRET_IOS`, or `INTERCOM_MESSENGER_SECRET_ANDROID`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a short-lived signed Intercom Messenger JWT for the authenticated\nuser. The token is signed with the platform-specific Messenger secret\n(Intercom issues a distinct secret per web / iOS / Android client), so\nthe caller must declare which platform is booting via the `platform`\nquery parameter.\n\nThe token TTL is 10 minutes — refresh on every Messenger boot.\n"
+        },
+        {
+          "info": {
+            "name": "Attach the caller to an Intercom company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/intercom/users/companies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches the authenticated user to the given Intercom company and then\nrefreshes their Intercom custom attributes (rentcheck/chargebee\nsubscription ids, company id). Both the company-attach and the user\nrefresh proxy through the Intercom REST API; the response payload\nmirrors Intercom's responses verbatim and is intentionally untyped.\n\nThe attach step is a no-op when the caller has an internal RentCheck\nemail, in which case `company` is omitted / null while `user` is still\nrefreshed.\n"
+        },
+        {
+          "info": {
+            "name": "Register an FCM device token for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/fcm-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all of the caller's registered FCM device tokens with the\nsupplied `fcm_token`. Used by the mobile clients on app start / push\nregistration.\n"
+        },
+        {
+          "info": {
+            "name": "Clear the caller's FCM device tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/fcm-token"
+          },
+          "docs": "Removes every FCM device token registered for the caller. Used by the\nmobile clients on sign-out / push unregistration.\n"
+        },
+        {
+          "info": {
+            "name": "Get the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me"
+          },
+          "docs": "Returns the full profile document for the authenticated caller, including teams,\nresolved permissions, metadata and external identity verification payloads.\n"
+        },
+        {
+          "info": {
+            "name": "Update the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update for the authenticated caller. Changing `email` or `password`\nrequires `current_password` for re-authentication. Other fields update the\ncaller's profile metadata in place.\n"
+        },
+        {
+          "info": {
+            "name": "Disable the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me"
+          },
+          "docs": "Disables the authenticated caller's account. The profile is retained\nfor audit; the user can no longer sign in.\n"
+        },
+        {
+          "info": {
+            "name": "Mint a Firebase custom auth token for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/firebase-token"
+          },
+          "docs": "Returns a short-lived Firebase custom auth token the caller can exchange\nfor a Firebase ID token via the Firebase Auth client SDKs. Used by\nembedded surfaces that need to re-authenticate the caller against\nFirebase.\n"
+        },
+        {
+          "info": {
+            "name": "Get the caller's personal notifications preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/notifications-preferences"
+          },
+          "docs": "Returns the per-user notifications preferences document for the\nauthenticated caller. Used to drive the per-user notification settings UI.\n"
+        },
+        {
+          "info": {
+            "name": "Update the caller's personal notifications preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/notifications-preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update for the caller's per-user notifications preferences. Any\ncombination of `inspections_awaiting_review`,\n`inspections_in_revision_review`, `inspections_completed` and\n`automation_failures` may be supplied; the server merges the values onto\nthe current document.\n"
+        },
+        {
+          "info": {
+            "name": "Get the authenticated user's settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/settings"
+          },
+          "docs": "Returns the metadata document for the authenticated caller — onboarding\ncounters, dismiss flags, and view-mode preferences. Defaults are merged\nonto any persisted values.\n"
+        },
+        {
+          "info": {
+            "name": "Update the authenticated user's settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update for the caller's metadata. Defaults are merged onto any\ncurrently-persisted values before the supplied fields are written.\n"
+        },
+        {
+          "info": {
+            "name": "Get the subscription-level notifications preferences for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/subscriptions/notifications-preferences"
+          },
+          "docs": "Returns the subscription-level defaults that apply to every member of the\ncaller's subscription when no per-user override exists. Resolved from the\nsubscription owned by (or shared with) the caller.\n"
+        },
+        {
+          "info": {
+            "name": "Update the subscription-level notifications preferences for the caller",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/subscriptions/notifications-preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update for the subscription-level notifications preferences\nshared across the caller's subscription. Requires the caller to have\n`allow_notifications_preferences_editing` permission on the\nsubscription.\n"
+        },
+        {
+          "info": {
+            "name": "Get the caller's long-lived integration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/integration-token"
+          },
+          "docs": "Returns the caller's integration token, used for service-to-service API\ncalls (e.g. external integrations that authenticate as the caller). The\ntoken is rotated by the backend when integration credentials change.\n"
+        },
+        {
+          "info": {
+            "name": "Link the authenticated user to a tenant record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/link-with-tenant",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Looks up the tenant record on the invite's inspection (or owner) that\nmatches the caller's email and links it to the authenticated user. If\nno matching tenant exists, a new tenant + current occupancy is created\nunder the appropriate owner so the caller can immediately participate\nin the invited inspection.\n"
+        },
+        {
+          "info": {
+            "name": "Mint a Metabase static-embedding token for Resident Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/metabase-embed-token"
+          },
+          "docs": "Returns a signed Metabase static-embedding JWT scoped to the caller's\nsubscription so the Resident Experience Insights dashboard can be\nembedded in web / mobile without exposing another customer's data. The\n`subscription_id` is resolved server-side and signed into the token's\nlocked `params`.\n\nAccess is gated to accounts enrolled in the Resident Insights beta —\nnon-enrolled callers get 403.\n"
+        },
+        {
+          "info": {
+            "name": "Get the caller's property manager contact info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/pm-contact-info"
+          },
+          "docs": "Returns the contact info for the property management company that owns\nthe caller's tenant record. Used by renter surfaces to expose a way to\ncontact the PM directly.\n"
+        },
+        {
+          "info": {
+            "name": "Get the caller's pending inspection requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/me/requests"
+          },
+          "docs": "Returns the list of inspection requests sent to the authenticated caller\nthat are awaiting action (e.g. additional signature requests). Used by\nthe apps' notification bell to surface requests the caller still needs to\nrespond to.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk-edit users' permission groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/permission-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reconciles the supplied users' permission group memberships against the supplied permission\ngroup ids — each user is set to belong to exactly the requested permission groups (and removed\nfrom any others on the same subscription). Returns the updated user digests.\n"
+        },
+        {
+          "info": {
+            "name": "Get all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users",
+            "params": [
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search by user name, email or id."
+              },
+              {
+                "name": "filters[team_ids]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by team ids. It accept multiple ids separated by comma."
+              },
+              {
+                "name": "filters[permission_group_ids]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by permission group ids. It accept multiple ids separated by comma"
+              },
+              {
+                "name": "filters[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user status."
+              },
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "How many items to be returned for each page."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list in ascending or descending order."
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list by a specific property."
+              }
+            ]
+          },
+          "docs": "Get all users"
+        },
+        {
+          "info": {
+            "name": "Create a user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-app-id",
+              "value": "{{x-app-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new user account. Used by the sign-up flow. The endpoint does not require an\nauthenticated session — the caller authenticates the resulting user separately. If the supplied\nemail is malformed or looks like a typo the response will return an `email_suggestion` block\ninstead of creating the account.\n"
+        },
+        {
+          "info": {
+            "name": "Deactivate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user to deactivate."
+              }
+            ]
+          },
+          "docs": "Deactivates the target user — removing them from every team and permission group on the caller's\nsubscription, deleting their pending team invites, and unassigning them from automations. The\ncaller must (a) share an active subscription with the target user and (b) be an admin of at\nleast one team on that subscription.\n"
+        },
+        {
+          "info": {
+            "name": "Get a user by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ]
+          },
+          "docs": "Get a user by ID"
+        },
+        {
+          "info": {
+            "name": "Invite users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites one or more users by email, attaching them to the supplied teams and permission groups\nwith the given role. Each email is processed independently — the response groups successfully\ncreated user digests under `success.users` and per-email failure reasons under `failure.errors`.\n"
+        },
+        {
+          "info": {
+            "name": "Update a user's team and permission group access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/:userId/access",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user whose access is being updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reconciles the target user's team memberships and permission groups against the supplied lists,\nand updates the role they hold in each team. The caller must share a subscription with the\ntarget user and be an admin on the relevant teams.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

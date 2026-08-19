@@ -1,0 +1,439 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Inspection Features API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inspection Features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all features",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Get all features for a given inspection ID"
+        },
+        {
+          "info": {
+            "name": "Get a feature by ID for a given inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features/:featureId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ]
+          },
+          "docs": "Get a feature by ID and inspection ID"
+        },
+        {
+          "info": {
+            "name": "Rotate feature photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/features/:featureId/rotatePhoto",
+            "params": [
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection feature ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update photo orientation in a feature"
+        },
+        {
+          "info": {
+            "name": "Get image metadata for an inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features/:featureId/metadata",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection feature ID (must belong to the supplied inspection)"
+              }
+            ]
+          },
+          "docs": "Returns the AI-generated image metadata documents for every photo on a single\ninspection feature. Each entry surfaces the analysis status, the inferred\ndamage items, and the maintenance flags currently associated with the\nunderlying feature. Available only on subscriptions whose account settings\nhave AI image analysis enabled.\n"
+        },
+        {
+          "info": {
+            "name": "Update image metadata for an inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/features/:featureId/metadata/:metadataId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection feature ID (must belong to the supplied inspection)"
+              },
+              {
+                "name": "metadataId",
+                "value": "",
+                "type": "path",
+                "description": "Image metadata ID (must belong to the supplied feature)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Patch the AI-generated image metadata document for a single photo on an\ninspection feature. Currently only `damage_items[].user_feedback` is editable\n— the supplied damage items are matched by `id` and merged onto the existing\ndocument. Used by the reviewer experience to ack/correct AI-inferred damage.\n"
+        },
+        {
+          "info": {
+            "name": "Approve a feature review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/review/approve",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ]
+          },
+          "docs": "Approves a previously requested review on a feature. Returns the updated feature."
+        },
+        {
+          "info": {
+            "name": "Create a maintenance flag on a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/flags",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a maintenance flag to the given feature. Returns the updated feature."
+        },
+        {
+          "info": {
+            "name": "Upsert a maintenance flag on a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/flags/:flagId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              },
+              {
+                "name": "flagId",
+                "value": "",
+                "type": "path",
+                "description": "Maintenance flag ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upserts the named maintenance flag on a feature. If a flag with the\nsupplied `flagId` already exists on the feature it is updated in place;\notherwise a new flag with that id is created and merged with the request\nbody. Returns the updated feature. A nonexistent `flagId` is never a\nsource of 404s — once the route has matched, an unknown id triggers the\ncreate branch instead. (Omitting the `{flagId}` path segment entirely\nstill fails because the segment is required.)\n"
+        },
+        {
+          "info": {
+            "name": "Delete a maintenance flag from a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/flags/:flagId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              },
+              {
+                "name": "flagId",
+                "value": "",
+                "type": "path",
+                "description": "Maintenance flag ID"
+              }
+            ]
+          },
+          "docs": "Removes the named maintenance flag from a feature. Returns the updated feature."
+        },
+        {
+          "info": {
+            "name": "Upsert a revision request on a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/revision",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the revision request on a feature. Reviewers use this to ask the performer to redo a feature; the performer's subsequent edits set `revision.updated` to true.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a revision request on a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/revision",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ]
+          },
+          "docs": "Cancels an outstanding revision request on a feature. Returns the updated feature."
+        },
+        {
+          "info": {
+            "name": "Edit an inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId/edit",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to an existing inspection feature (rating, responses, notes, media). Returns the updated feature.\n"
+        },
+        {
+          "info": {
+            "name": "Get all features for an inspection (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Id of the last feature returned by a previous request. Pass an empty string to request the first cursor-based page. Mutually exclusive with `pagination[page_number]` and `pagination[page_size]`.\n"
+              },
+              {
+                "name": "pagination[page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy pagination — zero-indexed page number. Mutually exclusive with `cursor`."
+              },
+              {
+                "name": "pagination[page_size]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy pagination — page size. Mutually exclusive with `cursor`."
+              }
+            ]
+          },
+          "docs": "Returns the list of features that belong to a single inspection. Supports two mutually-exclusive paging modes:\n\n- Cursor-based: pass `cursor` (the id of the last feature returned in the previous page; an empty string requests the first page). The handler iterates ordered by id ASC with a 5 MB soft response-size budget per page (returns early once a feature would push the running total past 5 MB).\n- Legacy: pass `pagination[page_number]` and `pagination[page_size]`.\n\nCombining `cursor` with eithe"
+        },
+        {
+          "info": {
+            "name": "Get an inspection feature by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/:featureId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              },
+              {
+                "name": "featureId",
+                "value": "",
+                "type": "path",
+                "description": "Feature ID"
+              }
+            ]
+          },
+          "docs": "Returns a single inspection feature, including its maintenance flags, media, and template settings."
+        },
+        {
+          "info": {
+            "name": "Submit an inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/:inspectionId/features/submit",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Idempotent submit of an inspection feature. Used by the mobile app to commit a feature's rating, notes, media, and (optionally) review/revision payload. When `id` is omitted on first submit, the API treats this as a create; subsequent submits with the same `id` update the existing feature.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

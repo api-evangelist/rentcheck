@@ -1,0 +1,336 @@
+{
+  "item": [
+    {
+      "id": "057adc32-ec9b-46d0-bea1-ac62d39d1ec8",
+      "name": "Work Orders V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac8127a4-3bf3-43c4-bc6d-e16ee57e7b23",
+          "name": "Get all work orders",
+          "request": {
+            "name": "Get all work orders",
+            "description": {
+              "content": "Get all work orders",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "work_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "0",
+                  "description": "The page number of the collection. Zero-indexed."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_date",
+                  "description": "Sort results by one of the available fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_type",
+                  "value": "DESC",
+                  "description": "Sort direction. Accepted case-insensitively — any casing\nof `asc` / `desc` is silently normalised to `ASC` / `DESC`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search string to match in several work order's fields"
+                },
+                {
+                  "disabled": false,
+                  "key": "property_id",
+                  "value": "<string>",
+                  "description": "Property ID to filter work orders by. Only work orders whose source inspection lives on this property are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_type[]",
+                  "value": "<string>",
+                  "description": "List of inspection types to filter work orders. Repeat the parameter\nto send multiple values (e.g. `?inspection_type[]=Move-In&inspection_type[]=Move-Out`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_type[]",
+                  "value": "<string>",
+                  "description": "List of inspection types to filter work orders. Repeat the parameter\nto send multiple values (e.g. `?inspection_type[]=Move-In&inspection_type[]=Move-Out`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status[]",
+                  "value": "<string>",
+                  "description": "List of work order statuses to filter by. Repeat the parameter to\nsend multiple values. Allowed individual values are `Created`,\n`In Progress`, `Completed`, and `Canceled`. The raw array is not\nvalidated, so unknown values are silently ignored — they simply\nreturn zero matches instead of a 400.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status[]",
+                  "value": "<string>",
+                  "description": "List of work order statuses to filter by. Repeat the parameter to\nsend multiple values. Allowed individual values are `Created`,\n`In Progress`, `Completed`, and `Canceled`. The raw array is not\nvalidated, so unknown values are silently ignored — they simply\nreturn zero matches instead of a 400.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_created_date",
+                  "value": "<string>",
+                  "description": "Value to filter work order creation date by a starting date"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_created_date",
+                  "value": "<string>",
+                  "description": "Value to filter work order creation date by an ending date"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5865effd-992f-4465-9512-5ac15a0a981d",
+              "name": "Returns all work orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "work_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_date"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_type[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_type[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_created_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_created_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Latchel Job #1\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": \"string\",\n      \"created_by_name\": \"string\",\n      \"status\": \"string\",\n      \"maintenance_flags\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"room\": \"string\",\n          \"feature\": \"string\",\n          \"feature_id\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"type\": \"Property Manager\"\n          },\n          \"responsibility\": \"RESIDENT\",\n          \"note\": \"string\",\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"cost\": 6755.8966345131175\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"room\": \"string\",\n          \"feature\": \"string\",\n          \"feature_id\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"type\": \"System\"\n          },\n          \"responsibility\": \"OWNER\",\n          \"note\": \"string\",\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"cost\": 8401.883294123032\n        }\n      ],\n      \"organization_id\": \"string\",\n      \"inspection\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"type\": \"Maintenance / Safety Check\",\n        \"date\": \"2022-01-15 00:00:00\",\n        \"template\": {},\n        \"completed_date\": \"string\"\n      },\n      \"skill\": \"string\",\n      \"zip_report_location\": \"string\",\n      \"last_sync_date\": \"string\",\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"latchel\": {\n        \"key_0\": 9533\n      },\n      \"yardi\": {\n        \"key_0\": 4278.291504780421,\n        \"key_1\": 9024.855345758755,\n        \"key_2\": \"string\"\n      },\n      \"appfolio\": {\n        \"key_0\": true,\n        \"key_1\": false\n      },\n      \"jenark\": {\n        \"key_0\": 8684.538637010071\n      },\n      \"rentmanager\": {\n        \"key_0\": 7477\n      },\n      \"rentvine\": {\n        \"key_0\": 4720\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Latchel Job #1\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": \"string\",\n      \"created_by_name\": \"string\",\n      \"status\": \"string\",\n      \"maintenance_flags\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"room\": \"string\",\n          \"feature\": \"string\",\n          \"feature_id\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"type\": \"Property Manager\"\n          },\n          \"responsibility\": \"\",\n          \"note\": \"string\",\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"cost\": 6486.378707951657\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"room\": \"string\",\n          \"feature\": \"string\",\n          \"feature_id\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"type\": \"Renter\"\n          },\n          \"responsibility\": \"OWNER\",\n          \"note\": \"string\",\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"cost\": 229.96769256581783\n        }\n      ],\n      \"organization_id\": \"string\",\n      \"inspection\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"type\": \"Annual\",\n        \"date\": \"2022-01-15 00:00:00\",\n        \"template\": {},\n        \"completed_date\": \"string\"\n      },\n      \"skill\": \"string\",\n      \"zip_report_location\": \"string\",\n      \"last_sync_date\": \"string\",\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"latchel\": {\n        \"key_0\": 3599.3215828542056,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"yardi\": {\n        \"key_0\": 3688,\n        \"key_1\": 9164.694196158489,\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"appfolio\": {\n        \"key_0\": false,\n        \"key_1\": 3265.7591411866283,\n        \"key_2\": 55.73679077517157\n      },\n      \"jenark\": {\n        \"key_0\": true,\n        \"key_1\": 9206.003082625255,\n        \"key_2\": false\n      },\n      \"rentmanager\": {\n        \"key_0\": \"string\",\n        \"key_1\": true,\n        \"key_2\": true,\n        \"key_3\": false\n      },\n      \"rentvine\": {\n        \"key_0\": 9329,\n        \"key_1\": false,\n        \"key_2\": true,\n        \"key_3\": false\n      }\n    }\n  ],\n  \"count\": 604,\n  \"total_results\": 8243\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79862aa7-d89c-4572-a61b-5f3d490d3a46",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "work_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_date"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_type[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_type[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_created_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_created_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f901d49e-4398-4291-9c4c-4d252edd4b18",
+    "name": "RentCheck REST Account Settings Work Orders V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

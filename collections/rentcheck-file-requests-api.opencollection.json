@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings File Requests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all file requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/fileRequests",
+            "params": [
+              {
+                "name": "filters[status][value]",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated list of status values to filter by\n(e.g. `CREATED|DONE`). When either\n`filters[status][value]` or `filters[status][condition]` is\nsupplied, both are required.\n"
+              },
+              {
+                "name": "filters[status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the status filter. Must be paired with `filters[status][value]` (see above)."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "last_evaluated_hash_key",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for keyset pagination. Pass the value returned by\nthe previous page to fetch the next one.\n"
+              },
+              {
+                "name": "last_evaluated_range_key",
+                "value": "",
+                "type": "query",
+                "description": "Range-key cursor (updated_date timestamp in milliseconds)\nfor keyset pagination.\n"
+              }
+            ]
+          },
+          "docs": "Returns the list of file requests created by the authenticated user, optionally filtered by\nstatus. File requests capture the state of async PDF/ZIP report generation jobs.\n"
+        },
+        {
+          "info": {
+            "name": "Create a file request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/fileRequests",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a file request"
+        },
+        {
+          "info": {
+            "name": "Get a file request by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/fileRequests/:fileRequestId",
+            "params": [
+              {
+                "name": "fileRequestId",
+                "value": "",
+                "type": "path",
+                "description": "File request ID."
+              }
+            ]
+          },
+          "docs": "Returns a single file request. Used by the apps to poll for the completion of long-running\nPDF / ZIP report generation jobs and to retrieve the resulting download URL.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

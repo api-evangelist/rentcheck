@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Maintenance Reports API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a maintenance report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/maintenance_reports",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to create a Maintenance Report."
+        },
+        {
+          "info": {
+            "name": "Delete a maintenance report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/maintenance_reports",
+            "params": [
+              {
+                "name": "id[]",
+                "value": "",
+                "type": "query",
+                "description": "Maintenance Report IDs. Repeat the parameter to send multiple values\n(e.g. `?id[]=abc&id[]=def`).\n"
+              }
+            ]
+          },
+          "docs": "This resource allows you to delete a Maintenance Report."
+        },
+        {
+          "info": {
+            "name": "Get a maintenance report by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/maintenance_reports/:maintenanceReportId",
+            "params": [
+              {
+                "name": "maintenanceReportId",
+                "value": "",
+                "type": "path",
+                "description": "Maintenance Report ID"
+              }
+            ]
+          },
+          "docs": "Get a maintenance report by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

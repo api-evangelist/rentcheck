@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Residents V3 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Residents V3",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all residents (v3)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v3/residents",
+            "params": [
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search value among tenant emails, first and last name, current and future lease property address."
+              },
+              {
+                "name": "filters[active]",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, returns residents with a current and/or a future lease. When `false`, returns residents with a past lease or no lease information. HTTP query strings are always strings, so the value is compared against the literal `'true'` / `'false'`."
+              },
+              {
+                "name": "filters[deleted]",
+                "value": "",
+                "type": "query",
+                "description": "When the literal string `'true'`, deleted residents are included. Any\nother value (including `'false'`, missing, or anything else) is\ntreated as `false`. There is no explicit enum validation, so unknown\nvalues are silently normalised to `false` rather than rejected as 400.\n"
+              },
+              {
+                "name": "filters[emails]",
+                "value": "",
+                "type": "query",
+                "description": "Email(s) to filter residents by. Multiple values should be comma-separated."
+              },
+              {
+                "name": "filters[property_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filters all residents for a specific property."
+              },
+              {
+                "name": "filters[occupancy_status][value]",
+                "value": "",
+                "type": "query",
+                "description": "Occupancy status(es) to filter residents by. Multiple values should be concatenated with a `|`. Allowed individual values are `future`, `past`, and `current`."
+              },
+              {
+                "name": "filters[occupancy_status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the occupancy_status filter. The validator only accepts `any_of`. Note also that `filters[active]` and `filters[occupancy_status]` are mutually exclusive — supplying both is rejected by the request validator."
+              },
+              {
+                "name": "occupancy_status[]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy multi-value occupancy status filter, still accepted. Prefer\n`filters[occupancy_status][value]`.\n"
+              },
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "How many items to be returned for each page."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list in ascending or descending order. Accepted\ncase-insensitively.\n"
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list by a specific property."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of resident digests. V3 returns a trimmed `resident_v3_response_model`\nprojection (basic identity + `primary_occupancy`) and uses the `filters[...]` / `options[...]`\nnested query-param syntax. Used internally by the web and mobile apps.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

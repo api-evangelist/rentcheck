@@ -1,0 +1,4414 @@
+{
+  "item": [
+    {
+      "id": "cd81dffe-4eaf-43ba-acfb-6c602072c52f",
+      "name": "Teams",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "829cd470-777c-4373-9786-5ed392e5cb23",
+          "name": "Accept all team invites",
+          "request": {
+            "name": "Accept all team invites",
+            "description": {
+              "content": "This resource accepts all team invitations for the user that calls it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                "invites",
+                "accept"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64625e4f-4a5a-4158-92a0-5a37655ae8b6",
+              "name": "Returns all invites that were accepted by user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    "invites",
+                    "accept"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"count\": 9362\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76400a41-5ebb-4389-a565-4e13fb2205ae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    "invites",
+                    "accept"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "178fbcdb-e942-49c2-988b-ea929d1b27f8",
+          "name": "Create team invite",
+          "request": {
+            "name": "Create team invite",
+            "description": {
+              "content": "Invite a user to team",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emails\": [\n    \"<email>\"\n  ],\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c52f96b2-9626-40c3-b76f-bcca906176c0",
+              "name": "Returns the updated team info along two lists of users that were and weren't invited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\",\n      \"user_role\": \"admin\",\n      \"users\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"user_name\": \"string\",\n          \"email\": \"user@email.com\",\n          \"role\": \"admin\"\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"user_name\": \"string\",\n          \"email\": \"user@email.com\",\n          \"role\": \"admin\"\n        }\n      ],\n      \"pending_users\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"user@email.com\",\n          \"role\": \"admin\",\n          \"created_at\": \"2022-12-02 14:15:37.925000\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"user@email.com\",\n          \"role\": \"admin\",\n          \"created_at\": \"2022-12-02 14:15:37.925000\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        }\n      ],\n      \"logo\": \"string\"\n    },\n    \"invited\": [\n      \"invited1@email.com\",\n      \"invited2@email.com\"\n    ],\n    \"not_invited\": [\n      \"notinvited1@email.com\",\n      \"notinvited2@email.com\"\n    ],\n    \"new_profiles\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d60e1bdf-6114-43f8-b404-b8901098e8ba",
+              "name": "Bad request — request body validation failed, or the target\nemail resolves to a `System` account. Examples:\n  - `\"data.emails\" is required`\n  - `\"data.emails\" must be an array`\n  - `user type has an invalid value: System`\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.emails\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce805559-97b4-45e3-8cd5-cee269cc4d32",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a1a280a-dd6a-4cc6-b171-c650af030298",
+              "name": "Forbidden — the caller is not permitted to invite for this team, or\nthe underlying subscription is missing/inactive.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"user must be an admin\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8423f8a5-e5fc-431e-8a41-043ca0cc9a33",
+              "name": "Not Found — the caller or the target team could not be resolved.\n`invite not found` is returned when the caller's user record is\nmissing; `team not found` is returned when the target team is missing.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"team not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6e307d-cd62-4122-a29f-c9d1fd24a72a",
+              "name": "Conflict — the caller has more than one active subscription and the\nbusiness rules require exactly one.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emails\": [\n    \"pm1@email.com\",\n    \"pm2@email.com\"\n  ],\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"too many subscriptions\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f7799a6-36f5-4fda-bffa-0fbe88a14b4c",
+          "name": "Get all team invites",
+          "request": {
+            "name": "Get all team invites",
+            "description": {
+              "content": "This resource retrieves information about team invites that have yet not been accepted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd1bd07d-6c9a-41a4-966c-1abedc0dc512",
+              "name": "Returns all invites for a specific team",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"count\": 9362\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a84cc76-01e5-41c5-903f-093194f3a9c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02fd3ca5-3ede-4740-b4b9-00fbceb17a44",
+          "name": "Delete all open invites of a user",
+          "request": {
+            "name": "Delete all open invites of a user",
+            "description": {
+              "content": "Cancels every outstanding (not yet accepted) team invite addressed to the target user. Used by\nadmin / cleanup flows that need to revoke a user's pending invitations across all teams in one\ncall.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "users",
+                ":userId",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) ID of the user whose pending invites should be cancelled."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "988129ce-b843-465f-afdc-76cf9ef5d0f9",
+              "name": "All outstanding invites for the user have been cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be cancelled."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c3b3a55-4e74-40b8-83da-4f724c425dbc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be cancelled."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5be3c9b1-912c-442e-9896-89f9f2039fdf",
+              "name": "Forbidden — the target user is already a member of a team, so their\noutstanding invites cannot be cancelled through this endpoint.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be cancelled."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"user is already part of a team\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75369007-e148-49d4-bdd1-daef2d9912c6",
+              "name": "Not Found — the target user has no cancellable invites, or one of the\ninvites references a team that no longer exists. `invite not found`\nis returned both for the top-level \"no invites for this user\" case\nand for any per-invite failure.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be cancelled."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"invite not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b756517-bb36-440d-910f-882a3b7599d4",
+          "name": "Delete team invite",
+          "request": {
+            "name": "Delete team invite",
+            "description": {
+              "content": "Delete invite sent to user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "invites",
+                ":inviteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inviteId",
+                  "description": "(Required) Invite ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e35c0f34-880a-42d2-835f-eb6ca76f7cb8",
+              "name": "Returns the updated team info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f375944-b513-4471-8087-1033b830d5c2",
+              "name": "Bad request — the invite is not in `sent` state, so it cannot be\nremoved.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"status has an invalid value: accepted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76224d61-d52a-4ce1-b25d-3f73ec3dd339",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d553f6c-90bc-40ef-ad8f-b0682529f785",
+              "name": "Forbidden — the caller is not an admin of the team.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"invalid user role\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63b791af-abcd-4131-ae83-84afd1efdb23",
+              "name": "Not Found — the invite could not be resolved for the caller.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"invite not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7314a037-4f81-4de0-8904-e1673054c1c9",
+          "name": "Update team invite",
+          "request": {
+            "name": "Update team invite",
+            "description": {
+              "content": "Update a team invite that hasn't been accepted yet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "invites",
+                ":inviteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inviteId",
+                  "description": "(Required) Invite ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d858bdf-dbae-4f1a-900d-7eab5a25829f",
+              "name": "Returns the updated team invite.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"email\": \"user@email.com\",\n    \"role\": \"admin\",\n    \"created_at\": \"2022-12-02 14:15:37.925000\",\n    \"created_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "845d5ba1-642f-44c4-abed-f4068cac72b7",
+              "name": "Bad request — the invite is not in `sent` state, so it cannot be\nupdated.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"status has an invalid value: accepted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46263180-1338-46c6-a9f9-5f0383dc3efc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0650383-1966-4c83-afa9-c321c3a2139b",
+              "name": "Not Found — the team or invite could not be resolved for the caller.\n`team not found` is returned when the team cannot be resolved and\n`invite not found` when the invite cannot be resolved.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"invite not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85f6ea69-adf0-4d5e-89f5-1cad01f96468",
+          "name": "Team invite reminder",
+          "request": {
+            "name": "Team invite reminder",
+            "description": {
+              "content": "Sends an email to users that have not yet accepted specified team invite.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "invites",
+                ":inviteId",
+                "reminders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inviteId",
+                  "description": "(Required) Invite ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20d552be-149e-499e-9540-8cef16e70e54",
+              "name": "Returns the invite that was called.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"email\": \"user@email.com\",\n    \"role\": \"admin\",\n    \"created_at\": \"2022-12-02 14:15:37.925000\",\n    \"created_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cef88287-6778-42b2-a72a-fdd32ec457ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fae8c0c-926a-4657-953c-36be46375a5e",
+              "name": "Not Found — `team not found` is returned when the team cannot be\nresolved for the caller, and `invite not found` is returned when the\ninvite id does not resolve, or when it resolves to a different team.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "invites",
+                    ":inviteId",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inviteId",
+                      "description": "(Required) Invite ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"invite not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df70d59f-48c2-4aa6-8ab7-5b51324060cb",
+          "name": "Send reminders for all open invites of a user",
+          "request": {
+            "name": "Send reminders for all open invites of a user",
+            "description": {
+              "content": "Re-sends invite reminders for every outstanding (not yet accepted) team invite addressed to the\ntarget user. Used by admin flows that want to nudge a single invitee about all the teams they\nhave pending invitations for.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "users",
+                ":userId",
+                "invites",
+                "reminders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) ID of the user whose pending invites should be reminded."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a27deb12-d584-4a95-9e70-9c70204e357c",
+              "name": "Returns the list of team invites that were reminded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be reminded."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"email\": \"user@email.com\",\n      \"role\": \"admin\",\n      \"created_at\": \"2022-12-02 14:15:37.925000\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"count\": 9362\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7959c590-88ec-4b57-a149-668fb7b7f95f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be reminded."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa1de5b1-fe05-4b69-bcf5-f58a588aee0b",
+              "name": "Not Found — no team invites addressed to the target user could be\nreminded. `invite not found` is returned when the target user has no\nopen invites, and any invite that has already been claimed/expired\nsurfaces the same error. `team not found` can also occur when the\ninvite's referenced team was deleted.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId",
+                    "invites",
+                    "reminders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose pending invites should be reminded."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"invite not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84aa3467-9062-48f8-81d8-ec188bc1b351",
+          "name": "Delete team member",
+          "request": {
+            "name": "Delete team member",
+            "description": {
+              "content": "Delete member/user from the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "members",
+                ":memberId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "memberId",
+                  "description": "(Required) Member ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d1425ef-5502-4cc2-b142-15856bdb8546",
+              "name": "Returns the updated team info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdc24890-d3e2-495d-a900-df90d770d028",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6341f72-36c3-4438-a469-c0560464d0d0",
+              "name": "Not Found — the requested team or member could not be resolved for\nthe caller.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"member not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cae00ec4-6f8b-4761-a58f-9509337367cf",
+          "name": "Update team member",
+          "request": {
+            "name": "Update team member",
+            "description": {
+              "content": "Update team member information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId",
+                "members",
+                ":memberId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "memberId",
+                  "description": "(Required) Member ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7060879-8fb3-4fc5-9573-ef60ff01c87a",
+              "name": "Returns the updated team info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc0f484f-a463-4ed1-aa2b-ceb434056714",
+              "name": "Bad request — the supplied role / body was rejected by validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.role\\\" must be one of [admin, manager, none]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "693ef8df-0e2c-4576-a061-3ab1115fc703",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "989a49cd-a9ad-41fa-9e53-0fd6e45db7bd",
+              "name": "Not Found — `team not found` or `member not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId",
+                    "members",
+                    ":memberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) Member ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"team not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaab362d-c92f-49c8-bf5b-5c379d4fed2c",
+          "name": "Create a team",
+          "request": {
+            "name": "Create a team",
+            "description": {
+              "content": "Create a team",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"internal_label\": \"<string>\",\n  \"logo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e8f5b51-b17e-4cd4-8497-28fe61badd1b",
+              "name": "Returns the updated team info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85e8f0f6-8432-4718-9706-ba5fddd5d8c7",
+              "name": "Bad request — request body validation failed (for example, `name` or `internal_label` missing or empty), or the caller is in a subscription state that does not allow team creation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "921dbf84-9083-4c7f-9a8a-db0147a47c58",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "145ab9b4-347f-4d5f-9a15-6bd3e47a3d7d",
+          "name": "Get all teams",
+          "request": {
+            "name": "Get all teams",
+            "description": {
+              "content": "This resource allows you to retrieve information about Team entities. Teams are a way to organize groups of users and the properties they manage.\n\nBy default the response excludes the caller's \"All teams\" pseudo-team. Pass `filters[include_all_teams]=true` to include it.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[include_all_teams]",
+                  "value": "false",
+                  "description": "When `true`, include the caller's \"All teams\" pseudo-team in the result."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79f9db92-cfa0-471c-8fc9-c20ce847592e",
+              "name": "Returns all teams",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[include_all_teams]",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\",\n      \"user_role\": \"admin\",\n      \"logo\": \"string\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\",\n      \"user_role\": \"admin\",\n      \"logo\": \"string\"\n    }\n  ],\n  \"count\": 4982,\n  \"total_results\": 4846\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39524d27-4d05-494c-a1c3-2b5d3ef132fe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[include_all_teams]",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81c2c22b-690b-4a4f-a679-dc1555ba4b00",
+          "name": "Delete a team",
+          "request": {
+            "name": "Delete a team",
+            "description": {
+              "content": "Hard-deletes a team. The caller must be an admin of the team. The team cannot be deleted if any\nof the following apply: it is the only team on the subscription, it still contains other\nmembers, it still has properties associated with it, it is the only team referenced by an\ninspection template, or it is currently bound to a Latchel/Rentvine/AppFolio/RentManager\nintegration mapping.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":teamId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "teamId",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c18fadfc-e50c-42d0-924e-05bfc483355f",
+              "name": "Team successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d43e5238-0e8c-4eae-a85c-012fbe851c6e",
+              "name": "Bad request — examples:\n  - `Only admin users can delete teams.`\n  - `You cannot delete '<name>' because every subscription requires at least one team. ...`\n  - `Cannot delete team. Remove all other team members before deleting.`\n  - `This team contains <N> properties that need to be moved before deletion. ...`\n  - `This team cannot be deleted because it's currently the only team that has access to the following inspection template(s): <names>. ...`\n  - `This team is linked to the Latchel integration. Update the integration's team, then try again.`\n  - `This team is linked to the <Rentvine|AppFolio|RentManager> integration. Update the integration's team assignment, then try again.`\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f462421f-9ea4-4f52-a162-dfa6c5efa5c9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a1663a8-35cc-481f-b2a2-e7f09a0df6c7",
+              "name": "Not Found — `team not found` or `subscription not found` (the team is not in any of the caller's subscriptions).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "teamId",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"team not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88ded59d-95a9-4865-a20c-ff55a9ee5fd3",
+          "name": "Get a team by ID",
+          "request": {
+            "name": "Get a team by ID",
+            "description": {
+              "content": "Get a team by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d294ff5b-598c-4c05-9d07-3a57895e3437",
+              "name": "Returns the requested team",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37601d57-fb40-4ee5-9c53-9e0b44267f16",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bf1528b-f0f0-44a0-bf28-fd0bb69edd70",
+              "name": "Not Found — the team does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"team not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d2949ee-14c7-4a97-929a-0ac0a836a26a",
+          "name": "Update team information",
+          "request": {
+            "name": "Update team information",
+            "description": {
+              "content": "Update team information",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "teams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"internal_label\": \"<string>\",\n  \"logo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f3ebf85-696f-41fa-b4da-9719e22f1a30",
+              "name": "Returns the updated team info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"The best company\",\n    \"internal_label\": \"The best company label\",\n    \"user_role\": \"admin\",\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"user_name\": \"string\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\"\n      }\n    ],\n    \"pending_users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"email\": \"user@email.com\",\n        \"role\": \"admin\",\n        \"created_at\": \"2022-12-02 14:15:37.925000\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"logo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4d6d974-abc7-4892-a4a5-aa11048fcc9f",
+              "name": "Bad request — request body validation failed. All string fields are\noptional but must be strings when supplied. Example:\n`\"data.name\" must be a string`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" must be a string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "839f0352-6707-4000-8696-ee30af0b7ecd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e94ec3d1-58eb-4854-99f2-fd3f9220de2e",
+              "name": "Not Found — the requested team could not be resolved for the caller.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "teams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"The best company\",\n  \"internal_label\": \"The best company label\",\n  \"logo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"team not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01cf3eb4-e17c-4c0b-84fc-722a014c0f8d",
+          "name": "Get all Latchel integrations",
+          "request": {
+            "name": "Get all Latchel integrations",
+            "description": {
+              "content": "This resource allows you to retrieve information about Latchel entities for the user that called the endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "latchel",
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd750626-ab76-4cbd-971d-88682481f114",
+              "name": "Returns all Latchel integrations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"api_key\": \"string\",\n      \"company_name\": \"string\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"user_role\": \"admin\",\n        \"logo\": \"string\"\n      }\n    },\n    {\n      \"api_key\": \"string\",\n      \"company_name\": \"string\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"user_role\": \"admin\",\n        \"logo\": \"string\"\n      }\n    }\n  ],\n  \"count\": 1184\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0a068b1-9353-44d5-97f3-9dd72e54f66f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b115f300-c288-4b33-9569-eb933339aa3a",
+          "name": "Integrate Latchel to RentCheck",
+          "request": {
+            "name": "Integrate Latchel to RentCheck",
+            "description": {
+              "content": "This resource allows you to save your Latchel's credentials into a Team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "latchel",
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"team_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2dbcd9f4-d6fa-4f8d-951e-bcb892082c24",
+              "name": "Successful integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7db8e645-a17b-4e32-a085-f3ccca58b17f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"api_key is missing\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30ccd77a-b8ef-4ab3-9c05-5a6899c7f083",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63f2c3f4-6839-4bea-b733-2122e0be64fb",
+          "name": "Delete Latchel integrations",
+          "request": {
+            "name": "Delete Latchel integrations",
+            "description": {
+              "content": "Removes a Latchel API key from one or more teams. The integration is identified by `api_key`\nand `team_ids` are the specific teams the integration should be removed from. Returns the\nteams the Latchel integration was removed from.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "latchel",
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"team_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce75f271-c7e6-4ecb-9e7a-f3df8017e497",
+              "name": "Returns the teams the Latchel integration was removed from.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"teams\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"user_role\": \"admin\",\n        \"logo\": \"string\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"user_role\": \"admin\",\n        \"logo\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "072e4032-b34d-4f98-a77b-cc6d0e0bd4c2",
+              "name": "Bad request — request body validation failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.team_ids\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae44f777-fc0d-4b28-87a2-4a37845086ed",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "latchel",
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"awd30j1894asd098afokasmd8971238asc8ca12c\",\n  \"team_ids\": [\n    \"05fDGZRKp4nVmlmEwjsv\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "13a397df-d3be-4b6a-98e4-5325d71dbcd2",
+    "name": "RentCheck REST Account Settings Teams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

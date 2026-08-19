@@ -1,0 +1,1559 @@
+{
+  "item": [
+    {
+      "id": "801708fc-9821-4d31-a692-b3e0f9676033",
+      "name": "Residents V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ef44f65-7540-44ad-b037-243104cb9a44",
+          "name": "Create a resident",
+          "request": {
+            "name": "Create a resident",
+            "description": {
+              "content": "This resource allows you to create a Resident in RentCheck. Residents are used to provide contact information for inspections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "residents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                "key": "x-app-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organization_id\": \"<string>\",\n  \"phone_numbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"x_id\": \"<string>\",\n    \"x_property_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"error\": \"<string>\",\n    \"upload_response\": [\n      {\n        \"key_0\": 41.22227547302848,\n        \"key_1\": 839\n      },\n      {\n        \"key_0\": 8435.060787725273,\n        \"key_1\": 8794\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e1fdae6-bbd9-4cd3-8fcb-618656184d53",
+              "name": "Returns the created resident",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1970-11-02T07:13:05.518Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 4632.553048850679,\n        \"key_1\": false,\n        \"key_2\": false\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"properties\",\n      \"tenants\"\n    ]\n  },\n  \"user_id\": \"00BRcZPSakXz6w7RYoE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"first_name\": \"Resident Name\",\n    \"last_name\": \"Resident Lastname\",\n    \"phone_numbers\": [\n      \"+17035556390\"\n    ],\n    \"emails\": [\n      \"resident@email.com\"\n    ],\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"user\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\"\n    },\n    \"owner_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"creation_source\": \"zapier\",\n    \"deleted\": false,\n    \"primary_occupancy\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"tenant_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"status\": \"past\",\n      \"tags\": [\n        \"notice\",\n        \"evict\"\n      ],\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"lease_start\": \"2021-01-15 00:00:00\",\n      \"lease_end\": \"2022-01-15 00:00:00\",\n      \"rent\": 100,\n      \"security_deposit\": 1500,\n      \"move_out_date\": \"2022-01-15 00:00:00\",\n      \"move_in_date\": \"2022-01-15 00:00:00\"\n    },\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2024-12-02 14:15:37.925000\",\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"status\": \"success\",\n      \"error\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "538a0323-0ad9-40c8-a598-34bc5369afd4",
+              "name": "Bad request — request body failed validation. The raw message\nidentifies the invalid field, e.g.:\n  - `\"data.first_name\" is required`\n  - `\"data.last_name\" is required`\n  - `\"data.emails\" must contain at least 1 items`\n  - `\"data.emails[0]\" must be a valid email`\n\nInvalid phone numbers are rejected by a custom validator.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1970-11-02T07:13:05.518Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 4632.553048850679,\n        \"key_1\": false,\n        \"key_2\": false\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"properties\",\n      \"tenants\"\n    ]\n  },\n  \"user_id\": \"00BRcZPSakXz6w7RYoE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.first_name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57616a5a-9c86-4527-85ed-994fdb6559c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1970-11-02T07:13:05.518Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 4632.553048850679,\n        \"key_1\": false,\n        \"key_2\": false\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"properties\",\n      \"tenants\"\n    ]\n  },\n  \"user_id\": \"00BRcZPSakXz6w7RYoE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "581ab48e-2979-4bd1-a5cf-247415a5ef09",
+              "name": "Forbidden — the caller is not a member of the requested `organization_id`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1970-11-02T07:13:05.518Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 4632.553048850679,\n        \"key_1\": false,\n        \"key_2\": false\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"properties\",\n      \"tenants\"\n    ]\n  },\n  \"user_id\": \"00BRcZPSakXz6w7RYoE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"invalid organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ba61e95-191d-411f-b251-fd966681b85a",
+              "name": "Not Found — `organization not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional creation-source identifier. Persisted on the resident's\n`creation_source` field. Used as a fallback when\nno `appId` is available on the decoded bearer token.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1970-11-02T07:13:05.518Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 4632.553048850679,\n        \"key_1\": false,\n        \"key_2\": false\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"properties\",\n      \"tenants\"\n    ]\n  },\n  \"user_id\": \"00BRcZPSakXz6w7RYoE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"organization not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47f6f8f0-f347-4388-ae8b-595aebc2d122",
+          "name": "Get all residents",
+          "request": {
+            "name": "Get all residents",
+            "description": {
+              "content": "This resource allows you to list Residents in RentCheck. Supports both the new `filters[...]` / `options[...]` query schema and the legacy `occupancy_status[]` multi-value syntax.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "residents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[search]",
+                  "value": "<string>",
+                  "description": "Search string to match against resident name, email, and phone number."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[deleted]",
+                  "value": "false",
+                  "description": "When `true`, returns soft-deleted residents. Defaults to `false`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[active]",
+                  "value": "<string>",
+                  "description": "When provided, filters residents by whether they currently have an active occupancy."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[emails]",
+                  "value": "<string>",
+                  "description": "Email(s) to filter residents by. Multiple values may be comma-separated — the string is split on `,` and matched by array-overlap. Single-value requests remain a comma-free string."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[property_id]",
+                  "value": "<string>",
+                  "description": "Property ID to filter residents by. Only residents with an occupancy on this property are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[occupancy_status][value]",
+                  "value": "<string>",
+                  "description": "Occupancy status(es) to filter residents by. Multiple values should be concatenated with a `|`. Allowed individual values are `future`, `past`, and `current`. When either `filters[occupancy_status][value]` or `filters[occupancy_status][condition]` is supplied, both are required.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[occupancy_status][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by occupancy status. The validator only accepts `any_of`. Must be paired with `filters[occupancy_status][value]` (see above). Note also that `filters[active]` and `filters[occupancy_status]` are mutually exclusive — supplying both is rejected by the request validator."
+                },
+                {
+                  "disabled": false,
+                  "key": "occupancy_status[]",
+                  "value": "<string>",
+                  "description": "Legacy multi-value occupancy status filter. Prefer `filters[occupancy_status][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "occupancy_status[]",
+                  "value": "<string>",
+                  "description": "Legacy multi-value occupancy status filter. Prefer `filters[occupancy_status][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_size]",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_number]",
+                  "value": "0",
+                  "description": "The page number of the collection. This value is based on the page size."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_by]",
+                  "value": "first_name",
+                  "description": "Sort results by one of the available fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_type]",
+                  "value": "ASC",
+                  "description": "Sort direction. Case-insensitive."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8d6509a-3df0-4eac-9958-455fc6b4a343",
+              "name": "Returns the matching residents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[deleted]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "filters[active]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[emails]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "first_name"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "ASC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"first_name\": \"Resident Name\",\n      \"last_name\": \"Resident Lastname\",\n      \"phone_numbers\": [\n        \"+17035556390\"\n      ],\n      \"emails\": [\n        \"resident@email.com\"\n      ],\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"user\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      },\n      \"owner_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"creation_source\": \"zapier\",\n      \"deleted\": true,\n      \"primary_occupancy\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"tenant_id\": \"00BRcZPSakXz6w7RYoE\",\n        \"status\": \"current\",\n        \"tags\": [\n          \"notice\",\n          \"notice\"\n        ],\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zip_code\": \"70130\",\n          \"address_2\": \"Apt. 4B\",\n          \"region\": \"Orleans\"\n        },\n        \"lease_start\": \"2021-01-15 00:00:00\",\n        \"lease_end\": \"2022-01-15 00:00:00\",\n        \"rent\": 100,\n        \"security_deposit\": 1500,\n        \"move_out_date\": \"2022-01-15 00:00:00\",\n        \"move_in_date\": \"2022-01-15 00:00:00\"\n      },\n      \"sync_data\": {\n        \"vendor\": \"rentmanager\",\n        \"last_sync\": \"2024-12-02 14:15:37.925000\",\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"status\": \"success\",\n        \"error\": \"string\"\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"first_name\": \"Resident Name\",\n      \"last_name\": \"Resident Lastname\",\n      \"phone_numbers\": [\n        \"+17035556390\"\n      ],\n      \"emails\": [\n        \"resident@email.com\"\n      ],\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"user\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\"\n      },\n      \"owner_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"creation_source\": \"zapier\",\n      \"deleted\": true,\n      \"primary_occupancy\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"tenant_id\": \"00BRcZPSakXz6w7RYoE\",\n        \"status\": \"current\",\n        \"tags\": [\n          \"notice\",\n          \"evict\"\n        ],\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zip_code\": \"70130\",\n          \"address_2\": \"Apt. 4B\",\n          \"region\": \"Orleans\"\n        },\n        \"lease_start\": \"2021-01-15 00:00:00\",\n        \"lease_end\": \"2022-01-15 00:00:00\",\n        \"rent\": 100,\n        \"security_deposit\": 1500,\n        \"move_out_date\": \"2022-01-15 00:00:00\",\n        \"move_in_date\": \"2022-01-15 00:00:00\"\n      },\n      \"sync_data\": {\n        \"vendor\": \"rentmanager\",\n        \"last_sync\": \"2024-12-02 14:15:37.925000\",\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"status\": \"scheduled\",\n        \"error\": \"string\"\n      }\n    }\n  ],\n  \"count\": 7586,\n  \"total_results\": 6018\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d41e707a-c75d-4fbe-b4aa-357af61fced2",
+              "name": "The query parameters failed validation. Common causes: `filters[active]` and\n`filters[occupancy_status]` supplied together (rejected as mutually exclusive), an\n`options[sort][sort_by]` value outside the enum, or a malformed\n`filters[occupancy_status][value]` string.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[deleted]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "filters[active]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[emails]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "first_name"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "ASC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"options.sort.sort_by\\\" must be one of [first_name, last_name, emails, property_address, lease_start, lease_end, status]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a926388-474a-4c24-8e2a-e61b273e155e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[deleted]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "filters[active]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[emails]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[occupancy_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "occupancy_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "first_name"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "ASC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34246fa6-d1ac-432d-9f82-e2822b1ec095",
+          "name": "Delete resident",
+          "request": {
+            "name": "Delete resident",
+            "description": {
+              "content": "Delete selected resident by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "residents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resident ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab415162-189e-41b2-a959-51a1b4e97f42",
+              "name": "Successful deletion of resident",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ae4d4cd-f2d5-4f95-b564-b785c0b30f60",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3733a10-c49a-47e0-8b68-e0ddeca4debe",
+              "name": "Not Found — `resident not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"resident not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e30e5b06-bbc6-4bc4-a0ba-3d3965c0e082",
+          "name": "Get a resident by ID",
+          "request": {
+            "name": "Get a resident by ID",
+            "description": {
+              "content": "This resource allows you to get a Resident in RentCheck. Residents are used to provide contact information for inspections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "residents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resident ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c75f90fa-f977-4a3c-8aa0-6e52b0cf9099",
+              "name": "Returns the requested resident",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"first_name\": \"Resident Name\",\n    \"last_name\": \"Resident Lastname\",\n    \"phone_numbers\": [\n      \"+17035556390\"\n    ],\n    \"emails\": [\n      \"resident@email.com\"\n    ],\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"user\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\"\n    },\n    \"owner_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"creation_source\": \"zapier\",\n    \"deleted\": false,\n    \"primary_occupancy\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"tenant_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"status\": \"past\",\n      \"tags\": [\n        \"notice\",\n        \"evict\"\n      ],\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"lease_start\": \"2021-01-15 00:00:00\",\n      \"lease_end\": \"2022-01-15 00:00:00\",\n      \"rent\": 100,\n      \"security_deposit\": 1500,\n      \"move_out_date\": \"2022-01-15 00:00:00\",\n      \"move_in_date\": \"2022-01-15 00:00:00\"\n    },\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2024-12-02 14:15:37.925000\",\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"status\": \"success\",\n      \"error\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f724984b-8f2a-4a88-9126-e537647a6caa",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a755bb44-97b7-46b9-8493-e99b70c1bc27",
+              "name": "Not Found — `resident not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"resident not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63bbc471-fb46-4e12-808c-3623a4522045",
+          "name": "Update a resident",
+          "request": {
+            "name": "Update a resident",
+            "description": {
+              "content": "This resource allows you to update a Resident in RentCheck. Residents are used to provide contact information for inspections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "residents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resident ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"emails\": [\n    \"<string>\"\n  ],\n  \"phone_numbers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"x_id\": \"<string>\",\n    \"x_property_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"error\": \"<string>\",\n    \"upload_response\": [\n      {\n        \"key_0\": 3979,\n        \"key_1\": 2425,\n        \"key_2\": \"string\"\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": 5483.6144670534895\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca03481e-ec8c-4831-a811-f2ff0d2cb5ad",
+              "name": "Returns the updated resident",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1964-10-12T20:35:56.372Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"scheduled\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 9864\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"inspections\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"first_name\": \"Resident Name\",\n    \"last_name\": \"Resident Lastname\",\n    \"phone_numbers\": [\n      \"+17035556390\"\n    ],\n    \"emails\": [\n      \"resident@email.com\"\n    ],\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"user\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\"\n    },\n    \"owner_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"creation_source\": \"zapier\",\n    \"deleted\": false,\n    \"primary_occupancy\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"tenant_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"status\": \"past\",\n      \"tags\": [\n        \"notice\",\n        \"evict\"\n      ],\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"lease_start\": \"2021-01-15 00:00:00\",\n      \"lease_end\": \"2022-01-15 00:00:00\",\n      \"rent\": 100,\n      \"security_deposit\": 1500,\n      \"move_out_date\": \"2022-01-15 00:00:00\",\n      \"move_in_date\": \"2022-01-15 00:00:00\"\n    },\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2024-12-02 14:15:37.925000\",\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"status\": \"success\",\n      \"error\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3407966c-2c6a-4a86-b681-260e8f6b8c69",
+              "name": "Bad request — request body failed validation. All body fields are optional;\nthe raw message identifies the invalid field, e.g.\n`\"data.emails\" must contain at least 1 items` or\n`\"data.emails[0]\" must be a valid email`. Invalid phone numbers are rejected by a\ncustom validator.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1964-10-12T20:35:56.372Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"scheduled\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 9864\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"inspections\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.emails[0]\\\" must be a valid email\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5925bb86-ddc2-430e-b530-a028faa9b42b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1964-10-12T20:35:56.372Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"scheduled\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 9864\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"inspections\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a4cf150-87bb-4608-a75a-279257d5281d",
+              "name": "Forbidden — the caller is not a member of the requested `organization_id`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1964-10-12T20:35:56.372Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"scheduled\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 9864\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"inspections\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"invalid organization\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f32b28ca-e345-493f-a555-7a9f3c216ad6",
+              "name": "Not Found — `resident not found` or `organization not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "residents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resident ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"00BRcZPSakXz6w7RYoE\",\n  \"first_name\": \"Resident Name\",\n  \"last_name\": \"Resident Lastname\",\n  \"emails\": [\n    \"resident@email.com\"\n  ],\n  \"phone_numbers\": [\n    \"+17035556390\"\n  ],\n  \"rentvine_sync\": {\n    \"last_sync\": \"1964-10-12T20:35:56.372Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"scheduled\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 9864\n      },\n      {\n        \"key_0\": true,\n        \"key_1\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"inspections\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"resident not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2bfd98d7-2ad4-444b-bf60-0a8aa86efdbc",
+    "name": "RentCheck REST Account Settings Residents V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1433 @@
+{
+  "item": [
+    {
+      "id": "3ae118e6-7a9c-4b97-9c88-58105805bbef",
+      "name": "Permission Groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45237d35-1fd1-4aeb-80c5-643f97c606a7",
+          "name": "Create permission group",
+          "request": {
+            "name": "Create permission group",
+            "description": {
+              "content": "This resource allows you to create a Permission Group in RentCheck.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "permission-groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c91cf70-ca89-40cc-a6f0-82bffa3e01bd",
+              "name": "Returns the created permission group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 201,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"subscription_id\": \"string\",\n    \"inspection_templates\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      }\n    ],\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Property Manager\",\n        \"user_type\": \"Property Manager\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\",\n        \"user_type\": \"Property Manager\"\n      }\n    ],\n    \"allow_billing_plan_editing\": false,\n    \"allow_automation_editing\": true,\n    \"allow_notifications_preferences_editing\": false,\n    \"allow_inspection_messaging_editing\": true,\n    \"allow_ai_manual_scan\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9756a93-fab9-4b88-95f0-fcfe62202ed5",
+              "name": "Bad request — request body validation failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbe428a1-589a-4748-ac0e-7a11fbc8381d",
+              "name": "Unauthorized — either a standard auth-token failure, or the caller's\nrole does not allow creating permission groups. When the role is\ninsufficient, the request surfaces as 401 with the error string below.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to create permission group\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "146c0ecf-ea0b-4b21-be8a-163b8f47a403",
+              "name": "Not Found — `subscription not found` (caller has no active\nsubscription), `inspection template not found (<id>)`, or\n`user not found (<id>)` when one of the supplied `user_ids` /\n`inspection_template_ids` does not resolve.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"subscription not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4de1f74-529f-4815-a719-ae2725483ef7",
+              "name": "Conflict — a permission group with the requested `name` already exists\non the caller's subscription (names are unique per subscription).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"A permission group with this name already exists on the subscription\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ca67109-54b0-4bc5-9b7e-227ecf1e34da",
+          "name": "Delete permission groups",
+          "request": {
+            "name": "Delete permission groups",
+            "description": {
+              "content": "Bulk-delete permission groups belonging to the caller's subscription. Group ids are passed in the\nrequest body (not the URL); at least one permission group must remain on the subscription after\nthe operation, so attempting to delete every remaining group is rejected with a 403.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "permission-groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d2a6831-9fa5-439a-a4c2-aaaf3c615bf3",
+              "name": "Successful deletion of permission groups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec7728f4-dfc7-4598-a9bb-83da24b9c5df",
+              "name": "Bad request — validation rejected the body. `data.ids` must be a\nnon-empty string array, so both a missing field and an empty array\nsurface here.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.ids\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9201e0e6-d9be-4d93-b1ba-6a89e0368a80",
+              "name": "Unauthorized — either a standard auth-token failure, or the caller's\nrole does not allow deleting permission groups.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to delete permission group\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ca38fe4-efbb-41c5-bb41-10343a5ff944",
+              "name": "Forbidden — the delete would leave the subscription with no remaining permission groups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"At least one permission group must remain on the subscription\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17e75098-cf6c-4369-870c-835544a96c91",
+              "name": "Not Found — `subscription not found`, or `permission group not found (<id>)`.\nThe permission-group message includes the offending id in parentheses,\ni.e. `<name> not found (<id>)`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"permission group not found (abc123)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e054452-bd31-4463-b310-1c2be885ff91",
+          "name": "Get all permission groups",
+          "request": {
+            "name": "Get all permission groups",
+            "description": {
+              "content": "This resource fetches all Permission Groups associated with the user's subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "permission-groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[search]",
+                  "value": "<string>",
+                  "description": "Search by permission group name or id."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[user_id]",
+                  "value": "<string>",
+                  "description": "Restrict results to permission groups that include the given user id."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_size]",
+                  "value": "20",
+                  "description": "How many items to be returned for each page."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_number]",
+                  "value": "0",
+                  "description": "Page number (zero-indexed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_type]",
+                  "value": "ASC",
+                  "description": "Sort list in ascending or descending order."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_by]",
+                  "value": "name",
+                  "description": "Sort list by a specific property."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3315d872-7ddb-4983-b8fd-80ed30c1fa9e",
+              "name": "Returns all permission groups",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"user_count\": 4819.991922018757,\n      \"allow_billing_plan_editing\": true,\n      \"allow_automation_editing\": true,\n      \"allow_notifications_preferences_editing\": false,\n      \"allow_inspection_messaging_editing\": true,\n      \"allow_ai_manual_scan\": false\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"user_count\": 3297.248011831728,\n      \"allow_billing_plan_editing\": false,\n      \"allow_automation_editing\": false,\n      \"allow_notifications_preferences_editing\": false,\n      \"allow_inspection_messaging_editing\": false,\n      \"allow_ai_manual_scan\": true\n    }\n  ],\n  \"count\": 1833,\n  \"total_results\": 5088\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "363b81b4-3bab-439d-a140-3fd5270014ad",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "name"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2dec80e0-5bc7-4e3a-bd3a-25a593a5b252",
+          "name": "Get permission group by ID",
+          "request": {
+            "name": "Get permission group by ID",
+            "description": {
+              "content": "This resource allows you to get a Permission Group in RentCheck.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "permission-groups",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Permission group ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5f35db7-cb5b-4899-9052-b59f7b9c8dc1",
+              "name": "Returns the requested permission group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"subscription_id\": \"string\",\n    \"inspection_templates\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      }\n    ],\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Renter\",\n        \"user_type\": \"Property Manager\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"System\",\n        \"user_type\": \"Property Manager\"\n      }\n    ],\n    \"allow_billing_plan_editing\": false,\n    \"allow_automation_editing\": true,\n    \"allow_notifications_preferences_editing\": true,\n    \"allow_inspection_messaging_editing\": false,\n    \"allow_ai_manual_scan\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae1f7a11-6055-41a9-ba26-aa80c9f61d44",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6da4fe12-ee0c-4bbe-b8be-c8d097f55f98",
+              "name": "Not Found — `subscription not found` (when the caller has no subscription) or `permission group not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"permission group not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb5a025c-cb8e-48dd-9c6d-016a0173a585",
+          "name": "Update permission group",
+          "request": {
+            "name": "Update permission group",
+            "description": {
+              "content": "This resource allows you to update a Permission Group in RentCheck.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "permission-groups",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Permission group ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a667d46e-a38a-4d53-a814-6f634a645cd8",
+              "name": "Returns the updated permission group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"subscription_id\": \"string\",\n    \"inspection_templates\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      }\n    ],\n    \"users\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Renter\",\n        \"user_type\": \"Property Manager\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"System\",\n        \"user_type\": \"Property Manager\"\n      }\n    ],\n    \"allow_billing_plan_editing\": false,\n    \"allow_automation_editing\": true,\n    \"allow_notifications_preferences_editing\": true,\n    \"allow_inspection_messaging_editing\": false,\n    \"allow_ai_manual_scan\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21f59536-4a16-4e7f-a7c1-8d7605f2c9a5",
+              "name": "Bad request — validation rejected the request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ff96b8e-be1a-4554-a63c-436ad4fdd7bb",
+              "name": "Unauthorized — either a standard auth-token failure, or the caller's\nrole does not allow updating permission groups. When the role is\ninsufficient, the request surfaces as 401 with the error string below.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to update permission group\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18f26756-d84f-4cab-9642-a0e820221dc1",
+              "name": "Not Found — `subscription not found`, `permission group not found`,\n`user not found (<id>)`, or `inspection template not found (<id>)`.\nThe `user` and `inspection template` messages include the offending\nid in parentheses, i.e. `<name> not found (<id>)`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"user not found (abc123)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d953515a-a501-4171-a868-b75dc03d6bcd",
+              "name": "Conflict — a different permission group already owns the requested\n`name` on the caller's subscription (names are unique per\nsubscription). Renaming to the current name is not a conflict.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "permission-groups",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Permission group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_billing_plan_editing\": \"<boolean>\",\n  \"allow_automation_editing\": \"<boolean>\",\n  \"allow_notifications_preferences_editing\": \"<boolean>\",\n  \"allow_inspection_messaging_editing\": \"<boolean>\",\n  \"allow_ai_manual_scan\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"A permission group with this name already exists on the subscription\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da4e408d-9f7b-42df-96e2-493b06b0fae0",
+    "name": "RentCheck REST Account Settings Permission Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Permission Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Permission Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all permission groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/permission-groups",
+            "params": [
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search by permission group name or id."
+              },
+              {
+                "name": "filters[user_id]",
+                "value": "",
+                "type": "query",
+                "description": "Restrict results to permission groups that include the given user id."
+              },
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "How many items to be returned for each page."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number (zero-indexed)."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list in ascending or descending order."
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list by a specific property."
+              }
+            ]
+          },
+          "docs": "This resource fetches all Permission Groups associated with the user's subscription."
+        },
+        {
+          "info": {
+            "name": "Create permission group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/permission-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to create a Permission Group in RentCheck."
+        },
+        {
+          "info": {
+            "name": "Delete permission groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/permission-groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk-delete permission groups belonging to the caller's subscription. Group ids are passed in the\nrequest body (not the URL); at least one permission group must remain on the subscription after\nthe operation, so attempting to delete every remaining group is rejected with a 403.\n"
+        },
+        {
+          "info": {
+            "name": "Get permission group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/permission-groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Permission group ID"
+              }
+            ]
+          },
+          "docs": "This resource allows you to get a Permission Group in RentCheck."
+        },
+        {
+          "info": {
+            "name": "Update permission group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/permission-groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Permission group ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to update a Permission Group in RentCheck."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

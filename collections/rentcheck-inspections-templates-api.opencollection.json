@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Inspections Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inspections Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all inspection templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates",
+            "params": [
+              {
+                "name": "include_unavailable",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, also include templates that have no permission groups shared with the caller (which would otherwise be excluded as unavailable)."
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, include templates that have been soft-deleted."
+              },
+              {
+                "name": "active_only",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, only return templates that have been used to create at least one inspection."
+              },
+              {
+                "name": "published_only",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, only return templates marked `published`."
+              },
+              {
+                "name": "exclude_rc_templates",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, exclude RentCheck-managed templates."
+              },
+              {
+                "name": "resident_templates_only",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, only return templates intended for resident self-perform inspections."
+              },
+              {
+                "name": "validate_pro_templates",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, run subscription/permission validation against pro templates and surface only the ones the caller can use."
+              },
+              {
+                "name": "property_types[]",
+                "value": "",
+                "type": "query",
+                "description": "Optional list of property types to restrict templates to."
+              }
+            ]
+          },
+          "docs": "Returns the list of inspection templates available to the caller. The optional boolean\n`include_*` / `*_only` filters (passed as the strings `true`/`false`) and the multi-value\n`property_types[]` filter narrow the result set. Templates that have no permission groups\nshared with the caller are filtered out unless `include_unavailable=true`.\n"
+        },
+        {
+          "info": {
+            "name": "Create an inspection template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a user inspection template. `subscription_id` is always derived\nfrom the caller (never accepted from the client), and\n`is_rc_template` / `is_published` / `unpublished_sub_ids` are stamped\nserver-side. `team_ids` must be a non-empty subset of the caller's\norganizations. The supplied `permission_group_ids` are wired to the new\ntemplate, and the created template is returned in the same shape as\n`GET /v1/inspection-templates/{inspectionTemplateId}`.\n"
+        },
+        {
+          "info": {
+            "name": "Get an inspection template by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates/:inspectionTemplateId",
+            "params": [
+              {
+                "name": "inspectionTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection Template ID"
+              }
+            ]
+          },
+          "docs": "Get an inspection template by ID"
+        },
+        {
+          "info": {
+            "name": "Update an inspection template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates/:inspectionTemplateId",
+            "params": [
+              {
+                "name": "inspectionTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection Template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a whitelist of editable inspection-template fields\n(`is_published`, `sections`, `name`, `internal_label`, `description`,\n`team_ids`, `property_type`, `is_fast_track_enabled`, `template_type`,\n`contact_info`, `signature_acknowledgement`). All fields are optional; only the provided ones are\nupdated. `id`, `subscription_id` and `is_rc_template` are immutable and\nstripped server-side. When `team_ids` is provided it must be a non-empty\nsubset of the caller's organizations. When the template is"
+        },
+        {
+          "info": {
+            "name": "Delete an inspection template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates/:inspectionTemplateId",
+            "params": [
+              {
+                "name": "inspectionTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection Template ID"
+              }
+            ]
+          },
+          "docs": "Delete an inspection template. The server decides the outcome: when no\ninspection references the template it is permanently removed (the\ndocument itself and its permission-group references); when inspections\nreference it the template is archived (soft delete) instead, preserving\nhistorical inspections. Email customizations tied to the template are\nremoved in both outcomes. When the template is referenced by an active\nautomation that prevents the delete, the response carries\n`status: error` with "
+        },
+        {
+          "info": {
+            "name": "Edit automation flags on an inspection template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates/:inspectionTemplateId/automations",
+            "params": [
+              {
+                "name": "inspectionTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection Template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Toggle automation flags on an inspection template (currently\n`is_fast_track_enabled`). Returns the updated template.\n"
+        },
+        {
+          "info": {
+            "name": "Replace the permission groups attached to an inspection template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspection-templates/:inspectionTemplateId/permission-groups",
+            "params": [
+              {
+                "name": "inspectionTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection Template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace the set of permission groups that govern access to the\ninspection template. Returns the updated template.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

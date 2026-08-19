@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Dashboard API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dashboard",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get dashboard data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/dashboard",
+            "params": [
+              {
+                "name": "date_range_start",
+                "value": "",
+                "type": "query",
+                "description": "Initial value to filter stats by inspection creation date."
+              },
+              {
+                "name": "date_range_end",
+                "value": "",
+                "type": "query",
+                "description": "Final value to filter stats by inspection creation date."
+              },
+              {
+                "name": "property_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by property type. The value is accepted\ncase-insensitively, so `building` / `unit` / `community` are also\naccepted.\n"
+              },
+              {
+                "name": "property_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of property ids to filter stats by."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of team ids to filter stats by."
+              },
+              {
+                "name": "inspection_type[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of inspection types to filter stats by."
+              }
+            ]
+          },
+          "docs": "Get all dashboard data related to stats and to do list"
+        },
+        {
+          "info": {
+            "name": "Get dashboard resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/dashboard/:todoItem",
+            "params": [
+              {
+                "name": "todoItem",
+                "value": "",
+                "type": "path",
+                "description": "Resource name"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "Page number (zero-indexed)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Attribute to sort by"
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (ascending or descending)"
+              }
+            ]
+          },
+          "docs": "Get a dashboard resource based on the passed identifier"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

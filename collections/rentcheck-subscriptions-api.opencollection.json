@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Subscriptions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a free trial subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions/trial",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a free trial subscription for the caller. Reads the `x-app-id` header to determine which\nChargebee site / app the trial should be created in.\n"
+        },
+        {
+          "info": {
+            "name": "Get subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions/me"
+          },
+          "docs": "Returns the subscription associated with the authenticated user. Used by the web and mobile apps\nto render plan / billing information for the logged-in user.\n"
+        },
+        {
+          "info": {
+            "name": "Get a download URL for an invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions/invoices/:invoiceId/get-download-url",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "Chargebee invoice id."
+              }
+            ]
+          },
+          "docs": "Returns a short-lived URL that can be used to download the PDF for the supplied Chargebee invoice.\nThe invoice must belong to the caller's subscription.\n"
+        },
+        {
+          "info": {
+            "name": "Get invoices for the caller's subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions/invoices"
+          },
+          "docs": "Lists Chargebee invoices associated with the caller's subscription. Returns the curated subset of\nChargebee invoice fields surfaced by the web app; refer to Chargebee's API docs for the full set.\n"
+        },
+        {
+          "info": {
+            "name": "Request a new plan / trial for the caller's subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions/me/requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits an internal request for sales / support to switch the caller's subscription to the\nsupplied Chargebee plan. Optional `note` is forwarded to the team that fulfills the request.\n"
+        },
+        {
+          "info": {
+            "name": "Update the caller's subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the Chargebee plan and/or addons on the caller's subscription. Supply only the keys you\nwant to change; both `plan` and `addons` are optional. Returns the updated subscription.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

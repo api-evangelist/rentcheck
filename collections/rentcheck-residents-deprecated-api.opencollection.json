@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Residents (deprecated) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Residents (deprecated)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a resident (v1, deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/residents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a v1 resident document. Prefer `POST /v2/residents`, which uses the richer\ntenant model and a structured request body. The v1 request uses the resident shape\n`first_name`, `last_name`, `emails`, and `current_property_id` (see\n`resident_create_request_model`).\n"
+        },
+        {
+          "info": {
+            "name": "Get a resident by ID (v1, deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/residents/:residentId",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ]
+          },
+          "docs": "Returns a single v1 resident by id. Prefer the v2 (`/v2/residents/{id}`) and v3\n(`/v3/residents`) endpoints, which return the richer tenant + occupancies model.\n"
+        },
+        {
+          "info": {
+            "name": "Update a resident (v1, deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/residents/:residentId",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a v1 resident document. Prefer `PUT /v2/residents/{id}` for new integrations.\n"
+        },
+        {
+          "info": {
+            "name": "Create a resident from a Zapier trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/zapier/residents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Zapier-flavoured entry point for the v1 resident create flow. The Zapier\nrequest body carries a single flat resident payload; the property is\nresolved by (`address` + `postal_code`) within the caller's user +\norganizations and the request is then delegated to the v1 resident\ncreate flow. The response payload mirrors the classic\n`resident_response_model`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

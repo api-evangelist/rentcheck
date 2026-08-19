@@ -1,0 +1,736 @@
+{
+  "item": [
+    {
+      "id": "8bc8ae37-4cd3-4091-b4d1-121409cd9781",
+      "name": "File Requests",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b3c7afc9-d30f-4ec1-8efc-6b91ccceb652",
+          "name": "Create a file request",
+          "request": {
+            "name": "Create a file request",
+            "description": {
+              "content": "Create a file request",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "fileRequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional caller application identifier. When set, the value is persisted as `app_id` on the file request. Not validated further — accepted as any string.\n",
+                "key": "x-app-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_type\": \"<string>\",\n  \"export_type\": \"<string>\",\n  \"document_id\": \"<string>\",\n  \"dont_notify\": \"<boolean>\",\n  \"throttled\": \"<boolean>\",\n  \"filters\": {\n    \"send_to\": [\n      \"<email>\",\n      \"<email>\"\n    ],\n    \"note\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd110ee8-c596-4ef6-81f3-aa404ede0674",
+              "name": "Returns the created file request ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional caller application identifier. When set, the value is persisted as `app_id` on the file request. Not validated further — accepted as any string.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type\": \"INSPECTION_REPORT\",\n  \"export_type\": \"PDF\",\n  \"document_id\": \"fbb2fcf6-4bf5-48b5-9283-4d284a11d317\",\n  \"dont_notify\": true,\n  \"throttled\": \"<boolean>\",\n  \"filters\": {\n    \"send_to\": [\n      \"<email>\",\n      \"<email>\"\n    ],\n    \"note\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 201,\n  \"data\": {\n    \"fileRequestId\": \"fbb2fcf6-4bf5-48b5-9283-4d284a11d317\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e548deb-6d08-40f9-9961-a2a07966e073",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional caller application identifier. When set, the value is persisted as `app_id` on the file request. Not validated further — accepted as any string.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type\": \"INSPECTION_REPORT\",\n  \"export_type\": \"PDF\",\n  \"document_id\": \"fbb2fcf6-4bf5-48b5-9283-4d284a11d317\",\n  \"dont_notify\": true,\n  \"throttled\": \"<boolean>\",\n  \"filters\": {\n    \"send_to\": [\n      \"<email>\",\n      \"<email>\"\n    ],\n    \"note\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"document_id is missing\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04b3472e-59d0-46ee-bb1d-7c198b7eba74",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional caller application identifier. When set, the value is persisted as `app_id` on the file request. Not validated further — accepted as any string.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_type\": \"INSPECTION_REPORT\",\n  \"export_type\": \"PDF\",\n  \"document_id\": \"fbb2fcf6-4bf5-48b5-9283-4d284a11d317\",\n  \"dont_notify\": true,\n  \"throttled\": \"<boolean>\",\n  \"filters\": {\n    \"send_to\": [\n      \"<email>\",\n      \"<email>\"\n    ],\n    \"note\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69745ba2-5107-4012-b6d5-6850b96d824f",
+          "name": "Get all file requests",
+          "request": {
+            "name": "Get all file requests",
+            "description": {
+              "content": "Returns the list of file requests created by the authenticated user, optionally filtered by\nstatus. File requests capture the state of async PDF/ZIP report generation jobs.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "fileRequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[status][value]",
+                  "value": "<string>",
+                  "description": "Pipe-separated list of status values to filter by\n(e.g. `CREATED|DONE`). When either\n`filters[status][value]` or `filters[status][condition]` is\nsupplied, both are required.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[status][condition]",
+                  "value": "<string>",
+                  "description": "Condition to apply to the status filter. Must be paired with `filters[status][value]` (see above)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_hash_key",
+                  "value": "<string>",
+                  "description": "Cursor for keyset pagination. Pass the value returned by\nthe previous page to fetch the next one.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_range_key",
+                  "value": "<long>",
+                  "description": "Range-key cursor (updated_date timestamp in milliseconds)\nfor keyset pagination.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e5b9fab-d827-41dd-801e-9871f2a28501",
+              "name": "Returns the paginated list of file requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "last_evaluated_hash_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_evaluated_range_key",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"data\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"document_id\": \"00BRcZPSakXz6w7RYoE\",\n        \"document_type\": \"INSPECTION_REPORT\",\n        \"export_type\": \"PDF\",\n        \"status\": \"DONE\",\n        \"created_date\": \"1985-08-13T07:50:50.888Z\",\n        \"updated_date\": \"1949-05-03T13:24:59.793Z\",\n        \"error_message\": \"string\",\n        \"file_location\": \"https://zKpUMJoZZuAaOxfJvOWyu.sqgKyXBQK.OdA-3WhUK6j2,DS5J3Ua7+kfhBj,\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"document_id\": \"00BRcZPSakXz6w7RYoE\",\n        \"document_type\": \"INSPECTION_REPORT\",\n        \"export_type\": \"PDF\",\n        \"status\": \"DONE\",\n        \"created_date\": \"2022-10-02T16:14:47.937Z\",\n        \"updated_date\": \"1970-03-16T14:30:16.706Z\",\n        \"error_message\": \"string\",\n        \"file_location\": \"https://SJQfaWDasxMDgz.tqqGhD82,bWmIQc.aJlO,2u7FhdLszF\"\n      }\n    ],\n    \"lastEvaluatedKey\": {\n      \"last_evaluated_hash_key\": \"string\",\n      \"last_evaluated_range_key\": 8568\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57b66a09-bc11-46fe-a1e6-a029964366d4",
+              "name": "The query parameters failed validation. Common causes: an unknown\n`filters[status][condition]` value, a malformed `filters[status][value]`\nstring, or an empty status array.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "last_evaluated_hash_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_evaluated_range_key",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"filters.status.condition\\\" must be one of [any_of, none_of]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bff5e4ce-0051-4f5c-a9af-5c4b356627f4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "last_evaluated_hash_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_evaluated_range_key",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70367539-e437-49b8-9354-f958808c8e82",
+          "name": "Get a file request by ID",
+          "request": {
+            "name": "Get a file request by ID",
+            "description": {
+              "content": "Returns a single file request. Used by the apps to poll for the completion of long-running\nPDF / ZIP report generation jobs and to retrieve the resulting download URL.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "fileRequests",
+                ":fileRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fileRequestId",
+                  "description": "(Required) File request ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e47e2caa-54bc-4b58-94d2-9716397f48fd",
+              "name": "Returns the raw stored file request document for the requested\nfile request. Note: unlike `GET /v1/fileRequests` (which returns a\nprojected shape), this endpoint returns the underlying entity\nunchanged — dates are epoch-millisecond numbers and additional\npersisted fields (`user_id`, `org_id`, `file_name`, `dont_notify`,\n`filters`, `params`) are echoed back.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests",
+                    ":fileRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fileRequestId",
+                      "description": "(Required) File request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"document_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"document_type\": \"INSPECTION_REPORT\",\n    \"export_type\": \"PDF\",\n    \"user_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"org_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"status\": \"DONE\",\n    \"created_date\": 6220,\n    \"updated_date\": 427,\n    \"error_message\": \"string\",\n    \"file_name\": \"string\",\n    \"file_location\": \"https://CWpKWUqXaOfBOVgVm.lsiiFD8eltk,bIy\",\n    \"dont_notify\": false,\n    \"filters\": {\n      \"key_0\": \"string\"\n    },\n    \"params\": {\n      \"send_to\": [\n        \"PgZA0WxjkUuY@ybDQgeuSlLeQGxaHotsZckTeOwb.rc\",\n        \"64BYQ6EPko@PyFYeeeztMABkt.tyl\"\n      ],\n      \"note\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c826f461-fbf9-4031-8c60-46be7f36fe04",
+              "name": "Bad request — the requested file request does not exist or is not\nowned by the authenticated user. The handler intentionally surfaces\nthis case as 400 (not 404) to avoid leaking the existence of\nanother user's file request.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests",
+                    ":fileRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fileRequestId",
+                      "description": "(Required) File request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"id has an invalid value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f318ac3b-406a-419f-bbc5-965f595bba26",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fileRequests",
+                    ":fileRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fileRequestId",
+                      "description": "(Required) File request ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8265c611-aa4c-4180-8a82-f53e6b8ce58b",
+    "name": "RentCheck REST Account Settings File Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

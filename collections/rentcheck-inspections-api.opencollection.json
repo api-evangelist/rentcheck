@@ -1,0 +1,894 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Inspections API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inspections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all events for an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/events",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Returns the timeline of events recorded against an inspection (status\nchanges, reminders, signature requests, reviewer activity, etc.).\n\nThe caller must already have access to the inspection — the same access\ncheck used by `GET /v1/inspections/{inspectionId}` runs first and\nsurfaces the standard 404 / permission errors.\n"
+        },
+        {
+          "info": {
+            "name": "Record an event against an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/events",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Appends a single event to an inspection's timeline. Used by internal\nsurfaces (web/mobile) to record activity such as reminder sends,\nsignature requests, reviewer notes, etc.\n\nThe request body accepts every inspection event type except\n`inspection_invitee_self_removed`, which is generated server-side.\n"
+        },
+        {
+          "info": {
+            "name": "Rate an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/rate",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records a numeric rating and free-form feedback left by the performer about the inspection\nexperience. Displayed alongside the inspection in the dashboard.\n"
+        },
+        {
+          "info": {
+            "name": "Reject an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/reject",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rejects a submitted inspection with a note and a new due date, optionally flagging specific\nfeatures that require revision. Sends notifications to the original performer(s). The response\nbody lists the email events emitted as part of the rejection notification.\n"
+        },
+        {
+          "info": {
+            "name": "Send reminders for one or more inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/reminders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an email and/or sms reminder about one or more inspection invites. The request body\ngroups recipients by invite; the response surfaces per-channel success and error breakdowns\nso the caller can report partial failures.\n"
+        },
+        {
+          "info": {
+            "name": "Queue a manual AI damage scan for an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/scan",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID."
+              }
+            ]
+          },
+          "docs": "Enqueues a manual AI damage-detection scan against a completed inspection\nand returns the throttle record clients poll for progress.\n\nGuards enforced before enqueue:\n  - Caller must be on an active Pro Plan (returns 404 `subscription not found`\n    when no subscription record exists, otherwise 403 with the\n    Pro-Plan-required message).\n  - The account must have manual AI damage detection enabled.\n  - The inspection must exist, be completed, and have inspection metadata.\n  - The inspection must"
+        },
+        {
+          "info": {
+            "name": "Share an inspection PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/share",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Queues a PDF copy of the inspection report and emails it to the provided recipients.\nPDF generation and email delivery happen asynchronously — the response contains a\n`fileRequestId` that can be polled via `GET /v1/fileRequests/{fileRequestId}` for status.\n"
+        },
+        {
+          "info": {
+            "name": "Sign an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/sign",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a performer signature to the inspection. The `signature_path` is the storage key of an\nimage previously uploaded to the RentCheck image bucket. Used by the mobile inspection flow.\n"
+        },
+        {
+          "info": {
+            "name": "Start an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/start",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks an inspection as started by the authenticated user. Used by the mobile performer flow. The\nresponse body is the inspection as returned by `GET /v1/inspections/{inspectionId}`.\n"
+        },
+        {
+          "info": {
+            "name": "Submit an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/submit",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a performed inspection for review. Moves the inspection out of `In Progress` and\nnotifies reviewers. Used by the mobile performer flow after features have been filled in.\n"
+        },
+        {
+          "info": {
+            "name": "Approve inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/approve",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Approve an inspection with the given ID. Approval requires a signature, provided either as text\n(`signature_text`) or as a base64-encoded image (`signature_image_data`). An optional numeric\n`rating`, free-form `note`, and `user_facing_note` (displayed to the performer) can also be\nsupplied.\n"
+        },
+        {
+          "info": {
+            "name": "Accept invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/invites/accept",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accept an inspection invite. When `reference_code` is passed it will search for that invite and accept it, otherwise it will search all invites for that user and accept them. A JSON body is always required — omitting the body surfaces as a 500."
+        },
+        {
+          "info": {
+            "name": "Get all inspection invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/invites"
+          },
+          "docs": "This resource retrieves all invites available for a given user."
+        },
+        {
+          "info": {
+            "name": "Review an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/review",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Review an inspection. The caller must have permission to access the\ninspection — the inspection owner qualifies, plus any user granted access\nvia the inspection's permission group.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel inspection review",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/review",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Cancel inspection review. The caller must have permission to access the\ninspection — the inspection owner qualifies, plus any user granted access\nvia the inspection's permission group.\n"
+        },
+        {
+          "info": {
+            "name": "Get all inspection skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/skills",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "This resource retrieves all skills for creating maintenance flags available for a given inspection."
+        },
+        {
+          "info": {
+            "name": "Get an inspection by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Get an inspection by ID. Returns the full inspection document with template, health score, feature ratings, permissions, and associated sync data."
+        },
+        {
+          "info": {
+            "name": "Update an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update parameters of an inspection. The list of fields that can be updated depends on the current\nstatus of the inspection: `x_id`, `inspection_label`, `archived`, `status`, and\n`is_initial_review_complete` can always be updated, while other fields (e.g. `due_date`,\n`recipients`) can only be updated while the inspection is in the Scheduled or In-Progress states.\n"
+        },
+        {
+          "info": {
+            "name": "Remove the current renter from an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the current performer (renter) from the inspection and records a removal reason. This is\nused by the mobile flow when a resident is moving out or a duplicate invite needs to be\ncleaned up. Returns 204 with no content on success.\n\nNote: this `DELETE /v1/inspections/{inspectionId}` route is distinct from the bulk\n`DELETE /v1/inspections?id[]=...` endpoint, which deletes inspections by id.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel inspection revision",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/revision",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Cancels an active revision request for an inspection. Only the inspection owner (or a user with\nthe appropriate permission on their team) can cancel the revision. The response body is the\ninspection as returned by `GET /v1/inspections/{inspectionId}`.\n"
+        },
+        {
+          "info": {
+            "name": "Update multiple inspections at once",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections",
+            "params": [
+              {
+                "name": "id[]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection ids to update. At least one id is required. Repeat the\nparameter to send multiple values (e.g. `?id[]=abc&id[]=def`).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update due date for multiple inspections at once"
+        },
+        {
+          "info": {
+            "name": "Delete inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections",
+            "params": [
+              {
+                "name": "id[]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection ids to delete. At least one id is required. Repeat the\nparameter to send multiple values (e.g. `?id[]=abc&id[]=def`).\n"
+              }
+            ]
+          },
+          "docs": "Delete selected inspections by ids"
+        },
+        {
+          "info": {
+            "name": "Get all inspections (v3)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v3/inspections",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields. `approved_date` sorts\nby the approved date, falling back to the completed date when an\ninspection has no approved date.\n"
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Case-insensitive: `asc`/`ASC`\nand `desc`/`DESC` are all accepted.\n"
+              },
+              {
+                "name": "filters[archived]",
+                "value": "",
+                "type": "query",
+                "description": "Filter inspections by their archived status. Ignored when the caller\nis a renter.\n"
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[archived]`. Legacy key still accepted.\n"
+              },
+              {
+                "name": "filters[has_flags]",
+                "value": "",
+                "type": "query",
+                "description": "Filter inspections by whether they have one or more maintenance flags. `true` returns only inspections with flags; `false` returns only inspections with none."
+              },
+              {
+                "name": "has_flags",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[has_flags]`. Legacy key still accepted.\n"
+              },
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search value matched across inspection properties."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[search]`. Legacy key still accepted.\n"
+              },
+              {
+                "name": "filters[inspection_status][value]",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated list of inspection status values to filter by (e.g. `Not Started|Started`). Multiple values are concatenated with `|`. Allowed values, `Scheduled`, `Not Started`, `Started`, `In Review`, `Completed`, `Awaiting Review`, `Revision Requested`, `Revision Review`, `Approved`.\n"
+              },
+              {
+                "name": "filters[inspection_status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the inspection status filter."
+              },
+              {
+                "name": "inspection_status[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[inspection_status][value]`. Legacy\nmulti-value array key still accepted.\n"
+              },
+              {
+                "name": "filters[inspection_template][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection template ids to filter by. Multiple values are concatenated with `|`."
+              },
+              {
+                "name": "filters[inspection_template][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the inspection template filter."
+              },
+              {
+                "name": "inspection_template[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[inspection_template][value]`. Legacy\nmulti-value array key still accepted.\n"
+              },
+              {
+                "name": "filters[team][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of team ids to filter by. Multiple values are concatenated with `|`."
+              },
+              {
+                "name": "filters[team][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the team filter."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[team][value]`. Legacy multi-value array\nkey still accepted.\n"
+              },
+              {
+                "name": "filters[property][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of property ids to filter by. Multiple values are concatenated with `|`."
+              },
+              {
+                "name": "filters[property][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the property filter."
+              },
+              {
+                "name": "property_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[property][value]`. Legacy multi-value\narray key still accepted.\n"
+              },
+              {
+                "name": "filters[rating][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection ratings to filter by. Multiple values are concatenated with `|` (e.g. `Good|Fair`). Allowed values, `Good`, `Fair`, `Poor`."
+              },
+              {
+                "name": "filters[rating][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the rating filter."
+              },
+              {
+                "name": "ratings[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[rating][value]`. Legacy multi-value\narray key still accepted.\n"
+              },
+              {
+                "name": "filters[assigned_to][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of user ids to filter inspections by. Multiple values are concatenated with `|`."
+              },
+              {
+                "name": "filters[assigned_to][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the assigned_to filter."
+              },
+              {
+                "name": "assigned_to[]",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated. Prefer `filters[assigned_to][value]`. Legacy multi-value\narray key still accepted.\n"
+              },
+              {
+                "name": "filters[review_step][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of review steps to filter by. Multiple values are concatenated with `|` (e.g. `Initial Review|Secondary Review`). Allowed values, `Initial Review`, `Secondary Review`."
+              },
+              {
+                "name": "filters[review_step][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the review step filter. The validator only accepts `any_of`."
+              },
+              {
+                "name": "filters[created_by][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of creator user ids to filter by. Multiple values are concatenated with `|`."
+              },
+              {
+                "name": "filters[created_by][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the created_by filter."
+              },
+              {
+                "name": "filters[due_date][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection effective due date by a starting date.\nMust be in `yyyy-mm-dd` format.\n"
+              },
+              {
+                "name": "filters[due_date][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection effective due date by an ending date.\nMust be in `yyyy-mm-dd` format. `end_date`\nmust be on or after `start_date`, otherwise the response returns\n`end date must be equal or after start date`.\n"
+              },
+              {
+                "name": "filters[due_date_legacy][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection due date (pre-effective-due-date) by a starting date.\nMust be in `yyyy-mm-dd` format. Cannot be combined with\n`filters[due_date]`; that combination is rejected with\n`You cannot use both due_date and due_date_legacy filters at the same time`.\n"
+              },
+              {
+                "name": "filters[due_date_legacy][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection due date (pre-effective-due-date) by an ending date.\nMust be in `yyyy-mm-dd` format. `end_date`\nmust be on or after `start_date`, otherwise the response returns\n`end date must be equal or after start date`. See `start_date` for the\nmutually-exclusive constraint with `filters[due_date]`.\n"
+              },
+              {
+                "name": "filters[completed_date][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by a starting date.\nMust be in `yyyy-mm-dd` format.\n"
+              },
+              {
+                "name": "filters[completed_date][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by an ending date.\nMust be in `yyyy-mm-dd` format. `end_date`\nmust be on or after `start_date`, otherwise the response returns\n`end date must be equal or after start date`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of inspection digests.\nV3 is intended for list views that don't need the full inspection document; it returns `api_inspection_digest` entries (a trimmed projection of `api_inspection`) and uses the nested `filters[...]` query-param syntax with flat `page_size` / `page_number` / `sort_by` / `sort_type` options.\n"
+        },
+        {
+          "info": {
+            "name": "Get inspection permissions for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v3/inspections/permissions"
+          },
+          "docs": "Returns the per-user permissions that drive the inspection creation and assignment UI\n(e.g. whether the user can create inspections on units / buildings / communities, whether\nthey can assign to residents, and renter-specific flags). Used internally by the mobile\nand web apps.\n"
+        },
+        {
+          "info": {
+            "name": "Request pre-signed media upload URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/media/upload-urls",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a batch of pre-signed S3 PUT URLs that the inspection performer or invitee can use to upload images, 360 images, or videos for an inspection feature. Each URL is valid for 7 days.\n\nOnly callers whose inspection role is `invitee-write` or `self-perform-write` may request URLs — owners and reviewers receive a permissions error.\n\nThe response order matches the request order one-to-one.\n"
+        },
+        {
+          "info": {
+            "name": "Resolve reminder recipients for inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v3/inspections/reminder-recipients",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resolves the set of reminder recipients across a batch of inspections.\nInvites are batch-fetched once for the supplied inspection ids,\ntenants are batch-fetched once for the unique recipient emails, and\nthe result is deduped by email.\n\nAccess is validated the same way the send-reminders path is, so the\ncaller can't read invite emails for inspections it can't already access.\n"
+        },
+        {
+          "info": {
+            "name": "Create signature request(s) for an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/signature-requests",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one signature request per email in `emails`. Each request is dispatched\nvia email and tracked individually in the inspection timeline. The response is the\nlist of created requests.\n"
+        },
+        {
+          "info": {
+            "name": "Accept all open signature requests for an inspection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/signature-requests",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ]
+          },
+          "docs": "Marks every open signature request on this inspection as accepted by the\nauthenticated recipient. Used when a single user has multiple pending requests\nagainst the same inspection (e.g. additional-signature loops).\n"
+        },
+        {
+          "info": {
+            "name": "Claim a signature request from a deep link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/signature-requests/:requestId/claim",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID. Pass the literal `*`; the deep link only carries the\nrequest id and the inspection is resolved from the request\nitself.\n"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Signature request ID from the deep link."
+              }
+            ]
+          },
+          "docs": "Claims a pending additional-signature request from a Branch deep link,\nreassigning `recipient_email` to the authenticated caller. The linked\nrequest and every other pending additional-signature request addressed to\nthe original recipient's email are reassigned to the caller.\n\nPossession of the high-entropy request id is treated as the capability to\nclaim the request (the deep link acts as a bearer token), so — unlike the\nGET endpoint — this endpoint does not require the caller's email to match\nt"
+        },
+        {
+          "info": {
+            "name": "Get a signature request by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/signature-requests/:requestId",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID. Pass the literal `*` to look the signature request\nup across all inspections the caller can access.\n"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Signature request ID"
+              }
+            ]
+          },
+          "docs": "Returns a single signature request attached to an inspection. Used by the web/mobile\napps to render the signature-request detail view.\n"
+        },
+        {
+          "info": {
+            "name": "Complete a signature request by submitting a signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/inspections/:inspectionId/signature-requests/sign",
+            "params": [
+              {
+                "name": "inspectionId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes the signature request that the authenticated recipient currently has\nopen against this inspection. Either `signature_base64` (drawn signature image) or\n`signature_text` (typed signature) must be supplied. Returns the updated list of\nsignature requests on the inspection.\n"
+        },
+        {
+          "info": {
+            "name": "Create an inspection from a Zapier trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/zapier/inspections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Zapier-flavoured entry point for the v2 inspection create flow. The\nZapier request body carries a flat inspection payload; the property is\nresolved by (`address` + `postal_code`) within the caller's user +\norganizations — matched against the resolved inspection template's\n`property_type` — then the up-to-five `resident_email_N` fields are\ntranslated into the v2 `recipients` shape (`{ type: 'emails', emails }`\nwhen any resident email is provided, otherwise `{ type: 'self-perform' }`)\nand delegate"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

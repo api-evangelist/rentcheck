@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Integrations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get RentCheck-API integration credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/integrations/rentcheck"
+          },
+          "docs": "Returns the `x-app-id` / `x-app-secret` pair for the caller's active\nRentCheck subscription. Used by the `Account → Integrations → RentCheck\nAPI` panel to display the credentials integrators need to sign public API\nrequests.\n"
+        },
+        {
+          "info": {
+            "name": "Rotate RentCheck-API integration credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/integrations/rentcheck"
+          },
+          "docs": "Creates a fresh `app_id` / `app_secret` pair for the caller's active\nRentCheck subscription and provisions the matching AWS API Gateway API\nkey + usage-plan entry so the credentials can immediately sign public API\nrequests. Any existing integration record for the subscription is removed\nfirst, so calling this endpoint effectively rotates the credentials.\n\nIf the AWS API-key provisioning step fails after the record is created,\nthe just-created integration record is removed and the failure surface"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

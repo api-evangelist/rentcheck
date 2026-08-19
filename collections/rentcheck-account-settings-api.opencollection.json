@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an email customization by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/email-customizations/:customizationId",
+            "params": [
+              {
+                "name": "customizationId",
+                "value": "",
+                "type": "path",
+                "description": "Email customization ID."
+              }
+            ]
+          },
+          "docs": "Returns a single email customization, including the rendered subject\nmerge tags available for the template / email type.\n"
+        },
+        {
+          "info": {
+            "name": "Delete an email customization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/email-customizations/:customizationId",
+            "params": [
+              {
+                "name": "customizationId",
+                "value": "",
+                "type": "path",
+                "description": "Email customization ID."
+              }
+            ]
+          },
+          "docs": "Removes the supplied email customization. After deletion the affected template + email type\nfalls back to the platform default content.\n"
+        },
+        {
+          "info": {
+            "name": "List email customizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/email-customizations"
+          },
+          "docs": "Returns every email customization configured on the caller's subscription, one entry per\ninspection template / email type combination.\n"
+        },
+        {
+          "info": {
+            "name": "Upsert email customizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/email-customizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the email customization for a given `email_type_id` across one or more\ninspection templates. Returns the resulting set of customizations.\n"
+        },
+        {
+          "info": {
+            "name": "Send a test email customization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/email-customizations/test-email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renders the supplied email customization content using the supplied property + inspection\ntemplate context and sends it to the listed recipients. Used by the email builder UI to\npreview the final email.\n"
+        },
+        {
+          "info": {
+            "name": "Get account settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings"
+          },
+          "docs": "Get account settings for user's subscription."
+        },
+        {
+          "info": {
+            "name": "Update account settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update parameters of the subscription's account settings."
+        },
+        {
+          "info": {
+            "name": "Delete custom rooms from account settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/rooms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes one or more custom rooms from the supplied `property_type` bucket on the caller's\naccount settings.\nUnlike most DELETE endpoints, this one accepts a JSON request body — required because the\nremoval is scoped both by `property_type` and by individual room entry.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a signature acknowledgement override",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/signature-acknowledgements/:templateId",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Inspection template ID whose acknowledgement override should be removed."
+              }
+            ]
+          },
+          "docs": "Removes the signature acknowledgement override for the supplied inspection template. After\ndeletion the template falls back to the subscription-wide acknowledgement (or to the platform\ndefault if no subscription-wide override is set). Returns the post-delete state in the same\nshape as `GET /v1/account-settings/signature-acknowledgements`.\n"
+        },
+        {
+          "info": {
+            "name": "Get signature acknowledgements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/signature-acknowledgements"
+          },
+          "docs": "Returns the platform-default signature acknowledgement text, the subscription-wide override\n(if any), and the per-inspection-template overrides (if any).\n"
+        },
+        {
+          "info": {
+            "name": "Update signature acknowledgements",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/account-settings/signature-acknowledgements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upserts one or more signature acknowledgements. Each entry's `id` is either the literal string\n`default` (to update the subscription-wide acknowledgement) or an inspection template id\n(to scope the change to a single template). Returns the post-update state in the same shape as\n`GET /v1/account-settings/signature-acknowledgements`.\n"
+        },
+        {
+          "info": {
+            "name": "Get notification preferences by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/notifications-preferences/:preferencesId",
+            "params": [
+              {
+                "name": "preferencesId",
+                "value": "",
+                "type": "path",
+                "description": "The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+              }
+            ]
+          },
+          "docs": "Resolve a notifications-preferences document from the encrypted token included\nin RentCheck-issued notification emails. The token decrypts to the recipient's\nemail; if no preferences document exists for that email yet, the default\npreferences shape is returned with `user_email` populated. This endpoint is\nreachable without an authenticated session — clients land on it from\n\"manage your notification preferences\" links.\n\nFor the equivalent authenticated endpoint, use\n`GET /v1/me/notifications-pref"
+        },
+        {
+          "info": {
+            "name": "Update notification preferences via token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/notifications-preferences/:preferencesId",
+            "params": [
+              {
+                "name": "preferencesId",
+                "value": "",
+                "type": "path",
+                "description": "The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a notifications-preferences document for the recipient identified by\nthe encrypted token. Used by the \"manage your notification preferences\"\nexperience opened from RentCheck notification emails — no authenticated\nsession is required. Supplied fields are merged onto the current preferences;\nif no preferences document exists yet, one is created and then patched.\n\nFor the equivalent authenticated endpoint, use\n`PUT /v1/me/notifications-preferences`.\n"
+        },
+        {
+          "info": {
+            "name": "Create a rev-share prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/sales/rev-share-prospects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Onboards a new revenue-share prospect: provisions a RentCheck user with a\ntemporary password for the supplied email, attaches the requested Chargebee\nplan + addons to the user's `prospect_data`, persists the self-reported\nportfolio size, and triggers the rev-share-prospect welcome email.\n\nReachable without an authenticated session; the endpoint is invoked by the\npublic RentCheck marketing flow.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

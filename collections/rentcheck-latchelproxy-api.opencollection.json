@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings LatchelProxy API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LatchelProxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all latchel properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/properties"
+          },
+          "docs": "Get all latchel properties"
+        },
+        {
+          "info": {
+            "name": "Get all latchel tenants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/tenants"
+          },
+          "docs": "Get all latchel tenants"
+        },
+        {
+          "info": {
+            "name": "Get all latchel vendor companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/vendor-companies"
+          },
+          "docs": "Get all latchel vendor companies"
+        },
+        {
+          "info": {
+            "name": "Get all latchel vendor companies prioritized",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/vendor-companies/prioritized"
+          },
+          "docs": "Get all latchel vendor companies prioritized"
+        },
+        {
+          "info": {
+            "name": "Get a latchel property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/properties/:id"
+          },
+          "docs": "Get a latchel property"
+        },
+        {
+          "info": {
+            "name": "Get a latchel property's prioritized vendors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/:orgId/properties/:id/vendor-companies"
+          },
+          "docs": "Get a latchel property's prioritized vendors"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,384 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Teams API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Accept all team invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/invites/accept"
+          },
+          "docs": "This resource accepts all team invitations for the user that calls it."
+        },
+        {
+          "info": {
+            "name": "Get all team invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/invites",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              }
+            ]
+          },
+          "docs": "This resource retrieves information about team invites that have yet not been accepted."
+        },
+        {
+          "info": {
+            "name": "Create team invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/invites",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a user to team"
+        },
+        {
+          "info": {
+            "name": "Delete all open invites of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/:userId/invites",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user whose pending invites should be cancelled."
+              }
+            ]
+          },
+          "docs": "Cancels every outstanding (not yet accepted) team invite addressed to the target user. Used by\nadmin / cleanup flows that need to revoke a user's pending invitations across all teams in one\ncall.\n"
+        },
+        {
+          "info": {
+            "name": "Update team invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/invites/:inviteId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              },
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "Invite ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a team invite that hasn't been accepted yet."
+        },
+        {
+          "info": {
+            "name": "Delete team invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/invites/:inviteId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              },
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "Invite ID"
+              }
+            ]
+          },
+          "docs": "Delete invite sent to user."
+        },
+        {
+          "info": {
+            "name": "Team invite reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/invites/:inviteId/reminders",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              },
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "Invite ID"
+              }
+            ]
+          },
+          "docs": "Sends an email to users that have not yet accepted specified team invite."
+        },
+        {
+          "info": {
+            "name": "Send reminders for all open invites of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/users/:userId/invites/reminders",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user whose pending invites should be reminded."
+              }
+            ]
+          },
+          "docs": "Re-sends invite reminders for every outstanding (not yet accepted) team invite addressed to the\ntarget user. Used by admin flows that want to nudge a single invitee about all the teams they\nhave pending invitations for.\n"
+        },
+        {
+          "info": {
+            "name": "Update team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/members/:memberId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "Member ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update team member information"
+        },
+        {
+          "info": {
+            "name": "Delete team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId/members/:memberId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "Member ID"
+              }
+            ]
+          },
+          "docs": "Delete member/user from the team."
+        },
+        {
+          "info": {
+            "name": "Get all teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams",
+            "params": [
+              {
+                "name": "filters[include_all_teams]",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, include the caller's \"All teams\" pseudo-team in the result."
+              }
+            ]
+          },
+          "docs": "This resource allows you to retrieve information about Team entities. Teams are a way to organize groups of users and the properties they manage.\n\nBy default the response excludes the caller's \"All teams\" pseudo-team. Pass `filters[include_all_teams]=true` to include it.\n"
+        },
+        {
+          "info": {
+            "name": "Create a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a team"
+        },
+        {
+          "info": {
+            "name": "Delete a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              }
+            ]
+          },
+          "docs": "Hard-deletes a team. The caller must be an admin of the team. The team cannot be deleted if any\nof the following apply: it is the only team on the subscription, it still contains other\nmembers, it still has properties associated with it, it is the only team referenced by an\ninspection template, or it is currently bound to a Latchel/Rentvine/AppFolio/RentManager\nintegration mapping.\n"
+        },
+        {
+          "info": {
+            "name": "Get a team by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              }
+            ]
+          },
+          "docs": "Get a team by ID"
+        },
+        {
+          "info": {
+            "name": "Update team information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update team information"
+        },
+        {
+          "info": {
+            "name": "Get all Latchel integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/integrations"
+          },
+          "docs": "This resource allows you to retrieve information about Latchel entities for the user that called the endpoint."
+        },
+        {
+          "info": {
+            "name": "Integrate Latchel to RentCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to save your Latchel's credentials into a Team."
+        },
+        {
+          "info": {
+            "name": "Delete Latchel integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/latchel/integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a Latchel API key from one or more teams. The integration is identified by `api_key`\nand `team_ids` are the specific teams the integration should be removed from. Returns the\nteams the Latchel integration was removed from.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

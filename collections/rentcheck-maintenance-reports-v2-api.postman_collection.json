@@ -1,0 +1,393 @@
+{
+  "item": [
+    {
+      "id": "476bbd5d-21fa-4dae-9f09-8f3472e8b86d",
+      "name": "Maintenance Reports V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08b276b5-cfcf-4f93-bf9a-e827d0468adb",
+          "name": "Get all maintenance reports",
+          "request": {
+            "name": "Get all maintenance reports",
+            "description": {
+              "content": "Get all maintenance reports",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "maintenance_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[search]",
+                  "value": "<string>",
+                  "description": "Search value among maintenance report's name, inspection label, property address, city and zip code."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[created_date][start]",
+                  "value": "<string>",
+                  "description": "Value to filter maintenance report creation date by a starting date."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[created_date][end]",
+                  "value": "<string>",
+                  "description": "Value to filter maintenance report creation date by an ending date."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[property_id]",
+                  "value": "<string>",
+                  "description": "Get all maintenance reports for this property."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_id]",
+                  "value": "<string>",
+                  "description": "Get all maintenance reports for this inspection."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_templates]",
+                  "value": "<string>",
+                  "description": "Get all maintenance reports for the inspection templates informed. This parameter accepts multiple ids concatenated with a `,` (comma)."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_size]",
+                  "value": "20",
+                  "description": "How many items to be returned for each page."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_number]",
+                  "value": "0",
+                  "description": "Zero-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_type]",
+                  "value": "DESC",
+                  "description": "Sort list in ascending or descending order. Accepted\ncase-insensitively.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_by]",
+                  "value": "created_date",
+                  "description": "Sort list by a specific property."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17e18939-bec7-4d4e-8b7d-05a44f3d276a",
+              "name": "Returns all maintenance reports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_templates]",
+                      "value": "inspection_template_id_1,inspection_template_id_2,inspection_template_id_3"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Move-out maintenance report\",\n      \"organize_by\": \"responsibility\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"inspection_date\": \"2022-01-15 00:00:00\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"inspection\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"date\": \"2021-12-02 14:15:37.925000\",\n        \"template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"internal_label\": \"string\",\n          \"property_type\": \"string\",\n          \"display_name\": \"string\"\n        }\n      },\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"maintenance_flags\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"feature_id\": \"string\",\n          \"feature\": \"string\",\n          \"section\": {\n            \"name\": \"Hallway\",\n            \"name_with_ordinal\": \"First Bedroom\",\n            \"type\": \"room\"\n          },\n          \"note\": \"string\",\n          \"skill\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"email\": \"string\",\n            \"type\": \"System\"\n          },\n          \"inspection\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"label\": \"string\",\n            \"due_date\": \"2021-12-02 14:15:37.925000\",\n            \"inspection_template\": {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"internal_label\": \"string\",\n              \"property_type\": \"string\",\n              \"display_name\": \"string\"\n            }\n          },\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"video_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maintenance_reports\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"work_orders\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"internal_note\": \"string\",\n          \"cost\": 8.766201971537324,\n          \"responsibility\": \"OWNER\",\n          \"vendor\": \"Rentvine\",\n          \"custom_fields\": [\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            },\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            }\n          ]\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"feature_id\": \"string\",\n          \"feature\": \"string\",\n          \"section\": {\n            \"name\": \"Hallway\",\n            \"name_with_ordinal\": \"First Bedroom\",\n            \"type\": \"room\"\n          },\n          \"note\": \"string\",\n          \"skill\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"email\": \"string\",\n            \"type\": \"Property Manager\"\n          },\n          \"inspection\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"label\": \"string\",\n            \"due_date\": \"2021-12-02 14:15:37.925000\",\n            \"inspection_template\": {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"internal_label\": \"string\",\n              \"property_type\": \"string\",\n              \"display_name\": \"string\"\n            }\n          },\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"video_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maintenance_reports\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"work_orders\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"internal_note\": \"string\",\n          \"cost\": 2866.2351097637106,\n          \"responsibility\": \"RESIDENT\",\n          \"vendor\": \"Yardi\",\n          \"custom_fields\": [\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            },\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            }\n          ]\n        }\n      ],\n      \"zip_report_location\": \"string\",\n      \"pdf_report_location\": \"string\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Move-out maintenance report\",\n      \"organize_by\": \"responsibility\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"inspection_date\": \"2022-01-15 00:00:00\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"inspection\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"date\": \"2021-12-02 14:15:37.925000\",\n        \"template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"internal_label\": \"string\",\n          \"property_type\": \"string\",\n          \"display_name\": \"string\"\n        }\n      },\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"maintenance_flags\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"feature_id\": \"string\",\n          \"feature\": \"string\",\n          \"section\": {\n            \"name\": \"Hallway\",\n            \"name_with_ordinal\": \"First Bedroom\",\n            \"type\": \"room\"\n          },\n          \"note\": \"string\",\n          \"skill\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"email\": \"string\",\n            \"type\": \"Renter\"\n          },\n          \"inspection\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"label\": \"string\",\n            \"due_date\": \"2021-12-02 14:15:37.925000\",\n            \"inspection_template\": {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"internal_label\": \"string\",\n              \"property_type\": \"string\",\n              \"display_name\": \"string\"\n            }\n          },\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"video_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maintenance_reports\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"work_orders\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"internal_note\": \"string\",\n          \"cost\": 6200.889052940937,\n          \"responsibility\": \"OWNER\",\n          \"vendor\": \"Yardi\",\n          \"custom_fields\": [\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            },\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            }\n          ]\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"feature_id\": \"string\",\n          \"feature\": \"string\",\n          \"section\": {\n            \"name\": \"Hallway\",\n            \"name_with_ordinal\": \"First Bedroom\",\n            \"type\": \"room\"\n          },\n          \"note\": \"string\",\n          \"skill\": \"string\",\n          \"created_date\": \"2022-01-15 00:00:00\",\n          \"created_by\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\",\n            \"email\": \"string\",\n            \"type\": \"Landlord\"\n          },\n          \"inspection\": {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"label\": \"string\",\n            \"due_date\": \"2021-12-02 14:15:37.925000\",\n            \"inspection_template\": {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"internal_label\": \"string\",\n              \"property_type\": \"string\",\n              \"display_name\": \"string\"\n            }\n          },\n          \"image_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"video_urls\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maintenance_reports\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"work_orders\": [\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            },\n            {\n              \"id\": \"00BRcZPSakXz6w7RYoE\",\n              \"name\": \"string\"\n            }\n          ],\n          \"internal_note\": \"string\",\n          \"cost\": 1106.9378104180748,\n          \"responsibility\": \"\",\n          \"vendor\": \"Yardi\",\n          \"custom_fields\": [\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            },\n            {\n              \"id\": \"string\",\n              \"value\": [\n                \"string\",\n                \"string\"\n              ]\n            }\n          ]\n        }\n      ],\n      \"zip_report_location\": \"string\",\n      \"pdf_report_location\": \"string\"\n    }\n  ],\n  \"count\": 6719,\n  \"total_results\": 8272\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0231bad-b919-44e4-abd1-b8a35fa637e9",
+              "name": "Bad request — request failed validation. Most\ncommonly an unsupported `sort_by` value, a malformed\n`created_date` range, or a non-string filter value.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_templates]",
+                      "value": "inspection_template_id_1,inspection_template_id_2,inspection_template_id_3"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5966f253-b45b-4d31-9598-c8ee926d1463",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_date][end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_templates]",
+                      "value": "inspection_template_id_1,inspection_template_id_2,inspection_template_id_3"
+                    },
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c0d87473-734d-4b42-a4e8-c3051065931e",
+    "name": "RentCheck REST Account Settings Maintenance Reports V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

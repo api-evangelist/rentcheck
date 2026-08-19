@@ -1,0 +1,1528 @@
+{
+  "item": [
+    {
+      "id": "2b9770c4-0709-4d7d-9c48-f2436893de4e",
+      "name": "Automations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a9be26d6-846f-42a5-9056-ff7af830fca9",
+          "name": "Create an automation",
+          "request": {
+            "name": "Create an automation",
+            "description": {
+              "content": "Creates a new automation for the caller's active subscription. New\nautomations are created in the deactivated state (`active: false`) and\nmust be enabled via a follow-up `PUT` call.\n\nThe following cross-field validation rules apply:\n  * `selection_type.ids` is required when `selection_type.type` is\n    `specific_units` or `specific_teams`.\n  * `assignment_type.emails` is required when `assignment_type.type` is\n    `emails`; `assignment_type.teammate_emails` is required when type is\n    `teammates`; `assignment_type.resident_type` is required when type\n    is `residents`.\n  * When `trigger_type` is `tenant-move-out` or `lease-end`,\n    `recurrence.frequency` must be `does_not_repeat`. The schema applies\n    a default of `{ frequency: 'does_not_repeat' }` when `recurrence`\n    is omitted.\n  * Automation names must be unique within the subscription — a duplicate\n    throws 409.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fddcd258-a260-47e3-9a16-c86d7baadf7f",
+              "name": "Returns the newly created automation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 201,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"creator\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"System\"\n    },\n    \"subscription_id\": \"string\",\n    \"active\": true,\n    \"is_rc_automation\": true,\n    \"fast_track\": true,\n    \"selection_type\": {\n      \"type\": \"specific_units\",\n      \"ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"inspection_template\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"internal_label\": \"string\",\n      \"is_fast_track_enabled\": true,\n      \"property_type\": \"building\",\n      \"is_rc_template\": true\n    },\n    \"creation_date\": {\n      \"unit\": \"days\",\n      \"value\": 109,\n      \"condition\": \"after\",\n      \"due_date_after_days\": 89\n    },\n    \"trigger_type\": \"tenant-move-out\",\n    \"assignment_type\": {\n      \"type\": \"residents\",\n      \"emails\": [\n        \"BbxsIfdTr@hjMZwYj.nmwr\"\n      ],\n      \"teammate_emails\": {\n        \"key_0\": [\n          \"VkJ7vqTanC@luOlAWdudBVvQkBjP.jn\"\n        ],\n        \"key_1\": [\n          \"Hbv0cWWe2FwaA@grZrRuhhtJTTccagVyuYQNwpDalmYORv.pqb\"\n        ],\n        \"key_2\": [\n          \"2gBIOQ5@mmcBokEWcBmv.ox\"\n        ]\n      },\n      \"resident_type\": \"current\"\n    },\n    \"recurrence\": {\n      \"frequency\": \"does_not_repeat\",\n      \"custom_interval\": 2922,\n      \"custom_unit\": \"weeks\",\n      \"end_trigger\": \"lease_end\"\n    },\n    \"created_at\": \"1977-03-01T19:55:21.799Z\",\n    \"updated_at\": \"1965-06-29T03:47:51.621Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dc03fcf-9387-4207-b3e3-b85744fcda1c",
+              "name": "Bad request — body validation failed, or one of the automation\nchecks rejected the request. Examples:\n  - Validation messages such as `\"data.name\" is required`,\n    `\"data.selection_type.type\" must be one of [all_units, specific_teams, specific_units]`,\n    `\"data.creation_date.value\" must be less than or equal to 999`.\n  - `inspection template not published` (target template is\n    unpublished).\n  - `fast track not enabled for this inspection template`.\n  - `a teammate must be provided for all teams` (teammate\n    assignment is missing teams from the selection).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10066b59-e8de-4cf2-b1c8-263bb385969a",
+              "name": "Unauthorized — standard auth failures, plus\n`User does not have permissions to create automation` when the\ncaller lacks permission to create automations.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to create automation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21fc399f-bb7f-46e6-9f1b-631cbf653a02",
+              "name": "Not Found — one of `user`, `subscription`, `inspection template`,\n`unit`, `team`, or `teammate` referenced by the request could not be\nresolved.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"inspection template not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c09531f-96e8-40ef-934f-f1a79c333b1f",
+              "name": "Conflict — `An automation with this name already exists on the\nsubscription`, or `too many subscriptions` when more than one\nactive subscription is associated with the caller.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"fast_track\": \"<boolean>\",\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"An automation with this name already exists on the subscription\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "334d65ed-e6a6-41d0-bc43-2832d59ea0ac",
+          "name": "List automations for the caller's subscription",
+          "request": {
+            "name": "List automations for the caller's subscription",
+            "description": {
+              "content": "Returns automations belonging to the caller's active subscription, with\npagination and sorting controlled via `options[pagination]` /\n`options[sort]` query parameters. Defaults are\n`page_size=20`, `page_number=0`, `sort_by=created_at`,\n`sort_type=DESC`. Allowed `sort_by` values are listed below.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_size]",
+                  "value": "20",
+                  "description": "Page size for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[pagination][page_number]",
+                  "value": "0",
+                  "description": "Zero-indexed page number."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_by]",
+                  "value": "created_at",
+                  "description": "Field to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "options[sort][sort_type]",
+                  "value": "DESC",
+                  "description": "Sort direction. The value is uppercased before use, so both upper-\nand lower-case forms are accepted.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6ce9ae5-6b4b-4e10-aed3-d5d087669161",
+              "name": "Paginated list of automations for the caller's subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"creator\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\"\n      },\n      \"subscription_id\": \"string\",\n      \"active\": true,\n      \"is_rc_automation\": true,\n      \"fast_track\": false,\n      \"selection_type\": {\n        \"type\": \"specific_teams\",\n        \"ids\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"inspection_template\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"is_fast_track_enabled\": false,\n        \"property_type\": \"building\",\n        \"is_rc_template\": true\n      },\n      \"creation_date\": {\n        \"unit\": \"weeks\",\n        \"value\": 207,\n        \"condition\": \"after\",\n        \"due_date_after_days\": 34\n      },\n      \"trigger_type\": \"lease-start\",\n      \"assignment_type\": {\n        \"type\": \"self-perform\",\n        \"emails\": [\n          \"B2vX8Te3N@RHSGWehpqJzHIf.ssp\"\n        ],\n        \"teammate_emails\": {\n          \"key_0\": [\n            \"VfXpuDa@VLfznQmctQGRH.lc\"\n          ],\n          \"key_1\": [\n            \"q-OJfuwOO@uNQLYOFBgGwtQfYeak.eppx\"\n          ]\n        },\n        \"resident_type\": \"current\"\n      },\n      \"recurrence\": {\n        \"frequency\": \"monthly\",\n        \"custom_interval\": 5703,\n        \"custom_unit\": \"days\",\n        \"end_trigger\": \"lease_end\"\n      },\n      \"created_at\": \"1956-10-15T01:20:24.493Z\",\n      \"updated_at\": \"2012-03-03T23:45:05.222Z\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"creator\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"System\"\n      },\n      \"subscription_id\": \"string\",\n      \"active\": true,\n      \"is_rc_automation\": true,\n      \"fast_track\": true,\n      \"selection_type\": {\n        \"type\": \"specific_units\",\n        \"ids\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"inspection_template\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"is_fast_track_enabled\": true,\n        \"property_type\": \"unit\",\n        \"is_rc_template\": true\n      },\n      \"creation_date\": {\n        \"unit\": \"weeks\",\n        \"value\": 853,\n        \"condition\": \"after\",\n        \"due_date_after_days\": 18\n      },\n      \"trigger_type\": \"lease-start\",\n      \"assignment_type\": {\n        \"type\": \"teammates\",\n        \"emails\": [\n          \"vb3sp3zWu@vbVWiobqtxbTrnDqXdVeikXBIWYl.mv\"\n        ],\n        \"teammate_emails\": {\n          \"key_0\": [\n            \"ARWyKVID@Ems.wbe\"\n          ],\n          \"key_1\": [\n            \"XcLnUxp8@yaqboSgCKyTRjbRAGPqvEqhUqkJEWgy.nmqr\"\n          ]\n        },\n        \"resident_type\": \"future\"\n      },\n      \"recurrence\": {\n        \"frequency\": \"semi_annually\",\n        \"custom_interval\": 7559,\n        \"custom_unit\": \"months\",\n        \"end_trigger\": \"move_out\"\n      },\n      \"created_at\": \"1970-02-26T00:40:41.036Z\",\n      \"updated_at\": \"1946-10-26T09:14:21.180Z\"\n    }\n  ],\n  \"count\": 3465,\n  \"total_results\": 5758\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e5a5d7f-864d-4e70-b493-46070507fceb",
+              "name": "Bad request — `options[sort][sort_by]` is not one of the allowed\nvalues, or `options[pagination]` failed validation.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01217590-91b5-4ddb-a1af-b1017725509b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1944109c-d673-4471-8fdc-b8a5ab4ba512",
+              "name": "Not Found — `subscription not found` (the caller has no active subscription).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "options[pagination][page_size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "options[pagination][page_number]",
+                      "value": "0"
+                    },
+                    {
+                      "key": "options[sort][sort_by]",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "options[sort][sort_type]",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"subscription not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f27833f6-da19-49f9-9045-15fc718e53b3",
+          "name": "Delete an automation",
+          "request": {
+            "name": "Delete an automation",
+            "description": {
+              "content": "Hard-removes the automation. RC default automations\n(`is_rc_automation: true`) cannot be removed, and the caller must hold\nthe `canEditAutomation` permission **and** the subscription must have\nthe inspection automation addon. Returns 204 on success.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "automationId",
+                  "description": "(Required) Automation ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0352453f-53ac-4e93-8eb3-10147e8e4dc0",
+              "name": "Automation successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e327ee1-a527-48d2-951c-e3801f333416",
+              "name": "Bad request — `automationId` failed validation\n(`\"automationId\" must be a valid GUID`).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"automationId\\\" must be a valid GUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "588471eb-8f9e-4da7-8b83-d1b9571a941a",
+              "name": "Unauthorized — standard auth failures, plus\n`User does not have permissions to delete automations` (caller is\nmissing the user record, lacks the inspection automation addon, or\ncan't edit automations), or\n`User does not have permissions to delete automation` (target is\nan RC default automation), or\n`User does not have permissions to delete default automation`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to delete automations\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56df0078-b40d-42bc-bb12-30f24d5d587b",
+              "name": "Not Found — `automation not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"automation not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f1d230b-b643-48b7-a377-19e4b267431b",
+          "name": "Get an automation by ID",
+          "request": {
+            "name": "Get an automation by ID",
+            "description": {
+              "content": "Returns the requested automation. The automation must exist and belong\nto the caller's active subscription; otherwise `automation not found` is\nreturned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "automationId",
+                  "description": "(Required) Automation ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb0566c3-87d3-41c8-abb6-81edb5d3eada",
+              "name": "Returns the requested automation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"creator\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"System\"\n    },\n    \"subscription_id\": \"string\",\n    \"active\": false,\n    \"is_rc_automation\": true,\n    \"fast_track\": false,\n    \"selection_type\": {\n      \"type\": \"all_units\",\n      \"ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"inspection_template\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"internal_label\": \"string\",\n      \"is_fast_track_enabled\": false,\n      \"property_type\": \"unit\",\n      \"is_rc_template\": false\n    },\n    \"creation_date\": {\n      \"unit\": \"days\",\n      \"value\": 20,\n      \"condition\": \"before\",\n      \"due_date_after_days\": 98\n    },\n    \"trigger_type\": \"lease-end\",\n    \"assignment_type\": {\n      \"type\": \"residents\",\n      \"emails\": [\n        \"cIpfOakM@IwSPliaDnO.qwqn\"\n      ],\n      \"teammate_emails\": {\n        \"key_0\": [\n          \"9TCCcAihD02Zuo@q.dwx\"\n        ],\n        \"key_1\": [\n          \"YvlMByJeIqcB@DQXqmQ.mjtq\"\n        ]\n      },\n      \"resident_type\": \"future\"\n    },\n    \"recurrence\": {\n      \"frequency\": \"semi_annually\",\n      \"custom_interval\": 6033,\n      \"custom_unit\": \"days\",\n      \"end_trigger\": \"lease_end\"\n    },\n    \"created_at\": \"1986-04-20T03:00:35.567Z\",\n    \"updated_at\": \"1963-11-23T06:51:49.143Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b187a1d-ec7f-4ba4-b3b0-ee3bc9df190e",
+              "name": "Bad request — `automationId` failed validation\n(`\"automationId\" must be a valid GUID`).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"automationId\\\" must be a valid GUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c10d43a-7be8-4fdd-a528-c9e378fff02d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2534d20b-f73b-4371-a8fd-578ba5ec3319",
+              "name": "Not Found — `automation not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"automation not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a34896a-050c-431b-afc7-530ac833ccb1",
+          "name": "Update an automation",
+          "request": {
+            "name": "Update an automation",
+            "description": {
+              "content": "Patch an existing automation. All body fields are optional; if\n`recurrence` is supplied, `trigger_type` must be supplied as well.\n\nSide-effects worth noting:\n  * If the resolved template has `is_fast_track_enabled: false`,\n    `fast_track` is forced to `false` on the stored automation\n    regardless of what the request body says.\n  * If the resulting `trigger_type` is `tenant-move-out` or `lease-end`,\n    `recurrence` is reset to `does_not_repeat` (with all\n    custom fields cleared).\n  * If after applying the update the automation has an invalid\n    assignment (e.g. `emails` type with no emails, or `teammates` type\n    with no teammates), the automation is automatically deactivated\n    (`active: false`).\n\nRC default automations (`is_rc_automation: true`) cannot be edited.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "automationId",
+                  "description": "(Required) Automation ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f05aee0-6a9f-44dd-b626-d66520ff14c4",
+              "name": "Returns the updated automation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"creator\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"System\"\n    },\n    \"subscription_id\": \"string\",\n    \"active\": false,\n    \"is_rc_automation\": true,\n    \"fast_track\": false,\n    \"selection_type\": {\n      \"type\": \"all_units\",\n      \"ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"inspection_template\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"internal_label\": \"string\",\n      \"is_fast_track_enabled\": false,\n      \"property_type\": \"unit\",\n      \"is_rc_template\": false\n    },\n    \"creation_date\": {\n      \"unit\": \"days\",\n      \"value\": 20,\n      \"condition\": \"before\",\n      \"due_date_after_days\": 98\n    },\n    \"trigger_type\": \"lease-end\",\n    \"assignment_type\": {\n      \"type\": \"residents\",\n      \"emails\": [\n        \"cIpfOakM@IwSPliaDnO.qwqn\"\n      ],\n      \"teammate_emails\": {\n        \"key_0\": [\n          \"9TCCcAihD02Zuo@q.dwx\"\n        ],\n        \"key_1\": [\n          \"YvlMByJeIqcB@DQXqmQ.mjtq\"\n        ]\n      },\n      \"resident_type\": \"future\"\n    },\n    \"recurrence\": {\n      \"frequency\": \"semi_annually\",\n      \"custom_interval\": 6033,\n      \"custom_unit\": \"days\",\n      \"end_trigger\": \"lease_end\"\n    },\n    \"created_at\": \"1986-04-20T03:00:35.567Z\",\n    \"updated_at\": \"1963-11-23T06:51:49.143Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97353caa-4297-4855-929a-ae3c8a34d02d",
+              "name": "Bad request — request validation failed, or one of the cross-field\nrules rejected the change. Examples:\n  - Validation messages such as `\"data.creation_date.value\" must be less than or equal to 999`.\n  - `inspection template not published`.\n  - `fast track not enabled for this inspection template`.\n  - `a teammate must be provided for all teams`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6693d5de-ca97-4bfc-9d3b-6a6068adb26f",
+              "name": "Unauthorized — standard auth failures, plus\n`User does not have permissions to update automations` when the\ncaller can't edit automations (or lacks the inspection automation\naddon for custom automations).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to update automations\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0af1b0f-ab88-4565-9722-8854917e5011",
+              "name": "Not Found — `automation not found`, `inspection template not\nfound`, `unit not found`, `team not found`, `teammate not found`,\n`user not found`, or `subscription not found`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"automation not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6366939-7350-4c9f-92b6-7f62f0149ecc",
+              "name": "Conflict — `An automation with this name already exists on the\nsubscription` (when renaming), or `too many subscriptions`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "automationId",
+                      "description": "(Required) Automation ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"selection_type\": {\n    \"type\": \"<string>\",\n    \"ids\": [\n      \"<string>\"\n    ]\n  },\n  \"fast_track\": \"<boolean>\",\n  \"inspection_template_id\": \"<string>\",\n  \"creation_date\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\",\n    \"condition\": \"<string>\",\n    \"due_date_after_days\": \"<integer>\"\n  },\n  \"trigger_type\": \"<string>\",\n  \"assignment_type\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<email>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"recurrence\": {\n    \"frequency\": \"<string>\",\n    \"custom_interval\": \"<integer>\",\n    \"custom_unit\": \"<string>\",\n    \"end_trigger\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"An automation with this name already exists on the subscription\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d2ddc459-c662-4aba-a565-4d7f3416cdca",
+    "name": "RentCheck REST Account Settings Automations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

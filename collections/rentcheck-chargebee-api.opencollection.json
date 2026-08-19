@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Chargebee API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chargebee",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Chargebee addons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/chargebee/addons"
+          },
+          "docs": "Returns the list of Chargebee addons currently configured for the\nRentCheck account. The response is the raw Chargebee addon payload.\n"
+        },
+        {
+          "info": {
+            "name": "List Chargebee plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/chargebee/plans"
+          },
+          "docs": "Returns the list of Chargebee plans currently configured for the\nRentCheck account. The response is the raw Chargebee plan payload.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Chargebee subscription by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/chargebee/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "Chargebee subscription ID."
+              }
+            ]
+          },
+          "docs": "Returns the Chargebee subscription for the given subscription\nid. Returns `Subscription not found` when no matching subscription\nexists.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

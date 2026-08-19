@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Automations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List automations for the caller's subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/automations",
+            "params": [
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "Page size for pagination."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number."
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. The value is uppercased before use, so both upper-\nand lower-case forms are accepted.\n"
+              }
+            ]
+          },
+          "docs": "Returns automations belonging to the caller's active subscription, with\npagination and sorting controlled via `options[pagination]` /\n`options[sort]` query parameters. Defaults are\n`page_size=20`, `page_number=0`, `sort_by=created_at`,\n`sort_type=DESC`. Allowed `sort_by` values are listed below.\n"
+        },
+        {
+          "info": {
+            "name": "Create an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation for the caller's active subscription. New\nautomations are created in the deactivated state (`active: false`) and\nmust be enabled via a follow-up `PUT` call.\n\nThe following cross-field validation rules apply:\n  * `selection_type.ids` is required when `selection_type.type` is\n    `specific_units` or `specific_teams`.\n  * `assignment_type.emails` is required when `assignment_type.type` is\n    `emails`; `assignment_type.teammate_emails` is required when type is\n    `teammate"
+        },
+        {
+          "info": {
+            "name": "Get an automation by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Automation ID."
+              }
+            ]
+          },
+          "docs": "Returns the requested automation. The automation must exist and belong\nto the caller's active subscription; otherwise `automation not found` is\nreturned.\n"
+        },
+        {
+          "info": {
+            "name": "Update an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Automation ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Patch an existing automation. All body fields are optional; if\n`recurrence` is supplied, `trigger_type` must be supplied as well.\n\nSide-effects worth noting:\n  * If the resolved template has `is_fast_track_enabled: false`,\n    `fast_track` is forced to `false` on the stored automation\n    regardless of what the request body says.\n  * If the resulting `trigger_type` is `tenant-move-out` or `lease-end`,\n    `recurrence` is reset to `does_not_repeat` (with all\n    custom fields cleared).\n  * If aft"
+        },
+        {
+          "info": {
+            "name": "Delete an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Automation ID."
+              }
+            ]
+          },
+          "docs": "Hard-removes the automation. RC default automations\n(`is_rc_automation: true`) cannot be removed, and the caller must hold\nthe `canEditAutomation` permission **and** the subscription must have\nthe inspection automation addon. Returns 204 on success.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Buildings API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Buildings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a building",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/buildings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to create a Building. Buildings are properties that can contain a number of individual Units."
+        },
+        {
+          "info": {
+            "name": "Delete buildings",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/buildings",
+            "params": [
+              {
+                "name": "id[]",
+                "value": "",
+                "type": "query",
+                "description": "The ids of the buildings to be deleted. Repeat the parameter to send\nmultiple values (e.g. `?id[]=abc&id[]=def`). The query string must\ncontain `id[]`, and a missing array\nsurfaces as a 500. Individual entries are not validated; ids the\ncaller cannot access are silently skipped.\n"
+              }
+            ]
+          },
+          "docs": "This resource allows you to delete multiple buildings at once."
+        },
+        {
+          "info": {
+            "name": "Get a building by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/buildings/:buildingId",
+            "params": [
+              {
+                "name": "buildingId",
+                "value": "",
+                "type": "path",
+                "description": "Building ID"
+              }
+            ]
+          },
+          "docs": "This resource allows you to get a Building. Buildings are properties that can contain a number of individual Units."
+        },
+        {
+          "info": {
+            "name": "Update a building",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/buildings/:buildingId",
+            "params": [
+              {
+                "name": "buildingId",
+                "value": "",
+                "type": "path",
+                "description": "Building ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update parameters of a building"
+        },
+        {
+          "info": {
+            "name": "Merge two properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/merge/:targetPropertyId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Origin property ID (the one being merged away)."
+              },
+              {
+                "name": "targetPropertyId",
+                "value": "",
+                "type": "path",
+                "description": "Target property ID (the one that will be kept)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges the origin property (`propertyId`) into the target property (`targetPropertyId`). The\norigin is soft-deleted and its occupancies / residents are re-parented to the target. When\n`transfer_rooms` is `true`, the origin's room configuration is merged onto the target.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

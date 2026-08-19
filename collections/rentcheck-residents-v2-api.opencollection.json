@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Residents V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Residents V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all residents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents",
+            "params": [
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match against resident name, email, and phone number."
+              },
+              {
+                "name": "filters[deleted]",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, returns soft-deleted residents. Defaults to `false`."
+              },
+              {
+                "name": "filters[active]",
+                "value": "",
+                "type": "query",
+                "description": "When provided, filters residents by whether they currently have an active occupancy."
+              },
+              {
+                "name": "filters[emails]",
+                "value": "",
+                "type": "query",
+                "description": "Email(s) to filter residents by. Multiple values may be comma-separated — the string is split on `,` and matched by array-overlap. Single-value requests remain a comma-free string."
+              },
+              {
+                "name": "filters[property_id]",
+                "value": "",
+                "type": "query",
+                "description": "Property ID to filter residents by. Only residents with an occupancy on this property are returned."
+              },
+              {
+                "name": "filters[occupancy_status][value]",
+                "value": "",
+                "type": "query",
+                "description": "Occupancy status(es) to filter residents by. Multiple values should be concatenated with a `|`. Allowed individual values are `future`, `past`, and `current`. When either `filters[occupancy_status][value]` or `filters[occupancy_status][condition]` is supplied, both are required.\n"
+              },
+              {
+                "name": "filters[occupancy_status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by occupancy status. The validator only accepts `any_of`. Must be paired with `filters[occupancy_status][value]` (see above). Note also that `filters[active]` and `filters[occupancy_status]` are mutually exclusive — supplying both is rejected by the request validator."
+              },
+              {
+                "name": "occupancy_status[]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy multi-value occupancy status filter. Prefer `filters[occupancy_status][value]`."
+              },
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. This value is based on the page size."
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Case-insensitive."
+              }
+            ]
+          },
+          "docs": "This resource allows you to list Residents in RentCheck. Supports both the new `filters[...]` / `options[...]` query schema and the legacy `occupancy_status[]` multi-value syntax."
+        },
+        {
+          "info": {
+            "name": "Create a resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to create a Resident in RentCheck. Residents are used to provide contact information for inspections."
+        },
+        {
+          "info": {
+            "name": "Get a resident by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ]
+          },
+          "docs": "This resource allows you to get a Resident in RentCheck. Residents are used to provide contact information for inspections."
+        },
+        {
+          "info": {
+            "name": "Update a resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to update a Resident in RentCheck. Residents are used to provide contact information for inspections."
+        },
+        {
+          "info": {
+            "name": "Delete resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ]
+          },
+          "docs": "Delete selected resident by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

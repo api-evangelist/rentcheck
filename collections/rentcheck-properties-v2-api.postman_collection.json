@@ -1,0 +1,1421 @@
+{
+  "item": [
+    {
+      "id": "a21adfac-e6a6-4be9-a4f9-edea7a6909b8",
+      "name": "Properties V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07d2c627-97f4-453f-b89b-5f40e9245766",
+          "name": "Get buildings",
+          "request": {
+            "name": "Get buildings",
+            "description": {
+              "content": "This resource allows you to get all Buildings. Buildings are properties that can contain a number of individual Units.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "properties",
+                "buildings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "0",
+                  "description": "The page number of the collection. Zero-indexed."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search string to match building addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][value]",
+                  "value": "<string>",
+                  "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][condition]",
+                  "value": "<string>",
+                  "description": "Condition to apply to the team filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_start_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_end_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "synced",
+                  "value": "<string>",
+                  "description": "Value to filter by one of the available integration sync status"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "address",
+                  "description": "Sort results by one of the available fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_type",
+                  "value": "asc",
+                  "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d93086f-8326-4e0e-9f91-aa647ed6326b",
+              "name": "Returns buildings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Empire State Building\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"floors\": 7,\n      \"property_type\": \"Building\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"room_names\": \"Attic\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": false,\n        \"can_create_inspection\": false,\n        \"can_add_to_parent_property\": true,\n        \"can_reassign_team\": false\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"additional_team_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"unit_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"yardi\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"error\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"units\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Empire State Building\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"floors\": 7,\n      \"property_type\": \"Building\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"room_names\": \"Eighth Full Bathroom\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": false,\n        \"can_create_inspection\": false,\n        \"can_add_to_parent_property\": false,\n        \"can_reassign_team\": false\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"additional_team_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"unit_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"rentvine\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"processing\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"units\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"count\": 6259,\n  \"total_results\": 3055\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bae87c6a-f81f-4142-b733-d319bfbff137",
+              "name": "One of the `filters` values failed validation. Only the `filters`\nobject is server-side validated; invalid\n`sort_by` / `sort_type` values do NOT surface as 400.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"filters.synced\\\" must be one of [synced, not synced]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f84e76a-4019-4307-a377-0759d160e507",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69fd8084-1442-4568-9a53-0cc5febc9b25",
+          "name": "Get communities",
+          "request": {
+            "name": "Get communities",
+            "description": {
+              "content": "This resource allows you to get all Communities. Communities are properties that contain one or more individual Units.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "properties",
+                "communities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "0",
+                  "description": "The page number of the collection. Zero-indexed."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search string to match community addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][value]",
+                  "value": "<string>",
+                  "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][condition]",
+                  "value": "<string>",
+                  "description": "Condition to apply to the team filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_start_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_end_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "synced",
+                  "value": "<string>",
+                  "description": "Value to filter by one of the available integration sync status"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "address",
+                  "description": "Sort results by one of the available fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_type",
+                  "value": "asc",
+                  "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2aba0417-b64b-43d7-be74-3c5bfed991a6",
+              "name": "Returns communities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "communities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Whispering Pines\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"property_type\": \"Community\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"room_names\": \"Ninth Bathroom\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": true,\n        \"can_create_inspection\": false,\n        \"can_add_to_parent_property\": true,\n        \"can_reassign_team\": true\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"additional_team_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"building_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"buildium\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"processing\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"Whispering Pines\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"property_type\": \"Community\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"room_names\": \"Ninth Full Bathroom\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": false,\n        \"can_create_inspection\": false,\n        \"can_add_to_parent_property\": false,\n        \"can_reassign_team\": true\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"additional_team_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"building_ids\": [\n        \"00BRcZPSakXz6w7RYoE\",\n        \"00BRcZPSakXz6w7RYoE\"\n      ],\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"rentvine\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"success\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"properties\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"units\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"count\": 9288,\n  \"total_results\": 9630\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e5119b5-d13d-4cc3-9a08-434e4519a20d",
+              "name": "One of the `filters` values failed validation. Only the `filters`\nobject is server-side validated; invalid\n`sort_by` / `sort_type` values do NOT surface as 400.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "communities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"filters.synced\\\" must be one of [synced, not synced]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48ea23eb-3a6a-492a-bb60-17cbb9d9c585",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "communities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e0e1e95-2b92-47bf-b70a-8022aa1e62a1",
+          "name": "Get a property by ID",
+          "request": {
+            "name": "Get a property by ID",
+            "description": {
+              "content": "Returns a single property (unit, building, or community) by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "properties",
+                ":propertyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Property ID. Matches the `id` of a unit, building, or community."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6081adba-29a7-4173-b240-eec99375a656",
+              "name": "Returns the requested property",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    ":propertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Property ID. Matches the `id` of a unit, building, or community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"property_type\": \"Single-Family\",\n    \"address\": \"2001 Red Gates\",\n    \"city\": \"New Orleans\",\n    \"zip_code\": \"70130\",\n    \"bedrooms\": 2,\n    \"full_bathrooms\": 2,\n    \"half_bathrooms\": 1,\n    \"building_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"latchel_property_id\": 2048,\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\"\n    },\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"rooms_info\": [\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      },\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      }\n    ],\n    \"rooms\": [\n      \"Living Room\",\n      \"Den\",\n      \"Balcony\"\n    ],\n    \"room_names\": \"Stairway\",\n    \"last_completed_inspection\": {\n      \"date\": \"2022-12-02 14:15:37.925000\",\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"creation_source\": \"zapier\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"permissions\": {\n      \"can_delete\": false,\n      \"can_create_inspection\": false,\n      \"can_add_to_parent_property\": true,\n      \"can_reassign_team\": true\n    },\n    \"x_id\": \"string\",\n    \"address_2\": \"Apt. 4B\",\n    \"region\": \"Orleans\",\n    \"sync_data\": {\n      \"vendor\": \"rentvine\",\n      \"last_sync\": \"2022-12-02 14:15:37.925000\",\n      \"status\": \"error\",\n      \"error\": \"string\",\n      \"id\": \"string\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"short_property_id\": \"string\",\n      \"short_unit_id\": \"string\",\n      \"upload_response\": [\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        },\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "767b0823-a11e-42e4-a180-d3023abd1c77",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    ":propertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Property ID. Matches the `id` of a unit, building, or community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "498e6ddc-7e13-437d-905c-509f788ca1ab",
+              "name": "Not Found — `property not found` or `users not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    ":propertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Property ID. Matches the `id` of a unit, building, or community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"property not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "572bb18c-702a-4953-b1a7-1032ec7bbf38",
+          "name": "Get units",
+          "request": {
+            "name": "Get units",
+            "description": {
+              "content": "Get units according to logged in user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "properties",
+                "units"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "0",
+                  "description": "The page number of the collection. Zero-indexed."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search string to match unit addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][value]",
+                  "value": "<string>",
+                  "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][condition]",
+                  "value": "<string>",
+                  "description": "Condition to apply to the team filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "Legacy team id filter. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_start_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_completed_inspection_end_date",
+                  "value": "<date>",
+                  "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "synced",
+                  "value": "<string>",
+                  "description": "Value to filter by one of the available integration sync status"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "address",
+                  "description": "Sort results by one of the available fields. `name` has no effect\nfor units (units have no `name` field); it is preserved in the enum for\nshared use with buildings/communities.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_type",
+                  "value": "asc",
+                  "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "835f69ac-72b0-4c84-85a8-59cc5191c4f9",
+              "name": "Returns units",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"property_type\": \"Single-Family\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"bedrooms\": 2,\n      \"full_bathrooms\": 2,\n      \"half_bathrooms\": 1,\n      \"building_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"latchel_property_id\": 7697,\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"room_names\": \"Attic\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": true,\n        \"can_create_inspection\": true,\n        \"can_add_to_parent_property\": true,\n        \"can_reassign_team\": true\n      },\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"yardi\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"processing\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"properties\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"property_type\": \"Single-Family\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"bedrooms\": 2,\n      \"full_bathrooms\": 2,\n      \"half_bathrooms\": 1,\n      \"building_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"latchel_property_id\": 5610,\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\"\n      },\n      \"created_date\": \"2022-12-02 14:15:37.925000\",\n      \"updated_date\": \"2023-10-04 14:15:37.925000\",\n      \"rooms_info\": [\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        },\n        {\n          \"type\": \"Bedroom\",\n          \"name\": \"First Bedroom\",\n          \"label\": \"First Bedroom\"\n        }\n      ],\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"room_names\": \"Office\",\n      \"last_completed_inspection\": {\n        \"date\": \"2022-12-02 14:15:37.925000\",\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"creation_source\": \"zapier\",\n      \"created_by\": {\n        \"name\": \"string\"\n      },\n      \"permissions\": {\n        \"can_delete\": true,\n        \"can_create_inspection\": true,\n        \"can_add_to_parent_property\": true,\n        \"can_reassign_team\": false\n      },\n      \"x_id\": \"string\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\",\n      \"sync_data\": {\n        \"vendor\": \"yardi\",\n        \"last_sync\": \"2022-12-02 14:15:37.925000\",\n        \"status\": \"scheduled\",\n        \"error\": \"string\",\n        \"id\": \"string\",\n        \"x_id\": \"string\",\n        \"location_id\": \"string\",\n        \"integration_id\": \"string\",\n        \"short_property_id\": \"string\",\n        \"short_unit_id\": \"string\",\n        \"upload_response\": [\n          {\n            \"resource\": \"occupancies\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          },\n          {\n            \"resource\": \"properties\",\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"count\": 8221,\n  \"total_results\": 9162\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2217533-c03f-44d5-bd8d-e246cc877154",
+              "name": "One of the `filters` values failed validation. Only the `filters`\nobject is server-side validated; invalid\n`sort_by` / `sort_type` values do NOT surface as 400.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"filters.synced\\\" must be one of [synced, not synced]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fc8a12e-1fbf-404f-8676-1d2e7455deae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "properties",
+                    "units"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_completed_inspection_start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "last_completed_inspection_end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "synced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "address"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dd3b365c-fa41-4ca5-b3b4-0432a97cb6f6",
+    "name": "RentCheck REST Account Settings Properties V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

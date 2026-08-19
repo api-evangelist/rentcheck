@@ -1,0 +1,1187 @@
+{
+  "item": [
+    {
+      "id": "2cf6249e-472b-4855-a3ee-7b0b5c422d16",
+      "name": "Filter Segments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0559bf41-7b31-47c3-9ea1-23ed93794909",
+          "name": "Create a filter segment",
+          "request": {
+            "name": "Create a filter segment",
+            "description": {
+              "content": "Creates a saved filter segment — a named, colored, and iconed\ninspections-list filter combo — owned by the requesting user.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "filter-segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63080c8e-0170-4b2d-a8dd-1459f3022205",
+              "name": "Returns the created filter segment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 201,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"color\": \"light_blue\",\n    \"icon\": \"circle-xmark\",\n    \"filters\": {\n      \"search\": \"string\",\n      \"archived\": true,\n      \"has_flags\": false,\n      \"due_date\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"due_date_legacy\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"completed_date\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"assigned_to\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"team\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      },\n      \"inspection_template\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      },\n      \"inspection_status\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"rating\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"property\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      },\n      \"review_step\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"created_by\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      }\n    },\n    \"created_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Landlord\"\n    },\n    \"updated_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Landlord\"\n    },\n    \"owned_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Property Manager\"\n    },\n    \"created_at\": \"2016-02-03T03:48:49.922Z\",\n    \"updated_at\": \"1973-02-10T15:04:28.358Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cefbb75-aaee-4897-9239-c307d94f19c9",
+              "name": "Bad request — the request body failed validation. The raw message\nidentifies the invalid field, e.g. `\"data.name\" is required`,\n`\"data.color\" must be one of [grey, blue, light_blue, orange, green, red]`,\n`\"data.filters\" must have at least 1 key`, or — when the same value\nappears twice in a multi-value filter —\n`\"data.filters.assigned_to.value[1]\" contains a duplicate value`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42facf1e-5495-411a-9ace-d42996c03530",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "873cf51d-3722-4c77-bc61-7e723a7c28f3",
+              "name": "Not Found — `user not found` (the requesting user does not exist).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"user not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c62853a1-41d8-496a-9300-bc109203a24d",
+              "name": "Conflict — a filter segment with this name already exists for the owner\n(names are unique per owner, trimmed and case-insensitive).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"A filter segment with this name already exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef501d53-ebf0-4c6e-9032-10508818987d",
+          "name": "Get all filter segments",
+          "request": {
+            "name": "Get all filter segments",
+            "description": {
+              "content": "Returns the requesting user's saved filter segments grouped with the\nRentCheck default segments. The response is an object with two keys, each\nan array of segments (same shape as the create/update response):\n\n- `my_segments`: segments the user owns, sorted alphabetically ascending\n  by name.\n- `rentcheck_default_segments`: the fixed RentCheck defaults — Needs\n  Review, Almost Due, Overdue, Assigned to me, Archived — always present\n  in that order. These are not persisted: they carry stable slug ids\n  (e.g. `rc-default-needs-review`), a synthetic RentCheck `System`\n  identity for `created_by` / `updated_by` / `owned_by`, and epoch\n  timestamps. The Almost Due / Overdue date windows are relative to the\n  current day, and Assigned to me is scoped to the requesting user.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "filter-segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b135bae7-e47f-421f-ac3f-0a30076b2b78",
+              "name": "Returns the user's segments and the RentCheck default segments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"my_segments\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"color\": \"light_blue\",\n        \"icon\": \"house\",\n        \"filters\": {\n          \"search\": \"string\",\n          \"archived\": true,\n          \"has_flags\": false,\n          \"due_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"due_date_legacy\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"completed_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"assigned_to\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"team\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"inspection_template\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"inspection_status\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"rating\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"property\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"review_step\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"created_by\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          }\n        },\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"updated_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Landlord\"\n        },\n        \"owned_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"created_at\": \"2017-03-04T23:52:49.788Z\",\n        \"updated_at\": \"1993-02-01T20:49:19.482Z\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"color\": \"grey\",\n        \"icon\": \"tree-city\",\n        \"filters\": {\n          \"search\": \"string\",\n          \"archived\": false,\n          \"has_flags\": false,\n          \"due_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"due_date_legacy\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"completed_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"assigned_to\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"team\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"inspection_template\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"inspection_status\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"rating\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"property\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"review_step\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"created_by\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          }\n        },\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"updated_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Landlord\"\n        },\n        \"owned_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"System\"\n        },\n        \"created_at\": \"1956-07-20T13:40:22.298Z\",\n        \"updated_at\": \"1984-07-24T22:51:01.176Z\"\n      }\n    ],\n    \"rentcheck_default_segments\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"color\": \"grey\",\n        \"icon\": \"repeat\",\n        \"filters\": {\n          \"search\": \"string\",\n          \"archived\": false,\n          \"has_flags\": false,\n          \"due_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"due_date_legacy\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"completed_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"assigned_to\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"team\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"inspection_template\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"inspection_status\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"rating\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"property\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"review_step\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"created_by\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          }\n        },\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Property Manager\"\n        },\n        \"updated_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"owned_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"System\"\n        },\n        \"created_at\": \"2007-08-31T09:31:19.728Z\",\n        \"updated_at\": \"1965-12-09T17:35:26.501Z\"\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"color\": \"orange\",\n        \"icon\": \"user-helmet-safety\",\n        \"filters\": {\n          \"search\": \"string\",\n          \"archived\": false,\n          \"has_flags\": false,\n          \"due_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"due_date_legacy\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"completed_date\": {\n            \"start_date\": \"string\",\n            \"end_date\": \"string\"\n          },\n          \"assigned_to\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"team\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"inspection_template\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"inspection_status\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"rating\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"property\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"none_of\"\n          },\n          \"review_step\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          },\n          \"created_by\": {\n            \"value\": [\n              \"string\",\n              \"string\"\n            ],\n            \"condition\": \"any_of\"\n          }\n        },\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Property Manager\"\n        },\n        \"updated_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Property Manager\"\n        },\n        \"owned_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"created_at\": \"2008-05-02T22:48:43.274Z\",\n        \"updated_at\": \"1969-03-06T13:28:50.872Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "344fe21c-4df4-4dff-b2c8-205cfedd5305",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f428f7ee-0edf-4d50-8c0b-d15498313667",
+              "name": "Not Found — `user not found` (the requesting user does not exist).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"user not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95c0fe56-e612-4db8-8150-2fe462f1aebb",
+          "name": "Delete a filter segment",
+          "request": {
+            "name": "Delete a filter segment",
+            "description": {
+              "content": "Hard-deletes a saved filter segment. Only the segment owner can delete\nit.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "filter-segments",
+                ":filterSegmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "filterSegmentId",
+                  "description": "(Required) Filter segment ID (UUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5cda327e-1345-4d46-90c4-677269c47f80",
+              "name": "Successful deletion of the filter segment. Empty body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Filter segment ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7865bf44-e7f4-4e10-bbb8-6616538d7c53",
+              "name": "Bad request — the path parameter failed validation, e.g.\n`\"filterSegmentId\" must be a valid GUID`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Filter segment ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"filterSegmentId\\\" must be a valid GUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29c9736b-ba0a-439d-84a6-7d32c1f47a67",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Filter segment ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbdb5e50-33b2-44cc-842d-da140d191998",
+              "name": "Forbidden — the requesting user is not the owner of the segment.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Filter segment ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"only the segment owner can delete it\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbce2702-633b-4a5f-b7f8-b458d2f92d51",
+              "name": "Not Found — `filter segment not found (<id>)`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Filter segment ID (UUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"filter segment not found (3f8a2c1e-1111-2222-3333-444455556666)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c04b909-3f29-451b-8fae-5b223b42a324",
+          "name": "Update a filter segment",
+          "request": {
+            "name": "Update a filter segment",
+            "description": {
+              "content": "Updates a saved filter segment owned by the requesting user. This is a\nfull replace — all fields are required. Only the segment owner can edit\nit; a segment owned by another user is reported as not found.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "filter-segments",
+                ":filterSegmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "filterSegmentId",
+                  "description": "(Required) Id of the filter segment to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1eec65fe-41d3-4a7c-a1a9-b6ed48d2568a",
+              "name": "Returns the updated filter segment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Id of the filter segment to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"string\",\n    \"color\": \"blue\",\n    \"icon\": \"exclamation-triangle\",\n    \"filters\": {\n      \"search\": \"string\",\n      \"archived\": false,\n      \"has_flags\": false,\n      \"due_date\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"due_date_legacy\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"completed_date\": {\n        \"start_date\": \"string\",\n        \"end_date\": \"string\"\n      },\n      \"assigned_to\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"team\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      },\n      \"inspection_template\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      },\n      \"inspection_status\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"rating\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"property\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"review_step\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"any_of\"\n      },\n      \"created_by\": {\n        \"value\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": \"none_of\"\n      }\n    },\n    \"created_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Landlord\"\n    },\n    \"updated_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Renter\"\n    },\n    \"owned_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"type\": \"Renter\"\n    },\n    \"created_at\": \"2013-04-03T08:07:51.516Z\",\n    \"updated_at\": \"2021-03-13T15:40:29.408Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "292d72d9-249f-484b-88f4-c50f75ea5c26",
+              "name": "Bad request — the request body failed validation. The raw message\nidentifies the invalid field, e.g. `\"data.name\" is required`,\n`\"data.color\" must be one of [grey, blue, light_blue, orange, green, red]`,\n`\"data.filters\" must have at least 1 key`, or — when the same value\nappears twice in a multi-value filter —\n`\"data.filters.assigned_to.value[1]\" contains a duplicate value`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Id of the filter segment to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.name\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "247e20c6-d842-4f44-b80e-637b83afcc04",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Id of the filter segment to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b24c211-a118-433d-9b37-0d49349a3f45",
+              "name": "Not Found — `user not found` (the requesting user does not exist) or\n`filter segment not found` (no segment with this id, or the segment\nis owned by another user).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Id of the filter segment to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"filter segment not found (2f9d0f3e-8c1a-4b8b-9d2e-2b5f6a4d5e7c)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec52116c-c015-4b7b-8f28-c8b81305f5c3",
+              "name": "Conflict — another filter segment with this name already exists for\nthe owner (names are unique per owner, trimmed and case-insensitive).\nKeeping the segment's current name is not a conflict.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "filter-segments",
+                    ":filterSegmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "filterSegmentId",
+                      "description": "(Required) Id of the filter segment to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"icon\": \"house\",\n  \"filters\": {\n    \"search\": \"<string>\",\n    \"archived\": \"<boolean>\",\n    \"has_flags\": \"<boolean>\",\n    \"due_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"due_date_legacy\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"completed_date\": {\n      \"start_date\": \"<string>\",\n      \"end_date\": \"<string>\"\n    },\n    \"assigned_to\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"team\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_template\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"inspection_status\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"rating\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"property\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"review_step\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    },\n    \"created_by\": {\n      \"value\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"A filter segment with this name already exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d53ea7fb-c077-4654-828a-9992c5c97639",
+    "name": "RentCheck REST Account Settings Filter Segments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

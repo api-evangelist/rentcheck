@@ -1,0 +1,769 @@
+{
+  "item": [
+    {
+      "id": "5b8ca24f-bf08-4254-a3fe-bb8a628804e2",
+      "name": "Maintenance Flags",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07157727-65dc-4b77-8898-dc74822565e7",
+          "name": "Get all maintenance flags for a given inspection and feature",
+          "request": {
+            "name": "Get all maintenance flags for a given inspection and feature",
+            "description": {
+              "content": "Get all maintenance flags for a given inspection ID and feature ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "inspections",
+                ":inspectionId",
+                "features",
+                ":featureId",
+                "maintenanceFlags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inspectionId",
+                  "description": "(Required) Inspection ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "featureId",
+                  "description": "(Required) Feature ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6b55b2f-bfff-4c97-86e6-4d83e821d0aa",
+              "name": "Returns all maintenance flags for the inspection feature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"room\": \"string\",\n      \"feature_name\": \"string\",\n      \"feature_id\": \"string\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      },\n      \"responsibility\": \"RESIDENT\",\n      \"note\": \"string\",\n      \"internal_note\": \"string\",\n      \"image_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost\": 7635.389297488842,\n      \"skill\": \"string\",\n      \"custom_fields\": [\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"room\": \"string\",\n      \"feature_name\": \"string\",\n      \"feature_id\": \"string\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      },\n      \"responsibility\": \"\",\n      \"note\": \"string\",\n      \"internal_note\": \"string\",\n      \"image_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost\": 6469.185435833212,\n      \"skill\": \"string\",\n      \"custom_fields\": [\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"count\": 2472,\n  \"total_results\": 9126\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a23e4ea-f84b-4a63-8b8d-71e57da23b67",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a7eb6df-fd02-4cea-a1c4-aec23d075bb8",
+              "name": "Not Found — `user not found`, `inspection not found`,\n`property not found`, or `inspection feature not found`. The\ninspection-access guard maps permission failures to\n`inspection not found` instead of 401, so a 404 here can also\nindicate that the inspection exists but the caller cannot read it.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"inspection feature not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53e09ccb-2602-4de0-abec-a43f1d756ae3",
+          "name": "Get all maintenance flags for an inspection",
+          "request": {
+            "name": "Get all maintenance flags for an inspection",
+            "description": {
+              "content": "Get all maintenance flags for a given inspection ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "inspections",
+                ":inspectionId",
+                "maintenanceFlags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inspectionId",
+                  "description": "(Required) Inspection ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10ad5592-53f7-4460-9e45-e2c33b5f5f68",
+              "name": "Returns all maintenance flags for the inspection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"room\": \"string\",\n      \"feature_name\": \"string\",\n      \"feature_id\": \"string\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      },\n      \"responsibility\": \"RESIDENT\",\n      \"note\": \"string\",\n      \"internal_note\": \"string\",\n      \"image_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost\": 7635.389297488842,\n      \"skill\": \"string\",\n      \"custom_fields\": [\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"room\": \"string\",\n      \"feature_name\": \"string\",\n      \"feature_id\": \"string\",\n      \"created_date\": \"2022-01-15 00:00:00\",\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      },\n      \"responsibility\": \"\",\n      \"note\": \"string\",\n      \"internal_note\": \"string\",\n      \"image_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost\": 6469.185435833212,\n      \"skill\": \"string\",\n      \"custom_fields\": [\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"value\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"count\": 2472,\n  \"total_results\": 9126\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fd7b446-8fef-4587-a768-03a5a68a6044",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaafc76f-6379-4be6-acc2-8ad6ecd36a39",
+              "name": "Not Found — `user not found`, `inspection not found`, or\n`property not found`. The inspection-access guard maps permission\nfailures to `inspection not found` instead of 401, so a 404 here\ncan also indicate that the inspection exists but the caller cannot\nread it.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "maintenanceFlags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"inspection not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6802d0c-c49e-4872-bd68-1fd9702f14ed",
+          "name": "Get a maintenance flag by ID for a given inspection and feature",
+          "request": {
+            "name": "Get a maintenance flag by ID for a given inspection and feature",
+            "description": {
+              "content": "Get a maintenance flag by ID for a given inspection and feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "inspections",
+                ":inspectionId",
+                "features",
+                ":featureId",
+                "maintenanceFlags",
+                ":maintenanceFlagId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inspectionId",
+                  "description": "(Required) Inspection ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "featureId",
+                  "description": "(Required) Feature ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenanceFlagId",
+                  "description": "(Required) Maintenance flag ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f3ca874-0849-479f-8f7f-a72e3eafb9e2",
+              "name": "Returns the requested maintenance flag",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags",
+                    ":maintenanceFlagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceFlagId",
+                      "description": "(Required) Maintenance flag ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"room\": \"string\",\n    \"feature_name\": \"string\",\n    \"feature_id\": \"string\",\n    \"created_date\": \"2022-01-15 00:00:00\",\n    \"created_by\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    \"responsibility\": \"\",\n    \"note\": \"string\",\n    \"internal_note\": \"string\",\n    \"image_urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cost\": 73.38341467218345,\n    \"skill\": \"string\",\n    \"custom_fields\": [\n      {\n        \"id\": \"string\",\n        \"value\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"id\": \"string\",\n        \"value\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "165386a1-1034-497f-8eff-ee3862e361c8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags",
+                    ":maintenanceFlagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceFlagId",
+                      "description": "(Required) Maintenance flag ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87c8d824-7201-4dc3-a180-fae901aa7485",
+              "name": "Not Found. The inspection-access guard maps permission failures to\n`inspection not found` instead of 401, so a 404 here can also\nindicate that the inspection exists but the caller cannot read it.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "inspections",
+                    ":inspectionId",
+                    "features",
+                    ":featureId",
+                    "maintenanceFlags",
+                    ":maintenanceFlagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inspectionId",
+                      "description": "(Required) Inspection ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "featureId",
+                      "description": "(Required) Feature ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceFlagId",
+                      "description": "(Required) Maintenance flag ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"maintenance flag not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "02156902-6721-43d4-9438-0c4427afc0b3",
+    "name": "RentCheck REST Account Settings Maintenance Flags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

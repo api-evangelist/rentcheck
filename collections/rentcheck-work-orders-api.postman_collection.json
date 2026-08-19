@@ -1,0 +1,777 @@
+{
+  "item": [
+    {
+      "id": "8a0012db-af13-40b2-9cb5-9f7fedf62d49",
+      "name": "Work Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3ee39b50-8fce-4a82-9fb7-a9804dd3f056",
+          "name": "Create a work order",
+          "request": {
+            "name": "Create a work order",
+            "description": {
+              "content": "Creates a Work Order in RentCheck and dispatches it to the requested\nintegration provider. The path parameter `provider` selects the\ndestination integration; the request body shape varies per provider.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "work_orders",
+                "providers",
+                ":provider"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "provider",
+                  "description": "(Required) The integration provider that should fulfill this work order.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                "key": "x-app-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"work_order_name\": \"<string>\",\n  \"work_order_description\": \"<string>\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"<string>\",\n      \"feature_id\": \"<string>\"\n    }\n  ],\n  \"latchel_property_id\": \"<number>\",\n  \"vendor_instructions\": \"<string>\",\n  \"skill\": \"<string>\",\n  \"property_access_instructions\": \"<string>\",\n  \"vendor_id\": \"<number>\",\n  \"resident_id\": \"<string>\",\n  \"primary_resident_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b84a486b-df8c-4183-9715-8498c8cba547",
+              "name": "Returns the created work order",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "providers",
+                    ":provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) The integration provider that should fulfill this work order.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"work_order_name\": \"Latchel Job #1\",\n  \"work_order_description\": \"Faulty socket, no power, needs repair.\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ],\n  \"latchel_property_id\": 1169.16853264578,\n  \"vendor_instructions\": \"Use your biggest plunger, do not use little plunger.\",\n  \"skill\": \"Repair socket\",\n  \"property_access_instructions\": \"Look under the door mat; there is a secret entrance.\",\n  \"vendor_id\": 6108.6584025534075,\n  \"resident_id\": \"string\",\n  \"primary_resident_id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Latchel Job #1\",\n    \"created_date\": \"2022-01-15 00:00:00\",\n    \"created_by\": \"string\",\n    \"created_by_name\": \"string\",\n    \"status\": \"string\",\n    \"maintenance_flags\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"room\": \"string\",\n        \"feature\": \"string\",\n        \"feature_id\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"type\": \"System\"\n        },\n        \"responsibility\": \"\",\n        \"note\": \"string\",\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cost\": 8827.11851246451\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"room\": \"string\",\n        \"feature\": \"string\",\n        \"feature_id\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"type\": \"Landlord\"\n        },\n        \"responsibility\": \"\",\n        \"note\": \"string\",\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cost\": 8599.474233807921\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"inspection\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"type\": \"Periodic\",\n      \"date\": \"2022-01-15 00:00:00\",\n      \"template\": {},\n      \"completed_date\": \"string\"\n    },\n    \"skill\": \"string\",\n    \"zip_report_location\": \"string\",\n    \"last_sync_date\": \"string\",\n    \"property\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\"\n    },\n    \"latchel\": {\n      \"key_0\": 3019.0683701900343\n    },\n    \"yardi\": {\n      \"key_0\": true\n    },\n    \"appfolio\": {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 9688.37864446697\n    },\n    \"jenark\": {\n      \"key_0\": 4081,\n      \"key_1\": \"string\",\n      \"key_2\": true,\n      \"key_3\": 7826,\n      \"key_4\": true\n    },\n    \"rentmanager\": {\n      \"key_0\": 5418,\n      \"key_1\": 7072\n    },\n    \"rentvine\": {\n      \"key_0\": false,\n      \"key_1\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c4b7568-0611-4d4c-bd8b-618ffa83998f",
+              "name": "Bad request — request body validation failed, or the supplied\nfeatures span more than one inspection. Validation messages are raw, e.g.:\n  - `\"data.work_order_name\" is required`\n  - `\"data.work_order_description\" is required`\n  - `\"data.maintenance_flags\" must contain at least 1 items`\n  - `\"data.maintenance_flags\" must be an array`\n  - `\"data.latchel_property_id\" is required` (`latchel`)\n  - `\"data.ok_to_enter\" is required` (`rentmanager`)\n  - `\"data.priority\" must be one of [Low, Normal, High]` (`rentmanager`)\n  - `\"data.work_order_code\" is required` (`jenark`)\nThe cross-inspection guard returns\n`Inspection must be consistent. All features should belong to the same inspection.`\nThe Rent Manager integration also surfaces\n`property not synced with integration` and\n`No rentmanager integration is configured for this account` as 400\nwhen its preflight checks fail.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "providers",
+                    ":provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) The integration provider that should fulfill this work order.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"work_order_name\": \"Latchel Job #1\",\n  \"work_order_description\": \"Faulty socket, no power, needs repair.\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ],\n  \"latchel_property_id\": 1169.16853264578,\n  \"vendor_instructions\": \"Use your biggest plunger, do not use little plunger.\",\n  \"skill\": \"Repair socket\",\n  \"property_access_instructions\": \"Look under the door mat; there is a secret entrance.\",\n  \"vendor_id\": 6108.6584025534075,\n  \"resident_id\": \"string\",\n  \"primary_resident_id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82f3db03-29fe-4388-9d5a-265868e33134",
+              "name": "Unauthorized — standard auth failures, plus the per-work-order permission check\n(`User does not have permissions to create work order` is emitted as 401,\nnot 400).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "providers",
+                    ":provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) The integration provider that should fulfill this work order.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"work_order_name\": \"Latchel Job #1\",\n  \"work_order_description\": \"Faulty socket, no power, needs repair.\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ],\n  \"latchel_property_id\": 1169.16853264578,\n  \"vendor_instructions\": \"Use your biggest plunger, do not use little plunger.\",\n  \"skill\": \"Repair socket\",\n  \"property_access_instructions\": \"Look under the door mat; there is a secret entrance.\",\n  \"vendor_id\": 6108.6584025534075,\n  \"resident_id\": \"string\",\n  \"primary_resident_id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to create work order\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d8fac6e-a5c8-495d-95bd-be8a3ebe7ed1",
+              "name": "Not Found — `subscription not found` (caller has no subscription),\n`appfolio integration not found`, `rentvine integration not found`,\n`latchel integration not found` (the destination integration is not\nconfigured for the caller's subscription), `resident not found (<id>)`\n(the supplied `resident_id` does not exist), or `property not found`\n(the property associated with the flagged features is not synced to\nthe requested integration).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "providers",
+                    ":provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) The integration provider that should fulfill this work order.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"work_order_name\": \"Latchel Job #1\",\n  \"work_order_description\": \"Faulty socket, no power, needs repair.\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ],\n  \"latchel_property_id\": 1169.16853264578,\n  \"vendor_instructions\": \"Use your biggest plunger, do not use little plunger.\",\n  \"skill\": \"Repair socket\",\n  \"property_access_instructions\": \"Look under the door mat; there is a secret entrance.\",\n  \"vendor_id\": 6108.6584025534075,\n  \"resident_id\": \"string\",\n  \"primary_resident_id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa6b7678-9974-4ab4-921a-6f2871ee9b63",
+              "name": "Internal server error. Sources:\n  - Unknown `provider` — `invalid provider` is returned when the path\n    parameter is not one of the registered providers. The\n    path-parameter `enum` documents the supported set; unsupported\n    providers should be rejected before processing.\n  - Jenark — `property not synced with Jenark` is returned when the\n    property is not synced through the Jenark integration. (The\n    analogous Rent Manager check surfaces as 400 — see the 400\n    response above.)\n  - AppFolio / Rentvine — `Must have work order sync switched ON in\n    order to create work orders. Please adjust your data sync\n    settings.` is returned when the integration exists but work-order\n    sync is disabled.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "providers",
+                    ":provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) The integration provider that should fulfill this work order.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Creation-source identifier. Persisted as `creation_source` on each\ncreated work order.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"work_order_name\": \"Latchel Job #1\",\n  \"work_order_description\": \"Faulty socket, no power, needs repair.\",\n  \"maintenance_flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ],\n  \"latchel_property_id\": 1169.16853264578,\n  \"vendor_instructions\": \"Use your biggest plunger, do not use little plunger.\",\n  \"skill\": \"Repair socket\",\n  \"property_access_instructions\": \"Look under the door mat; there is a secret entrance.\",\n  \"vendor_id\": 6108.6584025534075,\n  \"resident_id\": \"string\",\n  \"primary_resident_id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 500,\n  \"error\": \"invalid provider\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b2dbf77-3be6-4060-959a-85737bdf21af",
+          "name": "Get a work order by ID",
+          "request": {
+            "name": "Get a work order by ID",
+            "description": {
+              "content": "Get a work order by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "work_orders",
+                ":workOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workOrderId",
+                  "description": "(Required) work order ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76b86999-1447-47c7-bfbd-6d8d4a3efdc2",
+              "name": "Returns the requested work order",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    ":workOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workOrderId",
+                      "description": "(Required) work order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Latchel Job #1\",\n    \"created_date\": \"2022-01-15 00:00:00\",\n    \"created_by\": \"string\",\n    \"created_by_name\": \"string\",\n    \"status\": \"string\",\n    \"maintenance_flags\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"room\": \"string\",\n        \"feature\": \"string\",\n        \"feature_id\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"type\": \"System\"\n        },\n        \"responsibility\": \"\",\n        \"note\": \"string\",\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cost\": 8827.11851246451\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"room\": \"string\",\n        \"feature\": \"string\",\n        \"feature_id\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"type\": \"Landlord\"\n        },\n        \"responsibility\": \"\",\n        \"note\": \"string\",\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cost\": 8599.474233807921\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"inspection\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"type\": \"Periodic\",\n      \"date\": \"2022-01-15 00:00:00\",\n      \"template\": {},\n      \"completed_date\": \"string\"\n    },\n    \"skill\": \"string\",\n    \"zip_report_location\": \"string\",\n    \"last_sync_date\": \"string\",\n    \"property\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\"\n    },\n    \"latchel\": {\n      \"key_0\": 3019.0683701900343\n    },\n    \"yardi\": {\n      \"key_0\": true\n    },\n    \"appfolio\": {\n      \"key_0\": true,\n      \"key_1\": \"string\",\n      \"key_2\": 9688.37864446697\n    },\n    \"jenark\": {\n      \"key_0\": 4081,\n      \"key_1\": \"string\",\n      \"key_2\": true,\n      \"key_3\": 7826,\n      \"key_4\": true\n    },\n    \"rentmanager\": {\n      \"key_0\": 5418,\n      \"key_1\": 7072\n    },\n    \"rentvine\": {\n      \"key_0\": false,\n      \"key_1\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53a47ca7-10e9-424c-8777-2c1f344155e8",
+              "name": "Unauthorized — standard auth failures, plus the per-work-order permission check.\nReturns HTTP 401 with message `User does not have permissions to get work order` when\nthe caller's role doesn't allow read access.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    ":workOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workOrderId",
+                      "description": "(Required) work order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"User does not have permissions to get work order\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b3a6dc3-8a5d-4283-ad42-8663f2bd80fc",
+              "name": "Not Found — `work order not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    ":workOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workOrderId",
+                      "description": "(Required) work order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"work order not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00e7b505-ff74-4640-93b8-c8caad840285",
+          "name": "Get all work order skills",
+          "request": {
+            "name": "Get all work order skills",
+            "description": {
+              "content": "Returns the list of skills that can be selected when creating a work order. The\nsame static list is always returned, regardless of the caller's enabled integrations.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "work_orders",
+                "skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f029359b-50ff-4259-b957-33625cd15272",
+              "name": "Returns the list of work order skills.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"latchel\": {\n        \"id\": 7442,\n        \"name\": \"string\",\n        \"category_id\": 5581,\n        \"category_name\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"latchel\": {\n        \"id\": 4846,\n        \"name\": \"string\",\n        \"category_id\": 8862,\n        \"category_name\": \"string\"\n      }\n    }\n  ],\n  \"count\": 630\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e18182f-12a5-4507-96be-820a18252306",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "work_orders",
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fdeac4eb-eb55-4193-a792-02acc5872182",
+    "name": "RentCheck REST Account Settings Work Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

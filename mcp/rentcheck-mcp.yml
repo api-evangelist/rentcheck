@@ -2,9 +2,10 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/rentcheck-openapi-original.yml
-note: 'Candidate MCP tool surface DERIVED from the RentCheck OpenAPI operations (one tool per operation). The spec declares
-  no operationIds, so tool names are synthesized from HTTP method + path and each tool cites its method+path source_operation.
-  No official RentCheck MCP server was found as of 2026-07-20. status: candidate.'
+note: 'Candidate MCP tool surface DERIVED from the RentCheck OpenAPI operations (one tool per operation).
+  The spec declares no operationIds, so tool names are synthesized from HTTP method + path and each tool
+  cites its method+path source_operation. No official RentCheck MCP server was found as of 2026-07-20.
+  status: candidate.'
 server:
   name: rentcheck
   transport: http
@@ -1533,3 +1534,9 @@ tools:
   tags:
   - Residents (deprecated)
   source_operation: openapi/rentcheck-openapi-original.yml#POST /v1/zapier/residents
+deployment:
+  mode: none
+  verified: derived
+  tools: 217
+  checked: '2026-08-12'
+  source: catalog MCP census

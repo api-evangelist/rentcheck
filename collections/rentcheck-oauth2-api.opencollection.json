@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings oAuth2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oAuth2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Grant OAuth2 access and redirect back to the integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/access",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "redirectUrl",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "uid",
+                  "value": ""
+                },
+                {
+                  "name": "orgId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Fourth (and final) hop of the OAuth2 authorization-code flow used by\nintegration apps (currently only the Zapier connector). The grant-access\nform rendered by the earlier steps posts here once the user confirms.\nThe one-time authorization `code` is persisted against the\nuser's profile so that a subsequent\n`POST /v1/oAuth2/token` call from the integration can exchange it for\nan access + refresh token pair, and then issues a 302 redirect back to\nthe integration's `redirectUrl`.\n\nThis endpoint does"
+        },
+        {
+          "info": {
+            "name": "Render the RentCheck OAuth2 login form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/authentication",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "The RentCheck integration-app id. If it does not resolve to a\nregistered app the endpoint responds with 401 `App not authorized\nor missing client_id`.\n"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Opaque OAuth2 `state` value; echoed back verbatim on the redirect the login form will fire."
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "The callback URL to redirect to once the user has authenticated. Appended to the redirect URL as `<redirect_uri>?state=<state>&code=<code>`."
+              }
+            ]
+          },
+          "docs": "First hop of the OAuth2 authorization-code flow used by integration apps\n(currently only the Zapier connector). Returns an HTML login form the\nend user submits to prove their identity — the form's action target is\n`POST /v1/oAuth2/validateUser`. The response `Content-Type` is\n`text/html`; nothing about this endpoint is JSON.\n\nThis endpoint does not require a bearer token because it *is* the point\nwhere the user authenticates.\n"
+        },
+        {
+          "info": {
+            "name": "Creates an access/refresh token pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/emailPasswordAuth",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-app-id",
+              "value": "{{x-app-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Exchanges an email + password for a fresh access/refresh token pair. The body must\nsupply the caller's `email` together with EITHER `password` (RentCheck account password)\nOR `integration_password` (the value obtained from the RentCheck API integrations page).\nExactly one of the two credentials must be supplied.\n"
+        },
+        {
+          "info": {
+            "name": "Identify the caller by their OAuth2 access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/me"
+          },
+          "docs": "Companion to `POST /v1/oAuth2/token`: given the access token issued by\nthe token endpoint, returns the RentCheck user id, org id, and app id\nthe token was scoped to, along with the current server time. Primarily\nconsumed by the Zapier integration to render the connected account's\nemail in the UI.\n\nThe endpoint reads the caller's identity from the decoded access token;\nthe request body is ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Refresh tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/refreshToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange a refresh token for a new access/refresh token pair. The endpoint is unauthenticated\n(no bearer token, app id, or app secret headers required); the supplied refresh token JWT is\nthe only credential.\n"
+        },
+        {
+          "info": {
+            "name": "Exchange an OAuth2 authorization code for access + refresh tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Third leg of the RentCheck OAuth2 authorization-code flow — primarily\nused by the Zapier integration. The caller presents its integration\n`client_id` / `client_secret` alongside the one-time `code` issued to the\nRentCheck user during login, and receives a short-lived access token +\nlong-lived refresh token in return.\n\nThe `code` is single-use: it is cleared as soon as the exchange succeeds.\n"
+        },
+        {
+          "info": {
+            "name": "Confirm the organisation the OAuth2 code should be scoped to",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/validateOrg",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "redirectUrl",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "uid",
+                  "value": ""
+                },
+                {
+                  "name": "orgId",
+                  "value": ""
+                },
+                {
+                  "name": "label",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Third hop of the OAuth2 authorization-code flow used by integration\napps whose users belong to more than one RentCheck organisation\n(currently only Zapier). The org-selection form rendered by\n`POST /v1/oAuth2/validateUser` submits the selected org here. Response\nis HTML — nothing about this endpoint is JSON.\n\nThis endpoint does not require a bearer token.\n\nResponse flow:\n- `orgId` missing → re-renders the org-selection form with an inline\n  `Please select a Team from the dropdown.` error (`HTTP "
+        },
+        {
+          "info": {
+            "name": "Validate user credentials during the OAuth2 login form submit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/oAuth2/validateUser",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "redirectUrl",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "appId",
+                  "value": ""
+                },
+                {
+                  "name": "email",
+                  "value": ""
+                },
+                {
+                  "name": "password",
+                  "value": ""
+                },
+                {
+                  "name": "label",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Second hop of the OAuth2 authorization-code flow used by integration\napps (currently only the Zapier connector). The RentCheck login form\nrendered by `GET /v1/oAuth2/authentication` POSTs the user's email and\npassword here. Depending on the outcome the endpoint re-renders one of\nthree HTML forms and returns HTML — nothing about this endpoint is JSON.\n\nThis endpoint does not require a bearer token because it *is* the point\nwhere the user authenticates.\n\nResponse flow:\n- Missing or invalid email/p"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1527 @@
+{
+  "item": [
+    {
+      "id": "832de424-1924-4055-aef7-67897e9fa058",
+      "name": "Inspections V2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3bff2d03-1279-4d41-b4e5-d2fc0ba0a509",
+          "name": "Create inspections",
+          "request": {
+            "name": "Create inspections",
+            "description": {
+              "content": "Create inspections",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "inspections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Creation-source identifier. Persisted as `creation_source` on each\ncreated inspection. Required — a missing value yields a 400.\n",
+                "key": "x-app-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"due_date\": \"<string>\",\n  \"recipients\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ],\n      \"key_3\": [\n        \"<email>\"\n      ],\n      \"key_4\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"inspection_template_id\": \"<string>\",\n  \"inspection_type\": \"<string>\",\n  \"x_id\": \"<string>\",\n  \"label\": \"<string>\",\n  \"invite_date\": \"<string>\",\n  \"user_timezone\": \"<string>\",\n  \"fast_track\": \"<boolean>\",\n  \"property_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"property_x_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recurrence\": {\n    \"type\": \"<string>\",\n    \"end_date\": \"<string>\"\n  },\n  \"selected_features\": [\n    {\n      \"area\": \"<string>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"area\": \"<string>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"notify_residents\": {\n    \"note\": \"<string>\"\n  },\n  \"check_automation_conflict_validation\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce28df13-2f80-4bf8-9306-5bffeb52757e",
+              "name": "Returns the status of the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Persisted as `creation_source` on each\ncreated inspection. Required — a missing value yields a 400.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"due_date\": \"2021-12-02 14:15:37.925000\",\n  \"recipients\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"email1@domain.com\",\n      \"email2@domain.com\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"inspection_template_id\": \"rc_move_in\",\n  \"inspection_type\": \"<string>\",\n  \"x_id\": \"<string>\",\n  \"label\": \"Inspection Label\",\n  \"invite_date\": \"2021-12-02 14:15:37.925000\",\n  \"user_timezone\": \"America/New_York\",\n  \"fast_track\": \"<boolean>\",\n  \"property_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"property_x_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"recurrence\": {\n    \"type\": \"<string>\",\n    \"end_date\": \"2024-12-02 14:15:37.925000\"\n  },\n  \"selected_features\": [\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    },\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    }\n  ],\n  \"notify_residents\": {\n    \"note\": \"<string>\"\n  },\n  \"check_automation_conflict_validation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"success\": [\n      {\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\",\n          \"x_id\": \"string\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"type\": \"Maintenance / Safety Check\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"x_id\": \"string\"\n        }\n      },\n      {\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\",\n          \"x_id\": \"string\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"type\": \"Move-out\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"x_id\": \"string\"\n        }\n      }\n    ],\n    \"errors\": [\n      {\n        \"inspection\": {\n          \"x_id\": \"string\",\n          \"type\": \"RV Lot\",\n          \"template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\"\n          }\n        },\n        \"reason\": \"invalid property\",\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"x_id\": \"string\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\"\n        },\n        \"status\": \"string\"\n      },\n      {\n        \"inspection\": {\n          \"x_id\": \"string\",\n          \"type\": \"Community Maintenance Check\",\n          \"template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\"\n          }\n        },\n        \"reason\": \"invalid property\",\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"x_id\": \"string\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\"\n        },\n        \"status\": \"string\"\n      }\n    ],\n    \"warnings\": [\n      {\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\",\n          \"x_id\": \"string\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"type\": \"RV Lot\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"x_id\": \"string\"\n        },\n        \"reason\": \"string\",\n        \"status\": \"string\"\n      },\n      {\n        \"property\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"address\": \"2001 Red Gates\",\n          \"city\": \"New Orleans\",\n          \"zipcode\": \"70130\",\n          \"x_id\": \"string\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"type\": \"Community Maintenance Check\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"x_id\": \"string\"\n        },\n        \"reason\": \"string\",\n        \"status\": \"string\"\n      }\n    ],\n    \"conflict\": {\n      \"type\": \"automation\",\n      \"info\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d239e98e-7678-4361-ae99-ab5047c5cb6e",
+              "name": "Bad request — top-level body validation rejected the create. Per-property\nvalidation failures (template / property checks) do not surface as 4xx —\nthey are caught and returned as 200 with the offending property recorded\nin the response's `errors[].reason` field. Top-level 400 messages (each\ncarries `<field> has an invalid value: <reason>` when a reason is supplied):\n  - `due_date has an invalid value` /\n    `due_date has an invalid value: cannot be in the past` /\n    `invite_date has an invalid value` /\n    `invite_date has an invalid value: cannot be in the past`\n  - `recurrence type has an invalid value` /\n    `recurrence end_date is missing` /\n    `recurrence end_date has an invalid value` /\n    `recurrence end_date has an invalid value: cannot be in the past` /\n    `recurrence.end_date has an invalid value: exceeds maximum (Daily exceeds 1 month)` /\n    `recurrence.end_date has an invalid value: exceeds maximum (2 years)` /\n    `recurrence.end_date has an invalid value: date is before inspection due date`\n  - `selected_features must be an array`\n  - `self-perform inspection does not allow invite_date`\n  - `invitation date should not be after due date`\n  - `No <type> assigned to perform this inspection`\n  - `Cannot include your own email when inviting others.`\nFeature validation also runs before the per-property checks, so the\nfollowing throw as top-level 400 rather than being caught into\n`errors[].reason`:\n  - `inspection template does not accept selected features`\n  - `<template> requires at least one feature`\n  - `area has an invalid value: <name>`\n  - `feature has an invalid value: <area> for section <feature>`\n  - `invalid area name, <area> requires an ordinal to be valid. e.g. First <area>, Second <area>, etc.`\nPer-property reasons surfaced in `errors[].reason` include:\n  - `<propertyType> does not support <inspectionType> inspections`\n  - `<template> requires the property to have at least one room`\n  - `Unit does not have access to selected inspection template`\n  - `this template id is not published for subscription <name>`\n  - `inspection template does not support fast track`\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Persisted as `creation_source` on each\ncreated inspection. Required — a missing value yields a 400.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"due_date\": \"2021-12-02 14:15:37.925000\",\n  \"recipients\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"email1@domain.com\",\n      \"email2@domain.com\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"inspection_template_id\": \"rc_move_in\",\n  \"inspection_type\": \"<string>\",\n  \"x_id\": \"<string>\",\n  \"label\": \"Inspection Label\",\n  \"invite_date\": \"2021-12-02 14:15:37.925000\",\n  \"user_timezone\": \"America/New_York\",\n  \"fast_track\": \"<boolean>\",\n  \"property_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"property_x_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"recurrence\": {\n    \"type\": \"<string>\",\n    \"end_date\": \"2024-12-02 14:15:37.925000\"\n  },\n  \"selected_features\": [\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    },\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    }\n  ],\n  \"notify_residents\": {\n    \"note\": \"<string>\"\n  },\n  \"check_automation_conflict_validation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a80dc6d-9d26-4a1e-b601-7fafe4c87502",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Persisted as `creation_source` on each\ncreated inspection. Required — a missing value yields a 400.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"due_date\": \"2021-12-02 14:15:37.925000\",\n  \"recipients\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"email1@domain.com\",\n      \"email2@domain.com\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"inspection_template_id\": \"rc_move_in\",\n  \"inspection_type\": \"<string>\",\n  \"x_id\": \"<string>\",\n  \"label\": \"Inspection Label\",\n  \"invite_date\": \"2021-12-02 14:15:37.925000\",\n  \"user_timezone\": \"America/New_York\",\n  \"fast_track\": \"<boolean>\",\n  \"property_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"property_x_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"recurrence\": {\n    \"type\": \"<string>\",\n    \"end_date\": \"2024-12-02 14:15:37.925000\"\n  },\n  \"selected_features\": [\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    },\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    }\n  ],\n  \"notify_residents\": {\n    \"note\": \"<string>\"\n  },\n  \"check_automation_conflict_validation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2b4469c-ad74-4025-a31e-5caa57ee8825",
+              "name": "Not Found — `user not found` (the caller's user could not be loaded; per-property `property not found` does not surface as 404, it is recorded in `errors[].reason`).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Persisted as `creation_source` on each\ncreated inspection. Required — a missing value yields a 400.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"due_date\": \"2021-12-02 14:15:37.925000\",\n  \"recipients\": {\n    \"type\": \"<string>\",\n    \"emails\": [\n      \"email1@domain.com\",\n      \"email2@domain.com\"\n    ],\n    \"teammate_emails\": {\n      \"key_0\": [\n        \"<email>\"\n      ],\n      \"key_1\": [\n        \"<email>\"\n      ],\n      \"key_2\": [\n        \"<email>\"\n      ]\n    },\n    \"resident_type\": \"<string>\"\n  },\n  \"inspection_template_id\": \"rc_move_in\",\n  \"inspection_type\": \"<string>\",\n  \"x_id\": \"<string>\",\n  \"label\": \"Inspection Label\",\n  \"invite_date\": \"2021-12-02 14:15:37.925000\",\n  \"user_timezone\": \"America/New_York\",\n  \"fast_track\": \"<boolean>\",\n  \"property_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"property_x_ids\": [\n    \"property 1 id\",\n    \"property 2 id\"\n  ],\n  \"recurrence\": {\n    \"type\": \"<string>\",\n    \"end_date\": \"2024-12-02 14:15:37.925000\"\n  },\n  \"selected_features\": [\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    },\n    {\n      \"area\": \"Laundry Room\",\n      \"features\": [\n        \"Laundry Room Walls\",\n        \"Laundry Room Floor, Ceiling, Walls\"\n      ]\n    }\n  ],\n  \"notify_residents\": {\n    \"note\": \"<string>\"\n  },\n  \"check_automation_conflict_validation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"user not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7d2253c-7e25-423d-b948-b65bd037514c",
+          "name": "Get all inspections",
+          "request": {
+            "name": "Get all inspections",
+            "description": {
+              "content": "Get all inspections",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "inspections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search string to match in several inspection's fields"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "0",
+                  "description": "The page number of the collection. Zero-indexed."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "The number of elements in the data collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "due_date",
+                  "description": "Sort results by one of the available fields. `approved_date` sorts by\nthe approved date, falling back to the completed date when there is no\napproval.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_type",
+                  "value": "DESC",
+                  "description": "Sort direction. Accepted case-insensitively — any casing of `asc` /\n`desc` is silently normalised to `ASC` / `DESC`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_status[]",
+                  "value": "<string>",
+                  "description": "List of inspection statuses to filter inspections. Prefer `filters[inspection_status][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_status[]",
+                  "value": "<string>",
+                  "description": "List of inspection statuses to filter inspections. Prefer `filters[inspection_status][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_template[]",
+                  "value": "<string>",
+                  "description": "List of inspection template ids to filter inspections. Prefer `filters[inspection_template][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "inspection_template[]",
+                  "value": "<string>",
+                  "description": "List of inspection template ids to filter inspections. Prefer `filters[inspection_template][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "List of teams id to filter inspections. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id[]",
+                  "value": "<string>",
+                  "description": "List of teams id to filter inspections. Prefer `filters[team][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "assigned_to[]",
+                  "value": "<string>",
+                  "description": "List of user ids to filter inspections. Prefer `filters[assigned_to][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "assigned_to[]",
+                  "value": "<string>",
+                  "description": "List of user ids to filter inspections. Prefer `filters[assigned_to][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "ratings[]",
+                  "value": "<string>",
+                  "description": "List of feature ratings to filter inspections by. Prefer `filters[rating][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "ratings[]",
+                  "value": "<string>",
+                  "description": "List of feature ratings to filter inspections by. Prefer `filters[rating][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "property_id[]",
+                  "value": "<string>",
+                  "description": "List of property ids to filter inspections by. Prefer `filters[property][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "property_id[]",
+                  "value": "<string>",
+                  "description": "List of property ids to filter inspections by. Prefer `filters[property][value]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "archived",
+                  "value": "<string>",
+                  "description": "Filter inspections by their archived status. Prefer `filters[archived]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_due_date",
+                  "value": "<string>",
+                  "description": "Value to filter inspection date by a starting date. `yyyy-mm-dd` format. The legacy parameter is forwarded onto `filters[due_date][start_date]`. Prefer `filters[due_date][start_date]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_due_date",
+                  "value": "<string>",
+                  "description": "Value to filter inspection date by a ending date. `yyyy-mm-dd` format. Prefer `filters[due_date][end_date]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_completed_date",
+                  "value": "<string>",
+                  "description": "Value to filter completed inspection date by a starting date. `yyyy-mm-dd` format. Prefer `filters[completed_date][start_date]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_completed_date",
+                  "value": "<string>",
+                  "description": "Value to filter completed inspection date by a ending date. `yyyy-mm-dd` format. Prefer `filters[completed_date][end_date]`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[search]",
+                  "value": "<string>",
+                  "description": "Search string to match in several inspection's fields. Preferred over the legacy `search` parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[archived]",
+                  "value": "<string>",
+                  "description": "Filter inspections by its archived status."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[has_flags]",
+                  "value": "<string>",
+                  "description": "Filter inspections by whether they have one or more maintenance flags. `true` returns only inspections with flags; `false` returns only inspections with none."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_template][value]",
+                  "value": "<string>",
+                  "description": "List of inspection templates to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_template][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by inspection templates."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_status][value]",
+                  "value": "<string>",
+                  "description": "Pipe-separated list of inspection statuses to filter by (e.g. `Not Started|In Review`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[inspection_status][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by inspection status."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][value]",
+                  "value": "<string>",
+                  "description": "List of teams id to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[team][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by teams id."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[property][value]",
+                  "value": "<string>",
+                  "description": "List of properties id to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[property][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by properties id."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[rating][value]",
+                  "value": "<string>",
+                  "description": "List of inspection ratings to filter by. Multiple values are concatenated with `|` (e.g. `Good|Fair`). Allowed values, `Good`, `Fair`, `Poor`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[rating][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by ratings."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[assigned_to][value]",
+                  "value": "<string>",
+                  "description": "List of user ids to filter inspections by. This parameter accepts multiple ids concatenated with a `|`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[assigned_to][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by assigned to."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[review_step][value]",
+                  "value": "<string>",
+                  "description": "List of review steps to filter inspections by. Multiple values are concatenated with `|` (e.g. `Initial Review|Secondary Review`). Allowed values, `Initial Review`, `Secondary Review`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[review_step][condition]",
+                  "value": "<string>",
+                  "description": "Condition to apply to the review step filter. The validator only accepts `any_of`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[created_by][value]",
+                  "value": "<string>",
+                  "description": "List of creator ids to filter inspections by. This parameter accepts multiple values concatenated with a `|`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[created_by][condition]",
+                  "value": "<string>",
+                  "description": "Condition to be used to filter by created by."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[due_date][start_date]",
+                  "value": "<string>",
+                  "description": "Value to filter inspection effective due date by a starting date.\n`yyyy-mm-dd` format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[due_date][end_date]",
+                  "value": "<string>",
+                  "description": "Value to filter inspection effective due date by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`,\notherwise the response is `end date must be equal or after start date`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[due_date_legacy][start_date]",
+                  "value": "<string>",
+                  "description": "Value to filter inspection due date (pre-effective-due-date) by a starting date.\n`yyyy-mm-dd` format. Cannot be combined with\n`filters[due_date]`; that combination is rejected with\n`You cannot use both due_date and due_date_legacy filters at the same time`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[due_date_legacy][end_date]",
+                  "value": "<string>",
+                  "description": "Value to filter inspection due date (pre-effective-due-date) by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`, otherwise\nthe response is `end date must be equal or after start date`. See `start_date`\nfor the mutually-exclusive constraint with `filters[due_date]`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[completed_date][start_date]",
+                  "value": "<string>",
+                  "description": "Value to filter completed inspection date by a starting date.\n`yyyy-mm-dd` format.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[completed_date][end_date]",
+                  "value": "<string>",
+                  "description": "Value to filter completed inspection date by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`, otherwise\nthe response is `end date must be equal or after start date`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[]",
+                  "value": "<string>",
+                  "description": "Optional list of inspection fields to include in the response. When omitted, the default projection is returned. Internal use only."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[]",
+                  "value": "<string>",
+                  "description": "Optional list of inspection fields to include in the response. When omitted, the default projection is returned. Internal use only."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_full_template_info",
+                  "value": "false",
+                  "description": "When `true`, each inspection's `template` field is returned as the full template document instead of the default digest. Internal use only."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef04e232-ccd5-4436-b0ac-fd9ce416feab",
+              "name": "Returns the paginated list of inspections. Each item is a (possibly partial)\n`inspection_v1_response_model` — when `fields[]` is supplied, only the requested\nfields are included on each item.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "due_date"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[archived]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[has_flags]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_full_template_info",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"archived\": false,\n      \"due_date\": \"2021-12-02 14:15:37.925000\",\n      \"effective_due_date\": \"2021-12-02 14:15:37.925000\",\n      \"inspection_template\": {\n        \"id\": \"rc_move_in\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"display_name\": \"string\",\n        \"description\": \"string\",\n        \"is_rc_template\": false,\n        \"is_fast_track_enabled\": true,\n        \"template_type\": \"all-rooms\",\n        \"is_published\": false,\n        \"team_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"property_type\": \"unit\",\n        \"created_at\": \"2021-12-02 14:15:37.925000\",\n        \"contact_info\": {\n          \"email\": \"string\",\n          \"phone_number\": \"string\"\n        },\n        \"permission_groups\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"is_deleted\": true,\n        \"is_new\": false,\n        \"sections\": [\n          {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"type\": \"section\",\n            \"features\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"type\": \"room\",\n            \"features\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        ],\n        \"is_pro\": false,\n        \"new_until\": \"1998-06-07T08:24:21.723Z\",\n        \"subscription_id\": \"string\",\n        \"signature_acknowledgement\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1970-12-27T11:47:58.348Z\"\n          }\n        },\n        \"is_resident_template\": false,\n        \"resident_template_info\": {\n          \"icon\": {\n            \"name\": \"house\",\n            \"color\": \"string\"\n          },\n          \"description\": \"string\"\n        }\n      },\n      \"inspection_status\": \"Started\",\n      \"role\": \"invitee-write\",\n      \"assigned_recipients\": {\n        \"type\": \"emails\",\n        \"emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"resident_type\": \"current\"\n      },\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"type\": \"Building\",\n        \"x_id\": \"string\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\"\n      },\n      \"created_date\": \"2010-08-21T23:08:55.702Z\",\n      \"invites\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"EEvYZtK6-XKsrcL@LxERvmSZtcqzdLqp.wqbj\",\n          \"reference_code\": \"string\"\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"s20vWxuqVaxSHW@itbGdvJMBicF.av\",\n          \"reference_code\": \"string\"\n        }\n      ],\n      \"completed_date\": \"2021-12-02 14:15:37.925000\",\n      \"selected_features\": [\n        {\n          \"area\": \"Laundry Room\",\n          \"features\": [\n            \"Laundry Room Walls\",\n            \"Laundry Room Floor, Ceiling, Walls\"\n          ]\n        },\n        {\n          \"area\": \"Laundry Room\",\n          \"features\": [\n            \"Laundry Room Walls\",\n            \"Laundry Room Floor, Ceiling, Walls\"\n          ]\n        }\n      ],\n      \"progress_pct\": 8787.811341266526,\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"room_names\": \"First Bathroom\",\n      \"is_initial_review_complete\": true,\n      \"inspection_summary\": \"string\",\n      \"features_ratings\": {\n        \"total_quantity\": 8713.889500964995,\n        \"good_quantity\": 4250.743511465832,\n        \"fair_quantity\": 5680.756407790446,\n        \"poor_quantity\": 4671.986959216179\n      },\n      \"settings\": {\n        \"is_maintenance_flag_default_photos_enabled\": true,\n        \"is_resident_reported_maintenance_enabled\": false,\n        \"is_two_step_approval_required\": true,\n        \"can_record_video\": false,\n        \"can_take_360_photos\": true,\n        \"custom_maintenance_fields\": [\n          {\n            \"id\": \"string\",\n            \"title\": \"string\",\n            \"selection_type\": \"single\",\n            \"options\": [\n              \"string\",\n              \"string\"\n            ],\n            \"enabled\": true,\n            \"description\": \"string\",\n            \"required\": true\n          },\n          {\n            \"id\": \"string\",\n            \"title\": \"string\",\n            \"selection_type\": \"multiple\",\n            \"options\": [\n              \"string\",\n              \"string\"\n            ],\n            \"enabled\": true,\n            \"description\": \"string\",\n            \"required\": true\n          }\n        ]\n      },\n      \"metadata\": {\n        \"ai_damage_scanned\": false,\n        \"has_maintenance_flags\": false,\n        \"ai_damage_detected\": false\n      },\n      \"permissions\": {\n        \"can_archive\": false,\n        \"can_unarchive\": false,\n        \"can_delete\": false,\n        \"can_edit_due_date\": true,\n        \"can_send_reminder\": false,\n        \"can_edit_label\": true,\n        \"can_copy_inspection_deeplink\": true,\n        \"can_make_unit_edits\": true,\n        \"can_re_open\": false,\n        \"can_remove_non_review_revision_media\": false,\n        \"can_manual_sync\": false\n      },\n      \"signature_acknowledgement\": {\n        \"text\": \"string\",\n        \"updated_by\": {\n          \"id\": \"string\",\n          \"username\": \"string\",\n          \"email\": \"string\",\n          \"updated_date\": \"2014-10-08T11:35:18.402Z\"\n        }\n      },\n      \"x_id\": \"string\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"display_name\": \"string\"\n      },\n      \"inspection_label\": \"string\",\n      \"fast_track\": true,\n      \"invite_date\": \"2019-05-04T13:00:36.773Z\",\n      \"team_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"signer\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\"\n      },\n      \"completed_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Renter\"\n      },\n      \"current_performer\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Property Manager\"\n      },\n      \"edits\": [\n        {\n          \"key_0\": 7559\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 6955.822896730537,\n          \"key_2\": 6190,\n          \"key_3\": 3370,\n          \"key_4\": \"string\"\n        }\n      ],\n      \"pdf_reports\": {\n        \"key_0\": {\n          \"location\": \"string\",\n          \"name\": \"string\",\n          \"created_at\": \"1951-05-15T19:17:45.023Z\"\n        }\n      },\n      \"pdf_images_location\": \"string\",\n      \"review\": {\n        \"original_assigned_recipients\": {\n          \"type\": \"emails\",\n          \"emails\": [\n            \"string\",\n            \"string\"\n          ],\n          \"resident_type\": \"current\"\n        },\n        \"due_date\": \"2021-12-02 14:15:37.925000\"\n      },\n      \"signature\": {\n        \"signed_by\": {\n          \"name\": \"string\",\n          \"resident_id\": \"string\"\n        },\n        \"signature_url\": \"string\",\n        \"signed_at\": \"2022-01-15 00:00:00\"\n      },\n      \"approval\": {\n        \"approved_by_name\": \"Lucy Warburton\",\n        \"note\": \"RentCheck inspection was easy and quick!\",\n        \"notification_sent_to\": \"lucywarburton@gmail.co\",\n        \"signature_text\": \"Lucy Warburton\",\n        \"approved_date\": \"2022-01-15 00:00:00\",\n        \"rating\": 5\n      },\n      \"rejection\": {\n        \"rejected_by_name\": \"Lucy Warburton\",\n        \"rejected_date\": \"2022-01-15 00:00:00\",\n        \"note\": \"Test\",\n        \"notification_sent_to\": \"lucywarburton@gmail.co\",\n        \"due_date\": \"2022-01-15 00:00:00\"\n      },\n      \"health_score\": {\n        \"score\": 8044.248198442816,\n        \"details\": {\n          \"completeness\": {\n            \"enough_data\": 502.3120308923612\n          },\n          \"condition_rating\": {\n            \"fair_rating\": 5041.34599064395,\n            \"poor_rating\": 6365.434039891421\n          },\n          \"extensive_notes\": {\n            \"rating\": 2560.0038208472643\n          },\n          \"maintenance_flag\": {\n            \"rating\": 9655.432399162273\n          },\n          \"question_rating\": {\n            \"rating\": 6098.555493134066\n          }\n        },\n        \"areas_of_concern\": [\n          \"Property Condition\",\n          \"Property Condition\"\n        ]\n      },\n      \"pdf_report_location\": \"string\",\n      \"sync_data\": {\n        \"vendor\": \"appfolio\",\n        \"vendor_integration_id\": \"string\",\n        \"last_sync\": \"string\",\n        \"status\": \"error\",\n        \"error\": {\n          \"message\": \"string\",\n          \"vendor_request_id\": \"string\"\n        },\n        \"upload_response\": {\n          \"units\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 6152,\n            \"last_sync\": \"string\"\n          },\n          \"properties\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 251,\n            \"last_sync\": \"string\"\n          },\n          \"occupancies\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 4104,\n            \"last_sync\": \"string\"\n          },\n          \"work_orders\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 7245,\n            \"last_sync\": \"string\"\n          },\n          \"inspections\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 8750,\n            \"last_sync\": \"string\"\n          }\n        },\n        \"pending_since\": \"string\"\n      },\n      \"sections_progress\": [\n        {\n          \"section\": {\n            \"name\": \"string\",\n            \"name_with_ordinal\": \"string\",\n            \"type\": \"room\"\n          },\n          \"progress\": 9202.244481697524,\n          \"is_na\": false\n        },\n        {\n          \"section\": {\n            \"name\": \"string\",\n            \"name_with_ordinal\": \"string\",\n            \"type\": \"room\"\n          },\n          \"progress\": 3798.5580844582832,\n          \"is_na\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"archived\": true,\n      \"due_date\": \"2021-12-02 14:15:37.925000\",\n      \"effective_due_date\": \"2021-12-02 14:15:37.925000\",\n      \"inspection_template\": {\n        \"id\": \"rc_move_in\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"display_name\": \"string\",\n        \"description\": \"string\",\n        \"is_rc_template\": false,\n        \"is_fast_track_enabled\": true,\n        \"template_type\": \"specific-features\",\n        \"is_published\": true,\n        \"team_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"property_type\": \"building\",\n        \"created_at\": \"2021-12-02 14:15:37.925000\",\n        \"contact_info\": {\n          \"email\": \"string\",\n          \"phone_number\": \"string\"\n        },\n        \"permission_groups\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"is_deleted\": false,\n        \"is_new\": true,\n        \"sections\": [\n          {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"type\": \"section\",\n            \"features\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"type\": \"section\",\n            \"features\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"description\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_rating_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"is_video_enabled\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"number_of_photos_required\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"reference_photos\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"questions\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        ],\n        \"is_pro\": true,\n        \"new_until\": \"2014-08-15T16:47:59.372Z\",\n        \"subscription_id\": \"string\",\n        \"signature_acknowledgement\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1975-02-20T06:39:21.217Z\"\n          }\n        },\n        \"is_resident_template\": false,\n        \"resident_template_info\": {\n          \"icon\": {\n            \"name\": \"truck\",\n            \"color\": \"string\"\n          },\n          \"description\": \"string\"\n        }\n      },\n      \"inspection_status\": \"Revision Review\",\n      \"role\": \"viewer\",\n      \"assigned_recipients\": {\n        \"type\": \"emails\",\n        \"emails\": [\n          \"string\",\n          \"string\"\n        ],\n        \"resident_type\": \"current\"\n      },\n      \"property\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"address\": \"2001 Red Gates\",\n        \"city\": \"New Orleans\",\n        \"zip_code\": \"70130\",\n        \"type\": \"Commercial\",\n        \"x_id\": \"string\",\n        \"address_2\": \"Apt. 4B\",\n        \"region\": \"Orleans\"\n      },\n      \"created_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\"\n      },\n      \"created_date\": \"1981-03-04T00:09:19.928Z\",\n      \"invites\": [\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"F4fnvmhBf@VueUbtAuVhHqEelBJQCOsH.niq\",\n          \"reference_code\": \"string\"\n        },\n        {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"email\": \"9389C9lv9zMn@kVdnBdJlLe.kt\",\n          \"reference_code\": \"string\"\n        }\n      ],\n      \"completed_date\": \"2021-12-02 14:15:37.925000\",\n      \"selected_features\": [\n        {\n          \"area\": \"Laundry Room\",\n          \"features\": [\n            \"Laundry Room Walls\",\n            \"Laundry Room Floor, Ceiling, Walls\"\n          ]\n        },\n        {\n          \"area\": \"Laundry Room\",\n          \"features\": [\n            \"Laundry Room Walls\",\n            \"Laundry Room Floor, Ceiling, Walls\"\n          ]\n        }\n      ],\n      \"progress_pct\": 2690.7067171293775,\n      \"rooms\": [\n        \"Living Room\",\n        \"Den\",\n        \"Balcony\"\n      ],\n      \"room_names\": \"Sixth Bedroom\",\n      \"is_initial_review_complete\": true,\n      \"inspection_summary\": \"string\",\n      \"features_ratings\": {\n        \"total_quantity\": 8882.474589877633,\n        \"good_quantity\": 9021.037220633925,\n        \"fair_quantity\": 612.8340326689041,\n        \"poor_quantity\": 3867.0035045906548\n      },\n      \"settings\": {\n        \"is_maintenance_flag_default_photos_enabled\": false,\n        \"is_resident_reported_maintenance_enabled\": false,\n        \"is_two_step_approval_required\": true,\n        \"can_record_video\": true,\n        \"can_take_360_photos\": true,\n        \"custom_maintenance_fields\": [\n          {\n            \"id\": \"string\",\n            \"title\": \"string\",\n            \"selection_type\": \"multiple\",\n            \"options\": [\n              \"string\",\n              \"string\"\n            ],\n            \"enabled\": true,\n            \"description\": \"string\",\n            \"required\": false\n          },\n          {\n            \"id\": \"string\",\n            \"title\": \"string\",\n            \"selection_type\": \"multiple\",\n            \"options\": [\n              \"string\",\n              \"string\"\n            ],\n            \"enabled\": true,\n            \"description\": \"string\",\n            \"required\": true\n          }\n        ]\n      },\n      \"metadata\": {\n        \"ai_damage_scanned\": false,\n        \"has_maintenance_flags\": false,\n        \"ai_damage_detected\": false\n      },\n      \"permissions\": {\n        \"can_archive\": false,\n        \"can_unarchive\": false,\n        \"can_delete\": true,\n        \"can_edit_due_date\": false,\n        \"can_send_reminder\": false,\n        \"can_edit_label\": false,\n        \"can_copy_inspection_deeplink\": true,\n        \"can_make_unit_edits\": true,\n        \"can_re_open\": true,\n        \"can_remove_non_review_revision_media\": true,\n        \"can_manual_sync\": true\n      },\n      \"signature_acknowledgement\": {\n        \"text\": \"string\",\n        \"updated_by\": {\n          \"id\": \"string\",\n          \"username\": \"string\",\n          \"email\": \"string\",\n          \"updated_date\": \"1948-06-05T19:56:38.973Z\"\n        }\n      },\n      \"x_id\": \"string\",\n      \"team\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"The best company\",\n        \"internal_label\": \"The best company label\",\n        \"display_name\": \"string\"\n      },\n      \"inspection_label\": \"string\",\n      \"fast_track\": true,\n      \"invite_date\": \"1982-02-04T13:16:26.460Z\",\n      \"team_id\": \"00BRcZPSakXz6w7RYoE\",\n      \"signer\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Property Manager\"\n      },\n      \"completed_by\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Renter\"\n      },\n      \"current_performer\": {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"type\": \"Landlord\"\n      },\n      \"edits\": [\n        {\n          \"key_0\": true\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": false\n        }\n      ],\n      \"pdf_reports\": {\n        \"key_0\": {\n          \"location\": \"string\",\n          \"name\": \"string\",\n          \"created_at\": \"2013-04-11T02:15:53.225Z\"\n        },\n        \"key_1\": {\n          \"location\": \"string\",\n          \"name\": \"string\",\n          \"created_at\": \"1994-06-08T09:43:55.271Z\"\n        }\n      },\n      \"pdf_images_location\": \"string\",\n      \"review\": {\n        \"original_assigned_recipients\": {\n          \"type\": \"emails\",\n          \"emails\": [\n            \"string\",\n            \"string\"\n          ],\n          \"resident_type\": \"current\"\n        },\n        \"due_date\": \"2021-12-02 14:15:37.925000\"\n      },\n      \"signature\": {\n        \"signed_by\": {\n          \"name\": \"string\",\n          \"resident_id\": \"string\"\n        },\n        \"signature_url\": \"string\",\n        \"signed_at\": \"2022-01-15 00:00:00\"\n      },\n      \"approval\": {\n        \"approved_by_name\": \"Lucy Warburton\",\n        \"note\": \"RentCheck inspection was easy and quick!\",\n        \"notification_sent_to\": \"lucywarburton@gmail.co\",\n        \"signature_text\": \"Lucy Warburton\",\n        \"approved_date\": \"2022-01-15 00:00:00\",\n        \"rating\": 5\n      },\n      \"rejection\": {\n        \"rejected_by_name\": \"Lucy Warburton\",\n        \"rejected_date\": \"2022-01-15 00:00:00\",\n        \"note\": \"Test\",\n        \"notification_sent_to\": \"lucywarburton@gmail.co\",\n        \"due_date\": \"2022-01-15 00:00:00\"\n      },\n      \"health_score\": {\n        \"score\": 2694.982957215458,\n        \"details\": {\n          \"completeness\": {\n            \"enough_data\": 9711.429074204634\n          },\n          \"condition_rating\": {\n            \"fair_rating\": 7584.953074271652,\n            \"poor_rating\": 6839.397348412791\n          },\n          \"extensive_notes\": {\n            \"rating\": 8626.36699967292\n          },\n          \"maintenance_flag\": {\n            \"rating\": 9905.320594228526\n          },\n          \"question_rating\": {\n            \"rating\": 5684.142750569208\n          }\n        },\n        \"areas_of_concern\": [\n          \"Completeness\",\n          \"Completeness\"\n        ]\n      },\n      \"pdf_report_location\": \"string\",\n      \"sync_data\": {\n        \"vendor\": \"rentmanager\",\n        \"vendor_integration_id\": \"string\",\n        \"last_sync\": \"string\",\n        \"status\": \"error\",\n        \"error\": {\n          \"message\": \"string\",\n          \"vendor_request_id\": \"string\"\n        },\n        \"upload_response\": {\n          \"units\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 6153,\n            \"last_sync\": \"string\"\n          },\n          \"properties\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 1760,\n            \"last_sync\": \"string\"\n          },\n          \"occupancies\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 6903,\n            \"last_sync\": \"string\"\n          },\n          \"work_orders\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 2186,\n            \"last_sync\": \"string\"\n          },\n          \"inspections\": {\n            \"resource_id\": \"string\",\n            \"uploaded_id\": \"string\",\n            \"error\": {\n              \"message\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vendor_request_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"attempted_at\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"attempts\": 5760,\n            \"last_sync\": \"string\"\n          }\n        },\n        \"pending_since\": \"string\"\n      },\n      \"sections_progress\": [\n        {\n          \"section\": {\n            \"name\": \"string\",\n            \"name_with_ordinal\": \"string\",\n            \"type\": \"section\"\n          },\n          \"progress\": 6373.5595400967,\n          \"is_na\": false\n        },\n        {\n          \"section\": {\n            \"name\": \"string\",\n            \"name_with_ordinal\": \"string\",\n            \"type\": \"room\"\n          },\n          \"progress\": 148.1438472619967,\n          \"is_na\": true\n        }\n      ]\n    }\n  ],\n  \"count\": 6752,\n  \"total_results\": 2864\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "882ab7a2-04c3-4660-9f62-de77000fe37f",
+              "name": "Bad request — query-string filters failed validation. Examples:\n  - `You cannot use both due_date and due_date_legacy filters at the same time`\n  - `end date must be equal or after start date`\n  - Messages such as `\"due_date.start_date\" with value \"...\" fails to match the required pattern`\n    when the supplied date string is not an ISO date.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "due_date"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[archived]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[has_flags]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_full_template_info",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"end date must be equal or after start date\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c962b6aa-1648-4141-9a8d-c67a0defda86",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_number",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "due_date"
+                    },
+                    {
+                      "key": "sort_type",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_status[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inspection_template[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigned_to[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ratings[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property_id[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_due_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_completed_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[archived]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[has_flags]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_template][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[inspection_status][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[team][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[property][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[rating][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[assigned_to][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[review_step][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[created_by][condition]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[due_date_legacy][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[completed_date][end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_full_template_info",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b38b76e3-ba3a-4276-934a-576d21392f4f",
+          "name": "Get all inspection creators",
+          "request": {
+            "name": "Get all inspection creators",
+            "description": {
+              "content": "Returns the list of users that have ever created an inspection the current user can see. Used to populate the `filters[created_by]` picker on the inspections list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "inspections",
+                "creators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d031fc26-b3c3-49c8-abe4-9a8a367d8a8a",
+              "name": "Returns the list of inspection creators",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections",
+                    "creators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"status\": \"inactive\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"status\": \"active\"\n    }\n  ],\n  \"count\": 3853,\n  \"total_results\": 6763\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2313089-8941-44cc-981e-df4ece12b847",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "inspections",
+                    "creators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "73a8446a-1e9a-405b-ae91-10bef407e478",
+    "name": "RentCheck REST Account Settings Inspections V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

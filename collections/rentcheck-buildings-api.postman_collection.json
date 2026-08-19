@@ -1,0 +1,1341 @@
+{
+  "item": [
+    {
+      "id": "f247339c-6ee7-46a6-b09e-cbcb0c30970e",
+      "name": "Buildings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6410284f-33c3-40bc-9686-19a9cde9c0c1",
+          "name": "Create a building",
+          "request": {
+            "name": "Create a building",
+            "description": {
+              "content": "This resource allows you to create a Building. Buildings are properties that can contain a number of individual Units.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "buildings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zip_code\": \"<string>\",\n  \"floors\": \"<number>\",\n  \"x_id\": \"<string>\",\n  \"address_2\": \"<string>\",\n  \"region\": \"<string>\",\n  \"additional_team_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unit_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rooms\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"state\": \"<string>\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"x_id\": \"<string>\",\n    \"x_property_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"error\": \"<string>\",\n    \"upload_response\": [\n      {\n        \"key_0\": \"string\"\n      },\n      {\n        \"key_0\": 5119.762019636376\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c43da7b-54cf-45c7-b331-aa208bf97978",
+              "name": "Returns the created building",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"city\": \"New Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"x_id\": \"<string>\",\n  \"address_2\": \"Apt. 4B\",\n  \"region\": \"Orleans\",\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"2004-04-27T12:06:27.959Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"success\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 304,\n        \"key_1\": 2677\n      },\n      {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": false\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Empire State Building\",\n    \"address\": \"2001 Red Gates\",\n    \"city\": \"New Orleans\",\n    \"zip_code\": \"70130\",\n    \"floors\": 7,\n    \"property_type\": \"Building\",\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\"\n    },\n    \"room_names\": \"First Full Bathroom\",\n    \"last_completed_inspection\": {\n      \"date\": \"2022-12-02 14:15:37.925000\",\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"permissions\": {\n      \"can_delete\": false,\n      \"can_create_inspection\": true,\n      \"can_add_to_parent_property\": false,\n      \"can_reassign_team\": false\n    },\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"rooms_info\": [\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      },\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      }\n    ],\n    \"rooms\": [\n      \"Living Room\",\n      \"Den\",\n      \"Balcony\"\n    ],\n    \"creation_source\": \"zapier\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"additional_team_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"unit_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"x_id\": \"string\",\n    \"address_2\": \"Apt. 4B\",\n    \"region\": \"Orleans\",\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2022-12-02 14:15:37.925000\",\n      \"status\": \"error\",\n      \"error\": \"string\",\n      \"id\": \"string\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"short_property_id\": \"string\",\n      \"short_unit_id\": \"string\",\n      \"upload_response\": [\n        {\n          \"resource\": \"properties\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        },\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3577cce7-5b9e-426c-a96c-e1b9209ef159",
+              "name": "Bad request — request body validation failed, or the caller is not\nauthorized to assign the building to the requested team. The `floors` field is\ncapped at 100. Examples:\n  - `\"team_id\" is required`\n  - `\"address\" is required`\n  - `\"city\" is required`\n  - `\"zip_code\" is required`\n  - `\"floors\" is required`\n  - `\"floors\" must be less than or equal to 100`\n  - `\"name\" is required`\n  - `team_id has an invalid value` (raised for both `team_id` and any\n    value in `additional_team_ids` that is not one of the caller's\n    organizations — both cases share the same error string)\n  - `\"value\" contains a conflict between optional exclusive peers [rooms, rooms_info]` —\n    supplying both `rooms` and `rooms_info` at the same time is\n    rejected.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"city\": \"New Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"x_id\": \"<string>\",\n  \"address_2\": \"Apt. 4B\",\n  \"region\": \"Orleans\",\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"2004-04-27T12:06:27.959Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"success\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 304,\n        \"key_1\": 2677\n      },\n      {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": false\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"address\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56fed9e0-27b6-41b1-a65c-1abd50e4f13b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"city\": \"New Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"x_id\": \"<string>\",\n  \"address_2\": \"Apt. 4B\",\n  \"region\": \"Orleans\",\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"2004-04-27T12:06:27.959Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"success\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 304,\n        \"key_1\": 2677\n      },\n      {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": false\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b548dd9a-c465-4692-9bbf-5923d411bc01",
+              "name": "Not Found — one of the supplied `unit_ids` is not accessible, is itself a\nBuilding/Community, or does not exist. The message carries the\noffending id, i.e. `unit not found (&lt;id&gt;)`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"city\": \"New Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"x_id\": \"<string>\",\n  \"address_2\": \"Apt. 4B\",\n  \"region\": \"Orleans\",\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"2004-04-27T12:06:27.959Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"success\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 304,\n        \"key_1\": 2677\n      },\n      {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": false,\n        \"key_3\": false\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"tenants\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"unit not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f076da0f-dda3-4885-a846-9ae77ee825a9",
+          "name": "Delete buildings",
+          "request": {
+            "name": "Delete buildings",
+            "description": {
+              "content": "This resource allows you to delete multiple buildings at once.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "buildings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id[]",
+                  "value": "<string>",
+                  "description": "(Required) The ids of the buildings to be deleted. Repeat the parameter to send\nmultiple values (e.g. `?id[]=abc&id[]=def`). The query string must\ncontain `id[]`, and a missing array\nsurfaces as a 500. Individual entries are not validated; ids the\ncaller cannot access are silently skipped.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "940ed763-38de-4477-b9e5-0db4dbcbf7a3",
+              "name": "Returns the count of deleted buildings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"totalRemoved\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5c6ceec-166d-4dbf-9269-d844659b9b53",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0992da4c-00a7-40d4-9e37-2e19367359a2",
+              "name": "Forbidden — at least one requested property is currently synced from an external integration (Latchel/Yardi/AppFolio/etc.) and cannot be deleted without first disconnecting the sync.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"Cannot delete property when integration sync is active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21b8d8c9-0563-4494-b7e2-44471996ae13",
+          "name": "Get a building by id",
+          "request": {
+            "name": "Get a building by id",
+            "description": {
+              "content": "This resource allows you to get a Building. Buildings are properties that can contain a number of individual Units.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "buildings",
+                ":buildingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "buildingId",
+                  "description": "(Required) Building ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1eb67dc5-0efd-4ccf-bc18-b63661b1cc6b",
+              "name": "Returns the requested building",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Empire State Building\",\n    \"address\": \"2001 Red Gates\",\n    \"city\": \"New Orleans\",\n    \"zip_code\": \"70130\",\n    \"floors\": 7,\n    \"property_type\": \"Building\",\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\"\n    },\n    \"room_names\": \"First Full Bathroom\",\n    \"last_completed_inspection\": {\n      \"date\": \"2022-12-02 14:15:37.925000\",\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"permissions\": {\n      \"can_delete\": false,\n      \"can_create_inspection\": true,\n      \"can_add_to_parent_property\": false,\n      \"can_reassign_team\": false\n    },\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"rooms_info\": [\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      },\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      }\n    ],\n    \"rooms\": [\n      \"Living Room\",\n      \"Den\",\n      \"Balcony\"\n    ],\n    \"creation_source\": \"zapier\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"additional_team_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"unit_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"x_id\": \"string\",\n    \"address_2\": \"Apt. 4B\",\n    \"region\": \"Orleans\",\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2022-12-02 14:15:37.925000\",\n      \"status\": \"error\",\n      \"error\": \"string\",\n      \"id\": \"string\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"short_property_id\": \"string\",\n      \"short_unit_id\": \"string\",\n      \"upload_response\": [\n        {\n          \"resource\": \"properties\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        },\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7057d1e3-a847-4445-baae-b495113622c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4140829b-fe04-4cde-ab02-9d9a0f06eccb",
+              "name": "Not Found — `building not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"building not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "464e12f5-2767-445c-a5f2-b34c2d397ebc",
+          "name": "Update a building",
+          "request": {
+            "name": "Update a building",
+            "description": {
+              "content": "Update parameters of a building",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "buildings",
+                ":buildingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "buildingId",
+                  "description": "(Required) Building ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"x_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"address_2\": \"<string>\",\n  \"city\": \"<string>\",\n  \"region\": \"<string>\",\n  \"zip_code\": \"<string>\",\n  \"floors\": \"<number>\",\n  \"rooms\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"additional_team_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unit_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"team_id\": \"<string>\",\n  \"state\": \"<string>\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"x_id\": \"<string>\",\n    \"x_property_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"error\": \"<string>\",\n    \"upload_response\": [\n      {\n        \"key_0\": 5742.846334955819,\n        \"key_1\": \"string\",\n        \"key_2\": 9176.603067369211\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e146fd2-c5da-4da3-9dc2-0c009ab45092",
+              "name": "Returns the updated building",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"x_id\": \"<string>\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"address_2\": \"Apt. 4B\",\n  \"city\": \"New Orleans\",\n  \"region\": \"Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"1968-08-13T08:14:04.414Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 7451\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"inspections\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Empire State Building\",\n    \"address\": \"2001 Red Gates\",\n    \"city\": \"New Orleans\",\n    \"zip_code\": \"70130\",\n    \"floors\": 7,\n    \"property_type\": \"Building\",\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\"\n    },\n    \"room_names\": \"First Full Bathroom\",\n    \"last_completed_inspection\": {\n      \"date\": \"2022-12-02 14:15:37.925000\",\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"permissions\": {\n      \"can_delete\": false,\n      \"can_create_inspection\": true,\n      \"can_add_to_parent_property\": false,\n      \"can_reassign_team\": false\n    },\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"rooms_info\": [\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      },\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      }\n    ],\n    \"rooms\": [\n      \"Living Room\",\n      \"Den\",\n      \"Balcony\"\n    ],\n    \"creation_source\": \"zapier\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"additional_team_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"unit_ids\": [\n      \"00BRcZPSakXz6w7RYoE\",\n      \"00BRcZPSakXz6w7RYoE\"\n    ],\n    \"x_id\": \"string\",\n    \"address_2\": \"Apt. 4B\",\n    \"region\": \"Orleans\",\n    \"sync_data\": {\n      \"vendor\": \"rentmanager\",\n      \"last_sync\": \"2022-12-02 14:15:37.925000\",\n      \"status\": \"error\",\n      \"error\": \"string\",\n      \"id\": \"string\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"short_property_id\": \"string\",\n      \"short_unit_id\": \"string\",\n      \"upload_response\": [\n        {\n          \"resource\": \"properties\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        },\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c0e090a-a5dd-439d-8ef1-2a9b6e0c6996",
+              "name": "Bad request — request body validation failed (the `floors` field is\ncapped at 100, the same constraint as on create) or the supplied\n`team_id` / `additional_team_ids` are not ones the caller can access.\nCommon error strings:\n  - `\"floors\" must be less than or equal to 100`\n  - `team_id has an invalid value`\n  - `\"value\" contains a conflict between optional exclusive peers [rooms, rooms_info]` —\n    supplying both `rooms` and `rooms_info` at the same time is\n    rejected.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"x_id\": \"<string>\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"address_2\": \"Apt. 4B\",\n  \"city\": \"New Orleans\",\n  \"region\": \"Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"1968-08-13T08:14:04.414Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 7451\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"inspections\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"team_id has an invalid value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3bb5b20-caa7-4ef8-85ab-713356568586",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"x_id\": \"<string>\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"address_2\": \"Apt. 4B\",\n  \"city\": \"New Orleans\",\n  \"region\": \"Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"1968-08-13T08:14:04.414Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 7451\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"inspections\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e1c142d-2bc6-45ed-b183-f43e2dcd52f1",
+              "name": "Not Found — `building not found`, or one of the supplied `unit_ids` is not\naccessible. Inaccessible-unit failures carry the offending id in the\nmessage, i.e. `unit not found (&lt;id&gt;)`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "buildings",
+                    ":buildingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) Building ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"x_id\": \"<string>\",\n  \"name\": \"Empire State Building\",\n  \"address\": \"2001 Red Gates\",\n  \"address_2\": \"Apt. 4B\",\n  \"city\": \"New Orleans\",\n  \"region\": \"Orleans\",\n  \"zip_code\": \"70130\",\n  \"floors\": 7,\n  \"rooms\": [\n    \"Lobby\",\n    \"Roof Deck\",\n    \"Gym\"\n  ],\n  \"rooms_info\": [\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    },\n    {\n      \"name\": \"First Bedroom\",\n      \"type\": \"Bedroom\",\n      \"label\": \"First Bedroom\"\n    }\n  ],\n  \"additional_team_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"unit_ids\": [\n    \"00BRcZPSakXz6w7RYoE\",\n    \"00BRcZPSakXz6w7RYoE\"\n  ],\n  \"team_id\": \"05fDGZRKp4nVmlmEwjsv\",\n  \"state\": \"CA\",\n  \"rentvine_sync\": {\n    \"last_sync\": \"1968-08-13T08:14:04.414Z\",\n    \"id\": \"string\",\n    \"x_id\": \"string\",\n    \"x_property_id\": \"string\",\n    \"status\": \"processing\",\n    \"error\": \"string\",\n    \"upload_response\": [\n      {\n        \"key_0\": 7451\n      },\n      {\n        \"key_0\": true\n      }\n    ],\n    \"excluded_inspection_upload_destinations\": [\n      \"inspections\",\n      \"properties\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"building not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cf65e16-0605-49ed-bd84-62f9fc4ffbf8",
+          "name": "Merge two properties",
+          "request": {
+            "name": "Merge two properties",
+            "description": {
+              "content": "Merges the origin property (`propertyId`) into the target property (`targetPropertyId`). The\norigin is soft-deleted and its occupancies / residents are re-parented to the target. When\n`transfer_rooms` is `true`, the origin's room configuration is merged onto the target.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "properties",
+                ":propertyId",
+                "merge",
+                ":targetPropertyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Origin property ID (the one being merged away)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "targetPropertyId",
+                  "description": "(Required) Target property ID (the one that will be kept)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transfer_rooms\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45ab16ce-39aa-4d1c-b31c-6e952978a76f",
+              "name": "Returns the merged target property.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "properties",
+                    ":propertyId",
+                    "merge",
+                    ":targetPropertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Origin property ID (the one being merged away)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "targetPropertyId",
+                      "description": "(Required) Target property ID (the one that will be kept)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_rooms\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"property_type\": \"Single-Family\",\n    \"address\": \"2001 Red Gates\",\n    \"city\": \"New Orleans\",\n    \"zip_code\": \"70130\",\n    \"bedrooms\": 2,\n    \"full_bathrooms\": 2,\n    \"half_bathrooms\": 1,\n    \"building_id\": \"00BRcZPSakXz6w7RYoE\",\n    \"latchel_property_id\": 5998,\n    \"team\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"name\": \"The best company\",\n      \"internal_label\": \"The best company label\"\n    },\n    \"created_date\": \"2022-12-02 14:15:37.925000\",\n    \"updated_date\": \"2023-10-04 14:15:37.925000\",\n    \"rooms_info\": [\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      },\n      {\n        \"type\": \"Bedroom\",\n        \"name\": \"First Bedroom\",\n        \"label\": \"First Bedroom\"\n      }\n    ],\n    \"rooms\": [\n      \"Living Room\",\n      \"Den\",\n      \"Balcony\"\n    ],\n    \"room_names\": \"Bathroom\",\n    \"last_completed_inspection\": {\n      \"date\": \"2022-12-02 14:15:37.925000\",\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"creation_source\": \"zapier\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"permissions\": {\n      \"can_delete\": true,\n      \"can_create_inspection\": true,\n      \"can_add_to_parent_property\": false,\n      \"can_reassign_team\": false\n    },\n    \"x_id\": \"string\",\n    \"address_2\": \"Apt. 4B\",\n    \"region\": \"Orleans\",\n    \"sync_data\": {\n      \"vendor\": \"rentvine\",\n      \"last_sync\": \"2022-12-02 14:15:37.925000\",\n      \"status\": \"error\",\n      \"error\": \"string\",\n      \"id\": \"string\",\n      \"x_id\": \"string\",\n      \"location_id\": \"string\",\n      \"integration_id\": \"string\",\n      \"short_property_id\": \"string\",\n      \"short_unit_id\": \"string\",\n      \"upload_response\": [\n        {\n          \"resource\": \"properties\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        },\n        {\n          \"resource\": \"units\",\n          \"resource_id\": \"string\",\n          \"uploaded_id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c86ee3a-6713-4583-b5ee-6ad84a240e23",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "properties",
+                    ":propertyId",
+                    "merge",
+                    ":targetPropertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Origin property ID (the one being merged away)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "targetPropertyId",
+                      "description": "(Required) Target property ID (the one that will be kept)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_rooms\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8307b83-533e-4765-80d2-b1c25c7f1605",
+              "name": "Forbidden — either the origin or target property of a merge is currently synced from an external integration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "properties",
+                    ":propertyId",
+                    "merge",
+                    ":targetPropertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Origin property ID (the one being merged away)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "targetPropertyId",
+                      "description": "(Required) Target property ID (the one that will be kept)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_rooms\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"Synced property cannot be used for merge\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "611fbeb9-c163-4b8c-ae25-f48e12be1c7c",
+              "name": "Not Found — `property not found` or `user not found`. Both the origin\nand target property lookups surface as `property not found` when a\nproperty is missing or inaccessible.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "properties",
+                    ":propertyId",
+                    "merge",
+                    ":targetPropertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Origin property ID (the one being merged away)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "targetPropertyId",
+                      "description": "(Required) Target property ID (the one that will be kept)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transfer_rooms\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"property not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7552c2cb-04c1-4ef3-baf9-342e868b92a9",
+    "name": "RentCheck REST Account Settings Buildings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

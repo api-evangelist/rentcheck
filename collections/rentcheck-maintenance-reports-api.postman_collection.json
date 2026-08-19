@@ -1,0 +1,820 @@
+{
+  "item": [
+    {
+      "id": "0ffb821f-c9a9-459a-8980-6b36bef60425",
+      "name": "Maintenance Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10ac9156-8a44-405b-8108-a0b36907156d",
+          "name": "Create a maintenance report",
+          "request": {
+            "name": "Create a maintenance report",
+            "description": {
+              "content": "This resource allows you to create a Maintenance Report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "maintenance_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Creation-source identifier. Read from the request headers and required\nby request validation — omitting it returns a 400 `\"appId\" is required`.\n",
+                "key": "x-app-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"organize_by\": \"<string>\",\n  \"flags\": [\n    {\n      \"id\": \"<string>\",\n      \"feature_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"feature_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "71b4f8d9-e1d4-4b5a-b9df-bb2b7e0f9877",
+              "name": "Returns the created maintenance report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Read from the request headers and required\nby request validation — omitting it returns a 400 `\"appId\" is required`.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Move-out maintenance report\",\n  \"organize_by\": \"responsibility\",\n  \"flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 201,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Move-out maintenance report\",\n    \"organize_by\": \"responsibility\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"inspection_date\": \"2022-01-15 00:00:00\",\n    \"created_date\": \"2022-01-15 00:00:00\",\n    \"inspection\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"date\": \"2021-12-02 14:15:37.925000\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      }\n    },\n    \"property\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\"\n    },\n    \"maintenance_flags\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"feature_id\": \"string\",\n        \"feature\": \"string\",\n        \"section\": {\n          \"name\": \"Hallway\",\n          \"name_with_ordinal\": \"First Bedroom\",\n          \"type\": \"room\"\n        },\n        \"note\": \"string\",\n        \"skill\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Renter\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"label\": \"string\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"inspection_template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\",\n            \"property_type\": \"string\",\n            \"display_name\": \"string\"\n          }\n        },\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"video_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maintenance_reports\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"work_orders\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"internal_note\": \"string\",\n        \"cost\": 3878.4175760601593,\n        \"responsibility\": \"OWNER\",\n        \"vendor\": \"Rentvine\",\n        \"custom_fields\": [\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"feature_id\": \"string\",\n        \"feature\": \"string\",\n        \"section\": {\n          \"name\": \"Hallway\",\n          \"name_with_ordinal\": \"First Bedroom\",\n          \"type\": \"room\"\n        },\n        \"note\": \"string\",\n        \"skill\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Property Manager\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"label\": \"string\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"inspection_template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\",\n            \"property_type\": \"string\",\n            \"display_name\": \"string\"\n          }\n        },\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"video_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maintenance_reports\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"work_orders\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"internal_note\": \"string\",\n        \"cost\": 9783.97991882985,\n        \"responsibility\": \"\",\n        \"vendor\": \"Latchel\",\n        \"custom_fields\": [\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      }\n    ],\n    \"zip_report_location\": \"string\",\n    \"pdf_report_location\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44f90c44-3a7d-4857-bedb-66e01b1ae679",
+              "name": "Bad request — request body validation failed, or one of\nthe cross-flag checks rejected the create. The request is wrapped\nunder `data`, and the `x-app-id` header is additionally required to\npopulate `appId`. Examples:\n  - `\"data.name\" is required`\n  - `\"data.organize_by\" is required`\n  - `\"data.organize_by\" must be one of [responsibility, room, skill]`\n  - `\"data.flags\" is required`\n  - `\"data.flags[0].id\" is required`\n  - `\"data.flags[0].feature_id\" is required`\n  - `\"appId\" is required` — surfaces when the `x-app-id` header is\n    missing.\n  - `All features should belong to the same inspection`\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Read from the request headers and required\nby request validation — omitting it returns a 400 `\"appId\" is required`.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Move-out maintenance report\",\n  \"organize_by\": \"responsibility\",\n  \"flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e181c241-e17c-4a5c-8004-8854399b32f7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Read from the request headers and required\nby request validation — omitting it returns a 400 `\"appId\" is required`.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Move-out maintenance report\",\n  \"organize_by\": \"responsibility\",\n  \"flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4898f4d3-fe82-45a6-997e-e3d873de9197",
+              "name": "Forbidden — the caller does not have access to this maintenance report. Access is\ndelegated to the underlying inspection that the requested flags belong to; if the\ncaller cannot access that inspection, the create is rejected with the error string below.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Creation-source identifier. Read from the request headers and required\nby request validation — omitting it returns a 400 `\"appId\" is required`.\n",
+                    "key": "x-app-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Move-out maintenance report\",\n  \"organize_by\": \"responsibility\",\n  \"flags\": [\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    },\n    {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"feature_id\": \"00BRcZPSakXz6w7RYoE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"User does not have access to this maintenance report\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ccb5d89-b9b2-45a0-ad51-f12fc1822246",
+          "name": "Delete a maintenance report",
+          "request": {
+            "name": "Delete a maintenance report",
+            "description": {
+              "content": "This resource allows you to delete a Maintenance Report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "maintenance_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id[]",
+                  "value": "<string>",
+                  "description": "(Required) Maintenance Report IDs. Repeat the parameter to send multiple values\n(e.g. `?id[]=abc&id[]=def`).\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa327894-721a-41c4-a119-d5bc7a488235",
+              "name": "Confirmation of deletion. Returned even when none of the supplied\nids matched — the request short-circuits when the ID set resolves\nto an empty list of reports, so this endpoint does not emit a 404\nfor unknown ids.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee5423fd-db38-4ea4-afec-7637b969958e",
+              "name": "Bad request — query string validation failed.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.ids\\\" must contain at least 1 items\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa6c0697-b981-433d-88f0-81996af78b19",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a8a82be-d31f-4692-8806-5978a30f5bb7",
+              "name": "Forbidden — the caller does not have access to at least one of the\nrequested maintenance reports.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"User does not have access to this maintenance report\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5ab0ae8-691c-4dde-a3d8-89e2959145db",
+          "name": "Get a maintenance report by ID",
+          "request": {
+            "name": "Get a maintenance report by ID",
+            "description": {
+              "content": "Get a maintenance report by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "maintenance_reports",
+                ":maintenanceReportId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenanceReportId",
+                  "description": "(Required) Maintenance Report ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b9d5ce9-d89b-463b-8f3a-c503ef650d7e",
+              "name": "Returns the requested maintenance report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports",
+                    ":maintenanceReportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceReportId",
+                      "description": "(Required) Maintenance Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"name\": \"Move-out maintenance report\",\n    \"organize_by\": \"responsibility\",\n    \"created_by\": {\n      \"name\": \"string\"\n    },\n    \"inspection_date\": \"2022-01-15 00:00:00\",\n    \"created_date\": \"2022-01-15 00:00:00\",\n    \"inspection\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"date\": \"2021-12-02 14:15:37.925000\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\",\n        \"property_type\": \"string\",\n        \"display_name\": \"string\"\n      }\n    },\n    \"property\": {\n      \"id\": \"00BRcZPSakXz6w7RYoE\",\n      \"address\": \"2001 Red Gates\",\n      \"city\": \"New Orleans\",\n      \"zip_code\": \"70130\",\n      \"address_2\": \"Apt. 4B\",\n      \"region\": \"Orleans\"\n    },\n    \"maintenance_flags\": [\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"feature_id\": \"string\",\n        \"feature\": \"string\",\n        \"section\": {\n          \"name\": \"Hallway\",\n          \"name_with_ordinal\": \"First Bedroom\",\n          \"type\": \"room\"\n        },\n        \"note\": \"string\",\n        \"skill\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Landlord\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"label\": \"string\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"inspection_template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\",\n            \"property_type\": \"string\",\n            \"display_name\": \"string\"\n          }\n        },\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"video_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maintenance_reports\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"work_orders\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"internal_note\": \"string\",\n        \"cost\": 7253.008410341762,\n        \"responsibility\": \"\",\n        \"vendor\": \"AppFolio\",\n        \"custom_fields\": [\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      },\n      {\n        \"id\": \"00BRcZPSakXz6w7RYoE\",\n        \"feature_id\": \"string\",\n        \"feature\": \"string\",\n        \"section\": {\n          \"name\": \"Hallway\",\n          \"name_with_ordinal\": \"First Bedroom\",\n          \"type\": \"room\"\n        },\n        \"note\": \"string\",\n        \"skill\": \"string\",\n        \"created_date\": \"2022-01-15 00:00:00\",\n        \"created_by\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"name\": \"string\",\n          \"email\": \"string\",\n          \"type\": \"Property Manager\"\n        },\n        \"inspection\": {\n          \"id\": \"00BRcZPSakXz6w7RYoE\",\n          \"label\": \"string\",\n          \"due_date\": \"2021-12-02 14:15:37.925000\",\n          \"inspection_template\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"internal_label\": \"string\",\n            \"property_type\": \"string\",\n            \"display_name\": \"string\"\n          }\n        },\n        \"image_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"video_urls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maintenance_reports\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"work_orders\": [\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          },\n          {\n            \"id\": \"00BRcZPSakXz6w7RYoE\",\n            \"name\": \"string\"\n          }\n        ],\n        \"internal_note\": \"string\",\n        \"cost\": 230.2493785674109,\n        \"responsibility\": \"OWNER\",\n        \"vendor\": \"Rent Manager\",\n        \"custom_fields\": [\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"id\": \"string\",\n            \"value\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      }\n    ],\n    \"zip_report_location\": \"string\",\n    \"pdf_report_location\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd5142a1-2dc9-4880-a845-6986bbd6aa4d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports",
+                    ":maintenanceReportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceReportId",
+                      "description": "(Required) Maintenance Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "450c8c5c-b79e-422e-ac5f-6a193f0369be",
+              "name": "Forbidden — the caller does not have access to this maintenance report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports",
+                    ":maintenanceReportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceReportId",
+                      "description": "(Required) Maintenance Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 403,\n  \"error\": \"User does not have access to this maintenance report\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9c0ea78-4778-4bd2-80f7-a7965b0585dd",
+              "name": "Not Found — `maintenance report not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "maintenance_reports",
+                    ":maintenanceReportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceReportId",
+                      "description": "(Required) Maintenance Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"maintenance report not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "11fda7c8-b662-4218-ab1d-d8960b67a849",
+    "name": "RentCheck REST Account Settings Maintenance Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

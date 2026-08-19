@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Properties V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get buildings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/properties/buildings",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match building addresses"
+              },
+              {
+                "name": "filters[team][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+              },
+              {
+                "name": "filters[team][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the team filter."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy team id filter. Prefer `filters[team][value]`."
+              },
+              {
+                "name": "last_completed_inspection_start_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "last_completed_inspection_end_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "synced",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter by one of the available integration sync status"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields."
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+              }
+            ]
+          },
+          "docs": "This resource allows you to get all Buildings. Buildings are properties that can contain a number of individual Units."
+        },
+        {
+          "info": {
+            "name": "Get communities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/properties/communities",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match community addresses"
+              },
+              {
+                "name": "filters[team][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+              },
+              {
+                "name": "filters[team][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the team filter."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy team id filter. Prefer `filters[team][value]`."
+              },
+              {
+                "name": "last_completed_inspection_start_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "last_completed_inspection_end_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "synced",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter by one of the available integration sync status"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields."
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+              }
+            ]
+          },
+          "docs": "This resource allows you to get all Communities. Communities are properties that contain one or more individual Units."
+        },
+        {
+          "info": {
+            "name": "Get a property by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/properties/:propertyId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Property ID. Matches the `id` of a unit, building, or community."
+              }
+            ]
+          },
+          "docs": "Returns a single property (unit, building, or community) by its ID."
+        },
+        {
+          "info": {
+            "name": "Get units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/properties/units",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match unit addresses"
+              },
+              {
+                "name": "filters[team][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `\"filters.teamIds.value\" must contain at least 1 items`."
+              },
+              {
+                "name": "filters[team][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the team filter."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "Legacy team id filter. Prefer `filters[team][value]`."
+              },
+              {
+                "name": "last_completed_inspection_start_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "last_completed_inspection_end_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as \"no filter\"."
+              },
+              {
+                "name": "synced",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter by one of the available integration sync status"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields. `name` has no effect\nfor units (units have no `name` field); it is preserved in the enum for\nshared use with buildings/communities.\n"
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted."
+              }
+            ]
+          },
+          "docs": "Get units according to logged in user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,390 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Leases API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all leases for resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ]
+          },
+          "docs": "This resource allows you to get all Leases for a Resident."
+        },
+        {
+          "info": {
+            "name": "Create a lease for a resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to create a Lease for a Resident in RentCheck."
+        },
+        {
+          "info": {
+            "name": "Get a lease by ID for a resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases/:leaseId",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              },
+              {
+                "name": "leaseId",
+                "value": "",
+                "type": "path",
+                "description": "Lease ID"
+              }
+            ]
+          },
+          "docs": "This resource allows you to get a lease for a resident Resident in RentCheck."
+        },
+        {
+          "info": {
+            "name": "Update a lease for a resident",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases/:leaseId",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              },
+              {
+                "name": "leaseId",
+                "value": "",
+                "type": "path",
+                "description": "Lease ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This resource allows you to update a Lease for a Resident in RentCheck."
+        },
+        {
+          "info": {
+            "name": "Delete lease",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases/:leaseId",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              },
+              {
+                "name": "leaseId",
+                "value": "",
+                "type": "path",
+                "description": "Lease ID"
+              }
+            ]
+          },
+          "docs": "Delete selected lease by ID for a resident."
+        },
+        {
+          "info": {
+            "name": "Update a lease move in date and status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases/:leaseId/move-in",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              },
+              {
+                "name": "leaseId",
+                "value": "",
+                "type": "path",
+                "description": "Lease ID"
+              }
+            ]
+          },
+          "docs": "This resource sets a Lease move_in_date to the current date and the status to \"current\"."
+        },
+        {
+          "info": {
+            "name": "Update a lease move out date and status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://prod-public-api.getrentcheck.com/v2/residents/:residentId/leases/:leaseId/move-out",
+            "params": [
+              {
+                "name": "residentId",
+                "value": "",
+                "type": "path",
+                "description": "Resident ID"
+              },
+              {
+                "name": "leaseId",
+                "value": "",
+                "type": "path",
+                "description": "Lease ID"
+              }
+            ]
+          },
+          "docs": "This resource sets a Lease move_out_date to the current date and the status to \"past\"."
+        },
+        {
+          "info": {
+            "name": "List every lease on a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/leases",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Property (unit) id."
+              }
+            ]
+          },
+          "docs": "Returns every lease (occupancy) associated with the unit identified by\n`propertyId`. The property is resolved through the unit fetcher — so\nbuilding and community IDs are rejected.\n\nNot to be confused with `GET /v1/properties/resident-leases`, which\nreturns only the leases the authenticated renter has access to.\n"
+        },
+        {
+          "info": {
+            "name": "Create a resident lease",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/resident-leases",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the property the new lease belongs to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new resident lease for the given property."
+        },
+        {
+          "info": {
+            "name": "Get a resident lease by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/resident-leases/:residentLeaseId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the property the lease belongs to."
+              },
+              {
+                "name": "residentLeaseId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the resident lease."
+              }
+            ]
+          },
+          "docs": "Returns a single resident lease for the given property."
+        },
+        {
+          "info": {
+            "name": "Update a resident lease",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/resident-leases/:residentLeaseId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the property the lease belongs to."
+              },
+              {
+                "name": "residentLeaseId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the resident lease."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a resident lease for the given property."
+        },
+        {
+          "info": {
+            "name": "Delete a resident lease",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/resident-leases/:residentLeaseId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the property the lease belongs to."
+              },
+              {
+                "name": "residentLeaseId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the resident lease. Must be a valid UUID — a non-UUID id is\ninterpreted as a property-manager lease id and rejected with a 400.\n"
+              }
+            ]
+          },
+          "docs": "Deletes a resident lease for the given property."
+        },
+        {
+          "info": {
+            "name": "Get all resident leases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/resident-leases",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Free-form search string matched across resident and property fields."
+              },
+              {
+                "name": "filters[status][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of lease statuses to filter by. Multiple values are concatenated with `|`. When either `filters[status][value]` or `filters[status][condition]` is supplied, both are required.\n"
+              },
+              {
+                "name": "filters[status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the status filter. The validator only accepts `any_of`. Must be paired with `filters[status][value]` (see above)."
+              },
+              {
+                "name": "filters[lease_type][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of lease types to filter by. Multiple values are concatenated with `|`. When either `filters[lease_type][value]` or `filters[lease_type][condition]` is supplied, both are required (same paired-required rule as `filters[status]` above).\n"
+              },
+              {
+                "name": "filters[lease_type][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the lease_type filter. The validator only accepts `any_of`. Must be paired with `filters[lease_type][value]` (see above)."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by. Only `created_date` is currently supported. Required —\nomitting it yields `400 \"options.sort.sort_by\" is required`.\n"
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. `sort_type` is technically required, but a default of\n`ASC` is injected when the query string omits it — so callers never see\nthe 400 for a missing value in practice.\n"
+              }
+            ]
+          },
+          "docs": "Returns every resident lease the caller has access to, optionally filtered by status, lease\ntype, and a free-form search string. Results are returned without pagination.\n"
+        },
+        {
+          "info": {
+            "name": "Move out the current resident from a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://prod-public-api.getrentcheck.com/v1/properties/:propertyId/resident-leases/move-out",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the property the lease(s) belong to."
+              }
+            ]
+          },
+          "docs": "Marks the current resident lease(s) for the property as moved-out, and updates any associated\ninspections accordingly. Returns the updated leases and inspections impacted by the move-out.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

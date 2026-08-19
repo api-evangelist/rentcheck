@@ -1,0 +1,2782 @@
+{
+  "item": [
+    {
+      "id": "f2294329-30ef-40c5-b1c8-536f8c160c76",
+      "name": "Account Settings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1725979a-a36d-4c6b-b98e-2c283168fcb0",
+          "name": "Delete an email customization",
+          "request": {
+            "name": "Delete an email customization",
+            "description": {
+              "content": "Removes the supplied email customization. After deletion the affected template + email type\nfalls back to the platform default content.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "email-customizations",
+                ":customizationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customizationId",
+                  "description": "(Required) Email customization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00174e2d-aa5e-4956-b5ea-2501146d6c4a",
+              "name": "The email customization has been removed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6d97936-650f-44fd-9a07-b84a73b52c8b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47a8045e-de9b-43d2-a909-36bb448d2054",
+              "name": "Not Found — `subscription not found` or `email customization not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"email customization not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60acc142-c44d-476e-bc1f-8ea288e53998",
+          "name": "Get an email customization by ID",
+          "request": {
+            "name": "Get an email customization by ID",
+            "description": {
+              "content": "Returns a single email customization, including the rendered subject\nmerge tags available for the template / email type.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "email-customizations",
+                ":customizationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customizationId",
+                  "description": "(Required) Email customization ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edbfbc7c-6d9e-4de5-9758-24445351bb22",
+              "name": "Returns the requested email customization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"string\",\n    \"content\": \"string\",\n    \"message\": {\n      \"email_title\": \"string\",\n      \"email_type\": \"inspection_invitation_new_to_rentcheck\",\n      \"email_explanatory_text\": \"string\"\n    },\n    \"subject\": {\n      \"title\": \"string\",\n      \"merge_tags\": [\n        {\n          \"value\": \"string\",\n          \"display_name\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"display_name\": \"string\"\n        }\n      ]\n    },\n    \"template\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"internal_label\": \"string\"\n    },\n    \"updated_by\": {\n      \"username\": \"string\",\n      \"email\": \"string\",\n      \"updated_date\": \"1952-09-09T15:41:39.443Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0922ebb2-2f8a-4b2d-8fc8-23eb0a2523f5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61768a7f-6ed2-4136-a066-fcc8c8ebbdd2",
+              "name": "Not Found — `subscription not found` or `email customization not found`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    ":customizationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customizationId",
+                      "description": "(Required) Email customization ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"email customization not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d00f51ec-afbb-4c16-bb93-5fc1ccfc13b6",
+          "name": "List email customizations",
+          "request": {
+            "name": "List email customizations",
+            "description": {
+              "content": "Returns every email customization configured on the caller's subscription, one entry per\ninspection template / email type combination.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "email-customizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45d1ce6c-a6eb-4271-9ed0-46c3fd906273",
+              "name": "Returns the email customizations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"email_type_id\": \"final_inspection_reminder_3_days_overdue\",\n      \"email_title\": \"string\",\n      \"email_explanatory_text\": \"string\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\"\n      },\n      \"updated_by\": {\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"2008-09-20T07:34:14.751Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"email_type_id\": \"final_inspection_reminder_3_days_overdue\",\n      \"email_title\": \"string\",\n      \"email_explanatory_text\": \"string\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\"\n      },\n      \"updated_by\": {\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1993-10-16T03:06:48.896Z\"\n      }\n    }\n  ],\n  \"count\": 1956\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bfc9cb5-26ac-46cb-b97b-7277f0347ae5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0526e8a0-ee44-400c-99b5-333c6c33a5e9",
+              "name": "Not Found — `subscription not found` for the caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"subscription not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "572c7cdf-c7c8-4c51-838d-88182d4493bf",
+          "name": "Upsert email customizations",
+          "request": {
+            "name": "Upsert email customizations",
+            "description": {
+              "content": "Creates or updates the email customization for a given `email_type_id` across one or more\ninspection templates. Returns the resulting set of customizations.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "email-customizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"email_type_id\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5204580-543e-4490-b9de-e5cddbef476d",
+              "name": "Returns the upserted email customizations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"email_type_id\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"email_type_id\": \"inspection_approval_confirmation\",\n      \"email_title\": \"string\",\n      \"email_explanatory_text\": \"string\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\"\n      },\n      \"updated_by\": {\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1986-04-26T16:49:05.099Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"email_type_id\": \"inspection_approval_confirmation\",\n      \"email_title\": \"string\",\n      \"email_explanatory_text\": \"string\",\n      \"template\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"internal_label\": \"string\"\n      },\n      \"updated_by\": {\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"2020-12-06T08:58:19.584Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2719b871-d14c-41f2-abca-f654b25f17ba",
+              "name": "Bad request — request validation rejected the body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"email_type_id\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.email_type_id\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efc16552-e778-4adb-b328-f0cfd85ad061",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"email_type_id\": \"<string>\",\n  \"inspection_template_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "408f47f2-b4c8-4a07-aa54-a935adcbec8c",
+          "name": "Send a test email customization",
+          "request": {
+            "name": "Send a test email customization",
+            "description": {
+              "content": "Renders the supplied email customization content using the supplied property + inspection\ntemplate context and sends it to the listed recipients. Used by the email builder UI to\npreview the final email.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "email-customizations",
+                "test-email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipients\": [\n    \"<email>\"\n  ],\n  \"content\": \"<string>\",\n  \"property_id\": \"<string>\",\n  \"inspection_template_id\": \"<string>\",\n  \"email_type_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2a7c36c-b646-4fb2-b61e-4120b8b6f232",
+              "name": "Test email accepted for delivery.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    "test-email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipients\": [\n    \"<email>\"\n  ],\n  \"content\": \"<string>\",\n  \"property_id\": \"<string>\",\n  \"inspection_template_id\": \"<string>\",\n  \"email_type_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9cd273e-e4ad-4d5e-83fc-edded2face55",
+              "name": "Bad request — request validation rejected the body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    "test-email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipients\": [\n    \"<email>\"\n  ],\n  \"content\": \"<string>\",\n  \"property_id\": \"<string>\",\n  \"inspection_template_id\": \"<string>\",\n  \"email_type_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.recipients\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00c81655-7ee6-467d-b01a-8e3da6fe5ee2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "email-customizations",
+                    "test-email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipients\": [\n    \"<email>\"\n  ],\n  \"content\": \"<string>\",\n  \"property_id\": \"<string>\",\n  \"inspection_template_id\": \"<string>\",\n  \"email_type_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4857821c-ea1b-4e2e-85a0-7c4749a614a9",
+          "name": "Get account settings",
+          "request": {
+            "name": "Get account settings",
+            "description": {
+              "content": "Get account settings for user's subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "845300fd-1950-4b9a-92a9-7852b020e18d",
+              "name": "Returns the account settings for the caller's subscription. When the\ncaller has no subscription or no settings record yet, the server\nfalls back to `defaultAccountSettings` so this endpoint never 4xx's\non a successfully authenticated caller.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"subscription_id\": \"string\",\n    \"rooms\": {\n      \"unit\": [\n        {\n          \"category\": \"exterior\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"interior\",\n          \"name\": \"string\"\n        }\n      ],\n      \"building\": [\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        }\n      ],\n      \"community\": [\n        {\n          \"category\": \"community\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"other\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"is_maintenance_flag_default_photos_enabled\": false,\n    \"is_resident_reported_maintenance_enabled\": false,\n    \"is_inspection_review_autoapproval_enabled\": false,\n    \"custom_maintenance_fields\": [\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": false,\n        \"description\": \"string\",\n        \"required\": true\n      },\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"description\": \"string\",\n        \"required\": false\n      }\n    ],\n    \"inspection_report_templates\": {\n      \"default\": {\n        \"name\": \"string\",\n        \"summary_section\": {\n          \"section_active\": true,\n          \"resident_info\": false,\n          \"summary_page\": true,\n          \"table_of_contents\": true,\n          \"inspection_label\": true,\n          \"summary_note\": false\n        },\n        \"inspection_features_section\": {\n          \"section_active\": true,\n          \"questions_answers\": true,\n          \"images\": true,\n          \"notes\": true,\n          \"ratings\": true\n        },\n        \"maintenance_flags_section\": {\n          \"section_active\": true,\n          \"owner_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"uncategorized_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"resident_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          }\n        }\n      }\n    },\n    \"inspection_contact_info\": {\n      \"email\": \"string\",\n      \"phone_number\": \"string\"\n    },\n    \"two_step_inspection_approval\": {\n      \"enabled\": false,\n      \"template_ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ai_settings\": {\n      \"damage_detection\": {\n        \"automatic_scanning\": {\n          \"enabled\": false,\n          \"template_ids\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"manual_scanning\": {\n          \"enabled\": false\n        },\n        \"free_scans_used\": 5956,\n        \"free_scans_limit\": 8566,\n        \"open_ai_model\": \"string\"\n      }\n    },\n    \"beta_access\": {\n      \"resident_insights\": false\n    },\n    \"signature_acknowledgement\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1975-01-23T06:02:21.124Z\"\n      }\n    },\n    \"inspection_tab_backsync_modal_shown\": false,\n    \"skills\": [\n      {\n        \"category\": \"string\",\n        \"is_default\": false,\n        \"sub_category\": \"string\"\n      },\n      {\n        \"category\": \"string\",\n        \"is_default\": true,\n        \"sub_category\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a047d1c5-3152-4223-9537-c5511fd54068",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3abf6c46-d1cb-4b46-ac50-f2c5b5aa21e7",
+          "name": "Update account settings",
+          "request": {
+            "name": "Update account settings",
+            "description": {
+              "content": "Update parameters of the subscription's account settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"skills\": [\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    }\n  ],\n  \"rooms\": {\n    \"unit\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"building\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"community\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  \"inspection_report_templates\": {\n    \"default\": {\n      \"name\": \"<string>\",\n      \"summary_section\": {\n        \"section_active\": true,\n        \"resident_info\": false,\n        \"summary_page\": true,\n        \"table_of_contents\": true,\n        \"inspection_label\": true,\n        \"summary_note\": false\n      },\n      \"inspection_features_section\": {\n        \"section_active\": true,\n        \"questions_answers\": true,\n        \"images\": true,\n        \"notes\": true,\n        \"ratings\": true\n      },\n      \"maintenance_flags_section\": {\n        \"section_active\": true,\n        \"owner_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"uncategorized_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"resident_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        }\n      }\n    }\n  },\n  \"is_resident_reported_maintenance_enabled\": false,\n  \"is_maintenance_flag_default_photos_enabled\": false,\n  \"is_inspection_review_autoapproval_enabled\": false,\n  \"custom_maintenance_fields\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ],\n  \"two_step_inspection_approval\": {\n    \"enabled\": \"<boolean>\",\n    \"template_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"ai_settings\": {\n    \"damage_detection\": {\n      \"automatic_scanning\": {\n        \"enabled\": \"<boolean>\",\n        \"template_ids\": [\n          \"<string>\"\n        ]\n      },\n      \"manual_scanning\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"inspection_tab_backsync_modal_shown\": \"<boolean>\",\n  \"inspection_contact_info\": {\n    \"email\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86d456d9-a3a1-4149-b3b1-c1c718c9d931",
+              "name": "Returns the updated account settings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skills\": [\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    }\n  ],\n  \"rooms\": {\n    \"unit\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"building\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"community\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  \"inspection_report_templates\": {\n    \"default\": {\n      \"name\": \"<string>\",\n      \"summary_section\": {\n        \"section_active\": true,\n        \"resident_info\": false,\n        \"summary_page\": true,\n        \"table_of_contents\": true,\n        \"inspection_label\": true,\n        \"summary_note\": false\n      },\n      \"inspection_features_section\": {\n        \"section_active\": true,\n        \"questions_answers\": true,\n        \"images\": true,\n        \"notes\": true,\n        \"ratings\": true\n      },\n      \"maintenance_flags_section\": {\n        \"section_active\": true,\n        \"owner_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"uncategorized_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"resident_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        }\n      }\n    }\n  },\n  \"is_resident_reported_maintenance_enabled\": false,\n  \"is_maintenance_flag_default_photos_enabled\": false,\n  \"is_inspection_review_autoapproval_enabled\": false,\n  \"custom_maintenance_fields\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ],\n  \"two_step_inspection_approval\": {\n    \"enabled\": \"<boolean>\",\n    \"template_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"ai_settings\": {\n    \"damage_detection\": {\n      \"automatic_scanning\": {\n        \"enabled\": \"<boolean>\",\n        \"template_ids\": [\n          \"<string>\"\n        ]\n      },\n      \"manual_scanning\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"inspection_tab_backsync_modal_shown\": \"<boolean>\",\n  \"inspection_contact_info\": {\n    \"email\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"subscription_id\": \"string\",\n    \"rooms\": {\n      \"unit\": [\n        {\n          \"category\": \"exterior\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"interior\",\n          \"name\": \"string\"\n        }\n      ],\n      \"building\": [\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        }\n      ],\n      \"community\": [\n        {\n          \"category\": \"community\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"other\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"is_maintenance_flag_default_photos_enabled\": false,\n    \"is_resident_reported_maintenance_enabled\": false,\n    \"is_inspection_review_autoapproval_enabled\": false,\n    \"custom_maintenance_fields\": [\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": false,\n        \"description\": \"string\",\n        \"required\": true\n      },\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"description\": \"string\",\n        \"required\": false\n      }\n    ],\n    \"inspection_report_templates\": {\n      \"default\": {\n        \"name\": \"string\",\n        \"summary_section\": {\n          \"section_active\": true,\n          \"resident_info\": false,\n          \"summary_page\": true,\n          \"table_of_contents\": true,\n          \"inspection_label\": true,\n          \"summary_note\": false\n        },\n        \"inspection_features_section\": {\n          \"section_active\": true,\n          \"questions_answers\": true,\n          \"images\": true,\n          \"notes\": true,\n          \"ratings\": true\n        },\n        \"maintenance_flags_section\": {\n          \"section_active\": true,\n          \"owner_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"uncategorized_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"resident_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          }\n        }\n      }\n    },\n    \"inspection_contact_info\": {\n      \"email\": \"string\",\n      \"phone_number\": \"string\"\n    },\n    \"two_step_inspection_approval\": {\n      \"enabled\": false,\n      \"template_ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ai_settings\": {\n      \"damage_detection\": {\n        \"automatic_scanning\": {\n          \"enabled\": false,\n          \"template_ids\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"manual_scanning\": {\n          \"enabled\": false\n        },\n        \"free_scans_used\": 5956,\n        \"free_scans_limit\": 8566,\n        \"open_ai_model\": \"string\"\n      }\n    },\n    \"beta_access\": {\n      \"resident_insights\": false\n    },\n    \"signature_acknowledgement\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1975-01-23T06:02:21.124Z\"\n      }\n    },\n    \"inspection_tab_backsync_modal_shown\": false,\n    \"skills\": [\n      {\n        \"category\": \"string\",\n        \"is_default\": false,\n        \"sub_category\": \"string\"\n      },\n      {\n        \"category\": \"string\",\n        \"is_default\": true,\n        \"sub_category\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "933ac8f1-b9b8-490c-94fb-0fbdc881cb59",
+              "name": "Bad request — request body validation failed, an unknown room name was\nsupplied, two-step inspection approval / custom maintenance\nfields / AI damage-detection settings did not pass the\nsubscription-aware validations, or one of the validated values is\notherwise invalid.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skills\": [\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    }\n  ],\n  \"rooms\": {\n    \"unit\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"building\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"community\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  \"inspection_report_templates\": {\n    \"default\": {\n      \"name\": \"<string>\",\n      \"summary_section\": {\n        \"section_active\": true,\n        \"resident_info\": false,\n        \"summary_page\": true,\n        \"table_of_contents\": true,\n        \"inspection_label\": true,\n        \"summary_note\": false\n      },\n      \"inspection_features_section\": {\n        \"section_active\": true,\n        \"questions_answers\": true,\n        \"images\": true,\n        \"notes\": true,\n        \"ratings\": true\n      },\n      \"maintenance_flags_section\": {\n        \"section_active\": true,\n        \"owner_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"uncategorized_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"resident_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        }\n      }\n    }\n  },\n  \"is_resident_reported_maintenance_enabled\": false,\n  \"is_maintenance_flag_default_photos_enabled\": false,\n  \"is_inspection_review_autoapproval_enabled\": false,\n  \"custom_maintenance_fields\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ],\n  \"two_step_inspection_approval\": {\n    \"enabled\": \"<boolean>\",\n    \"template_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"ai_settings\": {\n    \"damage_detection\": {\n      \"automatic_scanning\": {\n        \"enabled\": \"<boolean>\",\n        \"template_ids\": [\n          \"<string>\"\n        ]\n      },\n      \"manual_scanning\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"inspection_tab_backsync_modal_shown\": \"<boolean>\",\n  \"inspection_contact_info\": {\n    \"email\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2595b99-3730-48fe-96ab-15e364b7f298",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skills\": [\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    }\n  ],\n  \"rooms\": {\n    \"unit\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"building\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"community\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  \"inspection_report_templates\": {\n    \"default\": {\n      \"name\": \"<string>\",\n      \"summary_section\": {\n        \"section_active\": true,\n        \"resident_info\": false,\n        \"summary_page\": true,\n        \"table_of_contents\": true,\n        \"inspection_label\": true,\n        \"summary_note\": false\n      },\n      \"inspection_features_section\": {\n        \"section_active\": true,\n        \"questions_answers\": true,\n        \"images\": true,\n        \"notes\": true,\n        \"ratings\": true\n      },\n      \"maintenance_flags_section\": {\n        \"section_active\": true,\n        \"owner_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"uncategorized_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"resident_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        }\n      }\n    }\n  },\n  \"is_resident_reported_maintenance_enabled\": false,\n  \"is_maintenance_flag_default_photos_enabled\": false,\n  \"is_inspection_review_autoapproval_enabled\": false,\n  \"custom_maintenance_fields\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ],\n  \"two_step_inspection_approval\": {\n    \"enabled\": \"<boolean>\",\n    \"template_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"ai_settings\": {\n    \"damage_detection\": {\n      \"automatic_scanning\": {\n        \"enabled\": \"<boolean>\",\n        \"template_ids\": [\n          \"<string>\"\n        ]\n      },\n      \"manual_scanning\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"inspection_tab_backsync_modal_shown\": \"<boolean>\",\n  \"inspection_contact_info\": {\n    \"email\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c070399-f06f-45c6-a140-1174f5274ac8",
+              "name": "Not Found — `subscription not found` (caller has no subscription) or\n`account setting not found` (subscription has no settings record).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skills\": [\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"sub_category\": \"<string>\"\n    }\n  ],\n  \"rooms\": {\n    \"unit\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"building\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"community\": [\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"category\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    ]\n  },\n  \"inspection_report_templates\": {\n    \"default\": {\n      \"name\": \"<string>\",\n      \"summary_section\": {\n        \"section_active\": true,\n        \"resident_info\": false,\n        \"summary_page\": true,\n        \"table_of_contents\": true,\n        \"inspection_label\": true,\n        \"summary_note\": false\n      },\n      \"inspection_features_section\": {\n        \"section_active\": true,\n        \"questions_answers\": true,\n        \"images\": true,\n        \"notes\": true,\n        \"ratings\": true\n      },\n      \"maintenance_flags_section\": {\n        \"section_active\": true,\n        \"owner_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"uncategorized_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        },\n        \"resident_flags\": {\n          \"section_active\": false,\n          \"cost\": false,\n          \"notes\": false,\n          \"internal_notes\": false\n        }\n      }\n    }\n  },\n  \"is_resident_reported_maintenance_enabled\": false,\n  \"is_maintenance_flag_default_photos_enabled\": false,\n  \"is_inspection_review_autoapproval_enabled\": false,\n  \"custom_maintenance_fields\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"selection_type\": \"<string>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"template_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    }\n  ],\n  \"two_step_inspection_approval\": {\n    \"enabled\": \"<boolean>\",\n    \"template_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"ai_settings\": {\n    \"damage_detection\": {\n      \"automatic_scanning\": {\n        \"enabled\": \"<boolean>\",\n        \"template_ids\": [\n          \"<string>\"\n        ]\n      },\n      \"manual_scanning\": {\n        \"enabled\": \"<boolean>\"\n      }\n    }\n  },\n  \"inspection_tab_backsync_modal_shown\": \"<boolean>\",\n  \"inspection_contact_info\": {\n    \"email\": \"<string>\",\n    \"phone_number\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"subscription not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "433e8017-e4c6-4850-ad3b-a94bdac4b6b7",
+          "name": "Delete custom rooms from account settings",
+          "request": {
+            "name": "Delete custom rooms from account settings",
+            "description": {
+              "content": "Removes one or more custom rooms from the supplied `property_type` bucket on the caller's\naccount settings.\nUnlike most DELETE endpoints, this one accepts a JSON request body — required because the\nremoval is scoped both by `property_type` and by individual room entry.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "rooms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"property_type\": \"<string>\",\n  \"rooms\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "032700cd-4ea9-42a8-93ec-5ec019dbfb8d",
+              "name": "Returns the updated account settings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"property_type\": \"Single-Family\",\n  \"rooms\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"subscription_id\": \"string\",\n    \"rooms\": {\n      \"unit\": [\n        {\n          \"category\": \"exterior\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"interior\",\n          \"name\": \"string\"\n        }\n      ],\n      \"building\": [\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"building\",\n          \"name\": \"string\"\n        }\n      ],\n      \"community\": [\n        {\n          \"category\": \"community\",\n          \"name\": \"string\"\n        },\n        {\n          \"category\": \"other\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"is_maintenance_flag_default_photos_enabled\": false,\n    \"is_resident_reported_maintenance_enabled\": false,\n    \"is_inspection_review_autoapproval_enabled\": false,\n    \"custom_maintenance_fields\": [\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": false,\n        \"description\": \"string\",\n        \"required\": true\n      },\n      {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"selection_type\": \"multiple\",\n        \"options\": [\n          \"string\",\n          \"string\"\n        ],\n        \"template_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"description\": \"string\",\n        \"required\": false\n      }\n    ],\n    \"inspection_report_templates\": {\n      \"default\": {\n        \"name\": \"string\",\n        \"summary_section\": {\n          \"section_active\": true,\n          \"resident_info\": false,\n          \"summary_page\": true,\n          \"table_of_contents\": true,\n          \"inspection_label\": true,\n          \"summary_note\": false\n        },\n        \"inspection_features_section\": {\n          \"section_active\": true,\n          \"questions_answers\": true,\n          \"images\": true,\n          \"notes\": true,\n          \"ratings\": true\n        },\n        \"maintenance_flags_section\": {\n          \"section_active\": true,\n          \"owner_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"uncategorized_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          },\n          \"resident_flags\": {\n            \"section_active\": false,\n            \"cost\": false,\n            \"notes\": false,\n            \"internal_notes\": false\n          }\n        }\n      }\n    },\n    \"inspection_contact_info\": {\n      \"email\": \"string\",\n      \"phone_number\": \"string\"\n    },\n    \"two_step_inspection_approval\": {\n      \"enabled\": false,\n      \"template_ids\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ai_settings\": {\n      \"damage_detection\": {\n        \"automatic_scanning\": {\n          \"enabled\": false,\n          \"template_ids\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"manual_scanning\": {\n          \"enabled\": false\n        },\n        \"free_scans_used\": 5956,\n        \"free_scans_limit\": 8566,\n        \"open_ai_model\": \"string\"\n      }\n    },\n    \"beta_access\": {\n      \"resident_insights\": false\n    },\n    \"signature_acknowledgement\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1975-01-23T06:02:21.124Z\"\n      }\n    },\n    \"inspection_tab_backsync_modal_shown\": false,\n    \"skills\": [\n      {\n        \"category\": \"string\",\n        \"is_default\": false,\n        \"sub_category\": \"string\"\n      },\n      {\n        \"category\": \"string\",\n        \"is_default\": true,\n        \"sub_category\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90938212-42c6-442a-b84e-7e165b4917f2",
+              "name": "Bad request — request validation rejected the body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"property_type\": \"Single-Family\",\n  \"rooms\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.property_type\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a78e076-9652-4c4b-815c-e2faa8b418e6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"property_type\": \"Single-Family\",\n  \"rooms\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33c44381-81a7-4494-884a-3c39a55e2470",
+          "name": "Delete a signature acknowledgement override",
+          "request": {
+            "name": "Delete a signature acknowledgement override",
+            "description": {
+              "content": "Removes the signature acknowledgement override for the supplied inspection template. After\ndeletion the template falls back to the subscription-wide acknowledgement (or to the platform\ndefault if no subscription-wide override is set). Returns the post-delete state in the same\nshape as `GET /v1/account-settings/signature-acknowledgements`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "signature-acknowledgements",
+                ":templateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "templateId",
+                  "description": "(Required) Inspection template ID whose acknowledgement override should be removed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "272a4c69-1c63-4538-b1b9-12d6c23d03b8",
+              "name": "Returns the post-delete state of the signature acknowledgements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "templateId",
+                      "description": "(Required) Inspection template ID whose acknowledgement override should be removed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"default\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1954-04-11T06:39:11.866Z\"\n      }\n    },\n    \"global\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1961-04-22T14:03:39.047Z\"\n      }\n    },\n    \"templates\": [\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": false,\n          \"is_rc_template\": true,\n          \"is_published\": true,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1981-07-09T00:06:30.506Z\"\n          }\n        }\n      },\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": true,\n          \"is_rc_template\": true,\n          \"is_published\": false,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1995-05-28T01:56:11.759Z\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d279d4d-ec59-46b9-95c9-dff21a3800cf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "templateId",
+                      "description": "(Required) Inspection template ID whose acknowledgement override should be removed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6eed191-719d-4b26-9558-25d1218821dd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "templateId",
+                      "description": "(Required) Inspection template ID whose acknowledgement override should be removed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 404,\n  \"error\": \"property not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf794a27-e8de-45cc-ae72-a54a0368df74",
+          "name": "Get signature acknowledgements",
+          "request": {
+            "name": "Get signature acknowledgements",
+            "description": {
+              "content": "Returns the platform-default signature acknowledgement text, the subscription-wide override\n(if any), and the per-inspection-template overrides (if any).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "signature-acknowledgements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d115d896-f7ea-401a-9f9e-b5cd094f58d9",
+              "name": "Returns the signature acknowledgements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"default\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1954-04-11T06:39:11.866Z\"\n      }\n    },\n    \"global\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1961-04-22T14:03:39.047Z\"\n      }\n    },\n    \"templates\": [\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": false,\n          \"is_rc_template\": true,\n          \"is_published\": true,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1981-07-09T00:06:30.506Z\"\n          }\n        }\n      },\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": true,\n          \"is_rc_template\": true,\n          \"is_published\": false,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1995-05-28T01:56:11.759Z\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4ea5bd7-cf44-4bea-9498-03c9feb56c9c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66665713-c24c-4bfe-9227-c5556ccebec9",
+          "name": "Update signature acknowledgements",
+          "request": {
+            "name": "Update signature acknowledgements",
+            "description": {
+              "content": "Upserts one or more signature acknowledgements. Each entry's `id` is either the literal string\n`default` (to update the subscription-wide acknowledgement) or an inspection template id\n(to scope the change to a single template). Returns the post-update state in the same shape as\n`GET /v1/account-settings/signature-acknowledgements`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "account-settings",
+                "signature-acknowledgements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"signature_acknowledgements\": [\n    {\n      \"id\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4da627b8-71d1-4888-bbcc-e6b82cc071c7",
+              "name": "Returns the updated signature acknowledgements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"signature_acknowledgements\": [\n    {\n      \"id\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"default\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1954-04-11T06:39:11.866Z\"\n      }\n    },\n    \"global\": {\n      \"text\": \"string\",\n      \"updated_by\": {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"email\": \"string\",\n        \"updated_date\": \"1961-04-22T14:03:39.047Z\"\n      }\n    },\n    \"templates\": [\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": false,\n          \"is_rc_template\": true,\n          \"is_published\": true,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1981-07-09T00:06:30.506Z\"\n          }\n        }\n      },\n      {\n        \"inspection_template\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"display_name\": \"string\",\n          \"internal_label\": \"string\",\n          \"description\": \"string\",\n          \"is_deleted\": true,\n          \"is_rc_template\": true,\n          \"is_published\": false,\n          \"property_type\": \"Single-Family\"\n        },\n        \"customization\": {\n          \"text\": \"string\",\n          \"updated_by\": {\n            \"id\": \"string\",\n            \"username\": \"string\",\n            \"email\": \"string\",\n            \"updated_date\": \"1995-05-28T01:56:11.759Z\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15a17f05-ffd6-4f4e-a488-02146afbea6d",
+              "name": "Bad request — request validation rejected the body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"signature_acknowledgements\": [\n    {\n      \"id\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"data.signature_acknowledgements\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2b44b86-6b5c-465d-8bc5-0c9aed2f4bce",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "account-settings",
+                    "signature-acknowledgements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"signature_acknowledgements\": [\n    {\n      \"id\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"token is not valid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "103903e5-d7f8-446d-905a-6283b81fc205",
+          "name": "Get notification preferences by token",
+          "request": {
+            "name": "Get notification preferences by token",
+            "description": {
+              "content": "Resolve a notifications-preferences document from the encrypted token included\nin RentCheck-issued notification emails. The token decrypts to the recipient's\nemail; if no preferences document exists for that email yet, the default\npreferences shape is returned with `user_email` populated. This endpoint is\nreachable without an authenticated session — clients land on it from\n\"manage your notification preferences\" links.\n\nFor the equivalent authenticated endpoint, use\n`GET /v1/me/notifications-preferences`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "notifications-preferences",
+                ":preferencesId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "preferencesId",
+                  "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dedefe15-3c3e-4e15-8eeb-b2c5913260f3",
+              "name": "Returns the notification preferences for the resolved recipient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "notifications-preferences",
+                    ":preferencesId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "preferencesId",
+                      "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"inspections_awaiting_review\": {\n      \"enabled\": false,\n      \"email\": \"all\"\n    },\n    \"inspections_in_revision_review\": {\n      \"enabled\": true,\n      \"email\": \"created_by_me\"\n    },\n    \"inspections_completed\": {\n      \"enabled\": false,\n      \"email\": \"created_by_me\"\n    },\n    \"automation_failures\": {\n      \"enabled\": true\n    },\n    \"user_id\": \"string\",\n    \"user_email\": \"string\",\n    \"subscription_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d733ffe7-478a-4445-902d-5f82beaec620",
+              "name": "Unauthorized — the token failed to decrypt. Example: `invalid notifications preferences id`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "notifications-preferences",
+                    ":preferencesId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "preferencesId",
+                      "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"invalid notifications preferences id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98f08896-1cf2-4bdd-b204-61f3cab17e46",
+          "name": "Update notification preferences via token",
+          "request": {
+            "name": "Update notification preferences via token",
+            "description": {
+              "content": "Update a notifications-preferences document for the recipient identified by\nthe encrypted token. Used by the \"manage your notification preferences\"\nexperience opened from RentCheck notification emails — no authenticated\nsession is required. Supplied fields are merged onto the current preferences;\nif no preferences document exists yet, one is created and then patched.\n\nFor the equivalent authenticated endpoint, use\n`PUT /v1/me/notifications-preferences`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "notifications-preferences",
+                ":preferencesId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "preferencesId",
+                  "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inspections_awaiting_review\": {\n    \"enabled\": \"<boolean>\",\n    \"email\": \"<string>\"\n  },\n  \"inspections_in_revision_review\": {\n    \"enabled\": \"<boolean>\",\n    \"email\": \"<string>\"\n  },\n  \"inspections_completed\": {\n    \"enabled\": \"<boolean>\",\n    \"email\": \"<string>\"\n  },\n  \"automation_failures\": {\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06f651f4-90dd-4b5f-ac38-4e7fe3493db6",
+              "name": "Returns the updated notification preferences document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "notifications-preferences",
+                    ":preferencesId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "preferencesId",
+                      "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inspections_awaiting_review\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"inspections_in_revision_review\": {\n    \"enabled\": false,\n    \"email\": \"created_by_me\"\n  },\n  \"inspections_completed\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"automation_failures\": {\n    \"enabled\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"id\": \"00BRcZPSakXz6w7RYoE\",\n    \"inspections_awaiting_review\": {\n      \"enabled\": false,\n      \"email\": \"all\"\n    },\n    \"inspections_in_revision_review\": {\n      \"enabled\": true,\n      \"email\": \"created_by_me\"\n    },\n    \"inspections_completed\": {\n      \"enabled\": false,\n      \"email\": \"created_by_me\"\n    },\n    \"automation_failures\": {\n      \"enabled\": true\n    },\n    \"user_id\": \"string\",\n    \"user_email\": \"string\",\n    \"subscription_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c8d1fce-7d43-4041-bcb0-03410ce6798e",
+              "name": "Bad request — validation on the request body failed. `enabled` is\noptional on every preference, so the only messages actually emitted\ncome from the `email` enum check on the three preferences that expose\nit (`inspections_awaiting_review`, `inspections_in_revision_review`,\n`inspections_completed`). Example:\n`\"inspections_awaiting_review.email\" must be one of [all, created_by_me]`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "notifications-preferences",
+                    ":preferencesId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "preferencesId",
+                      "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inspections_awaiting_review\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"inspections_in_revision_review\": {\n    \"enabled\": false,\n    \"email\": \"created_by_me\"\n  },\n  \"inspections_completed\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"automation_failures\": {\n    \"enabled\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"inspections_awaiting_review.email\\\" must be one of [all, created_by_me]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01132f75-ac8f-4690-ad8c-a3bebb1cd2f3",
+              "name": "Unauthorized — the token failed to decrypt or did not resolve to a\nwell-formed email address. Example: `invalid notifications preferences id`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "notifications-preferences",
+                    ":preferencesId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "preferencesId",
+                      "description": "(Required) The encrypted token identifying the recipient. Issued by RentCheck and embedded in notification email links."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inspections_awaiting_review\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"inspections_in_revision_review\": {\n    \"enabled\": false,\n    \"email\": \"created_by_me\"\n  },\n  \"inspections_completed\": {\n    \"enabled\": false,\n    \"email\": \"all\"\n  },\n  \"automation_failures\": {\n    \"enabled\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 401,\n  \"error\": \"invalid notifications preferences id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad1ddaf6-5163-4757-ae8b-624e68e61119",
+          "name": "Create a rev-share prospect",
+          "request": {
+            "name": "Create a rev-share prospect",
+            "description": {
+              "content": "Onboards a new revenue-share prospect: provisions a RentCheck user with a\ntemporary password for the supplied email, attaches the requested Chargebee\nplan + addons to the user's `prospect_data`, persists the self-reported\nportfolio size, and triggers the rev-share-prospect welcome email.\n\nReachable without an authenticated session; the endpoint is invoked by the\npublic RentCheck marketing flow.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sales",
+                "rev-share-prospects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prospect_email\": \"<email>\",\n  \"total_properties\": \"<string>\",\n  \"chargebee_plan_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"chargebee_addon_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "937999a9-772f-4892-a3cd-52a81b307001",
+              "name": "Returns the prospect's RentCheck user profile after enrollment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sales",
+                    "rev-share-prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect_email\": \"<email>\",\n  \"total_properties\": \"<string>\",\n  \"chargebee_plan_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"chargebee_addon_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 200,\n  \"data\": {\n    \"key_0\": 1823,\n    \"key_1\": \"string\",\n    \"key_2\": 4445.818093499807,\n    \"key_3\": 3362.9141054560196,\n    \"key_4\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c9a3c6e-74d5-4064-9fa0-9e6cce2a2d55",
+              "name": "Bad request — request body validation failed, or the supplied\nChargebee plan / addons could not be resolved against the live\nChargebee catalog. Examples:\n  - `\"prospect_email\" is required`\n  - `\"prospect_email\" must be a valid email`\n  - `\"total_properties\" is required`\n  - `\"chargebee_plan_id\" is required`\n  - `\"chargebee_addon_ids\" is required`\n  - `Can't find selected plan`\n  - `Some of the addons couldn't be found, found these [...]`\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sales",
+                    "rev-share-prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect_email\": \"<email>\",\n  \"total_properties\": \"<string>\",\n  \"chargebee_plan_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"chargebee_addon_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 400,\n  \"error\": \"\\\"prospect_email\\\" must be a valid email\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "512c8885-e7ae-44a6-84e0-51bd3e0de334",
+              "name": "Conflict — a RentCheck user already exists for the supplied\n`prospect_email`. Example: `user already exists`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sales",
+                    "rev-share-prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect_email\": \"<email>\",\n  \"total_properties\": \"<string>\",\n  \"chargebee_plan_id\": \"<string>\",\n  \"user_name\": \"<string>\",\n  \"chargebee_addon_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 409,\n  \"error\": \"user already exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://prod-public-api.getrentcheck.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3fc7c99b-4076-4e8d-9997-6bb049dbf74a",
+    "name": "RentCheck REST Account Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n\n\nContact Support:\n Name: RentCheck Support\n Email: support@getrentcheck.com",
+      "type": "text/plain"
+    }
+  }
+}

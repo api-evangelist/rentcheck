@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Inspections V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inspections V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match in several inspection's fields"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields. `approved_date` sorts by\nthe approved date, falling back to the completed date when there is no\napproval.\n"
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Accepted case-insensitively — any casing of `asc` /\n`desc` is silently normalised to `ASC` / `DESC`.\n"
+              },
+              {
+                "name": "inspection_status[]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection statuses to filter inspections. Prefer `filters[inspection_status][value]`."
+              },
+              {
+                "name": "inspection_template[]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection template ids to filter inspections. Prefer `filters[inspection_template][value]`."
+              },
+              {
+                "name": "team_id[]",
+                "value": "",
+                "type": "query",
+                "description": "List of teams id to filter inspections. Prefer `filters[team][value]`."
+              },
+              {
+                "name": "assigned_to[]",
+                "value": "",
+                "type": "query",
+                "description": "List of user ids to filter inspections. Prefer `filters[assigned_to][value]`."
+              },
+              {
+                "name": "ratings[]",
+                "value": "",
+                "type": "query",
+                "description": "List of feature ratings to filter inspections by. Prefer `filters[rating][value]`."
+              },
+              {
+                "name": "property_id[]",
+                "value": "",
+                "type": "query",
+                "description": "List of property ids to filter inspections by. Prefer `filters[property][value]`."
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query",
+                "description": "Filter inspections by their archived status. Prefer `filters[archived]`."
+              },
+              {
+                "name": "start_due_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection date by a starting date. `yyyy-mm-dd` format. The legacy parameter is forwarded onto `filters[due_date][start_date]`. Prefer `filters[due_date][start_date]`."
+              },
+              {
+                "name": "end_due_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection date by a ending date. `yyyy-mm-dd` format. Prefer `filters[due_date][end_date]`."
+              },
+              {
+                "name": "start_completed_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by a starting date. `yyyy-mm-dd` format. Prefer `filters[completed_date][start_date]`."
+              },
+              {
+                "name": "end_completed_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by a ending date. `yyyy-mm-dd` format. Prefer `filters[completed_date][end_date]`."
+              },
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match in several inspection's fields. Preferred over the legacy `search` parameter."
+              },
+              {
+                "name": "filters[archived]",
+                "value": "",
+                "type": "query",
+                "description": "Filter inspections by its archived status."
+              },
+              {
+                "name": "filters[has_flags]",
+                "value": "",
+                "type": "query",
+                "description": "Filter inspections by whether they have one or more maintenance flags. `true` returns only inspections with flags; `false` returns only inspections with none."
+              },
+              {
+                "name": "filters[inspection_template][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection templates to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+              },
+              {
+                "name": "filters[inspection_template][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by inspection templates."
+              },
+              {
+                "name": "filters[inspection_status][value]",
+                "value": "",
+                "type": "query",
+                "description": "Pipe-separated list of inspection statuses to filter by (e.g. `Not Started|In Review`)."
+              },
+              {
+                "name": "filters[inspection_status][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by inspection status."
+              },
+              {
+                "name": "filters[team][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of teams id to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+              },
+              {
+                "name": "filters[team][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by teams id."
+              },
+              {
+                "name": "filters[property][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of properties id to filter inspections. This parameter accepts multiple ids concatenated with a `|`."
+              },
+              {
+                "name": "filters[property][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by properties id."
+              },
+              {
+                "name": "filters[rating][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection ratings to filter by. Multiple values are concatenated with `|` (e.g. `Good|Fair`). Allowed values, `Good`, `Fair`, `Poor`."
+              },
+              {
+                "name": "filters[rating][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by ratings."
+              },
+              {
+                "name": "filters[assigned_to][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of user ids to filter inspections by. This parameter accepts multiple ids concatenated with a `|`."
+              },
+              {
+                "name": "filters[assigned_to][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by assigned to."
+              },
+              {
+                "name": "filters[review_step][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of review steps to filter inspections by. Multiple values are concatenated with `|` (e.g. `Initial Review|Secondary Review`). Allowed values, `Initial Review`, `Secondary Review`."
+              },
+              {
+                "name": "filters[review_step][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to apply to the review step filter. The validator only accepts `any_of`."
+              },
+              {
+                "name": "filters[created_by][value]",
+                "value": "",
+                "type": "query",
+                "description": "List of creator ids to filter inspections by. This parameter accepts multiple values concatenated with a `|`."
+              },
+              {
+                "name": "filters[created_by][condition]",
+                "value": "",
+                "type": "query",
+                "description": "Condition to be used to filter by created by."
+              },
+              {
+                "name": "filters[due_date][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection effective due date by a starting date.\n`yyyy-mm-dd` format.\n"
+              },
+              {
+                "name": "filters[due_date][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection effective due date by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`,\notherwise the response is `end date must be equal or after start date`.\n"
+              },
+              {
+                "name": "filters[due_date_legacy][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection due date (pre-effective-due-date) by a starting date.\n`yyyy-mm-dd` format. Cannot be combined with\n`filters[due_date]`; that combination is rejected with\n`You cannot use both due_date and due_date_legacy filters at the same time`.\n"
+              },
+              {
+                "name": "filters[due_date_legacy][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter inspection due date (pre-effective-due-date) by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`, otherwise\nthe response is `end date must be equal or after start date`. See `start_date`\nfor the mutually-exclusive constraint with `filters[due_date]`.\n"
+              },
+              {
+                "name": "filters[completed_date][start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by a starting date.\n`yyyy-mm-dd` format.\n"
+              },
+              {
+                "name": "filters[completed_date][end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter completed inspection date by a ending date.\n`yyyy-mm-dd` format. `end_date` must be on or after `start_date`, otherwise\nthe response is `end date must be equal or after start date`.\n"
+              },
+              {
+                "name": "fields[]",
+                "value": "",
+                "type": "query",
+                "description": "Optional list of inspection fields to include in the response. When omitted, the default projection is returned. Internal use only."
+              },
+              {
+                "name": "include_full_template_info",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, each inspection's `template` field is returned as the full template document instead of the default digest. Internal use only."
+              }
+            ]
+          },
+          "docs": "Get all inspections"
+        },
+        {
+          "info": {
+            "name": "Create inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections",
+            "headers": [
+              {
+                "name": "x-app-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create inspections"
+        },
+        {
+          "info": {
+            "name": "Get all inspection creators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/inspections/creators"
+          },
+          "docs": "Returns the list of users that have ever created an inspection the current user can see. Used to populate the `filters[created_by]` picker on the inspections list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

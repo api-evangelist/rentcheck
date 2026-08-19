@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Work Orders V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Orders V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all work orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/work_orders",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "The page number of the collection. Zero-indexed."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of elements in the data collection."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one of the available fields."
+              },
+              {
+                "name": "sort_type",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Accepted case-insensitively — any casing\nof `asc` / `desc` is silently normalised to `ASC` / `DESC`.\n"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search string to match in several work order's fields"
+              },
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "query",
+                "description": "Property ID to filter work orders by. Only work orders whose source inspection lives on this property are returned."
+              },
+              {
+                "name": "inspection_type[]",
+                "value": "",
+                "type": "query",
+                "description": "List of inspection types to filter work orders. Repeat the parameter\nto send multiple values (e.g. `?inspection_type[]=Move-In&inspection_type[]=Move-Out`).\n"
+              },
+              {
+                "name": "status[]",
+                "value": "",
+                "type": "query",
+                "description": "List of work order statuses to filter by. Repeat the parameter to\nsend multiple values. Allowed individual values are `Created`,\n`In Progress`, `Completed`, and `Canceled`. The raw array is not\nvalidated, so unknown values are silently ignored — they simply\nreturn zero matches instead of a 400.\n"
+              },
+              {
+                "name": "start_created_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter work order creation date by a starting date"
+              },
+              {
+                "name": "end_created_date",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter work order creation date by an ending date"
+              }
+            ]
+          },
+          "docs": "Get all work orders"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

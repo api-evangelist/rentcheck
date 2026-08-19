@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Maintenance Reports V2 API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance Reports V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all maintenance reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/maintenance_reports",
+            "params": [
+              {
+                "name": "filters[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search value among maintenance report's name, inspection label, property address, city and zip code."
+              },
+              {
+                "name": "filters[created_date][start]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter maintenance report creation date by a starting date."
+              },
+              {
+                "name": "filters[created_date][end]",
+                "value": "",
+                "type": "query",
+                "description": "Value to filter maintenance report creation date by an ending date."
+              },
+              {
+                "name": "filters[property_id]",
+                "value": "",
+                "type": "query",
+                "description": "Get all maintenance reports for this property."
+              },
+              {
+                "name": "filters[inspection_id]",
+                "value": "",
+                "type": "query",
+                "description": "Get all maintenance reports for this inspection."
+              },
+              {
+                "name": "filters[inspection_templates]",
+                "value": "",
+                "type": "query",
+                "description": "Get all maintenance reports for the inspection templates informed. This parameter accepts multiple ids concatenated with a `,` (comma)."
+              },
+              {
+                "name": "options[pagination][page_size]",
+                "value": "",
+                "type": "query",
+                "description": "How many items to be returned for each page."
+              },
+              {
+                "name": "options[pagination][page_number]",
+                "value": "",
+                "type": "query",
+                "description": "Zero-indexed page number."
+              },
+              {
+                "name": "options[sort][sort_type]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list in ascending or descending order. Accepted\ncase-insensitively.\n"
+              },
+              {
+                "name": "options[sort][sort_by]",
+                "value": "",
+                "type": "query",
+                "description": "Sort list by a specific property."
+              }
+            ]
+          },
+          "docs": "Get all maintenance reports"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentCheck REST Account Settings Filter Segments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filter Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all filter segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://prod-public-api.getrentcheck.com/v2/filter-segments"
+          },
+          "docs": "Returns the requesting user's saved filter segments grouped with the\nRentCheck default segments. The response is an object with two keys, each\nan array of segments (same shape as the create/update response):\n\n- `my_segments`: segments the user owns, sorted alphabetically ascending\n  by name.\n- `rentcheck_default_segments`: the fixed RentCheck defaults — Needs\n  Review, Almost Due, Overdue, Assigned to me, Archived — always present\n  in that order. These are not persisted: they carry stable slug "
+        },
+        {
+          "info": {
+            "name": "Create a filter segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://prod-public-api.getrentcheck.com/v2/filter-segments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a saved filter segment — a named, colored, and iconed\ninspections-list filter combo — owned by the requesting user.\n"
+        },
+        {
+          "info": {
+            "name": "Update a filter segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://prod-public-api.getrentcheck.com/v2/filter-segments/:filterSegmentId",
+            "params": [
+              {
+                "name": "filterSegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Id of the filter segment to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a saved filter segment owned by the requesting user. This is a\nfull replace — all fields are required. Only the segment owner can edit\nit; a segment owned by another user is reported as not found.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a filter segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://prod-public-api.getrentcheck.com/v2/filter-segments/:filterSegmentId",
+            "params": [
+              {
+                "name": "filterSegmentId",
+                "value": "",
+                "type": "path",
+                "description": "Filter segment ID (UUID)"
+              }
+            ]
+          },
+          "docs": "Hard-deletes a saved filter segment. Only the segment owner can delete\nit.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
