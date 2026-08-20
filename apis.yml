@@ -35,6 +35,15 @@ tags:
 - Company
 - Property Management
 - Property Inspection
+- Real-Estate
+- PropTech
+- Inspections
+- Maintenance
+- Rentals
+tags_raw:
+- Company
+- Property Management
+- Property Inspection
 - Real Estate
 - PropTech
 - Inspections
@@ -196,6 +205,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -269,6 +280,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - Authentication
+  tags_raw:
   - oAuth2
   properties:
   - type: OpenAPI
@@ -354,6 +367,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -366,6 +381,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -390,6 +407,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
