@@ -452,6 +452,9 @@ apis:
   - type: APIReference
     url: https://developers.getrentcheck.com/
 common:
+- type: CapabilityMap
+  url: capabilities/rentcheck-capability-edges.yml
+  name: RentCheck Business Capability Map
 - type: Overlay
   url: overlays/rentcheck-openapi-overlay.yaml
 - type: Authentication

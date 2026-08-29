@@ -1,0 +1,108 @@
+slug: rentcheck
+provider: RentCheck
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Real Estate
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: Work Orders
+  spec_file: rentcheck-work-orders-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.9
+  evidence: POST /v1/work_orders/providers/{provider} "Create a work order"; GET /v1/work_orders/skills
+    "Get all work order skills"; work_order_create_appfolio_request_model, work_order_create_latchel_request_model
+  reason: Creates and reads maintenance work orders (pushed into property-management/maintenance systems
+    such as AppFolio, Rentvine, Latchel) with trade skill lookup. This is squarely Property Maintenance
+    & Work Order Management.
+- tag: Work Orders V2
+  spec_file: rentcheck-work-orders-v2-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.85
+  evidence: GET /v2/work_orders "Get all work orders"; schema work_order_response_model
+  reason: Listing of property maintenance work orders in a property-inspection/maintenance platform; same
+    domain object as the v1 work order surface, so Property Maintenance & Work Order Management. Thinner
+    surface hence slightly lower confidence.
+- tag: Inspections
+  spec_file: rentcheck-inspections-api-openapi.yml
+  capability_id: BC-4940
+  capability_id_l1: BC-4940
+  capability_name: Property Management Operations
+  confidence: 0.8
+  evidence: POST /v1/inspections/{inspectionId}/start Start an inspection; POST /v1/inspections/{inspectionId}/submit
+    Submit an inspection; POST /v1/inspections/{inspectionId}/scan Queue a manual AI damage scan
+  reason: Operations run the lifecycle of resident-performed property condition inspections (start, submit,
+    approve, reject, share PDF, sign) for property managers — landlord/property-manager-side building
+    operations. Spans move-in/move-out and maintenance uses, so no single L2 is clearly named.
+- tag: Inspections V2
+  spec_file: rentcheck-inspections-v2-api-openapi.yml
+  capability_id: BC-4940
+  capability_id_l1: BC-4940
+  capability_name: Property Management Operations
+  confidence: 0.78
+  evidence: POST /v2/inspections Create inspections; GET /v2/inspections/creators Get all inspection creators
+  reason: Same property-inspection surface as v1 — creating and listing inspections of managed rental
+    units, a property-management operations activity. L2 left null as inspections here cover move-in/out,
+    routine and maintenance purposes.
+- tag: Leases
+  spec_file: rentcheck-leases-api-openapi.yml
+  capability_id: BC-4950.60
+  capability_id_l1: BC-4950
+  capability_name: Lease Administration (Landlord-Side)
+  confidence: 0.78
+  evidence: POST /v2/residents/{residentId}/leases Create a lease for a resident; PATCH .../leases/{leaseId}/move-in
+    Update a lease move in date and status; GET /v1/properties/{propertyId}/leases List every lease on
+    a property
+  reason: Landlord-side lease records per resident and property with move-in/move-out dates and statuses
+    — lease administration (abstracts, occupancy, term tracking) rather than negotiation or accounting.
+- tag: Subscriptions
+  spec_file: rentcheck-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.78
+  evidence: POST /v1/subscriptions/trial "Create a free trial subscription"; POST /v1/subscriptions/me/requests
+    "Request a new plan / trial"; GET /v1/subscriptions/invoices
+  reason: This is RentCheck's own SaaS commercial subscription surface — trial creation, plan change requests,
+    subscription update, plus invoice retrieval. Clearly Subscription Lifecycle Management at L1; it straddles
+    provisioning/modification and invoicing (BC-4250.30), so no single L2 is asserted.
+- tag: Inspection Features
+  spec_file: rentcheck-inspection-features-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.75
+  evidence: POST /v2/inspections/{inspectionId}/features/{featureId}/flags    Create a maintenance flag
+    on a feature
+  reason: Per-item inspection findings with photo metadata, review approval, and maintenance flags on
+    building/unit features — property condition inspection feeding maintenance work; sits in property
+    maintenance operations though it could also be read as move-in/move-out tenant coordination.
+- tag: Maintenance Flags
+  spec_file: rentcheck-maintenance-flags-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.7
+  evidence: GET /v1/inspections/{inspectionId}/maintenanceFlags Get all maintenance flags for an inspection
+  reason: Maintenance flags raised against inspected building features feed reactive property maintenance
+    work — property maintenance issue identification on managed rental assets.
+- tag: Maintenance Reports
+  spec_file: rentcheck-maintenance-reports-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.7
+  evidence: POST /v1/maintenance_reports Create a maintenance report
+  reason: Creation and retrieval of maintenance reports derived from property inspections — property maintenance
+    issue capture and reporting for the managed building.
