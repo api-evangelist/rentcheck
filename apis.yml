@@ -8,6 +8,18 @@ description: >-
   and resident data, schedule and create inspections from customizable templates, review inspection
   features and photos, flag maintenance issues, and wire results into property-management systems
   such as AppFolio, Rent Manager, Rentvine, Buildium, Latchel, and Zapier.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
