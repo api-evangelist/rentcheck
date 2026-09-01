@@ -51,7 +51,7 @@ tags:
 - PropTech
 - Inspections
 - Maintenance
-- Rental
+- Rentals
 tags_raw:
 - Company
 - Property Management
@@ -292,7 +292,7 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
-  - oAuth2
+  - Authentication
   tags_raw:
   - oAuth2
   properties:
