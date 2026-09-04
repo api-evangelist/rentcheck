@@ -22,15 +22,16 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Unknown
+  confidence: low
   source:
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://cdn.prod.website-files.com/64c252917dda086383e12e96/6945920e3577a32b09f7b34d_RentCheck_Open_Graph.png
 url: https://raw.githubusercontent.com/api-evangelist/rentcheck/refs/heads/main/apis.yml
@@ -473,8 +474,9 @@ common:
   url: conformance/rentcheck-conformance.yml
 - type: DataModel
   url: data-model/rentcheck-data-model.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/rentcheck-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/rentcheck-llms.txt
 - type: AgentSkill
