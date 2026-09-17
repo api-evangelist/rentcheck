@@ -287,20 +287,6 @@ apis:
     url: openapi/rentcheck-maintenance-reports-v2-api-openapi.yml
   - type: APIReference
     url: https://developers.getrentcheck.com/
-- aid: rentcheck:rentcheck-oauth2-api
-  name: RentCheck oAuth2 API
-  description: The oAuth2 API from RentCheck — 8 operation(s) for oauth2.
-  humanURL: https://developers.getrentcheck.com/
-  baseURL: https://prod-public-api.getrentcheck.com
-  tags:
-  - Authentication
-  tags_raw:
-  - oAuth2
-  properties:
-  - type: OpenAPI
-    url: openapi/rentcheck-oauth2-api-openapi.yml
-  - type: APIReference
-    url: https://developers.getrentcheck.com/
 - aid: rentcheck:rentcheck-permission-groups-api
   name: RentCheck Permission Groups API
   description: The Permission Groups API from RentCheck — 2 operation(s) for permission groups.
@@ -450,6 +436,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rentcheck-work-orders-v2-api-openapi.yml
+  - type: APIReference
+    url: https://developers.getrentcheck.com/
+- aid: rentcheck:rentcheck-oauth2-api
+  name: RentCheck O Auth2 API
+  description: The oAuth2 API from RentCheck — 8 operation(s) for oauth2.
+  humanURL: https://developers.getrentcheck.com/
+  baseURL: https://prod-public-api.getrentcheck.com
+  tags:
+  - oAuth2
+  properties:
+  - type: OpenAPI
+    url: openapi/rentcheck-oauth2-api-openapi.yml
   - type: APIReference
     url: https://developers.getrentcheck.com/
 common:
