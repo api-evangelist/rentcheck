@@ -1,8 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RentCheck REST Account Settings Users API
+  title: RentCheck REST Users API
   version: 1.0.0
-  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  description: '## Mission
+
+    At RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved.'
   contact:
     name: RentCheck Support
     email: support@getrentcheck.com
@@ -28,9 +30,7 @@ paths:
 
         capped at a maximum number of results. Results are read from a cache
 
-        backed by the Intercom Help Center API.
-
-        '
+        backed by the Intercom Help Center API.'
       parameters:
       - in: query
         name: parent_id
@@ -104,6 +104,8 @@ paths:
                     example: parent_id
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1IntercomArticles
+      x-operation-id-source: derived
   /v1/intercom/messenger-jwt:
     get:
       x-internal: true
@@ -121,9 +123,7 @@ paths:
         query parameter.
 
 
-        The token TTL is 10 minutes — refresh on every Messenger boot.
-
-        '
+        The token TTL is 10 minutes — refresh on every Messenger boot.'
       parameters:
       - in: query
         name: platform
@@ -220,6 +220,8 @@ paths:
                   error:
                     type: string
                     example: INTERCOM_MESSENGER_SECRET_WEB is not configured
+      operationId: getV1IntercomMessengerJwt
+      x-operation-id-source: derived
   /v1/intercom/users/companies:
     put:
       x-internal: true
@@ -241,9 +243,7 @@ paths:
 
         email, in which case `company` is omitted / null while `user` is still
 
-        refreshed.
-
-        '
+        refreshed.'
       requestBody:
         required: true
         content:
@@ -319,6 +319,8 @@ paths:
                     - subscription not found
                     - company not found
                     example: company not found
+      operationId: putV1IntercomUsersCompanies
+      x-operation-id-source: derived
   /v1/me/fcm-token:
     delete:
       x-internal: true
@@ -327,9 +329,7 @@ paths:
       - Users
       description: 'Removes every FCM device token registered for the caller. Used by the
 
-        mobile clients on sign-out / push unregistration.
-
-        '
+        mobile clients on sign-out / push unregistration.'
       responses:
         '200':
           description: The updated user document.
@@ -360,6 +360,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: deleteV1MeFcmToken
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Register an FCM device token for the caller
@@ -369,9 +371,7 @@ paths:
 
         supplied `fcm_token`. Used by the mobile clients on app start / push
 
-        registration.
-
-        '
+        registration.'
       requestBody:
         required: true
         content:
@@ -421,6 +421,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: putV1MeFcmToken
+      x-operation-id-source: derived
   /v1/me:
     delete:
       x-internal: true
@@ -429,9 +431,7 @@ paths:
       - Users
       description: 'Disables the authenticated caller''s account. The profile is retained
 
-        for audit; the user can no longer sign in.
-
-        '
+        for audit; the user can no longer sign in.'
       responses:
         '204':
           description: User disabled. No content.
@@ -451,6 +451,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: deleteV1Me
+      x-operation-id-source: derived
     get:
       x-internal: true
       summary: Get the authenticated user
@@ -458,9 +460,7 @@ paths:
       - Users
       description: 'Returns the full profile document for the authenticated caller, including teams,
 
-        resolved permissions, metadata and external identity verification payloads.
-
-        '
+        resolved permissions, metadata and external identity verification payloads.'
       responses:
         '200':
           description: The authenticated user.
@@ -491,6 +491,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: getV1Me
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Update the authenticated user
@@ -500,9 +502,7 @@ paths:
 
         requires `current_password` for re-authentication. Other fields update the
 
-        caller''s profile metadata in place.
-
-        '
+        caller''s profile metadata in place.'
       requestBody:
         required: true
         content:
@@ -546,6 +546,8 @@ paths:
                     type: string
         '401':
           $ref: '#/components/responses/401'
+      operationId: putV1Me
+      x-operation-id-source: derived
   /v1/me/firebase-token:
     get:
       x-internal: true
@@ -558,9 +560,7 @@ paths:
 
         embedded surfaces that need to re-authenticate the caller against
 
-        Firebase.
-
-        '
+        Firebase.'
       responses:
         '200':
           description: The minted custom auth token.
@@ -577,6 +577,8 @@ paths:
                     $ref: '#/components/schemas/me_get_firebase_token_response_model'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1MeFirebaseToken
+      x-operation-id-source: derived
   /v1/me/notifications-preferences:
     get:
       x-internal: true
@@ -585,9 +587,7 @@ paths:
       - Users
       description: 'Returns the per-user notifications preferences document for the
 
-        authenticated caller. Used to drive the per-user notification settings UI.
-
-        '
+        authenticated caller. Used to drive the per-user notification settings UI.'
       responses:
         '200':
           description: The caller's notifications preferences.
@@ -604,6 +604,8 @@ paths:
                     $ref: '#/components/schemas/notifications_preferences_response_model'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1MeNotificationsPreferences
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Update the caller's personal notifications preferences
@@ -617,9 +619,7 @@ paths:
 
         `automation_failures` may be supplied; the server merges the values onto
 
-        the current document.
-
-        '
+        the current document.'
       requestBody:
         required: true
         content:
@@ -655,6 +655,8 @@ paths:
                     type: string
         '401':
           $ref: '#/components/responses/401'
+      operationId: putV1MeNotificationsPreferences
+      x-operation-id-source: derived
   /v1/me/settings:
     get:
       x-internal: true
@@ -665,9 +667,7 @@ paths:
 
         counters, dismiss flags, and view-mode preferences. Defaults are merged
 
-        onto any persisted values.
-
-        '
+        onto any persisted values.'
       responses:
         '200':
           description: The caller's settings.
@@ -698,6 +698,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: getV1MeSettings
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Update the authenticated user's settings
@@ -705,9 +707,7 @@ paths:
       - Users
       description: 'Partial update for the caller''s metadata. Defaults are merged onto any
 
-        currently-persisted values before the supplied fields are written.
-
-        '
+        currently-persisted values before the supplied fields are written.'
       requestBody:
         required: true
         content:
@@ -757,6 +757,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: putV1MeSettings
+      x-operation-id-source: derived
   /v1/me/subscriptions/notifications-preferences:
     get:
       x-internal: true
@@ -767,9 +769,7 @@ paths:
 
         caller''s subscription when no per-user override exists. Resolved from the
 
-        subscription owned by (or shared with) the caller.
-
-        '
+        subscription owned by (or shared with) the caller.'
       responses:
         '200':
           description: The subscription-level notifications preferences.
@@ -786,6 +786,8 @@ paths:
                     $ref: '#/components/schemas/notifications_preferences_response_model'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1MeSubscriptionsNotificationsPreferences
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Update the subscription-level notifications preferences for the caller
@@ -797,9 +799,7 @@ paths:
 
         `allow_notifications_preferences_editing` permission on the
 
-        subscription.
-
-        '
+        subscription.'
       requestBody:
         required: true
         content:
@@ -852,6 +852,8 @@ paths:
                     example: 403
                   error:
                     type: string
+      operationId: putV1MeSubscriptionsNotificationsPreferences
+      x-operation-id-source: derived
   /v1/me/integration-token:
     get:
       x-internal: true
@@ -862,9 +864,7 @@ paths:
 
         calls (e.g. external integrations that authenticate as the caller). The
 
-        token is rotated by the backend when integration credentials change.
-
-        '
+        token is rotated by the backend when integration credentials change.'
       responses:
         '200':
           description: The caller's integration token.
@@ -895,6 +895,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: getV1MeIntegrationToken
+      x-operation-id-source: derived
   /v1/me/link-with-tenant:
     post:
       x-internal: true
@@ -909,9 +911,7 @@ paths:
 
         under the appropriate owner so the caller can immediately participate
 
-        in the invited inspection.
-
-        '
+        in the invited inspection.'
       requestBody:
         required: true
         content:
@@ -957,6 +957,8 @@ paths:
                     - invite not found
                     - inspection not found
                     - user not found
+      operationId: postV1MeLinkWithTenant
+      x-operation-id-source: derived
   /v1/me/metabase-embed-token:
     get:
       x-internal: true
@@ -976,9 +978,7 @@ paths:
 
         Access is gated to accounts enrolled in the Resident Insights beta —
 
-        non-enrolled callers get 403.
-
-        '
+        non-enrolled callers get 403.'
       responses:
         '200':
           description: The minted embed token.
@@ -1024,6 +1024,8 @@ paths:
                   error:
                     type: string
                     example: subscription not found
+      operationId: getV1MeMetabaseEmbedToken
+      x-operation-id-source: derived
   /v1/me/pm-contact-info:
     get:
       x-internal: true
@@ -1034,9 +1036,7 @@ paths:
 
         the caller''s tenant record. Used by renter surfaces to expose a way to
 
-        contact the PM directly.
-
-        '
+        contact the PM directly.'
       responses:
         '200':
           description: The caller's property manager contact info.
@@ -1088,6 +1088,8 @@ paths:
                     example: 404
                   error:
                     type: string
+      operationId: getV1MePmContactInfo
+      x-operation-id-source: derived
   /v1/me/requests:
     get:
       x-internal: true
@@ -1100,9 +1102,7 @@ paths:
 
         the apps'' notification bell to surface requests the caller still needs to
 
-        respond to.
-
-        '
+        respond to.'
       responses:
         '200':
           description: The caller's pending inspection requests.
@@ -1122,6 +1122,8 @@ paths:
                     description: Number of elements in `data`.
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1MeRequests
+      x-operation-id-source: derived
   /v1/users/permission-groups:
     put:
       x-internal: true
@@ -1132,9 +1134,7 @@ paths:
 
         group ids — each user is set to belong to exactly the requested permission groups (and removed
 
-        from any others on the same subscription). Returns the updated user digests.
-
-        '
+        from any others on the same subscription). Returns the updated user digests.'
       requestBody:
         required: true
         content:
@@ -1172,6 +1172,8 @@ paths:
                     type: string
         '401':
           $ref: '#/components/responses/401'
+      operationId: putV1UsersPermissionGroups
+      x-operation-id-source: derived
   /v1/users:
     post:
       x-internal: true
@@ -1187,9 +1189,7 @@ paths:
 
         email is malformed or looks like a typo the response will return an `email_suggestion` block
 
-        instead of creating the account.
-
-        '
+        instead of creating the account.'
       requestBody:
         required: true
         content:
@@ -1227,11 +1227,12 @@ paths:
                     example: 400
                   error:
                     type: string
+      operationId: postV1Users
+      x-operation-id-source: derived
     get:
       summary: Get all users
       tags:
       - Users
-      description: Get all users
       parameters:
       - in: query
         name: filters[search]
@@ -1310,6 +1311,8 @@ paths:
                     description: Total amount of users matching the filter criteria (irrespective of paging).
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1Users
+      x-operation-id-source: derived
   /v1/users/{userId}:
     delete:
       x-internal: true
@@ -1322,9 +1325,7 @@ paths:
 
         caller must (a) share an active subscription with the target user and (b) be an admin of at
 
-        least one team on that subscription.
-
-        '
+        least one team on that subscription.'
       parameters:
       - name: userId
         in: path
@@ -1369,13 +1370,14 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: deleteV1UsersByUserId
+      x-operation-id-source: derived
   /v1/users/{id}:
     get:
       x-internal: true
       summary: Get a user by ID
       tags:
       - Users
-      description: Get a user by ID
       parameters:
       - name: id
         in: path
@@ -1413,6 +1415,8 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: getV1UsersById
+      x-operation-id-source: derived
   /v1/users/invite:
     post:
       x-internal: true
@@ -1423,9 +1427,7 @@ paths:
 
         with the given role. Each email is processed independently — the response groups successfully
 
-        created user digests under `success.users` and per-email failure reasons under `failure.errors`.
-
-        '
+        created user digests under `success.users` and per-email failure reasons under `failure.errors`.'
       requestBody:
         required: true
         content:
@@ -1461,6 +1463,8 @@ paths:
                     type: string
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1UsersInvite
+      x-operation-id-source: derived
   /v1/users/{userId}/access:
     put:
       x-internal: true
@@ -1471,9 +1475,7 @@ paths:
 
         and updates the role they hold in each team. The caller must share a subscription with the
 
-        target user and be an admin on the relevant teams.
-
-        '
+        target user and be an admin on the relevant teams.'
       parameters:
       - name: userId
         in: path
@@ -1530,8 +1532,128 @@ paths:
                   error:
                     type: string
                     example: user not found
+      operationId: putV1UsersByUserIdAccess
+      x-operation-id-source: derived
 components:
   schemas:
+    intercom_update_companies_request_model:
+      x-internal: true
+      type: object
+      required:
+      - companyId
+      description: Attaches the caller to the given Intercom company.
+      properties:
+        companyId:
+          type: string
+          description: Intercom company id the authenticated user should be attached to.
+    me_link_with_tenant_request_model:
+      type: object
+      required:
+      - invite_id
+      description: Request body for linking the caller to a tenant record via an invite.
+      properties:
+        invite_id:
+          type: string
+          description: ID of the inspection invite whose tenant record should be linked to the caller.
+          example: 00BRcZPSakXz6w7RYoE
+    notification_preference:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+        email:
+          type: string
+          enum:
+          - all
+          - created_by_me
+          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+    user_create_request_model:
+      type: object
+      required:
+      - email
+      - first_name
+      - last_name
+      - password
+      - user_type
+      properties:
+        email:
+          type: string
+          description: The new user's email address.
+        first_name:
+          type: string
+          description: The new user's first name.
+        last_name:
+          type: string
+          description: The new user's last name.
+        password:
+          type: string
+          description: The new user's password.
+        user_type:
+          type: string
+          enum:
+          - Renter
+          - Property Manager
+          - Landlord
+          description: User account type for the new user. Restricted to end-user types; `System` is rejected with `400 user type has an invalid value`.
+        bypass_email_validation:
+          type: boolean
+          description: When true, skips spell-checking the email for typos. Internal use only.
+        total_properties:
+          type: integer
+          description: Optional total properties count captured at sign-up.
+        needs_to_perform_onboarding:
+          type: boolean
+          description: When true, the new user is flagged to see the post sign-up onboarding flow.
+    me_get_user_requests_response_model:
+      type: array
+      description: Inspection requests pending action from the caller.
+      items:
+        $ref: '#/components/schemas/api_inspection_request'
+    user_update_access_request_model:
+      type: object
+      required:
+      - team_ids
+      - role
+      - permission_group_ids
+      properties:
+        team_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Teams the target user should belong to after the update. The user's team memberships are reconciled to this list.
+        role:
+          type: string
+          enum:
+          - admin
+          - manager
+          - none
+          description: Role granted to the user inside a team membership.
+        permission_group_ids:
+          type: array
+          items:
+            type: string
+          description: Permission groups the target user should belong to after the update. The user's permission group memberships are reconciled to this list.
+    me_get_pm_contact_info_response_model:
+      type: object
+      description: Property manager contact info exposed to a linked renter.
+      required:
+      - company
+      - email
+      - phone_number
+      properties:
+        company:
+          type: string
+          description: Property management company name.
+        email:
+          type: string
+          description: Primary contact email.
+        phone_number:
+          type: string
+          description: Primary contact phone number.
     api_user_team_digest:
       type: object
       required:
@@ -1557,16 +1679,405 @@ components:
           - manager
           - none
           description: The user's membership role within this team.
-    me_link_with_tenant_request_model:
+    notifications_preferences_update_request_model:
+      type: object
+      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
+      properties:
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
+    api_user_external_identities:
+      type: object
+      description: Third-party identity verification payloads. Keys are provider-specific.
+      properties:
+        unlayer:
+          type: object
+          description: Unlayer email-builder identity verification (HMAC signed user id).
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            signature:
+              type: string
+              description: HMAC-SHA256 signature of the user id.
+    api_user_metadata:
+      type: object
+      description: Per-user metadata document tracking onboarding dismissals, view-mode preferences and other UI state.
+      required:
+      - needs_to_perform_onboard_survey
+      - needs_to_complete_subscription
+      properties:
+        import_residents_integration_appfolio_dismissed:
+          type: boolean
+          description: Whether the AppFolio import-residents integration banner has been dismissed.
+        import_residents_integration_rentmanager_dismissed:
+          type: boolean
+          description: Whether the Rent Manager import-residents integration banner has been dismissed.
+        import_units_integration_appfolio_dismissed:
+          type: boolean
+          description: Whether the AppFolio import-units integration banner has been dismissed.
+        import_units_integration_rentmanager_dismissed:
+          type: boolean
+          description: Whether the Rent Manager import-units integration banner has been dismissed.
+        inspection_onboarding_shown_count:
+          type: integer
+          description: Number of times the inspection-details onboarding has been shown to the user.
+        onboarding_shown_count:
+          type: integer
+          description: Number of times the general onboarding has been shown.
+        rating_shown_count:
+          type: integer
+          description: Number of times the in-app rating prompt has been shown.
+        try_pro_plan_inspection_templates_card_shown_count:
+          type: integer
+          description: Number of times the "Try Pro plan templates" upsell card has been shown. Card is hidden once count reaches 30.
+        feature_editing_dismissed:
+          type: boolean
+          description: Whether the feature-editing "don't show again" modal has been dismissed.
+        inspection_view_mode:
+          type: string
+          enum:
+          - list
+          - review
+          description: Preferred view mode on the inspection-details screen.
+        sign_up_reason:
+          type: string
+          enum:
+          - pm-signup
+          - self-serve
+          description: The reason the user signed up; used to tailor the onboarding flow.
+        needs_to_perform_onboard_survey:
+          type: boolean
+          description: When true, the user must complete the onboarding survey before proceeding.
+        needs_to_complete_subscription:
+          type: boolean
+          description: When true, the user must complete the subscription setup before proceeding.
+        total_properties:
+          type: integer
+          description: Self-reported portfolio size captured at sign-up.
+    user_invite_request_model:
       type: object
       required:
-      - invite_id
-      description: Request body for linking the caller to a tenant record via an invite.
+      - emails
+      - team_ids
+      - role
+      - permission_group_ids
       properties:
-        invite_id:
+        emails:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Email addresses to invite.
+        team_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Teams that the invited users should be added to.
+        role:
           type: string
-          description: ID of the inspection invite whose tenant record should be linked to the caller.
+          enum:
+          - admin
+          - manager
+          - none
+          description: Role granted to the user inside a team membership.
+        permission_group_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Permission groups that the invited users should be added to.
+    api_intercom_article:
+      x-internal: true
+      type: object
+      description: Intercom Help Center article record — a direct pass-through of the Intercom `articles` REST resource, cached by the RentCheck backend.
+      required:
+      - id
+      - type
+      - workspace_id
+      - parent_type
+      - title
+      - description
+      - body
+      - author_id
+      - state
+      - created_at
+      - updated_at
+      - url
+      properties:
+        id:
+          type: string
+          description: Intercom article id.
+        type:
+          type: string
+          description: Intercom resource type — always `"article"` for this endpoint.
+        workspace_id:
+          type: string
+          description: Intercom workspace the article belongs to.
+        parent_id:
+          type: integer
+          description: Optional Intercom collection/section id the article is nested under (the immediate parent).
+        parent_ids:
+          type: array
+          items:
+            type: integer
+          description: Optional Intercom parent chain (collection → section → …) for the article.
+        parent_type:
+          type: string
+          enum:
+          - collection
+          - section
+          description: Kind of parent the article lives under.
+        title:
+          type: string
+          description: Article title.
+        description:
+          type: string
+          description: Short article summary.
+        body:
+          type: string
+          description: Full HTML article body as authored in Intercom.
+        author_id:
+          type: integer
+          description: Intercom user id of the article author.
+        state:
+          type: string
+          enum:
+          - published
+          - draft
+          description: Publication state. The handler filters to `published` by default.
+        created_at:
+          type: integer
+          format: int64
+          description: Unix epoch seconds when the article was created (Intercom native format).
+        updated_at:
+          type: integer
+          format: int64
+          description: Unix epoch seconds when the article was last updated (Intercom native format).
+        url:
+          type: string
+          description: Public Help Center URL for the article.
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    me_get_integration_token_response_model:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          description: Long-lived integration token the caller can use for service-to-service API calls.
+    user_bulk_edit_permission_groups_request_model:
+      type: object
+      required:
+      - user_ids
+      - permission_group_ids
+      properties:
+        user_ids:
+          type: array
+          items:
+            type: string
+          description: Users to apply the new permission groups to. Each user will be reconciled to membership in exactly the supplied permission groups.
+        permission_group_ids:
+          type: array
+          items:
+            type: string
+          description: Permission groups to assign. Pass an empty array to remove the users from every permission group.
+    me_update_fcm_token_request_model:
+      type: object
+      required:
+      - fcm_token
+      description: Request body for registering an FCM device token.
+      properties:
+        fcm_token:
+          type: string
+          minLength: 1
+          description: FCM device token to register for the caller.
+    me_get_metabase_embed_token_response_model:
+      x-internal: true
+      type: object
+      description: Envelope for `GET /v1/me/metabase-embed-token`. Returns `{ token }` wrapped in the standard `{ data }` shape.
+      required:
+      - status
+      - data
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 200
+        data:
+          type: object
+          required:
+          - token
+          properties:
+            token:
+              type: string
+              description: Signed Metabase static-embedding JWT, scoped to the caller's subscription and locked to the Resident Insights dashboard. Signed with `HS256`, with a server-controlled TTL.
+    api_user:
+      type: object
+      description: Full user document for the authenticated caller.
+      required:
+      - id
+      - email
+      - name
+      - type
+      - created_date
+      - metadata
+      - internal_admin
+      - internal_sales
+      - template_admin
+      - teams
+      - permissions
+      properties:
+        id:
+          type: string
+          description: Entity ID
           example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: The user's email.
+        name:
+          type: string
+          description: The user's full name.
+        type:
+          type: string
+          enum:
+          - Renter
+          - Property Manager
+          - Landlord
+          - System
+          description: User type.
+        created_date:
+          type: string
+          description: ISO timestamp the user was created.
+        fcm_tokens:
+          type: array
+          items:
+            type: string
+          description: Registered FCM device tokens for push notifications.
+        temporary_password:
+          type: string
+          description: Temporary password assigned when the account was created on behalf of the user; cleared on first password update.
+        internal_admin:
+          type: boolean
+          description: When true, the user has access to the internal admin panel.
+        internal_sales:
+          type: boolean
+          description: When true, the user has access to the internal sales panel.
+        template_admin:
+          type: boolean
+          description: When true, the user can edit shared inspection templates.
+        prospect_data:
+          type: object
+          additionalProperties: true
+          description: Sales prospect payload captured during the demo follow-up flow. Only set when the user has no active subscription.
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/api_user_team_digest'
+          description: Teams the user belongs to and their role on each.
+        current_occupancy:
+          type: object
+          additionalProperties: true
+          description: When the caller is a renter, the occupancy currently flagged `current`.
+        metadata:
+          $ref: '#/components/schemas/api_user_metadata'
+        permissions:
+          type: object
+          required:
+          - allow_billing_plan_editing
+          - allow_automation_creation
+          - allow_automation_editing
+          - allow_notifications_preferences_editing
+          - allow_inspection_messaging_editing
+          - allow_ai_manual_scan
+          properties:
+            allow_billing_plan_editing:
+              type: boolean
+            allow_automation_creation:
+              type: boolean
+            allow_automation_editing:
+              type: boolean
+            allow_notifications_preferences_editing:
+              type: boolean
+            allow_inspection_messaging_editing:
+              type: boolean
+            allow_ai_manual_scan:
+              type: boolean
+          description: Per-feature permissions resolved from the user's permission groups and subscription.
+        external_identities:
+          $ref: '#/components/schemas/api_user_external_identities'
+    me_update_request_model:
+      type: object
+      description: Partial update for the authenticated user. Email or password changes require `current_password`.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: New display name.
+        email:
+          type: string
+          format: email
+          description: New email address. Requires `current_password` for re-authentication.
+        password:
+          type: string
+          minLength: 8
+          description: New password. Requires `current_password` for re-authentication.
+        current_password:
+          type: string
+          description: Current password, required when changing `email` or `password`.
+        feature_editing_dismissed:
+          type: boolean
+          description: Dismiss the feature-editing onboarding modal.
+        rating_shown_count:
+          type: integer
+          description: Update the in-app rating prompt counter.
+        inspection_onboarding_shown_count:
+          type: integer
+          description: Update the inspection onboarding shown counter.
+        payment_info_provided:
+          type: boolean
+          description: Marks that the user has completed payment-method entry. Persisted on the user profile.
+        try_pro_plan_inspection_templates_card_shown_count:
+          type: integer
+          description: Update the "Try Pro plan templates" upsell card shown counter.
+    intercom_messenger_jwt_response_model:
+      x-internal: true
+      type: object
+      required:
+      - token
+      description: Short-lived signed JWT used by the Intercom Messenger client to authenticate the caller.
+      properties:
+        token:
+          type: string
+          description: Signed Intercom Messenger JWT (HS256). Refresh on every Messenger boot — the token TTL is 10 minutes.
+    user_create_response_model:
+      type: object
+      properties:
+        user:
+          description: The newly created user. Returned when account creation succeeds. The full profile document, not just the basic identity fields.
+          $ref: '#/components/schemas/api_user'
+        email_suggestion:
+          type: object
+          description: Returned when the supplied email looks like a typo and is not actually created.
+          properties:
+            message:
+              type: string
+            suggestion:
+              type: string
     api_inspection_request:
       type: object
       required:
@@ -1736,342 +2247,6 @@ components:
               type: string
               description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
               example: The best company label
-    api_user_external_identities:
-      type: object
-      description: Third-party identity verification payloads. Keys are provider-specific.
-      properties:
-        unlayer:
-          type: object
-          description: Unlayer email-builder identity verification (HMAC signed user id).
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            signature:
-              type: string
-              description: HMAC-SHA256 signature of the user id.
-    me_get_user_requests_response_model:
-      type: array
-      description: Inspection requests pending action from the caller.
-      items:
-        $ref: '#/components/schemas/api_inspection_request'
-    intercom_messenger_jwt_response_model:
-      x-internal: true
-      type: object
-      required:
-      - token
-      description: Short-lived signed JWT used by the Intercom Messenger client to authenticate the caller.
-      properties:
-        token:
-          type: string
-          description: Signed Intercom Messenger JWT (HS256). Refresh on every Messenger boot — the token TTL is 10 minutes.
-    api_user_metadata:
-      type: object
-      description: Per-user metadata document tracking onboarding dismissals, view-mode preferences and other UI state.
-      required:
-      - needs_to_perform_onboard_survey
-      - needs_to_complete_subscription
-      properties:
-        import_residents_integration_appfolio_dismissed:
-          type: boolean
-          description: Whether the AppFolio import-residents integration banner has been dismissed.
-        import_residents_integration_rentmanager_dismissed:
-          type: boolean
-          description: Whether the Rent Manager import-residents integration banner has been dismissed.
-        import_units_integration_appfolio_dismissed:
-          type: boolean
-          description: Whether the AppFolio import-units integration banner has been dismissed.
-        import_units_integration_rentmanager_dismissed:
-          type: boolean
-          description: Whether the Rent Manager import-units integration banner has been dismissed.
-        inspection_onboarding_shown_count:
-          type: integer
-          description: Number of times the inspection-details onboarding has been shown to the user.
-        onboarding_shown_count:
-          type: integer
-          description: Number of times the general onboarding has been shown.
-        rating_shown_count:
-          type: integer
-          description: Number of times the in-app rating prompt has been shown.
-        try_pro_plan_inspection_templates_card_shown_count:
-          type: integer
-          description: Number of times the "Try Pro plan templates" upsell card has been shown. Card is hidden once count reaches 30.
-        feature_editing_dismissed:
-          type: boolean
-          description: Whether the feature-editing "don't show again" modal has been dismissed.
-        inspection_view_mode:
-          type: string
-          enum:
-          - list
-          - review
-          description: Preferred view mode on the inspection-details screen.
-        sign_up_reason:
-          type: string
-          enum:
-          - pm-signup
-          - self-serve
-          description: The reason the user signed up; used to tailor the onboarding flow.
-        needs_to_perform_onboard_survey:
-          type: boolean
-          description: When true, the user must complete the onboarding survey before proceeding.
-        needs_to_complete_subscription:
-          type: boolean
-          description: When true, the user must complete the subscription setup before proceeding.
-        total_properties:
-          type: integer
-          description: Self-reported portfolio size captured at sign-up.
-    user_create_response_model:
-      type: object
-      properties:
-        user:
-          description: The newly created user. Returned when account creation succeeds. The full profile document, not just the basic identity fields.
-          $ref: '#/components/schemas/api_user'
-        email_suggestion:
-          type: object
-          description: Returned when the supplied email looks like a typo and is not actually created.
-          properties:
-            message:
-              type: string
-            suggestion:
-              type: string
-    user_get_by_id_response_model:
-      x-internal: true
-      type: object
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: The users full name
-        type:
-          type: string
-          description: User Type designates whether the user is a Renter, Property Manager, or Landlord
-          enum:
-          - Renter
-          - Property Manager
-          - Landlord
-        email:
-          type: string
-          description: The user's email. This is used for all email channel notifications for the user.
-        created_date:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-    me_get_integration_token_response_model:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          description: Long-lived integration token the caller can use for service-to-service API calls.
-    notification_preference:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-        email:
-          type: string
-          enum:
-          - all
-          - created_by_me
-          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
-    intercom_update_companies_response_model:
-      x-internal: true
-      type: object
-      description: Result of attaching the caller to the requested Intercom company and refreshing their custom attributes. Both fields proxy the Intercom REST API response and are intentionally untyped.
-      properties:
-        company:
-          description: Intercom company-attach response (the contact-to-company link). `null` / absent when the caller has an internal email or no email recorded — in that case the attach short-circuits without calling Intercom.
-          nullable: true
-        user:
-          description: Intercom user-update response after refreshing the caller's custom attributes (rentcheck/chargebee subscription ids, company id).
-    me_get_metabase_embed_token_response_model:
-      x-internal: true
-      type: object
-      description: Envelope for `GET /v1/me/metabase-embed-token`. Returns `{ token }` wrapped in the standard `{ data }` shape.
-      required:
-      - status
-      - data
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 200
-        data:
-          type: object
-          required:
-          - token
-          properties:
-            token:
-              type: string
-              description: Signed Metabase static-embedding JWT, scoped to the caller's subscription and locked to the Resident Insights dashboard. Signed with `HS256`, with a server-controlled TTL.
-    user_update_access_request_model:
-      type: object
-      required:
-      - team_ids
-      - role
-      - permission_group_ids
-      properties:
-        team_ids:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          description: Teams the target user should belong to after the update. The user's team memberships are reconciled to this list.
-        role:
-          type: string
-          enum:
-          - admin
-          - manager
-          - none
-          description: Role granted to the user inside a team membership.
-        permission_group_ids:
-          type: array
-          items:
-            type: string
-          description: Permission groups the target user should belong to after the update. The user's permission group memberships are reconciled to this list.
-    me_update_request_model:
-      type: object
-      description: Partial update for the authenticated user. Email or password changes require `current_password`.
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: New display name.
-        email:
-          type: string
-          format: email
-          description: New email address. Requires `current_password` for re-authentication.
-        password:
-          type: string
-          minLength: 8
-          description: New password. Requires `current_password` for re-authentication.
-        current_password:
-          type: string
-          description: Current password, required when changing `email` or `password`.
-        feature_editing_dismissed:
-          type: boolean
-          description: Dismiss the feature-editing onboarding modal.
-        rating_shown_count:
-          type: integer
-          description: Update the in-app rating prompt counter.
-        inspection_onboarding_shown_count:
-          type: integer
-          description: Update the inspection onboarding shown counter.
-        payment_info_provided:
-          type: boolean
-          description: Marks that the user has completed payment-method entry. Persisted on the user profile.
-        try_pro_plan_inspection_templates_card_shown_count:
-          type: integer
-          description: Update the "Try Pro plan templates" upsell card shown counter.
-    api_user_digest:
-      type: object
-      required:
-      - id
-      - name
-      - email
-      - type
-      - teams
-      - permission_groups
-      - status
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: The users full name
-        email:
-          type: string
-          description: The user's email.
-        type:
-          type: string
-          description: User type.
-          enum:
-          - Renter
-          - Property Manager
-          - Landlord
-          - System
-        status:
-          type: string
-          description: Status of the user. Status can be "Active" or the date on which the user was invited.
-          enum:
-          - Active
-          - Invite sent ({invite date})
-        teams:
-          type: array
-          description: A list of the teams the user belongs to, including the user's role on each.
-          items:
-            type: object
-            required:
-            - id
-            - name
-            - internal_label
-            - role
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              name:
-                type: string
-                description: Team display name.
-              internal_label:
-                type: string
-                description: Internal label used to differentiate similar teams.
-              role:
-                type: string
-                enum:
-                - admin
-                - manager
-                - none
-                description: The user's membership role within this team.
-        permission_groups:
-          type: array
-          description: A list of the permission groups the user belongs to
-          items:
-            type: object
-            required:
-            - id
-            - name
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              name:
-                type: string
-                description: Name for the permission group, must be unique in the subscription context
-    notifications_preferences_update_request_model:
-      type: object
-      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
-      properties:
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
-    me_update_fcm_token_request_model:
-      type: object
-      required:
-      - fcm_token
-      description: Request body for registering an FCM device token.
-      properties:
-        fcm_token:
-          type: string
-          minLength: 1
-          description: FCM device token to register for the caller.
     me_update_settings_request_model:
       type: object
       description: Partial update for the authenticated user's metadata / preferences.
@@ -2097,39 +2272,31 @@ components:
         total_properties:
           type: integer
           minimum: 0
-    me_get_pm_contact_info_response_model:
+    user_get_by_id_response_model:
+      x-internal: true
       type: object
-      description: Property manager contact info exposed to a linked renter.
-      required:
-      - company
-      - email
-      - phone_number
       properties:
-        company:
+        id:
           type: string
-          description: Property management company name.
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The users full name
+        type:
+          type: string
+          description: User Type designates whether the user is a Renter, Property Manager, or Landlord
+          enum:
+          - Renter
+          - Property Manager
+          - Landlord
         email:
           type: string
-          description: Primary contact email.
-        phone_number:
+          description: The user's email. This is used for all email channel notifications for the user.
+        created_date:
           type: string
-          description: Primary contact phone number.
-    user_bulk_edit_permission_groups_request_model:
-      type: object
-      required:
-      - user_ids
-      - permission_group_ids
-      properties:
-        user_ids:
-          type: array
-          items:
-            type: string
-          description: Users to apply the new permission groups to. Each user will be reconciled to membership in exactly the supplied permission groups.
-        permission_group_ids:
-          type: array
-          items:
-            type: string
-          description: Permission groups to assign. Pass an empty array to remove the users from every permission group.
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
     user_invite_response_model:
       type: object
       required:
@@ -2241,6 +2408,103 @@ components:
                   error:
                     type: string
               description: Per-email failure reasons.
+    api_user_digest:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - type
+      - teams
+      - permission_groups
+      - status
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The users full name
+        email:
+          type: string
+          description: The user's email.
+        type:
+          type: string
+          description: User type.
+          enum:
+          - Renter
+          - Property Manager
+          - Landlord
+          - System
+        status:
+          type: string
+          description: Status of the user. Status can be "Active" or the date on which the user was invited.
+          enum:
+          - Active
+          - Invite sent ({invite date})
+        teams:
+          type: array
+          description: A list of the teams the user belongs to, including the user's role on each.
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - internal_label
+            - role
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: Team display name.
+              internal_label:
+                type: string
+                description: Internal label used to differentiate similar teams.
+              role:
+                type: string
+                enum:
+                - admin
+                - manager
+                - none
+                description: The user's membership role within this team.
+        permission_groups:
+          type: array
+          description: A list of the permission groups the user belongs to
+          items:
+            type: object
+            required:
+            - id
+            - name
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: Name for the permission group, must be unique in the subscription context
+    me_get_firebase_token_response_model:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          description: Short-lived Firebase custom auth token minted for the caller.
+    intercom_update_companies_response_model:
+      x-internal: true
+      type: object
+      description: Result of attaching the caller to the requested Intercom company and refreshing their custom attributes. Both fields proxy the Intercom REST API response and are intentionally untyped.
+      properties:
+        company:
+          description: Intercom company-attach response (the contact-to-company link). `null` / absent when the caller has an internal email or no email recorded — in that case the attach short-circuits without calling Intercom.
+          nullable: true
+        user:
+          description: Intercom user-update response after refreshing the caller's custom attributes (rentcheck/chargebee subscription ids, company id).
     notifications_preferences_response_model:
       type: object
       required:
@@ -2271,266 +2535,6 @@ components:
           $ref: '#/components/schemas/notification_preference'
         automation_failures:
           $ref: '#/components/schemas/notification_preference_no_email'
-    intercom_update_companies_request_model:
-      x-internal: true
-      type: object
-      required:
-      - companyId
-      description: Attaches the caller to the given Intercom company.
-      properties:
-        companyId:
-          type: string
-          description: Intercom company id the authenticated user should be attached to.
-    api_user:
-      type: object
-      description: Full user document for the authenticated caller.
-      required:
-      - id
-      - email
-      - name
-      - type
-      - created_date
-      - metadata
-      - internal_admin
-      - internal_sales
-      - template_admin
-      - teams
-      - permissions
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        email:
-          type: string
-          description: The user's email.
-        name:
-          type: string
-          description: The user's full name.
-        type:
-          type: string
-          enum:
-          - Renter
-          - Property Manager
-          - Landlord
-          - System
-          description: User type.
-        created_date:
-          type: string
-          description: ISO timestamp the user was created.
-        fcm_tokens:
-          type: array
-          items:
-            type: string
-          description: Registered FCM device tokens for push notifications.
-        temporary_password:
-          type: string
-          description: Temporary password assigned when the account was created on behalf of the user; cleared on first password update.
-        internal_admin:
-          type: boolean
-          description: When true, the user has access to the internal admin panel.
-        internal_sales:
-          type: boolean
-          description: When true, the user has access to the internal sales panel.
-        template_admin:
-          type: boolean
-          description: When true, the user can edit shared inspection templates.
-        prospect_data:
-          type: object
-          additionalProperties: true
-          description: Sales prospect payload captured during the demo follow-up flow. Only set when the user has no active subscription.
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/api_user_team_digest'
-          description: Teams the user belongs to and their role on each.
-        current_occupancy:
-          type: object
-          additionalProperties: true
-          description: When the caller is a renter, the occupancy currently flagged `current`.
-        metadata:
-          $ref: '#/components/schemas/api_user_metadata'
-        permissions:
-          type: object
-          required:
-          - allow_billing_plan_editing
-          - allow_automation_creation
-          - allow_automation_editing
-          - allow_notifications_preferences_editing
-          - allow_inspection_messaging_editing
-          - allow_ai_manual_scan
-          properties:
-            allow_billing_plan_editing:
-              type: boolean
-            allow_automation_creation:
-              type: boolean
-            allow_automation_editing:
-              type: boolean
-            allow_notifications_preferences_editing:
-              type: boolean
-            allow_inspection_messaging_editing:
-              type: boolean
-            allow_ai_manual_scan:
-              type: boolean
-          description: Per-feature permissions resolved from the user's permission groups and subscription.
-        external_identities:
-          $ref: '#/components/schemas/api_user_external_identities'
-    user_create_request_model:
-      type: object
-      required:
-      - email
-      - first_name
-      - last_name
-      - password
-      - user_type
-      properties:
-        email:
-          type: string
-          description: The new user's email address.
-        first_name:
-          type: string
-          description: The new user's first name.
-        last_name:
-          type: string
-          description: The new user's last name.
-        password:
-          type: string
-          description: The new user's password.
-        user_type:
-          type: string
-          enum:
-          - Renter
-          - Property Manager
-          - Landlord
-          description: User account type for the new user. Restricted to end-user types; `System` is rejected with `400 user type has an invalid value`.
-        bypass_email_validation:
-          type: boolean
-          description: When true, skips spell-checking the email for typos. Internal use only.
-        total_properties:
-          type: integer
-          description: Optional total properties count captured at sign-up.
-        needs_to_perform_onboarding:
-          type: boolean
-          description: When true, the new user is flagged to see the post sign-up onboarding flow.
-    user_invite_request_model:
-      type: object
-      required:
-      - emails
-      - team_ids
-      - role
-      - permission_group_ids
-      properties:
-        emails:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          description: Email addresses to invite.
-        team_ids:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          description: Teams that the invited users should be added to.
-        role:
-          type: string
-          enum:
-          - admin
-          - manager
-          - none
-          description: Role granted to the user inside a team membership.
-        permission_group_ids:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          description: Permission groups that the invited users should be added to.
-    me_get_firebase_token_response_model:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          description: Short-lived Firebase custom auth token minted for the caller.
-    notification_preference_no_email:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-    api_intercom_article:
-      x-internal: true
-      type: object
-      description: Intercom Help Center article record — a direct pass-through of the Intercom `articles` REST resource, cached by the RentCheck backend.
-      required:
-      - id
-      - type
-      - workspace_id
-      - parent_type
-      - title
-      - description
-      - body
-      - author_id
-      - state
-      - created_at
-      - updated_at
-      - url
-      properties:
-        id:
-          type: string
-          description: Intercom article id.
-        type:
-          type: string
-          description: Intercom resource type — always `"article"` for this endpoint.
-        workspace_id:
-          type: string
-          description: Intercom workspace the article belongs to.
-        parent_id:
-          type: integer
-          description: Optional Intercom collection/section id the article is nested under (the immediate parent).
-        parent_ids:
-          type: array
-          items:
-            type: integer
-          description: Optional Intercom parent chain (collection → section → …) for the article.
-        parent_type:
-          type: string
-          enum:
-          - collection
-          - section
-          description: Kind of parent the article lives under.
-        title:
-          type: string
-          description: Article title.
-        description:
-          type: string
-          description: Short article summary.
-        body:
-          type: string
-          description: Full HTML article body as authored in Intercom.
-        author_id:
-          type: integer
-          description: Intercom user id of the article author.
-        state:
-          type: string
-          enum:
-          - published
-          - draft
-          description: Publication state. The handler filters to `published` by default.
-        created_at:
-          type: integer
-          format: int64
-          description: Unix epoch seconds when the article was created (Intercom native format).
-        updated_at:
-          type: integer
-          format: int64
-          description: Unix epoch seconds when the article was last updated (Intercom native format).
-        url:
-          type: string
-          description: Public Help Center URL for the article.
   responses:
     '401':
       description: Unauthorized

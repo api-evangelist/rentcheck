@@ -1,8 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RentCheck REST Account Settings Teams API
+  title: RentCheck REST Teams API
   version: 1.0.0
-  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  description: '## Mission
+
+    At RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved.'
   contact:
     name: RentCheck Support
     email: support@getrentcheck.com
@@ -43,6 +45,8 @@ paths:
                     description: Amount of elements in `data`.
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1TeamsInvitesAccept
+      x-operation-id-source: derived
   /v1/teams/{teamId}/invites:
     post:
       summary: Create team invite
@@ -157,6 +161,8 @@ paths:
                     enum:
                     - too many subscriptions
                     example: too many subscriptions
+      operationId: postV1TeamsByTeamIdInvites
+      x-operation-id-source: derived
     get:
       summary: Get all team invites
       tags:
@@ -190,6 +196,8 @@ paths:
                     description: Amount of elements in `data`.
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1TeamsByTeamIdInvites
+      x-operation-id-source: derived
   /v1/users/{userId}/invites:
     delete:
       x-internal: true
@@ -200,9 +208,7 @@ paths:
 
         admin / cleanup flows that need to revoke a user''s pending invitations across all teams in one
 
-        call.
-
-        '
+        call.'
       parameters:
       - name: userId
         in: path
@@ -259,6 +265,8 @@ paths:
                     enum:
                     - invite not found
                     example: invite not found
+      operationId: deleteV1UsersByUserIdInvites
+      x-operation-id-source: derived
   /v1/teams/{teamId}/invites/{inviteId}:
     delete:
       summary: Delete team invite
@@ -348,6 +356,8 @@ paths:
                     enum:
                     - invite not found
                     example: invite not found
+      operationId: deleteV1TeamsByTeamIdInvitesByInviteId
+      x-operation-id-source: derived
     put:
       summary: Update team invite
       tags:
@@ -429,6 +439,8 @@ paths:
                     - team not found
                     - invite not found
                     example: invite not found
+      operationId: putV1TeamsByTeamIdInvitesByInviteId
+      x-operation-id-source: derived
   /v1/teams/{teamId}/invites/{inviteId}/reminders:
     post:
       summary: Team invite reminder
@@ -487,6 +499,8 @@ paths:
                     - team not found
                     - invite not found
                     example: invite not found
+      operationId: postV1TeamsByTeamIdInvitesByInviteIdReminders
+      x-operation-id-source: derived
   /v1/users/{userId}/invites/reminders:
     post:
       x-internal: true
@@ -497,9 +511,7 @@ paths:
 
         target user. Used by admin flows that want to nudge a single invitee about all the teams they
 
-        have pending invitations for.
-
-        '
+        have pending invitations for.'
       parameters:
       - name: userId
         in: path
@@ -555,6 +567,8 @@ paths:
                     - invite not found
                     - team not found
                     example: invite not found
+      operationId: postV1UsersByUserIdInvitesReminders
+      x-operation-id-source: derived
   /v1/teams/{teamId}/members/{memberId}:
     delete:
       summary: Delete team member
@@ -611,6 +625,8 @@ paths:
                     - team not found
                     - member not found
                     example: member not found
+      operationId: deleteV1TeamsByTeamIdMembersByMemberId
+      x-operation-id-source: derived
     put:
       summary: Update team member
       tags:
@@ -682,12 +698,13 @@ paths:
                     - team not found
                     - member not found
                     example: team not found
+      operationId: putV1TeamsByTeamIdMembersByMemberId
+      x-operation-id-source: derived
   /v1/teams:
     post:
       summary: Create a team
       tags:
       - Teams
-      description: Create a team
       requestBody:
         required: true
         content:
@@ -731,6 +748,8 @@ paths:
                     example: '"data.name" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1Teams
+      x-operation-id-source: derived
     get:
       summary: Get all teams
       tags:
@@ -738,9 +757,7 @@ paths:
       description: 'This resource allows you to retrieve information about Team entities. Teams are a way to organize groups of users and the properties they manage.
 
 
-        By default the response excludes the caller''s "All teams" pseudo-team. Pass `filters[include_all_teams]=true` to include it.
-
-        '
+        By default the response excludes the caller''s "All teams" pseudo-team. Pass `filters[include_all_teams]=true` to include it.'
       parameters:
       - in: query
         name: filters[include_all_teams]
@@ -775,6 +792,8 @@ paths:
                     description: Total amount of teams matching the request (irrespective of paging).
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1Teams
+      x-operation-id-source: derived
   /v1/teams/{teamId}:
     delete:
       x-internal: true
@@ -789,9 +808,7 @@ paths:
 
         inspection template, or it is currently bound to a Latchel/Rentvine/AppFolio/RentManager
 
-        integration mapping.
-
-        '
+        integration mapping.'
       parameters:
       - name: teamId
         in: path
@@ -831,12 +848,13 @@ paths:
                   error:
                     type: string
                     example: team not found
+      operationId: deleteV1TeamsByTeamId
+      x-operation-id-source: derived
   /v1/teams/{id}:
     get:
       summary: Get a team by ID
       tags:
       - Teams
-      description: Get a team by ID
       parameters:
       - name: id
         in: path
@@ -874,11 +892,12 @@ paths:
                   error:
                     type: string
                     example: team not found
+      operationId: getV1TeamsById
+      x-operation-id-source: derived
     put:
       summary: Update team information
       tags:
       - Teams
-      description: Update team information
       parameters:
       - name: id
         in: path
@@ -946,6 +965,8 @@ paths:
                     enum:
                     - team not found
                     example: team not found
+      operationId: putV1TeamsById
+      x-operation-id-source: derived
   /v1/latchel/integrations:
     get:
       x-internal: true
@@ -974,6 +995,8 @@ paths:
                     description: Amount of elements in `data`.
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1LatchelIntegrations
+      x-operation-id-source: derived
     post:
       x-internal: true
       summary: Integrate Latchel to RentCheck
@@ -1012,6 +1035,8 @@ paths:
                     example: api_key is missing
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1LatchelIntegrations
+      x-operation-id-source: derived
     delete:
       x-internal: true
       summary: Delete Latchel integrations
@@ -1021,9 +1046,7 @@ paths:
 
         and `team_ids` are the specific teams the integration should be removed from. Returns the
 
-        teams the Latchel integration was removed from.
-
-        '
+        teams the Latchel integration was removed from.'
       requestBody:
         required: true
         content:
@@ -1060,8 +1083,29 @@ paths:
                     example: '"data.team_ids" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: deleteV1LatchelIntegrations
+      x-operation-id-source: derived
 components:
   schemas:
+    latchel_integration_delete_request_model:
+      x-internal: true
+      type: object
+      required:
+      - api_key
+      - team_ids
+      description: Request body for deleting a Latchel integration.
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key.
+          example: awd30j1894asd098afokasmd8971238asc8ca12c
+        team_ids:
+          type: array
+          description: Id of the Teams who created or administers the Entity.
+          items:
+            type: string
+          example:
+          - 05fDGZRKp4nVmlmEwjsv
     latchel_integration_delete_response_model:
       x-internal: true
       type: object
@@ -1102,6 +1146,208 @@ components:
                 - manager
                 - none
                 example: admin
+    team_invite_update_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_integration_latchel_request_model:
+      x-internal: true
+      type: object
+      required:
+      - api_key
+      - team_ids
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key.
+          example: awd30j1894asd098afokasmd8971238asc8ca12c
+        team_ids:
+          type: array
+          description: Id of the Teams who created or administers the Entity.
+          items:
+            type: string
+          example:
+          - 05fDGZRKp4nVmlmEwjsv
+    team_invite_reminder_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_member_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_update_request_model:
+      type: object
+      required: []
+      properties:
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
+    team_invite_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_integration_latchel_response_model:
+      type: object
+      required:
+      - api_key
+      - company_name
+      - created_by
+      - created_date
+      - team
+      properties:
+        api_key:
+          type: string
+          description: Latchel's API key
+        company_name:
+          type: string
+          description: Company name
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          - user_role
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+            logo:
+              type: string
+              description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+            user_role:
+              type: string
+              description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+              enum:
+              - admin
+              - manager
+              - none
+              example: admin
     team_get_by_id_response_model:
       type: object
       required:
@@ -1210,122 +1456,6 @@ components:
                   name:
                     type: string
                     description: User full name
-    team_integration_latchel_response_model:
-      type: object
-      required:
-      - api_key
-      - company_name
-      - created_by
-      - created_date
-      - team
-      properties:
-        api_key:
-          type: string
-          description: Latchel's API key
-        company_name:
-          type: string
-          description: Company name
-        created_by:
-          type: object
-          required:
-          - id
-          - name
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: User full name
-        created_date:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-        team:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          - user_role
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: The name field is the Team name that is displayed on recipient facing reports and communication.
-              example: The best company
-            internal_label:
-              type: string
-              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-              example: The best company label
-            logo:
-              type: string
-              description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
-            user_role:
-              type: string
-              description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-              enum:
-              - admin
-              - manager
-              - none
-              example: admin
-    team_get_all_response_model:
-      type: object
-      required:
-      - id
-      - name
-      - internal_label
-      - user_role
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: The name field is the Team name that is displayed on recipient facing reports and communication.
-          example: The best company
-        internal_label:
-          type: string
-          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-          example: The best company label
-        logo:
-          type: string
-          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
-        user_role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-    team_member_update_request_model:
-      type: object
-      properties:
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-    team_invite_update_request_model:
-      type: object
-      properties:
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
     team_create_request_model:
       type: object
       required:
@@ -1343,7 +1473,7 @@ components:
         logo:
           type: string
           description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
-    team_invite_reminder_response_model:
+    team_invite_get_all_response_model:
       type: object
       required:
       - id
@@ -1385,6 +1515,28 @@ components:
             name:
               type: string
               description: User full name
+    team_invite_create_request_model:
+      type: object
+      required:
+      - emails
+      properties:
+        emails:
+          type: array
+          minItems: 1
+          description: List of users to be invited to team. Must contain at least one valid email; invalid addresses are rejected.
+          items:
+            type: string
+            format: email
+          example:
+          - pm1@email.com
+          - pm2@email.com
+        role:
+          type: string
+          enum:
+          - admin
+          - manager
+          - none
+          description: Optional team membership role to assign to the invited users. Defaults to `manager` when omitted.
     team_invite_create_response_model:
       type: object
       required:
@@ -1531,149 +1683,6 @@ components:
                 type: string
               name:
                 type: string
-    team_integration_latchel_request_model:
-      x-internal: true
-      type: object
-      required:
-      - api_key
-      - team_ids
-      properties:
-        api_key:
-          type: string
-          description: Latchel's API key.
-          example: awd30j1894asd098afokasmd8971238asc8ca12c
-        team_ids:
-          type: array
-          description: Id of the Teams who created or administers the Entity.
-          items:
-            type: string
-          example:
-          - 05fDGZRKp4nVmlmEwjsv
-    team_invite_create_request_model:
-      type: object
-      required:
-      - emails
-      properties:
-        emails:
-          type: array
-          minItems: 1
-          description: List of users to be invited to team. Must contain at least one valid email; invalid addresses are rejected.
-          items:
-            type: string
-            format: email
-          example:
-          - pm1@email.com
-          - pm2@email.com
-        role:
-          type: string
-          enum:
-          - admin
-          - manager
-          - none
-          description: Optional team membership role to assign to the invited users. Defaults to `manager` when omitted.
-    team_invite_update_response_model:
-      type: object
-      required:
-      - id
-      - email
-      - role
-      - created_at
-      - created_by
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        email:
-          type: string
-          description: User email
-          example: user@email.com
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-        created_at:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-        created_by:
-          type: object
-          required:
-          - id
-          - name
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: User full name
-    team_invite_get_all_response_model:
-      type: object
-      required:
-      - id
-      - email
-      - role
-      - created_at
-      - created_by
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        email:
-          type: string
-          description: User email
-          example: user@email.com
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-        created_at:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-        created_by:
-          type: object
-          required:
-          - id
-          - name
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: User full name
-    latchel_integration_delete_request_model:
-      x-internal: true
-      type: object
-      required:
-      - api_key
-      - team_ids
-      description: Request body for deleting a Latchel integration.
-      properties:
-        api_key:
-          type: string
-          description: Latchel's API key.
-          example: awd30j1894asd098afokasmd8971238asc8ca12c
-        team_ids:
-          type: array
-          description: Id of the Teams who created or administers the Entity.
-          items:
-            type: string
-          example:
-          - 05fDGZRKp4nVmlmEwjsv
     team_invite_accept_all_response_model:
       type: object
       required:
@@ -1716,10 +1725,18 @@ components:
             name:
               type: string
               description: User full name
-    team_update_request_model:
+    team_get_all_response_model:
       type: object
-      required: []
+      required:
+      - id
+      - name
+      - internal_label
+      - user_role
       properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
         name:
           type: string
           description: The name field is the Team name that is displayed on recipient facing reports and communication.
@@ -1730,7 +1747,15 @@ components:
           example: The best company label
         logo:
           type: string
-          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
+          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        user_role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
   responses:
     '401':
       description: Unauthorized

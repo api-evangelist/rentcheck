@@ -1,8 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RentCheck REST Account Settings API
   version: 1.0.0
-  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  description: '## Mission
+
+    At RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved.'
   contact:
     name: RentCheck Support
     email: support@getrentcheck.com
@@ -24,9 +26,7 @@ paths:
       - Account Settings
       description: 'Removes the supplied email customization. After deletion the affected template + email type
 
-        falls back to the platform default content.
-
-        '
+        falls back to the platform default content.'
       parameters:
       - name: customizationId
         in: path
@@ -56,6 +56,8 @@ paths:
                     - subscription not found
                     - email customization not found
                     example: email customization not found
+      operationId: deleteV1AccountSettingsEmailCustomizationsByCustomizationId
+      x-operation-id-source: derived
     get:
       x-internal: true
       summary: Get an email customization by ID
@@ -63,9 +65,7 @@ paths:
       - Account Settings
       description: 'Returns a single email customization, including the rendered subject
 
-        merge tags available for the template / email type.
-
-        '
+        merge tags available for the template / email type.'
       parameters:
       - name: customizationId
         in: path
@@ -106,6 +106,8 @@ paths:
                     - subscription not found
                     - email customization not found
                     example: email customization not found
+      operationId: getV1AccountSettingsEmailCustomizationsByCustomizationId
+      x-operation-id-source: derived
   /v1/account-settings/email-customizations:
     get:
       x-internal: true
@@ -114,9 +116,7 @@ paths:
       - Account Settings
       description: 'Returns every email customization configured on the caller''s subscription, one entry per
 
-        inspection template / email type combination.
-
-        '
+        inspection template / email type combination.'
       responses:
         '200':
           description: Returns the email customizations.
@@ -152,6 +152,8 @@ paths:
                   error:
                     type: string
                     example: subscription not found
+      operationId: getV1AccountSettingsEmailCustomizations
+      x-operation-id-source: derived
     post:
       x-internal: true
       summary: Upsert email customizations
@@ -159,9 +161,7 @@ paths:
       - Account Settings
       description: 'Creates or updates the email customization for a given `email_type_id` across one or more
 
-        inspection templates. Returns the resulting set of customizations.
-
-        '
+        inspection templates. Returns the resulting set of customizations.'
       requestBody:
         required: true
         content:
@@ -200,6 +200,8 @@ paths:
                     example: '"data.email_type_id" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1AccountSettingsEmailCustomizations
+      x-operation-id-source: derived
   /v1/account-settings/email-customizations/test-email:
     post:
       x-internal: true
@@ -210,9 +212,7 @@ paths:
 
         template context and sends it to the listed recipients. Used by the email builder UI to
 
-        preview the final email.
-
-        '
+        preview the final email.'
       requestBody:
         required: true
         content:
@@ -246,6 +246,8 @@ paths:
                     example: '"data.recipients" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: postV1AccountSettingsEmailCustomizationsTestEmail
+      x-operation-id-source: derived
   /v1/account-settings:
     get:
       summary: Get account settings
@@ -276,6 +278,8 @@ paths:
                     $ref: '#/components/schemas/api_account_settings'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1AccountSettings
+      x-operation-id-source: derived
     put:
       summary: Update account settings
       tags:
@@ -344,6 +348,8 @@ paths:
                   error:
                     type: string
                     example: subscription not found
+      operationId: putV1AccountSettings
+      x-operation-id-source: derived
   /v1/account-settings/rooms:
     delete:
       x-internal: true
@@ -356,9 +362,7 @@ paths:
 
         Unlike most DELETE endpoints, this one accepts a JSON request body — required because the
 
-        removal is scoped both by `property_type` and by individual room entry.
-
-        '
+        removal is scoped both by `property_type` and by individual room entry.'
       requestBody:
         required: true
         content:
@@ -395,6 +399,8 @@ paths:
                     example: '"data.property_type" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: deleteV1AccountSettingsRooms
+      x-operation-id-source: derived
   /v1/account-settings/signature-acknowledgements/{templateId}:
     delete:
       x-internal: true
@@ -407,9 +413,7 @@ paths:
 
         default if no subscription-wide override is set). Returns the post-delete state in the same
 
-        shape as `GET /v1/account-settings/signature-acknowledgements`.
-
-        '
+        shape as `GET /v1/account-settings/signature-acknowledgements`.'
       parameters:
       - name: templateId
         in: path
@@ -435,6 +439,8 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           $ref: '#/components/responses/404'
+      operationId: deleteV1AccountSettingsSignatureAcknowledgementsByTemplateId
+      x-operation-id-source: derived
   /v1/account-settings/signature-acknowledgements:
     get:
       x-internal: true
@@ -443,9 +449,7 @@ paths:
       - Account Settings
       description: 'Returns the platform-default signature acknowledgement text, the subscription-wide override
 
-        (if any), and the per-inspection-template overrides (if any).
-
-        '
+        (if any), and the per-inspection-template overrides (if any).'
       responses:
         '200':
           description: Returns the signature acknowledgements.
@@ -462,6 +466,8 @@ paths:
                     $ref: '#/components/schemas/signature_acknowledgements_response_model'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1AccountSettingsSignatureAcknowledgements
+      x-operation-id-source: derived
     put:
       x-internal: true
       summary: Update signature acknowledgements
@@ -473,9 +479,7 @@ paths:
 
         (to scope the change to a single template). Returns the post-update state in the same shape as
 
-        `GET /v1/account-settings/signature-acknowledgements`.
-
-        '
+        `GET /v1/account-settings/signature-acknowledgements`.'
       requestBody:
         required: true
         content:
@@ -512,6 +516,8 @@ paths:
                     example: '"data.signature_acknowledgements" is required'
         '401':
           $ref: '#/components/responses/401'
+      operationId: putV1AccountSettingsSignatureAcknowledgements
+      x-operation-id-source: derived
   /v1/notifications-preferences/{preferencesId}:
     get:
       x-internal: true
@@ -534,9 +540,7 @@ paths:
 
         For the equivalent authenticated endpoint, use
 
-        `GET /v1/me/notifications-preferences`.
-
-        '
+        `GET /v1/me/notifications-preferences`.'
       parameters:
       - name: preferencesId
         in: path
@@ -575,6 +579,8 @@ paths:
                   error:
                     type: string
                     example: invalid notifications preferences id
+      operationId: getV1NotificationsPreferencesByPreferencesId
+      x-operation-id-source: derived
     put:
       x-internal: true
       security: []
@@ -594,9 +600,7 @@ paths:
 
         For the equivalent authenticated endpoint, use
 
-        `PUT /v1/me/notifications-preferences`.
-
-        '
+        `PUT /v1/me/notifications-preferences`.'
       parameters:
       - name: preferencesId
         in: path
@@ -669,6 +673,8 @@ paths:
                   error:
                     type: string
                     example: invalid notifications preferences id
+      operationId: putV1NotificationsPreferencesByPreferencesId
+      x-operation-id-source: derived
   /v1/sales/rev-share-prospects:
     post:
       x-internal: true
@@ -687,9 +693,7 @@ paths:
 
         Reachable without an authenticated session; the endpoint is invoked by the
 
-        public RentCheck marketing flow.
-
-        '
+        public RentCheck marketing flow.'
       requestBody:
         required: true
         content:
@@ -744,8 +748,69 @@ paths:
                   error:
                     type: string
                     example: user already exists
+      operationId: postV1SalesRevShareProspects
+      x-operation-id-source: derived
 components:
   schemas:
+    notification_preference:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+        email:
+          type: string
+          enum:
+          - all
+          - created_by_me
+          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+    signature_acknowledgements_update_request_model:
+      x-internal: true
+      type: object
+      required:
+      - signature_acknowledgements
+      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
+      properties:
+        signature_acknowledgements:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - id
+            - text
+            properties:
+              id:
+                type: string
+                description: Either the literal string 'default' or an inspection template id.
+              text:
+                type: string
+    email_customization_upsert_request_model:
+      x-internal: true
+      type: object
+      required:
+      - content
+      - email_type_id
+      - inspection_template_ids
+      description: Request body for upserting an email customization.
+      properties:
+        content:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        inspection_template_ids:
+          type: array
+          items:
+            type: string
     api_signature_acknowledgement:
       x-internal: true
       type: object
@@ -766,85 +831,6 @@ components:
           properties:
             id:
               type: string
-            username:
-              type: string
-            email:
-              type: string
-            updated_date:
-              type: string
-              format: date-time
-    api_email_customization:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - content
-      - message
-      - subject
-      - template
-      description: Email customization.
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-          description: HTML / template body of the email customization.
-        message:
-          type: object
-          required:
-          - email_title
-          - email_type
-          - email_explanatory_text
-          properties:
-            email_title:
-              type: string
-            email_type:
-              type: string
-              enum:
-              - inspection_invitation_new_to_rentcheck
-              - inspection_invitation_existing_rentcheck_users
-              - final_inspection_reminder_3_days_overdue
-              - inspection_approval_confirmation
-              - inspection_review_request
-              description: Allowed email-customization types.
-            email_explanatory_text:
-              type: string
-        subject:
-          type: object
-          required:
-          - title
-          - merge_tags
-          properties:
-            title:
-              type: string
-            merge_tags:
-              type: array
-              items:
-                type: object
-                required:
-                - value
-                - display_name
-                properties:
-                  value:
-                    type: string
-                  display_name:
-                    type: string
-        template:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            internal_label:
-              type: string
-        updated_by:
-          type: object
-          properties:
             username:
               type: string
             email:
@@ -877,100 +863,18 @@ components:
           items:
             type: string
           description: Chargebee addon ids to attach to the prospect alongside the selected plan.
-    email_customization_upsert_request_model:
-      x-internal: true
+    notifications_preferences_update_request_model:
       type: object
-      required:
-      - content
-      - email_type_id
-      - inspection_template_ids
-      description: Request body for upserting an email customization.
+      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
       properties:
-        content:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        inspection_template_ids:
-          type: array
-          items:
-            type: string
-    signature_acknowledgements_update_request_model:
-      x-internal: true
-      type: object
-      required:
-      - signature_acknowledgements
-      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
-      properties:
-        signature_acknowledgements:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            required:
-            - id
-            - text
-            properties:
-              id:
-                type: string
-                description: Either the literal string 'default' or an inspection template id.
-              text:
-                type: string
-    basic_email_customization:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - email_type_id
-      - email_title
-      - email_explanatory_text
-      - template
-      description: Basic email customization.
-      properties:
-        id:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        email_title:
-          type: string
-        email_explanatory_text:
-          type: string
-        template:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            internal_label:
-              type: string
-        updated_by:
-          type: object
-          properties:
-            username:
-              type: string
-            email:
-              type: string
-            updated_date:
-              type: string
-              format: date-time
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
     api_account_settings:
       type: object
       required:
@@ -1370,87 +1274,29 @@ components:
           - inspection_approval_confirmation
           - inspection_review_request
           description: Allowed email-customization types.
-    signature_acknowledgements_response_model:
+    account_settings_delete_rooms_request_model:
       x-internal: true
       type: object
       required:
-      - default
-      description: Signature acknowledgements grouped by inspection template.
+      - property_type
+      - rooms
+      description: Request body for deleting rooms.
       properties:
-        default:
-          $ref: '#/components/schemas/api_signature_acknowledgement'
-        global:
-          $ref: '#/components/schemas/api_signature_acknowledgement'
-        templates:
+        property_type:
+          type: string
+          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+          enum:
+          - ''
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+          example: Single-Family
+        rooms:
           type: array
           items:
             type: object
-            required:
-            - inspection_template
-            properties:
-              inspection_template:
-                type: object
-                required:
-                - id
-                - name
-                - display_name
-                - internal_label
-                - description
-                - is_deleted
-                - is_rc_template
-                - is_published
-                - property_type
-                properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-                  display_name:
-                    type: string
-                  internal_label:
-                    type: string
-                  description:
-                    type: string
-                  is_deleted:
-                    type: boolean
-                  is_rc_template:
-                    type: boolean
-                  is_published:
-                    type: boolean
-                  property_type:
-                    type: string
-                    description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
-                    enum:
-                    - ''
-                    - Single-Family
-                    - Multi-Family
-                    - Apartment or Condo
-                    - Commercial
-                    example: Single-Family
-              customization:
-                $ref: '#/components/schemas/api_signature_acknowledgement'
-    notification_preference:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-        email:
-          type: string
-          enum:
-          - all
-          - created_by_me
-          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
-    notification_preference_no_email:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
+          description: List of room entries to remove.
     account_settings_update_request_model:
       type: object
       description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
@@ -1773,6 +1619,201 @@ components:
               type: string
             phone_number:
               type: string
+    basic_email_customization:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - email_type_id
+      - email_title
+      - email_explanatory_text
+      - template
+      description: Basic email customization.
+      properties:
+        id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        email_title:
+          type: string
+        email_explanatory_text:
+          type: string
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    api_email_customization:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - content
+      - message
+      - subject
+      - template
+      description: Email customization.
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+          description: HTML / template body of the email customization.
+        message:
+          type: object
+          required:
+          - email_title
+          - email_type
+          - email_explanatory_text
+          properties:
+            email_title:
+              type: string
+            email_type:
+              type: string
+              enum:
+              - inspection_invitation_new_to_rentcheck
+              - inspection_invitation_existing_rentcheck_users
+              - final_inspection_reminder_3_days_overdue
+              - inspection_approval_confirmation
+              - inspection_review_request
+              description: Allowed email-customization types.
+            email_explanatory_text:
+              type: string
+        subject:
+          type: object
+          required:
+          - title
+          - merge_tags
+          properties:
+            title:
+              type: string
+            merge_tags:
+              type: array
+              items:
+                type: object
+                required:
+                - value
+                - display_name
+                properties:
+                  value:
+                    type: string
+                  display_name:
+                    type: string
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    signature_acknowledgements_response_model:
+      x-internal: true
+      type: object
+      required:
+      - default
+      description: Signature acknowledgements grouped by inspection template.
+      properties:
+        default:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        global:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        templates:
+          type: array
+          items:
+            type: object
+            required:
+            - inspection_template
+            properties:
+              inspection_template:
+                type: object
+                required:
+                - id
+                - name
+                - display_name
+                - internal_label
+                - description
+                - is_deleted
+                - is_rc_template
+                - is_published
+                - property_type
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  display_name:
+                    type: string
+                  internal_label:
+                    type: string
+                  description:
+                    type: string
+                  is_deleted:
+                    type: boolean
+                  is_rc_template:
+                    type: boolean
+                  is_published:
+                    type: boolean
+                  property_type:
+                    type: string
+                    description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+                    enum:
+                    - ''
+                    - Single-Family
+                    - Multi-Family
+                    - Apartment or Condo
+                    - Commercial
+                    example: Single-Family
+              customization:
+                $ref: '#/components/schemas/api_signature_acknowledgement'
     notifications_preferences_response_model:
       type: object
       required:
@@ -1795,41 +1836,6 @@ components:
         subscription_id:
           type: string
           description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
-    account_settings_delete_rooms_request_model:
-      x-internal: true
-      type: object
-      required:
-      - property_type
-      - rooms
-      description: Request body for deleting rooms.
-      properties:
-        property_type:
-          type: string
-          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
-          enum:
-          - ''
-          - Single-Family
-          - Multi-Family
-          - Apartment or Condo
-          - Commercial
-          example: Single-Family
-        rooms:
-          type: array
-          items:
-            type: object
-          description: List of room entries to remove.
-    notifications_preferences_update_request_model:
-      type: object
-      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
-      properties:
         inspections_awaiting_review:
           $ref: '#/components/schemas/notification_preference'
         inspections_in_revision_review:

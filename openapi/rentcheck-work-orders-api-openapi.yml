@@ -1,8 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RentCheck REST Account Settings Work Orders API
+  title: RentCheck REST Work Orders API
   version: 1.0.0
-  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  description: '## Mission
+
+    At RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved.'
   contact:
     name: RentCheck Support
     email: support@getrentcheck.com
@@ -26,9 +28,7 @@ paths:
 
         integration provider. The path parameter `provider` selects the
 
-        destination integration; the request body shape varies per provider.
-
-        '
+        destination integration; the request body shape varies per provider.'
       parameters:
       - in: path
         name: provider
@@ -174,13 +174,14 @@ paths:
                     - property not synced with Jenark
                     - Must have work order sync switched ON in order to create work orders. Please adjust your data sync settings.
                     example: invalid provider
+      operationId: postV1WorkOrdersProvidersByProvider
+      x-operation-id-source: derived
   /v1/work_orders/{workOrderId}:
     get:
       x-internal: true
       summary: Get a work order by ID
       tags:
       - Work Orders
-      description: Get a work order by ID
       parameters:
       - name: workOrderId
         in: path
@@ -236,6 +237,8 @@ paths:
                   error:
                     type: string
                     example: work order not found
+      operationId: getV1WorkOrdersByWorkOrderId
+      x-operation-id-source: derived
   /v1/work_orders/skills:
     get:
       x-internal: true
@@ -244,9 +247,7 @@ paths:
       - Work Orders
       description: 'Returns the list of skills that can be selected when creating a work order. The
 
-        same static list is always returned, regardless of the caller''s enabled integrations.
-
-        '
+        same static list is always returned, regardless of the caller''s enabled integrations.'
       responses:
         '200':
           description: Returns the list of work order skills.
@@ -268,114 +269,10 @@ paths:
                     description: Amount of elements in `data`.
         '401':
           $ref: '#/components/responses/401'
+      operationId: getV1WorkOrdersSkills
+      x-operation-id-source: derived
 components:
   schemas:
-    work_order_create_latchel_request_model:
-      x-internal: true
-      type: object
-      required:
-      - work_order_name
-      - work_order_description
-      - maintenance_flags
-      - latchel_property_id
-      properties:
-        work_order_name:
-          type: string
-          description: A name / label for the work order.
-          example: 'Latchel Job #1'
-        work_order_description:
-          type: string
-          description: A description for the work order.
-          example: Faulty socket, no power, needs repair.
-        vendor_instructions:
-          type: string
-          description: Optional vendor instruction for the work order.
-          example: Use your biggest plunger, do not use little plunger.
-        skill:
-          type: string
-          description: Vendor name of the repair to be made.
-          example: Repair socket
-        property_access_instructions:
-          type: string
-          description: Property access instructions for the work order.
-          example: Look under the door mat; there is a secret entrance.
-        latchel_property_id:
-          type: number
-          description: Latchel property id for the work order.
-        vendor_id:
-          type: number
-          nullable: true
-          description: Latchel vendor id for the work order.
-        resident_id:
-          type: string
-          description: Resident / Tenant ID that will be associated with work order.
-        primary_resident_id:
-          type: string
-          description: Latchel primary resident id for the work order.
-        maintenance_flags:
-          type: array
-          minItems: 1
-          description: A list of maintenance flags. Only each flag's `id` and `feature_id` are consumed; additional fields are accepted but ignored.
-          items:
-            type: object
-            required:
-            - id
-            - feature_id
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              feature_id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-            additionalProperties: true
-    work_order_create_appfolio_request_model:
-      x-internal: true
-      type: object
-      description: AppFolio work-order create body. Additional AppFolio-specific properties beyond those listed here are accepted.
-      required:
-      - work_order_name
-      - work_order_description
-      - maintenance_flags
-      - ok_to_enter
-      properties:
-        work_order_name:
-          type: string
-          description: A name / label for the work order.
-        work_order_description:
-          type: string
-          description: A description for the work order.
-        priority:
-          type: string
-          enum:
-          - Urgent
-          - Normal
-          - Low
-          description: AppFolio priority for the work order.
-        ok_to_enter:
-          type: boolean
-          description: Whether the vendor is authorized to enter the unit without the resident present.
-        maintenance_flags:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            required:
-            - id
-            - feature_id
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              feature_id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-            additionalProperties: true
-      additionalProperties: true
     work_order_create_rent_manager_request_model:
       x-internal: true
       type: object
@@ -426,140 +323,6 @@ components:
                 description: Entity ID
                 example: 00BRcZPSakXz6w7RYoE
             additionalProperties: true
-    work_order_create_jenark_request_model:
-      x-internal: true
-      type: object
-      required:
-      - work_order_name
-      - work_order_code
-      - maintenance_flags
-      properties:
-        work_order_name:
-          type: string
-          description: A name / label for the work order.
-          example: Replace HVAC filter
-        work_order_description:
-          type: string
-          description: A description for the work order.
-          example: Filter is overdue — replace with 16x20x1 pleated filter.
-        work_order_code:
-          type: string
-          description: Jenark work-order classification code.
-          example: HVAC
-        skill:
-          type: string
-          description: Trade / skill required for the work order.
-          example: HVAC
-        maintenance_flags:
-          type: array
-          minItems: 1
-          description: A list of maintenance flags. The handler only consumes each flag's `id` and `feature_id`; additional fields are accepted but ignored.
-          items:
-            type: object
-            required:
-            - id
-            - feature_id
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              feature_id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-            additionalProperties: true
-    api_work_order_skill:
-      type: object
-      required:
-      - name
-      - latchel
-      properties:
-        name:
-          type: string
-          description: RentCheck-facing name of the skill.
-        latchel:
-          type: object
-          description: Latchel category mapping for the skill.
-          required:
-          - id
-          - name
-          - category_id
-          - category_name
-          properties:
-            id:
-              type: integer
-              description: Latchel skill id.
-            name:
-              type: string
-              description: Latchel-facing skill name.
-            category_id:
-              type: integer
-              description: Latchel category id.
-            category_name:
-              type: string
-              description: Latchel category name.
-    work_order_create_rentvine_request_model:
-      x-internal: true
-      type: object
-      description: Rentvine work-order create body. Additional Rentvine-specific properties beyond those listed here are accepted.
-      required:
-      - work_order_name
-      - work_order_description
-      - priority
-      - ok_to_enter
-      properties:
-        work_order_name:
-          type: string
-          description: A name / label for the work order.
-        work_order_description:
-          type: string
-          description: A description for the work order.
-        priority:
-          type: string
-          enum:
-          - low
-          - medium
-          - high
-          description: Rentvine priority for the work order.
-        owner_approved:
-          type: boolean
-          default: false
-          description: Whether the property owner has approved the work order in Rentvine. Server-defaulted to `false` when omitted.
-        publish_with_tenant:
-          type: boolean
-          default: false
-          description: Whether the work order should be published to the Rentvine tenant portal. Server-defaulted to `false` when omitted.
-        publish_with_owner:
-          type: boolean
-          default: false
-          description: Whether the work order should be published to the Rentvine owner portal. Server-defaulted to `false` when omitted.
-        ok_to_enter:
-          type: string
-          enum:
-          - vendor_may_access
-          - resident_presence_required
-          - not_applicable
-          description: Vendor access mode.
-        maintenance_flags:
-          type: array
-          description: Maintenance flags referenced by the work order. No minimum size is enforced by validation, but omitting it or passing an empty array surfaces as a 500.
-          items:
-            type: object
-            required:
-            - id
-            - feature_id
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              feature_id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-            additionalProperties: true
-      additionalProperties: true
     work_order_response_model:
       x-internal: true
       type: object
@@ -761,6 +524,246 @@ components:
           type: object
           description: Rentvine-specific work order fields, present when the provider is `rentvine`.
           additionalProperties: true
+    api_work_order_skill:
+      type: object
+      required:
+      - name
+      - latchel
+      properties:
+        name:
+          type: string
+          description: RentCheck-facing name of the skill.
+        latchel:
+          type: object
+          description: Latchel category mapping for the skill.
+          required:
+          - id
+          - name
+          - category_id
+          - category_name
+          properties:
+            id:
+              type: integer
+              description: Latchel skill id.
+            name:
+              type: string
+              description: Latchel-facing skill name.
+            category_id:
+              type: integer
+              description: Latchel category id.
+            category_name:
+              type: string
+              description: Latchel category name.
+    work_order_create_rentvine_request_model:
+      x-internal: true
+      type: object
+      description: Rentvine work-order create body. Additional Rentvine-specific properties beyond those listed here are accepted.
+      required:
+      - work_order_name
+      - work_order_description
+      - priority
+      - ok_to_enter
+      properties:
+        work_order_name:
+          type: string
+          description: A name / label for the work order.
+        work_order_description:
+          type: string
+          description: A description for the work order.
+        priority:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+          description: Rentvine priority for the work order.
+        owner_approved:
+          type: boolean
+          default: false
+          description: Whether the property owner has approved the work order in Rentvine. Server-defaulted to `false` when omitted.
+        publish_with_tenant:
+          type: boolean
+          default: false
+          description: Whether the work order should be published to the Rentvine tenant portal. Server-defaulted to `false` when omitted.
+        publish_with_owner:
+          type: boolean
+          default: false
+          description: Whether the work order should be published to the Rentvine owner portal. Server-defaulted to `false` when omitted.
+        ok_to_enter:
+          type: string
+          enum:
+          - vendor_may_access
+          - resident_presence_required
+          - not_applicable
+          description: Vendor access mode.
+        maintenance_flags:
+          type: array
+          description: Maintenance flags referenced by the work order. No minimum size is enforced by validation, but omitting it or passing an empty array surfaces as a 500.
+          items:
+            type: object
+            required:
+            - id
+            - feature_id
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              feature_id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+            additionalProperties: true
+      additionalProperties: true
+    work_order_create_jenark_request_model:
+      x-internal: true
+      type: object
+      required:
+      - work_order_name
+      - work_order_code
+      - maintenance_flags
+      properties:
+        work_order_name:
+          type: string
+          description: A name / label for the work order.
+          example: Replace HVAC filter
+        work_order_description:
+          type: string
+          description: A description for the work order.
+          example: Filter is overdue — replace with 16x20x1 pleated filter.
+        work_order_code:
+          type: string
+          description: Jenark work-order classification code.
+          example: HVAC
+        skill:
+          type: string
+          description: Trade / skill required for the work order.
+          example: HVAC
+        maintenance_flags:
+          type: array
+          minItems: 1
+          description: A list of maintenance flags. The handler only consumes each flag's `id` and `feature_id`; additional fields are accepted but ignored.
+          items:
+            type: object
+            required:
+            - id
+            - feature_id
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              feature_id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+            additionalProperties: true
+    work_order_create_appfolio_request_model:
+      x-internal: true
+      type: object
+      description: AppFolio work-order create body. Additional AppFolio-specific properties beyond those listed here are accepted.
+      required:
+      - work_order_name
+      - work_order_description
+      - maintenance_flags
+      - ok_to_enter
+      properties:
+        work_order_name:
+          type: string
+          description: A name / label for the work order.
+        work_order_description:
+          type: string
+          description: A description for the work order.
+        priority:
+          type: string
+          enum:
+          - Urgent
+          - Normal
+          - Low
+          description: AppFolio priority for the work order.
+        ok_to_enter:
+          type: boolean
+          description: Whether the vendor is authorized to enter the unit without the resident present.
+        maintenance_flags:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - id
+            - feature_id
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              feature_id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+            additionalProperties: true
+      additionalProperties: true
+    work_order_create_latchel_request_model:
+      x-internal: true
+      type: object
+      required:
+      - work_order_name
+      - work_order_description
+      - maintenance_flags
+      - latchel_property_id
+      properties:
+        work_order_name:
+          type: string
+          description: A name / label for the work order.
+          example: 'Latchel Job #1'
+        work_order_description:
+          type: string
+          description: A description for the work order.
+          example: Faulty socket, no power, needs repair.
+        vendor_instructions:
+          type: string
+          description: Optional vendor instruction for the work order.
+          example: Use your biggest plunger, do not use little plunger.
+        skill:
+          type: string
+          description: Vendor name of the repair to be made.
+          example: Repair socket
+        property_access_instructions:
+          type: string
+          description: Property access instructions for the work order.
+          example: Look under the door mat; there is a secret entrance.
+        latchel_property_id:
+          type: number
+          description: Latchel property id for the work order.
+        vendor_id:
+          type: number
+          nullable: true
+          description: Latchel vendor id for the work order.
+        resident_id:
+          type: string
+          description: Resident / Tenant ID that will be associated with work order.
+        primary_resident_id:
+          type: string
+          description: Latchel primary resident id for the work order.
+        maintenance_flags:
+          type: array
+          minItems: 1
+          description: A list of maintenance flags. Only each flag's `id` and `feature_id` are consumed; additional fields are accepted but ignored.
+          items:
+            type: object
+            required:
+            - id
+            - feature_id
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              feature_id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+            additionalProperties: true
   responses:
     '401':
       description: Unauthorized

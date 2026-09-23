@@ -1,8 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: RentCheck REST Account Settings Buildings API
+  title: RentCheck REST Buildings API
   version: 1.0.0
-  description: "\n## Mission\nAt RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved. \nRentCheck is a property inspection solution that helps property managers save time and resources with easy self-guided inspections that residents can perform from their smartphone. \n\nWith RentCheck, property managers can avoid tenant coordination, eliminate drive time, and standardize their inspection process. \nWe provides real-time visibility to property managers and owners while bringing transparency to the security deposit deduction process.\n\n## API\nThe RentCheck API lets developers tap into the RentCheck ecosystem, building their own RentCheck-powered applications to enable inspection scheduling and creation and to leverage inspection data for a variety of use cases in the property management, maintenance, and insurance spaces.\n\nThe RentCheck REST API supports JSON requests and responses and features a resource-oriented design that generally adheres to the RFC 7321 HTTP/1.1 standard. \nOur API resources provide access to many RentCheck features, including units, buildings, communities, inspections, and residents.\n\n## Credentials\nIn addition to the Bearer Auth, RentCheck will need to send you an application ID and secret. These are required to generate the required application headers (x-app-id & x-app-secret).\nThese values can be obtained from the [RentCheck API integration page](https://app.getrentcheck.com/account/integrations/rentcheck-api).\n\n## Rate Limiting\nThe RentCheck API enforces rate limits to ensure fair usage and prevent abuse. The rate limits are as follows:\n- **Requests per second**: 8\n- **Requests per minute**: 256\n- **Requests per 10 minutes**: 1024\n\nIf you exceed the rate limits, you will receive a 429 Too Many Requests response.\n\n## Pagination\nWhen interacting with endpoints that return a list of items, the results are paginated to help manage large data sets efficiently. The following parameters control pagination:\n- **page_size** (integer): Defines the number of items returned per page. The maximum allowed value is 250. If a value larger than 250 is provided, it will be automatically clamped to 250. This ensures that the system performs optimally and prevents the server from being overwhelmed by too many items in a single response.\n  - **Maximum**: `250`\n- **page_number** (integer): Indicates the page number to retrieve. Pagination starts at `page 0`. If not specified, the first page (`page 0`) is returned by default.\n### Example Request\n```http\nGET /api/v1/inspections?page_size=300&page_number=2\n```\nIn this example, although the `page_size` parameter is set to `300` **for a query with 1500 total results**, the system will return only `250` items per page, as `300` exceeds the maximum allowed value.\n#### Example Response\n```json\n{\n    \"status\": 200,\n    \"data\": [...],\n    \"count\": 250,\n    \"total_results\": 1500\n}\n```\nThis response shows that the `page_size` has been clamped to `250`, despite the initial request for `300`.\n"
+  description: '## Mission
+
+    At RentCheck, our mission is plain and simple: To make renting fair and transparent for everyone involved.'
   contact:
     name: RentCheck Support
     email: support@getrentcheck.com
@@ -78,6 +80,8 @@ paths:
                   error:
                     type: string
                     example: unit not found
+      operationId: postV1Buildings
+      x-operation-id-source: derived
     delete:
       summary: Delete buildings
       tags:
@@ -130,6 +134,8 @@ paths:
           $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/synced_property_delete_forbidden'
+      operationId: deleteV1Buildings
+      x-operation-id-source: derived
   /v1/buildings/{buildingId}:
     get:
       summary: Get a building by id
@@ -173,6 +179,8 @@ paths:
                   error:
                     type: string
                     example: building not found
+      operationId: getV1BuildingsByBuildingId
+      x-operation-id-source: derived
     put:
       summary: Update a building
       tags:
@@ -241,6 +249,8 @@ paths:
                   error:
                     type: string
                     example: building not found
+      operationId: putV1BuildingsByBuildingId
+      x-operation-id-source: derived
   /v1/properties/{propertyId}/merge/{targetPropertyId}:
     put:
       x-internal: true
@@ -251,9 +261,7 @@ paths:
 
         origin is soft-deleted and its occupancies / residents are re-parented to the target. When
 
-        `transfer_rooms` is `true`, the origin''s room configuration is merged onto the target.
-
-        '
+        `transfer_rooms` is `true`, the origin''s room configuration is merged onto the target.'
       parameters:
       - name: propertyId
         in: path
@@ -325,16 +333,31 @@ paths:
                   error:
                     type: string
                     example: property not found
+      operationId: putV1PropertiesByPropertyIdMergeByTargetPropertyId
+      x-operation-id-source: derived
 components:
   schemas:
-    properties_merge_request_model:
+    room_info:
       type: object
+      required:
+      - type
+      - name
+      - label
+      description: Structured room entry.
       properties:
-        transfer_rooms:
-          type: boolean
-          description: When `true`, the rooms of the origin property are merged onto the target property.
-          default: false
-    community_response_model:
+        type:
+          type: string
+          description: The no-ordinal room kind (e.g. "Bedroom"), recomputed from `name` on every write.
+          example: Bedroom
+        name:
+          type: string
+          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
+          example: First Bedroom
+        label:
+          type: string
+          description: Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Defaults to `name`.
+          example: First Bedroom
+    building_response_model:
       type: object
       required:
       - id
@@ -342,6 +365,7 @@ components:
       - address
       - city
       - zip_code
+      - floors
       - property_type
       - team
       - room_names
@@ -354,7 +378,7 @@ components:
       - creation_source
       - created_by
       - additional_team_ids
-      - building_ids
+      - unit_ids
       properties:
         id:
           type: string
@@ -384,48 +408,53 @@ components:
               example: The best company label
           nullable: true
           readOnly: true
-          description: Team that owns this community. May be null when the underlying team has been removed.
+          description: Team that owns this building. May be null when the underlying team has been removed.
         property_type:
           type: string
-          description: Discriminator value identifying this property as a Community.
+          description: Discriminator value identifying this property as a Building.
           enum:
-          - Community
-          example: Community
+          - Building
+          example: Building
           readOnly: true
         name:
           type: string
-          description: This is the name of the Community.
-          example: Whispering Pines
+          description: This is the name of the Building.
+          example: Empire State Building
         address:
           type: string
-          description: This is the street address for the Community.
+          description: This is the street address for the Building.
           example: 2001 Red Gates
         address_2:
           type: string
-          description: Additional address information for the Community.
+          description: Additional address information for the Building.
           example: Apt. 4B
         city:
           type: string
-          description: This is the city of the Community.
+          description: This is the city of the Building.
           example: New Orleans
         region:
           type: string
-          description: The broader region or area in which the Community is located.
+          description: The broader region or area in which the Building is located.
           example: Orleans
         zip_code:
           type: string
-          description: This is the Postal Code for the Community.
+          description: This is the Postal Code for the Building.
           example: '70130'
+        floors:
+          type: number
+          maximum: 100
+          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
+          example: 7
         additional_team_ids:
           type: array
-          description: Community can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Community
+          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
           items:
             type: string
             description: Entity ID
             example: 00BRcZPSakXz6w7RYoE
-        building_ids:
+        unit_ids:
           type: array
-          description: Community can have 1+ Buildings associated with them. building_ids is a list of entity ids of the Buildings that belong to a Community
+          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
           items:
             type: string
             description: Entity ID
@@ -663,6 +692,87 @@ components:
                     type: string
                   uploaded_id:
                     type: string
+    building_create_request_model:
+      type: object
+      required:
+      - team_id
+      - name
+      - address
+      - city
+      - zip_code
+      - floors
+      properties:
+        x_id:
+          type: string
+          description: External property ID that maps to RentCheck properties
+        team_id:
+          type: string
+          description: Id of the Team who created or administers the Entity.
+          example: 05fDGZRKp4nVmlmEwjsv
+        name:
+          type: string
+          description: This is the name of the Building.
+          example: Empire State Building
+        address:
+          type: string
+          description: This is the street address for the Building.
+          example: 2001 Red Gates
+        address_2:
+          type: string
+          description: Additional address information for the Building.
+          example: Apt. 4B
+        city:
+          type: string
+          description: This is the city of the Building.
+          example: New Orleans
+        region:
+          type: string
+          description: The broader region or area in which the Building is located.
+          example: Orleans
+        zip_code:
+          type: string
+          description: This is the Postal Code for the Building.
+          example: '70130'
+        floors:
+          type: number
+          maximum: 100
+          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
+          example: 7
+        additional_team_ids:
+          type: array
+          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        unit_ids:
+          type: array
+          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        rooms:
+          type: array
+          items:
+            type: string
+          deprecated: true
+          description: 'Deprecated: on write prefer `rooms_info`, which is the authoritative room set. An array of arbitrary room-name strings for the building (e.g. "Lobby", "Roof Deck"). Building rooms are free-form — unlike units they are not constrained to a fixed set or derived from bedroom/bathroom counts. Used only when `rooms_info` is omitted.'
+          example:
+          - Lobby
+          - Roof Deck
+          - Gym
+        rooms_info:
+          type: array
+          description: 'Structured per-room configuration for the building and, on write, the authoritative room set: when present, these entries define the building’s rooms and `rooms`/`room_names` are derived from them. `name` is the source of truth (required) — for buildings the room string itself (e.g. "Roof Deck") — while `type` is recomputed from it and `label` (the human-meaningful display name, e.g. "Sky Lounge") defaults to `name`, so both are optional. An explicit empty array clears the rooms. Mutually exclusive with `rooms` — sending both is a validation error; omit both to take the room set from `rooms`.'
+          items:
+            $ref: '#/components/schemas/room_info_request'
+        state:
+          type: string
+          description: Two-letter US state code. Optional alias of `region` for callers that prefer the postal-style name.
+          example: CA
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
     unit_response_model:
       type: object
       required:
@@ -1084,172 +1194,14 @@ components:
           example: CA
         rentvine_sync:
           $ref: '#/components/schemas/rentvine_sync'
-    room_info_request:
+    properties_merge_request_model:
       type: object
-      required:
-      - name
-      description: Structured room entry (write shape). Only `name` is required; the server normalizes the other fields.
       properties:
-        type:
-          type: string
-          description: 'Accepted but ignored: the server recomputes it from `name`.'
-          example: Bedroom
-        name:
-          type: string
-          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
-          example: First Bedroom
-        label:
-          type: string
-          description: 'Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Optional: defaults to `name`.'
-          example: First Bedroom
-    rentvine_sync:
-      type: object
-      required:
-      - last_sync
-      description: Rentvine sync metadata.
-      properties:
-        id:
-          type: string
-          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
-        x_id:
-          type: string
-          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
-        x_property_id:
-          type: string
-          description: Rentvine property id. When the property type is a unit, this points at the building id.
-        last_sync:
-          type: string
-          format: date-time
-          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
-        status:
-          type: string
-          enum:
-          - scheduled
-          - processing
-          - success
-          - error
-          description: Job orchestration and terminal outcome for the most recent sync.
-        error:
-          type: string
-          nullable: true
-          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
-        upload_response:
-          type: array
-          description: Per-destination upload outcomes for inspection PDF uploads.
-          items:
-            type: object
-            additionalProperties: true
-        excluded_inspection_upload_destinations:
-          type: array
-          description: Destinations to skip on the next inspection-report upload retry.
-          items:
-            type: string
-            enum:
-            - properties
-            - tenants
-            - inspections
-    building_create_request_model:
-      type: object
-      required:
-      - team_id
-      - name
-      - address
-      - city
-      - zip_code
-      - floors
-      properties:
-        x_id:
-          type: string
-          description: External property ID that maps to RentCheck properties
-        team_id:
-          type: string
-          description: Id of the Team who created or administers the Entity.
-          example: 05fDGZRKp4nVmlmEwjsv
-        name:
-          type: string
-          description: This is the name of the Building.
-          example: Empire State Building
-        address:
-          type: string
-          description: This is the street address for the Building.
-          example: 2001 Red Gates
-        address_2:
-          type: string
-          description: Additional address information for the Building.
-          example: Apt. 4B
-        city:
-          type: string
-          description: This is the city of the Building.
-          example: New Orleans
-        region:
-          type: string
-          description: The broader region or area in which the Building is located.
-          example: Orleans
-        zip_code:
-          type: string
-          description: This is the Postal Code for the Building.
-          example: '70130'
-        floors:
-          type: number
-          maximum: 100
-          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
-          example: 7
-        additional_team_ids:
-          type: array
-          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        unit_ids:
-          type: array
-          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        rooms:
-          type: array
-          items:
-            type: string
-          deprecated: true
-          description: 'Deprecated: on write prefer `rooms_info`, which is the authoritative room set. An array of arbitrary room-name strings for the building (e.g. "Lobby", "Roof Deck"). Building rooms are free-form — unlike units they are not constrained to a fixed set or derived from bedroom/bathroom counts. Used only when `rooms_info` is omitted.'
-          example:
-          - Lobby
-          - Roof Deck
-          - Gym
-        rooms_info:
-          type: array
-          description: 'Structured per-room configuration for the building and, on write, the authoritative room set: when present, these entries define the building’s rooms and `rooms`/`room_names` are derived from them. `name` is the source of truth (required) — for buildings the room string itself (e.g. "Roof Deck") — while `type` is recomputed from it and `label` (the human-meaningful display name, e.g. "Sky Lounge") defaults to `name`, so both are optional. An explicit empty array clears the rooms. Mutually exclusive with `rooms` — sending both is a validation error; omit both to take the room set from `rooms`.'
-          items:
-            $ref: '#/components/schemas/room_info_request'
-        state:
-          type: string
-          description: Two-letter US state code. Optional alias of `region` for callers that prefer the postal-style name.
-          example: CA
-        rentvine_sync:
-          $ref: '#/components/schemas/rentvine_sync'
-    room_info:
-      type: object
-      required:
-      - type
-      - name
-      - label
-      description: Structured room entry.
-      properties:
-        type:
-          type: string
-          description: The no-ordinal room kind (e.g. "Bedroom"), recomputed from `name` on every write.
-          example: Bedroom
-        name:
-          type: string
-          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
-          example: First Bedroom
-        label:
-          type: string
-          description: Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Defaults to `name`.
-          example: First Bedroom
-    building_response_model:
+        transfer_rooms:
+          type: boolean
+          description: When `true`, the rooms of the origin property are merged onto the target property.
+          default: false
+    community_response_model:
       type: object
       required:
       - id
@@ -1257,7 +1209,6 @@ components:
       - address
       - city
       - zip_code
-      - floors
       - property_type
       - team
       - room_names
@@ -1270,7 +1221,7 @@ components:
       - creation_source
       - created_by
       - additional_team_ids
-      - unit_ids
+      - building_ids
       properties:
         id:
           type: string
@@ -1300,53 +1251,48 @@ components:
               example: The best company label
           nullable: true
           readOnly: true
-          description: Team that owns this building. May be null when the underlying team has been removed.
+          description: Team that owns this community. May be null when the underlying team has been removed.
         property_type:
           type: string
-          description: Discriminator value identifying this property as a Building.
+          description: Discriminator value identifying this property as a Community.
           enum:
-          - Building
-          example: Building
+          - Community
+          example: Community
           readOnly: true
         name:
           type: string
-          description: This is the name of the Building.
-          example: Empire State Building
+          description: This is the name of the Community.
+          example: Whispering Pines
         address:
           type: string
-          description: This is the street address for the Building.
+          description: This is the street address for the Community.
           example: 2001 Red Gates
         address_2:
           type: string
-          description: Additional address information for the Building.
+          description: Additional address information for the Community.
           example: Apt. 4B
         city:
           type: string
-          description: This is the city of the Building.
+          description: This is the city of the Community.
           example: New Orleans
         region:
           type: string
-          description: The broader region or area in which the Building is located.
+          description: The broader region or area in which the Community is located.
           example: Orleans
         zip_code:
           type: string
-          description: This is the Postal Code for the Building.
+          description: This is the Postal Code for the Community.
           example: '70130'
-        floors:
-          type: number
-          maximum: 100
-          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
-          example: 7
         additional_team_ids:
           type: array
-          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
+          description: Community can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Community
           items:
             type: string
             description: Entity ID
             example: 00BRcZPSakXz6w7RYoE
-        unit_ids:
+        building_ids:
           type: array
-          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
+          description: Community can have 1+ Buildings associated with them. building_ids is a list of entity ids of the Buildings that belong to a Community
           items:
             type: string
             description: Entity ID
@@ -1584,7 +1530,93 @@ components:
                     type: string
                   uploaded_id:
                     type: string
+    room_info_request:
+      type: object
+      required:
+      - name
+      description: Structured room entry (write shape). Only `name` is required; the server normalizes the other fields.
+      properties:
+        type:
+          type: string
+          description: 'Accepted but ignored: the server recomputes it from `name`.'
+          example: Bedroom
+        name:
+          type: string
+          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
+          example: First Bedroom
+        label:
+          type: string
+          description: 'Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Optional: defaults to `name`.'
+          example: First Bedroom
+    rentvine_sync:
+      type: object
+      required:
+      - last_sync
+      description: Rentvine sync metadata.
+      properties:
+        id:
+          type: string
+          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
+        x_id:
+          type: string
+          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
+        x_property_id:
+          type: string
+          description: Rentvine property id. When the property type is a unit, this points at the building id.
+        last_sync:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
+        status:
+          type: string
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+          description: Job orchestration and terminal outcome for the most recent sync.
+        error:
+          type: string
+          nullable: true
+          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
+        upload_response:
+          type: array
+          description: Per-destination upload outcomes for inspection PDF uploads.
+          items:
+            type: object
+            additionalProperties: true
+        excluded_inspection_upload_destinations:
+          type: array
+          description: Destinations to skip on the next inspection-report upload retry.
+          items:
+            type: string
+            enum:
+            - properties
+            - tenants
+            - inspections
   responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
     synced_property_merge_forbidden:
       description: Forbidden — either the origin or target property of a merge is currently synced from an external integration.
       content:
@@ -1617,28 +1649,6 @@ components:
                 enum:
                 - Cannot delete property when integration sync is active
                 example: Cannot delete property when integration sync is active
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 401
-              error:
-                type: string
-                description: Error message
-                enum:
-                - token is not valid
-                - authorization header is empty
-                - authorization header is not valid
-                - 'format for Authorization must be: Bearer [token]'
-                - refresh token is not valid for resources
-                - not well-formed token
-                example: token is not valid
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API
