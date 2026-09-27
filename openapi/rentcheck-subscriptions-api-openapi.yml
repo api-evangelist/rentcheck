@@ -398,6 +398,69 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    subscription_update_request_model:
+      x-internal: true
+      type: object
+      description: At least one of `plan` or `addons` should be supplied.
+      properties:
+        plan:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: Chargebee plan id to switch to.
+        addons:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            properties:
+              id:
+                type: string
+                description: Chargebee addon id.
+    subscription_create_request_request_model:
+      x-internal: true
+      type: object
+      required:
+      - plan_id
+      description: Used to request a trial extension or plan change.
+      properties:
+        plan_id:
+          type: string
+          description: Chargebee plan id the user is requesting.
+        note:
+          type: string
+    subscription_invoice_response_model:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - date
+      - status
+      - amount_due
+      description: Subset of the Chargebee invoice payload surfaced to clients.
+      properties:
+        id:
+          type: string
+          description: Chargebee invoice id.
+        date:
+          type: integer
+          description: Unix-second timestamp the invoice was issued.
+        status:
+          type: string
+          enum:
+          - paid
+          - posted
+          - payment_due
+          - not_paid
+          - voided
+          - pending
+        amount_due:
+          type: integer
+          description: Amount due on the invoice (in the smallest currency unit).
     subscription_get_by_user_response_model:
       type: object
       required:
@@ -629,69 +692,6 @@ components:
                 type: number
               discount_percentage:
                 type: number
-    subscription_invoice_response_model:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - date
-      - status
-      - amount_due
-      description: Subset of the Chargebee invoice payload surfaced to clients.
-      properties:
-        id:
-          type: string
-          description: Chargebee invoice id.
-        date:
-          type: integer
-          description: Unix-second timestamp the invoice was issued.
-        status:
-          type: string
-          enum:
-          - paid
-          - posted
-          - payment_due
-          - not_paid
-          - voided
-          - pending
-        amount_due:
-          type: integer
-          description: Amount due on the invoice (in the smallest currency unit).
-    subscription_update_request_model:
-      x-internal: true
-      type: object
-      description: At least one of `plan` or `addons` should be supplied.
-      properties:
-        plan:
-          type: object
-          required:
-          - id
-          properties:
-            id:
-              type: string
-              description: Chargebee plan id to switch to.
-        addons:
-          type: array
-          items:
-            type: object
-            required:
-            - id
-            properties:
-              id:
-                type: string
-                description: Chargebee addon id.
-    subscription_create_request_request_model:
-      x-internal: true
-      type: object
-      required:
-      - plan_id
-      description: Used to request a trial extension or plan change.
-      properties:
-        plan_id:
-          type: string
-          description: Chargebee plan id the user is requesting.
-        note:
-          type: string
     subscription_create_trial_request_model:
       x-internal: true
       type: object

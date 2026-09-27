@@ -1243,25 +1243,96 @@ components:
               type: boolean
             can_delete:
               type: boolean
-    tenant_occupancy_create_request_model:
+    lease_v2_create_request_model:
       type: object
       required:
       - status
       properties:
         status:
           type: string
+          description: Indicates if the tenant is a future, past or current one
+          enum:
+          - future
+          - past
+          - current
+        tags:
+          type: array
+          description: Tags associated with the lease if it was evicted or is in notice
+          items:
+            type: string
+            enum:
+            - evict
+            - notice
+        lease_start:
+          type: string
+          description: The date the Resident's current lease starts.
+          example: 2021-01-15 00:00:00
+          nullable: true
+        lease_end:
+          type: string
+          description: The date the Resident's current lease should end.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        rent:
+          type: number
+          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+          example: 100
+          nullable: true
+        security_deposit:
+          type: number
+          description: Unit security deposit
+          example: 1500
+          nullable: true
+        move_out_date:
+          type: string
+          description: The date that the Resident is scheduled to move out of the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        move_in_date:
+          type: string
+          description: The date that the Resident is scheduled to move in to the current Property.
+          example: 2022-01-15 00:00:00
+          nullable: true
+        property_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+    tenant_occupancy_update_request_model:
+      type: object
+      properties:
+        status:
+          type: string
           enum:
           - current
           - past
-          description: Initial status for the new lease.
+          description: New lease status.
         move_in_date:
           type: string
           nullable: true
-          description: Optional move-in date, in ISO format.
+          description: Move-in date, ISO format.
         lease_end_date:
           type: string
           nullable: true
-          description: Optional lease end date, in ISO format.
+          description: Lease end date, ISO format.
+    resident_moved_out_response_model:
+      type: object
+      required:
+      - leases
+      - inspections
+      properties:
+        leases:
+          type: array
+          items:
+            $ref: '#/components/schemas/api_tenant_occupancy'
+          description: The leases for the property after the move-out.
+        inspections:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Inspection documents affected by the move-out.
     lease_v2_response_model:
       type: object
       required:
@@ -1351,79 +1422,6 @@ components:
           type: string
           description: The date that the Resident is scheduled to move in to the current Property.
           example: 2022-01-15 00:00:00
-    resident_moved_out_response_model:
-      type: object
-      required:
-      - leases
-      - inspections
-      properties:
-        leases:
-          type: array
-          items:
-            $ref: '#/components/schemas/api_tenant_occupancy'
-          description: The leases for the property after the move-out.
-        inspections:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-          description: Inspection documents affected by the move-out.
-    lease_v2_create_request_model:
-      type: object
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: Indicates if the tenant is a future, past or current one
-          enum:
-          - future
-          - past
-          - current
-        tags:
-          type: array
-          description: Tags associated with the lease if it was evicted or is in notice
-          items:
-            type: string
-            enum:
-            - evict
-            - notice
-        lease_start:
-          type: string
-          description: The date the Resident's current lease starts.
-          example: 2021-01-15 00:00:00
-          nullable: true
-        lease_end:
-          type: string
-          description: The date the Resident's current lease should end.
-          example: 2022-01-15 00:00:00
-          nullable: true
-        rent:
-          type: number
-          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
-          example: 100
-          nullable: true
-        security_deposit:
-          type: number
-          description: Unit security deposit
-          example: 1500
-          nullable: true
-        move_out_date:
-          type: string
-          description: The date that the Resident is scheduled to move out of the current Property.
-          example: 2022-01-15 00:00:00
-          nullable: true
-        move_in_date:
-          type: string
-          description: The date that the Resident is scheduled to move in to the current Property.
-          example: 2022-01-15 00:00:00
-          nullable: true
-        property_id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        rentvine_sync:
-          $ref: '#/components/schemas/rentvine_sync'
     lease_v2_update_request_model:
       type: object
       properties:
@@ -1478,23 +1476,6 @@ components:
           example: 00BRcZPSakXz6w7RYoE
         rentvine_sync:
           $ref: '#/components/schemas/rentvine_sync'
-    tenant_occupancy_update_request_model:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - current
-          - past
-          description: New lease status.
-        move_in_date:
-          type: string
-          nullable: true
-          description: Move-in date, ISO format.
-        lease_end_date:
-          type: string
-          nullable: true
-          description: Lease end date, ISO format.
     rentvine_sync:
       type: object
       required:
@@ -1541,7 +1522,48 @@ components:
             - properties
             - tenants
             - inspections
+    tenant_occupancy_create_request_model:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - current
+          - past
+          description: Initial status for the new lease.
+        move_in_date:
+          type: string
+          nullable: true
+          description: Optional move-in date, in ISO format.
+        lease_end_date:
+          type: string
+          nullable: true
+          description: Optional lease end date, in ISO format.
   responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
     resident_lease_unauthorized:
       description: Unauthorized — either a standard auth-token failure, or the authenticated renter does not have access to the property the lease belongs to (or the lease belongs to a different property).
       content:
@@ -1567,28 +1589,6 @@ components:
                 - User either lacks property access or the lease belongs to a different property
                 - Lease belongs to a different property than the one provided
                 example: User either lacks property access or the lease belongs to a different property
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 401
-              error:
-                type: string
-                description: Error message
-                enum:
-                - token is not valid
-                - authorization header is empty
-                - authorization header is not valid
-                - 'format for Authorization must be: Bearer [token]'
-                - refresh token is not valid for resources
-                - not well-formed token
-                example: token is not valid
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

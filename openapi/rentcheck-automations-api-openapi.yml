@@ -557,134 +557,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    automation_update_request_model:
-      x-internal: true
-      type: object
-      description: All fields are optional, but if `recurrence` is supplied then `trigger_type` must also be supplied.
-      properties:
-        name:
-          type: string
-        active:
-          type: boolean
-          description: Toggle the automation on or off.
-        selection_type:
-          type: object
-          required:
-          - type
-          properties:
-            type:
-              type: string
-              enum:
-              - all_units
-              - specific_teams
-              - specific_units
-            ids:
-              type: array
-              items:
-                type: string
-              minItems: 1
-        fast_track:
-          type: boolean
-        inspection_template_id:
-          type: string
-        creation_date:
-          type: object
-          required:
-          - unit
-          - value
-          - condition
-          - due_date_after_days
-          properties:
-            unit:
-              type: string
-              enum:
-              - days
-              - weeks
-            value:
-              type: integer
-              minimum: 0
-              maximum: 999
-            condition:
-              type: string
-              enum:
-              - before
-              - after
-            due_date_after_days:
-              type: integer
-              minimum: 0
-              maximum: 99
-        trigger_type:
-          type: string
-          enum:
-          - tenant-move-in
-          - tenant-move-out
-          - lease-end
-          - lease-start
-        assignment_type:
-          type: object
-          required:
-          - type
-          properties:
-            type:
-              type: string
-              enum:
-              - residents
-              - self-perform
-              - emails
-              - teammates
-            emails:
-              type: array
-              items:
-                type: string
-                format: email
-              minItems: 1
-            teammate_emails:
-              type: object
-              additionalProperties:
-                type: array
-                items:
-                  type: string
-                  format: email
-                minItems: 1
-            resident_type:
-              type: string
-              enum:
-              - current
-              - future
-        recurrence:
-          type: object
-          required:
-          - frequency
-          properties:
-            frequency:
-              type: string
-              enum:
-              - does_not_repeat
-              - monthly
-              - quarterly
-              - semi_annually
-              - annually
-              - custom
-            custom_interval:
-              type: integer
-              minimum: 1
-            custom_unit:
-              type: string
-              enum:
-              - days
-              - weeks
-              - months
-            end_trigger:
-              type: string
-              enum:
-              - move_out
-              - lease_end
-    automation_get_all_response_model:
-      x-internal: true
-      type: array
-      description: Paginated list of automations.
-      items:
-        $ref: '#/components/schemas/api_automation'
     api_automation:
       x-internal: true
       type: object
@@ -1046,6 +918,134 @@ components:
               enum:
               - move_out
               - lease_end
+    automation_update_request_model:
+      x-internal: true
+      type: object
+      description: All fields are optional, but if `recurrence` is supplied then `trigger_type` must also be supplied.
+      properties:
+        name:
+          type: string
+        active:
+          type: boolean
+          description: Toggle the automation on or off.
+        selection_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - all_units
+              - specific_teams
+              - specific_units
+            ids:
+              type: array
+              items:
+                type: string
+              minItems: 1
+        fast_track:
+          type: boolean
+        inspection_template_id:
+          type: string
+        creation_date:
+          type: object
+          required:
+          - unit
+          - value
+          - condition
+          - due_date_after_days
+          properties:
+            unit:
+              type: string
+              enum:
+              - days
+              - weeks
+            value:
+              type: integer
+              minimum: 0
+              maximum: 999
+            condition:
+              type: string
+              enum:
+              - before
+              - after
+            due_date_after_days:
+              type: integer
+              minimum: 0
+              maximum: 99
+        trigger_type:
+          type: string
+          enum:
+          - tenant-move-in
+          - tenant-move-out
+          - lease-end
+          - lease-start
+        assignment_type:
+          type: object
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - residents
+              - self-perform
+              - emails
+              - teammates
+            emails:
+              type: array
+              items:
+                type: string
+                format: email
+              minItems: 1
+            teammate_emails:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+                  format: email
+                minItems: 1
+            resident_type:
+              type: string
+              enum:
+              - current
+              - future
+        recurrence:
+          type: object
+          required:
+          - frequency
+          properties:
+            frequency:
+              type: string
+              enum:
+              - does_not_repeat
+              - monthly
+              - quarterly
+              - semi_annually
+              - annually
+              - custom
+            custom_interval:
+              type: integer
+              minimum: 1
+            custom_unit:
+              type: string
+              enum:
+              - days
+              - weeks
+              - months
+            end_trigger:
+              type: string
+              enum:
+              - move_out
+              - lease_end
+    automation_get_all_response_model:
+      x-internal: true
+      type: array
+      description: Paginated list of automations.
+      items:
+        $ref: '#/components/schemas/api_automation'
   responses:
     '401':
       description: Unauthorized

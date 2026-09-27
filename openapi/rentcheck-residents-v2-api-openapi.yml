@@ -420,7 +420,63 @@ paths:
       operationId: putV2ResidentsById
       x-operation-id-source: derived
 components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
   schemas:
+    resident_v2_update_request_model:
+      type: object
+      properties:
+        organization_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+          nullable: true
+          minItems: 1
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
     resident_v2_response_model:
       type: object
       required:
@@ -791,45 +847,6 @@ components:
               error:
                 type: string
                 nullable: true
-    resident_v2_create_request_model:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - emails
-      properties:
-        organization_id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        first_name:
-          type: string
-          description: The Resident's first name.
-          example: Resident Name
-        last_name:
-          type: string
-          description: The Resident's last name.
-          example: Resident Lastname
-        emails:
-          type: array
-          description: Resident's emails
-          items:
-            type: string
-          example:
-          - resident@email.com
-        phone_numbers:
-          type: array
-          items:
-            type: string
-          description: Resident's phone numbers
-          example:
-          - '+17035556390'
-        rentvine_sync:
-          $ref: '#/components/schemas/rentvine_sync'
-        user_id:
-          type: string
-          description: Optional RentCheck user id to associate with the resident on creation.
-          example: 00BRcZPSakXz6w7RYoE
     rentvine_sync:
       type: object
       required:
@@ -876,8 +893,12 @@ components:
             - properties
             - tenants
             - inspections
-    resident_v2_update_request_model:
+    resident_v2_create_request_model:
       type: object
+      required:
+      - first_name
+      - last_name
+      - emails
       properties:
         organization_id:
           type: string
@@ -898,8 +919,6 @@ components:
             type: string
           example:
           - resident@email.com
-          nullable: true
-          minItems: 1
         phone_numbers:
           type: array
           items:
@@ -909,29 +928,10 @@ components:
           - '+17035556390'
         rentvine_sync:
           $ref: '#/components/schemas/rentvine_sync'
-  responses:
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 401
-              error:
-                type: string
-                description: Error message
-                enum:
-                - token is not valid
-                - authorization header is empty
-                - authorization header is not valid
-                - 'format for Authorization must be: Bearer [token]'
-                - refresh token is not valid for resources
-                - not well-formed token
-                example: token is not valid
+        user_id:
+          type: string
+          description: Optional RentCheck user id to associate with the resident on creation.
+          example: 00BRcZPSakXz6w7RYoE
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

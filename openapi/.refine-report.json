@@ -36,9 +36,7 @@
     "rentcheck-work-orders-v2-api-openapi.yml",
     "rentcheck-oauth2-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -75,8 +73,7 @@
     "rentcheck-openapi-original.yml: declared missing tag: Work Orders",
     "rentcheck-openapi-original.yml: declared missing tag: Work Orders V2",
     "rentcheck-openapi-original.yml: declared missing tag: oAuth2",
-    "superseded outputs removed: rentcheck-o-auth2-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 31 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "rentcheck-account-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -97,7 +94,7 @@
     "rentcheck-maintenance-flags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rentcheck-maintenance-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rentcheck-maintenance-reports-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "rentcheck-o-auth2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rentcheck-oauth2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rentcheck-permission-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rentcheck-properties-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "rentcheck-properties-v3-api-openapi.yml: previously refined output, superseded by openapi/_original/",

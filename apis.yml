@@ -48,7 +48,7 @@ tags:
 - Company
 - Property Management
 - Property Inspection
-- Real-Estate
+- Real Estate
 - PropTech
 - Inspection
 - Maintenance
@@ -62,6 +62,7 @@ tags_raw:
 - Inspections
 - Maintenance
 - Rental
+- Real-Estate
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -124,6 +125,8 @@ apis:
   humanURL: https://developers.getrentcheck.com/
   baseURL: https://prod-public-api.getrentcheck.com
   tags:
+  - Community
+  tags_raw:
   - Communities
   properties:
   - type: OpenAPI

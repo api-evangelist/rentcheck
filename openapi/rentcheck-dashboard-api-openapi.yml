@@ -230,87 +230,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    dashboard_get_all_response_model:
-      x-internal: true
-      type: object
-      properties:
-        stats:
-          type: object
-          properties:
-            all_star_status:
-              type: string
-              enum:
-              - Rookie
-              - Rising Star
-              - RentCheck All Star
-              description: Status given by RentCheck of your account, based on completion rate and risk value
-            total_inspections:
-              type: number
-              description: Total amount of inspections within the date range
-            overall_total_inspections:
-              type: number
-              description: Total amount of inspections
-            total_inspections_on_time:
-              type: number
-              description: Total amount of inspections completed on time within the date range
-            total_rejected_inspections:
-              type: number
-              description: Total amount of inspections rejected within the date range
-            total_inspection_ratings:
-              type: number
-              description: Total amount of inspections with ratings within the date range
-            average_inspection_rating:
-              type: number
-              description: Average rating of inspections completed within the date range
-            total_properties:
-              type: number
-              description: Total amount of properties
-            total_inspections_completed:
-              type: number
-              description: Total amount of inspections completed within the date range
-            total_requested_inspections:
-              type: number
-              description: Total amount of requested inspections within the date range
-            total_approved_inspections:
-              type: number
-              description: Total amount of inspections approved within the date range
-            total_requested_inspections_completed:
-              type: number
-              description: Total amount of requested inspections completed within the date range
-            total_internal_inspections_completed:
-              type: number
-              description: Total amount of internal inspections completed within the date range
-        todo_list:
-          type: object
-          properties:
-            inspections_awaiting_review_count:
-              type: number
-              description: Total amount of inspections awaiting review
-            overdue_inspections_count:
-              type: number
-              description: Total amount of overdue inspections
-            almost_due_inspections_count:
-              type: number
-              description: Total amount of almost due inspections
-            undelivered_emails_count:
-              type: number
-              description: Total amount of inspections with undelivered emails
-            revision_requested_inspections_count:
-              type: number
-              description: Total amount of inspections with revision requested
-            awaiting_signature_inspections_count:
-              type: number
-              description: Total amount of inspections awaiting signature
-            properties_at_risk_count:
-              type: number
-              description: Total amount of properties at risk
-            unassigned_inspections_count:
-              type: number
-              description: Total amount of inspections that are not yet assigned to a performer.
-        last_updated_date:
-          type: string
-          description: Last dashboard data updated date, in ISO format
-          example: 2022-12-02 14:15:37.925000
     dashboard_get_resource_response_model:
       x-internal: true
       type: object
@@ -418,6 +337,87 @@ components:
         totalResults:
           type: integer
           description: Total number of items matching the query, ignoring pagination.
+    dashboard_get_all_response_model:
+      x-internal: true
+      type: object
+      properties:
+        stats:
+          type: object
+          properties:
+            all_star_status:
+              type: string
+              enum:
+              - Rookie
+              - Rising Star
+              - RentCheck All Star
+              description: Status given by RentCheck of your account, based on completion rate and risk value
+            total_inspections:
+              type: number
+              description: Total amount of inspections within the date range
+            overall_total_inspections:
+              type: number
+              description: Total amount of inspections
+            total_inspections_on_time:
+              type: number
+              description: Total amount of inspections completed on time within the date range
+            total_rejected_inspections:
+              type: number
+              description: Total amount of inspections rejected within the date range
+            total_inspection_ratings:
+              type: number
+              description: Total amount of inspections with ratings within the date range
+            average_inspection_rating:
+              type: number
+              description: Average rating of inspections completed within the date range
+            total_properties:
+              type: number
+              description: Total amount of properties
+            total_inspections_completed:
+              type: number
+              description: Total amount of inspections completed within the date range
+            total_requested_inspections:
+              type: number
+              description: Total amount of requested inspections within the date range
+            total_approved_inspections:
+              type: number
+              description: Total amount of inspections approved within the date range
+            total_requested_inspections_completed:
+              type: number
+              description: Total amount of requested inspections completed within the date range
+            total_internal_inspections_completed:
+              type: number
+              description: Total amount of internal inspections completed within the date range
+        todo_list:
+          type: object
+          properties:
+            inspections_awaiting_review_count:
+              type: number
+              description: Total amount of inspections awaiting review
+            overdue_inspections_count:
+              type: number
+              description: Total amount of overdue inspections
+            almost_due_inspections_count:
+              type: number
+              description: Total amount of almost due inspections
+            undelivered_emails_count:
+              type: number
+              description: Total amount of inspections with undelivered emails
+            revision_requested_inspections_count:
+              type: number
+              description: Total amount of inspections with revision requested
+            awaiting_signature_inspections_count:
+              type: number
+              description: Total amount of inspections awaiting signature
+            properties_at_risk_count:
+              type: number
+              description: Total amount of properties at risk
+            unassigned_inspections_count:
+              type: number
+              description: Total amount of inspections that are not yet assigned to a performer.
+        last_updated_date:
+          type: string
+          description: Last dashboard data updated date, in ISO format
+          example: 2022-12-02 14:15:37.925000
   responses:
     '401':
       description: Unauthorized

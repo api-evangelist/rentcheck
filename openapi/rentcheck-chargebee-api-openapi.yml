@@ -131,7 +131,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    api_chargebee_addon:
+    api_chargebee_plan:
       x-internal: true
       type: object
       required:
@@ -139,22 +139,22 @@ components:
       - name
       - invoice_name
       - description
-      - pricing_model
+      - charge_model
       - price
       properties:
         id:
           type: string
-          description: Chargebee addon id.
+          description: Chargebee plan id.
         name:
           type: string
-          description: Addon name.
+          description: Plan name.
         invoice_name:
           type: string
           description: Name shown on the invoice line item.
         description:
           type: string
-          description: Addon description.
-        pricing_model:
+          description: Plan description.
+        charge_model:
           type: string
           enum:
           - flat_fee
@@ -162,7 +162,16 @@ components:
           - tiered
           - volume
           - stairstep
-          description: Chargebee pricing model for the addon.
+          description: Chargebee charge model for the plan.
+        trial_period:
+          type: integer
+          description: Length of the trial period, if any.
+        trial_period_unit:
+          type: string
+          enum:
+          - day
+          - month
+          description: Unit for `trial_period`.
         price:
           type: integer
           description: Price in cents (Chargebee stores money as integer cents).
@@ -315,7 +324,7 @@ components:
       description: List of Chargebee plans available to the caller.
       items:
         $ref: '#/components/schemas/api_chargebee_plan'
-    api_chargebee_plan:
+    api_chargebee_addon:
       x-internal: true
       type: object
       required:
@@ -323,22 +332,22 @@ components:
       - name
       - invoice_name
       - description
-      - charge_model
+      - pricing_model
       - price
       properties:
         id:
           type: string
-          description: Chargebee plan id.
+          description: Chargebee addon id.
         name:
           type: string
-          description: Plan name.
+          description: Addon name.
         invoice_name:
           type: string
           description: Name shown on the invoice line item.
         description:
           type: string
-          description: Plan description.
-        charge_model:
+          description: Addon description.
+        pricing_model:
           type: string
           enum:
           - flat_fee
@@ -346,16 +355,7 @@ components:
           - tiered
           - volume
           - stairstep
-          description: Chargebee charge model for the plan.
-        trial_period:
-          type: integer
-          description: Length of the trial period, if any.
-        trial_period_unit:
-          type: string
-          enum:
-          - day
-          - month
-          description: Unit for `trial_period`.
+          description: Chargebee pricing model for the addon.
         price:
           type: integer
           description: Price in cents (Chargebee stores money as integer cents).

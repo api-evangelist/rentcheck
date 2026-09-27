@@ -251,42 +251,6 @@ components:
                 - not well-formed token
                 example: token is not valid
   schemas:
-    maintenance_report_create_request_model:
-      type: object
-      required:
-      - name
-      - organize_by
-      - flags
-      properties:
-        name:
-          type: string
-          description: A name for the new report
-          example: Move-out maintenance report
-        organize_by:
-          type: string
-          description: Group to display when viewing the report
-          example: responsibility
-          enum:
-          - responsibility
-          - room
-          - skill
-        flags:
-          type: array
-          description: A list of maintenance flag ids and feature ids. An empty `flags` array results in a 500 rather than a 400 — no minimum length is enforced.
-          items:
-            type: object
-            required:
-            - id
-            - feature_id
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              feature_id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
     api_maintenance_report:
       type: object
       required:
@@ -624,6 +588,42 @@ components:
                       example: 00BRcZPSakXz6w7RYoE
                     name:
                       type: string
+    maintenance_report_create_request_model:
+      type: object
+      required:
+      - name
+      - organize_by
+      - flags
+      properties:
+        name:
+          type: string
+          description: A name for the new report
+          example: Move-out maintenance report
+        organize_by:
+          type: string
+          description: Group to display when viewing the report
+          example: responsibility
+          enum:
+          - responsibility
+          - room
+          - skill
+        flags:
+          type: array
+          description: A list of maintenance flag ids and feature ids. An empty `flags` array results in a 500 rather than a 400 — no minimum length is enforced.
+          items:
+            type: object
+            required:
+            - id
+            - feature_id
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              feature_id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

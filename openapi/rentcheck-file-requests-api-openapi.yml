@@ -275,16 +275,74 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    file_request_response_model:
-      x-internal: true
+    api_file_request:
       type: object
       required:
-      - fileRequestId
+      - id
+      - document_id
+      - document_type
+      - export_type
+      - status
+      - created_date
+      - updated_date
       properties:
-        fileRequestId:
+        id:
           type: string
           description: Entity ID
-          example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
+          example: 00BRcZPSakXz6w7RYoE
+        document_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        document_type:
+          type: string
+          description: Name of the report to be generated.
+          enum:
+          - INSPECTION_REPORT
+          - MAINTENANCE_REPORT
+          - WORK_ORDER
+          - INSPECTION_IMAGES
+          - BUILDINGS_LIST_EXPORT
+          - COMMUNITIES_LIST_EXPORT
+          - INSPECTION_LIST_EXPORT
+          - MAINTENANCE_REPORTS_LIST_EXPORT
+          - MAINTENANCE_FLAGS_LIST_EXPORT
+          - UNITS_LIST_EXPORT
+          - SUBSCRIPTION_REPORT_LIST_EXPORT
+          example: INSPECTION_REPORT
+        export_type:
+          type: string
+          description: Format of the exported report.
+          enum:
+          - PDF
+          - ZIP
+          - CSV
+          example: PDF
+        status:
+          type: string
+          description: Current status of the file request.
+          enum:
+          - CREATED
+          - PROCESSING
+          - DONE
+          - ERROR
+          - THROTTLED
+          example: DONE
+        error_message:
+          type: string
+          description: Error message describing why the file request failed, when status is `ERROR`.
+        file_location:
+          type: string
+          format: uri
+          description: URL where the generated document can be downloaded once the request completes. Only present once the request has produced a file (i.e. the underlying `file_name` is set server-side).
+        created_date:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp at which the file request was created.
+        updated_date:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent update to the file request.
     file_request_create_request_model:
       x-internal: true
       description: 'A file request is the API surface for asynchronous PDF/ZIP/CSV report generation. The required fields depend on `document_type`: for per-record exports (`INSPECTION_REPORT`, `MAINTENANCE_REPORT`, `WORK_ORDER`, `INSPECTION_IMAGES`) `document_id` is required; for list exports (`*_LIST_EXPORT`) `document_id` is omitted and the server generates one for the resulting file.'
@@ -372,74 +430,16 @@ components:
             type: object
             description: Optional list-export filter criteria. Shape varies by `document_type` — for `INSPECTION_LIST_EXPORT` it matches the inspection-list filter shape (`search`, `archived`, `assigned_to`, `inspection_template`, `inspection_status`, `team`, `property`, `due_date`, `completed_date`, etc.); for `*_LIST_EXPORT` variants it matches the matching list endpoint filter shape.
             additionalProperties: true
-    api_file_request:
+    file_request_response_model:
+      x-internal: true
       type: object
       required:
-      - id
-      - document_id
-      - document_type
-      - export_type
-      - status
-      - created_date
-      - updated_date
+      - fileRequestId
       properties:
-        id:
+        fileRequestId:
           type: string
           description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        document_id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        document_type:
-          type: string
-          description: Name of the report to be generated.
-          enum:
-          - INSPECTION_REPORT
-          - MAINTENANCE_REPORT
-          - WORK_ORDER
-          - INSPECTION_IMAGES
-          - BUILDINGS_LIST_EXPORT
-          - COMMUNITIES_LIST_EXPORT
-          - INSPECTION_LIST_EXPORT
-          - MAINTENANCE_REPORTS_LIST_EXPORT
-          - MAINTENANCE_FLAGS_LIST_EXPORT
-          - UNITS_LIST_EXPORT
-          - SUBSCRIPTION_REPORT_LIST_EXPORT
-          example: INSPECTION_REPORT
-        export_type:
-          type: string
-          description: Format of the exported report.
-          enum:
-          - PDF
-          - ZIP
-          - CSV
-          example: PDF
-        status:
-          type: string
-          description: Current status of the file request.
-          enum:
-          - CREATED
-          - PROCESSING
-          - DONE
-          - ERROR
-          - THROTTLED
-          example: DONE
-        error_message:
-          type: string
-          description: Error message describing why the file request failed, when status is `ERROR`.
-        file_location:
-          type: string
-          format: uri
-          description: URL where the generated document can be downloaded once the request completes. Only present once the request has produced a file (i.e. the underlying `file_name` is set server-side).
-        created_date:
-          type: string
-          format: date-time
-          description: ISO-8601 timestamp at which the file request was created.
-        updated_date:
-          type: string
-          format: date-time
-          description: ISO-8601 timestamp of the most recent update to the file request.
+          example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
     file_request_v1_get_by_id_response_model:
       x-internal: true
       type: object

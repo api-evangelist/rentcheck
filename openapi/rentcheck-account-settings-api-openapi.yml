@@ -752,6 +752,213 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    api_signature_acknowledgement:
+      x-internal: true
+      type: object
+      required:
+      - text
+      - updated_by
+      description: Signature acknowledgement.
+      properties:
+        text:
+          type: string
+        updated_by:
+          type: object
+          required:
+          - id
+          - username
+          - email
+          - updated_date
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    notifications_preferences_update_request_model:
+      type: object
+      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
+      properties:
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
+    basic_email_customization:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - email_type_id
+      - email_title
+      - email_explanatory_text
+      - template
+      description: Basic email customization.
+      properties:
+        id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        email_title:
+          type: string
+        email_explanatory_text:
+          type: string
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
+    rev_share_prospect_create_request_model:
+      type: object
+      required:
+      - prospect_email
+      - total_properties
+      - chargebee_plan_id
+      properties:
+        prospect_email:
+          type: string
+          format: email
+          description: Email address of the prospect being onboarded.
+        user_name:
+          type: string
+          description: Optional display name to assign to the newly-created prospect user.
+        total_properties:
+          type: string
+          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
+        chargebee_plan_id:
+          type: string
+          description: Chargebee plan id the prospect should be associated with.
+        chargebee_addon_ids:
+          type: array
+          items:
+            type: string
+          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
+    email_customization_test_request_model:
+      x-internal: true
+      type: object
+      required:
+      - recipients
+      - content
+      - property_id
+      - inspection_template_id
+      - email_type_id
+      description: Request body for sending a test email customization.
+      properties:
+        recipients:
+          type: array
+          items:
+            type: string
+            format: email
+          minItems: 1
+        content:
+          type: string
+        property_id:
+          type: string
+        inspection_template_id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    notifications_preferences_response_model:
+      type: object
+      required:
+      - id
+      - inspections_awaiting_review
+      - inspections_in_revision_review
+      - inspections_completed
+      - automation_failures
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        user_id:
+          type: string
+          description: Set when the preferences belong to a registered RentCheck user.
+        user_email:
+          type: string
+          description: Set when the preferences belong to an unregistered recipient managing settings via an emailed token.
+        subscription_id:
+          type: string
+          description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
+    email_customization_upsert_request_model:
+      x-internal: true
+      type: object
+      required:
+      - content
+      - email_type_id
+      - inspection_template_ids
+      description: Request body for upserting an email customization.
+      properties:
+        content:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        inspection_template_ids:
+          type: array
+          items:
+            type: string
     notification_preference:
       type: object
       required:
@@ -787,50 +994,78 @@ components:
                 description: Either the literal string 'default' or an inspection template id.
               text:
                 type: string
-    email_customization_upsert_request_model:
+    api_email_customization:
       x-internal: true
       type: object
       required:
+      - id
       - content
-      - email_type_id
-      - inspection_template_ids
-      description: Request body for upserting an email customization.
+      - message
+      - subject
+      - template
+      description: Email customization.
       properties:
+        id:
+          type: string
         content:
           type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        inspection_template_ids:
-          type: array
-          items:
-            type: string
-    api_signature_acknowledgement:
-      x-internal: true
-      type: object
-      required:
-      - text
-      - updated_by
-      description: Signature acknowledgement.
-      properties:
-        text:
-          type: string
-        updated_by:
+          description: HTML / template body of the email customization.
+        message:
+          type: object
+          required:
+          - email_title
+          - email_type
+          - email_explanatory_text
+          properties:
+            email_title:
+              type: string
+            email_type:
+              type: string
+              enum:
+              - inspection_invitation_new_to_rentcheck
+              - inspection_invitation_existing_rentcheck_users
+              - final_inspection_reminder_3_days_overdue
+              - inspection_approval_confirmation
+              - inspection_review_request
+              description: Allowed email-customization types.
+            email_explanatory_text:
+              type: string
+        subject:
+          type: object
+          required:
+          - title
+          - merge_tags
+          properties:
+            title:
+              type: string
+            merge_tags:
+              type: array
+              items:
+                type: object
+                required:
+                - value
+                - display_name
+                properties:
+                  value:
+                    type: string
+                  display_name:
+                    type: string
+        template:
           type: object
           required:
           - id
-          - username
-          - email
-          - updated_date
+          - name
+          - internal_label
           properties:
             id:
               type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
             username:
               type: string
             email:
@@ -838,43 +1073,29 @@ components:
             updated_date:
               type: string
               format: date-time
-    rev_share_prospect_create_request_model:
+    account_settings_delete_rooms_request_model:
+      x-internal: true
       type: object
       required:
-      - prospect_email
-      - total_properties
-      - chargebee_plan_id
+      - property_type
+      - rooms
+      description: Request body for deleting rooms.
       properties:
-        prospect_email:
+        property_type:
           type: string
-          format: email
-          description: Email address of the prospect being onboarded.
-        user_name:
-          type: string
-          description: Optional display name to assign to the newly-created prospect user.
-        total_properties:
-          type: string
-          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
-        chargebee_plan_id:
-          type: string
-          description: Chargebee plan id the prospect should be associated with.
-        chargebee_addon_ids:
+          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+          enum:
+          - ''
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+          example: Single-Family
+        rooms:
           type: array
           items:
-            type: string
-          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
-    notifications_preferences_update_request_model:
-      type: object
-      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
-      properties:
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
+            type: object
+          description: List of room entries to remove.
     api_account_settings:
       type: object
       required:
@@ -1242,61 +1463,6 @@ components:
               type: string
             phone_number:
               type: string
-    email_customization_test_request_model:
-      x-internal: true
-      type: object
-      required:
-      - recipients
-      - content
-      - property_id
-      - inspection_template_id
-      - email_type_id
-      description: Request body for sending a test email customization.
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-            format: email
-          minItems: 1
-        content:
-          type: string
-        property_id:
-          type: string
-        inspection_template_id:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-    account_settings_delete_rooms_request_model:
-      x-internal: true
-      type: object
-      required:
-      - property_type
-      - rooms
-      description: Request body for deleting rooms.
-      properties:
-        property_type:
-          type: string
-          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
-          enum:
-          - ''
-          - Single-Family
-          - Multi-Family
-          - Apartment or Condo
-          - Commercial
-          example: Single-Family
-        rooms:
-          type: array
-          items:
-            type: object
-          description: List of room entries to remove.
     account_settings_update_request_model:
       type: object
       description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
@@ -1619,142 +1785,6 @@ components:
               type: string
             phone_number:
               type: string
-    basic_email_customization:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - email_type_id
-      - email_title
-      - email_explanatory_text
-      - template
-      description: Basic email customization.
-      properties:
-        id:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        email_title:
-          type: string
-        email_explanatory_text:
-          type: string
-        template:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            internal_label:
-              type: string
-        updated_by:
-          type: object
-          properties:
-            username:
-              type: string
-            email:
-              type: string
-            updated_date:
-              type: string
-              format: date-time
-    notification_preference_no_email:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-    api_email_customization:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - content
-      - message
-      - subject
-      - template
-      description: Email customization.
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-          description: HTML / template body of the email customization.
-        message:
-          type: object
-          required:
-          - email_title
-          - email_type
-          - email_explanatory_text
-          properties:
-            email_title:
-              type: string
-            email_type:
-              type: string
-              enum:
-              - inspection_invitation_new_to_rentcheck
-              - inspection_invitation_existing_rentcheck_users
-              - final_inspection_reminder_3_days_overdue
-              - inspection_approval_confirmation
-              - inspection_review_request
-              description: Allowed email-customization types.
-            email_explanatory_text:
-              type: string
-        subject:
-          type: object
-          required:
-          - title
-          - merge_tags
-          properties:
-            title:
-              type: string
-            merge_tags:
-              type: array
-              items:
-                type: object
-                required:
-                - value
-                - display_name
-                properties:
-                  value:
-                    type: string
-                  display_name:
-                    type: string
-        template:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            internal_label:
-              type: string
-        updated_by:
-          type: object
-          properties:
-            username:
-              type: string
-            email:
-              type: string
-            updated_date:
-              type: string
-              format: date-time
     signature_acknowledgements_response_model:
       x-internal: true
       type: object
@@ -1814,52 +1844,7 @@ components:
                     example: Single-Family
               customization:
                 $ref: '#/components/schemas/api_signature_acknowledgement'
-    notifications_preferences_response_model:
-      type: object
-      required:
-      - id
-      - inspections_awaiting_review
-      - inspections_in_revision_review
-      - inspections_completed
-      - automation_failures
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        user_id:
-          type: string
-          description: Set when the preferences belong to a registered RentCheck user.
-        user_email:
-          type: string
-          description: Set when the preferences belong to an unregistered recipient managing settings via an emailed token.
-        subscription_id:
-          type: string
-          description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
   responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 404
-              error:
-                type: string
-                description: Error message describing the missing resource
-                example: property not found
     '401':
       description: Unauthorized
       content:
@@ -1882,6 +1867,21 @@ components:
                 - refresh token is not valid for resources
                 - not well-formed token
                 example: token is not valid
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 404
+              error:
+                type: string
+                description: Error message describing the missing resource
+                example: property not found
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

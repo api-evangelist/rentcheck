@@ -486,6 +486,102 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    api_permission_group:
+      type: object
+      required:
+      - id
+      - name
+      - subscription_id
+      - inspection_templates
+      - users
+      - allow_billing_plan_editing
+      - allow_automation_editing
+      - allow_notifications_preferences_editing
+      - allow_inspection_messaging_editing
+      - allow_ai_manual_scan
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: Name for the permission group, must be unique in the subscription context
+        subscription_id:
+          type: string
+          description: Id for the subscription the permission group belongs to
+        allow_billing_plan_editing:
+          type: boolean
+          description: Enable or disable billing plan editing for users on this permission group
+        allow_automation_editing:
+          type: boolean
+          description: Enable or disable automation editing for users on this permission group
+        allow_notifications_preferences_editing:
+          type: boolean
+          description: Enable or disable notification preferences editing for users on this permission group
+        allow_inspection_messaging_editing:
+          type: boolean
+          description: Enable or disable inspection messaging editing for users on this permission group
+        allow_ai_manual_scan:
+          type: boolean
+          description: Enable or disable manual AI damage scans for users on this permission group
+        inspection_templates:
+          type: array
+          description: Which inspection templates users that belong to this permission group have access to
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - internal_label
+            - property_type
+            - display_name
+            properties:
+              id:
+                type: string
+                description: Inspection template identifier
+              name:
+                type: string
+                description: Inspection template name.
+              internal_label:
+                type: string
+                description: Inspection template internal label.
+              property_type:
+                type: string
+                description: Inspection template property type.
+              display_name:
+                type: string
+                description: Resolved display name for the inspection template, used by clients to render the template title (mirrors `name` for legacy templates).
+        users:
+          description: Which users belong to this permission group
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: Name of the user
+              email:
+                type: string
+                description: Email of the user
+              type:
+                type: string
+                enum:
+                - Renter
+                - Property Manager
+                - Landlord
+                - System
+                description: User type discriminator.
+              user_type:
+                type: string
+                enum:
+                - Renter
+                - Property Manager
+                - Landlord
+                example: Property Manager
     permission_group_create_request_model:
       type: object
       required:
@@ -597,102 +693,6 @@ components:
           items:
             type: string
           description: IDs of the permission groups to be deleted. Must contain at least one id.
-    api_permission_group:
-      type: object
-      required:
-      - id
-      - name
-      - subscription_id
-      - inspection_templates
-      - users
-      - allow_billing_plan_editing
-      - allow_automation_editing
-      - allow_notifications_preferences_editing
-      - allow_inspection_messaging_editing
-      - allow_ai_manual_scan
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: Name for the permission group, must be unique in the subscription context
-        subscription_id:
-          type: string
-          description: Id for the subscription the permission group belongs to
-        allow_billing_plan_editing:
-          type: boolean
-          description: Enable or disable billing plan editing for users on this permission group
-        allow_automation_editing:
-          type: boolean
-          description: Enable or disable automation editing for users on this permission group
-        allow_notifications_preferences_editing:
-          type: boolean
-          description: Enable or disable notification preferences editing for users on this permission group
-        allow_inspection_messaging_editing:
-          type: boolean
-          description: Enable or disable inspection messaging editing for users on this permission group
-        allow_ai_manual_scan:
-          type: boolean
-          description: Enable or disable manual AI damage scans for users on this permission group
-        inspection_templates:
-          type: array
-          description: Which inspection templates users that belong to this permission group have access to
-          items:
-            type: object
-            required:
-            - id
-            - name
-            - internal_label
-            - property_type
-            - display_name
-            properties:
-              id:
-                type: string
-                description: Inspection template identifier
-              name:
-                type: string
-                description: Inspection template name.
-              internal_label:
-                type: string
-                description: Inspection template internal label.
-              property_type:
-                type: string
-                description: Inspection template property type.
-              display_name:
-                type: string
-                description: Resolved display name for the inspection template, used by clients to render the template title (mirrors `name` for legacy templates).
-        users:
-          description: Which users belong to this permission group
-          type: array
-          items:
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              name:
-                type: string
-                description: Name of the user
-              email:
-                type: string
-                description: Email of the user
-              type:
-                type: string
-                enum:
-                - Renter
-                - Property Manager
-                - Landlord
-                - System
-                description: User type discriminator.
-              user_type:
-                type: string
-                enum:
-                - Renter
-                - Property Manager
-                - Landlord
-                example: Property Manager
   responses:
     '401':
       description: Unauthorized
