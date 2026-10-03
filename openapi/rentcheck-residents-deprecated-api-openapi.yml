@@ -283,67 +283,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    resident_create_request_model:
-      type: object
-      required:
-      - current_property_id
-      - first_name
-      - last_name
-      - emails
-      properties:
-        current_property_id:
-          type: string
-          description: The entity id of the latest Unit occupied by the Resident.
-          example: 00BRcZPSakXz6w7RYoE
-        first_name:
-          type: string
-          description: The Resident's first name.
-          example: Resident Name
-        last_name:
-          type: string
-          description: The Resident's last name.
-          example: Resident Lastname
-        emails:
-          type: array
-          description: Resident's emails
-          items:
-            type: string
-          example:
-          - resident@email.com
-        phone_numbers:
-          type: array
-          items:
-            type: string
-          description: Resident's phone numbers
-          example:
-          - '+17035556390'
-        current_lease_start:
-          type: string
-          description: The date the Resident's current lease starts.
-          example: 2021-01-15 00:00:00
-        current_lease_end:
-          type: string
-          description: The date the Resident's current lease should end.
-          example: 2022-01-15 00:00:00
-        current_rent:
-          type: number
-          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
-          example: 100
-        current_security_deposit:
-          type: number
-          description: The dollar amount of the Resident's security deposit. Must be ≥ 0.
-          example: 150
-        move_out_date:
-          type: string
-          description: The date that the Resident is scheduled to move out of the current Property.
-          example: 2022-01-15 00:00:00
-        previous_properties:
-          type: array
-          description: Always emitted as an empty array on v1 resident responses. To enumerate the past leases for a resident, list them via `GET /v2/residents/{residentId}/leases`. Retained here for backward compatibility.
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
     resident_response_model:
       type: object
       required:
@@ -448,6 +387,67 @@ components:
           type: string
           description: Entity last update date, in ISO format
           example: 2023-10-04 14:15:37.925000
+    resident_create_request_model:
+      type: object
+      required:
+      - current_property_id
+      - first_name
+      - last_name
+      - emails
+      properties:
+        current_property_id:
+          type: string
+          description: The entity id of the latest Unit occupied by the Resident.
+          example: 00BRcZPSakXz6w7RYoE
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        current_lease_start:
+          type: string
+          description: The date the Resident's current lease starts.
+          example: 2021-01-15 00:00:00
+        current_lease_end:
+          type: string
+          description: The date the Resident's current lease should end.
+          example: 2022-01-15 00:00:00
+        current_rent:
+          type: number
+          description: The dollar amount of the Resident's current rent. Must be ≥ 0.
+          example: 100
+        current_security_deposit:
+          type: number
+          description: The dollar amount of the Resident's security deposit. Must be ≥ 0.
+          example: 150
+        move_out_date:
+          type: string
+          description: The date that the Resident is scheduled to move out of the current Property.
+          example: 2022-01-15 00:00:00
+        previous_properties:
+          type: array
+          description: Always emitted as an empty array on v1 resident responses. To enumerate the past leases for a resident, list them via `GET /v2/residents/{residentId}/leases`. Retained here for backward compatibility.
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
     zapier_resident_create_request_model:
       x-internal: true
       type: object

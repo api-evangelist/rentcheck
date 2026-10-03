@@ -379,342 +379,90 @@ paths:
       operationId: getV2PropertiesUnits
       x-operation-id-source: derived
 components:
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
+  parameters:
+    V3PropertyListTeamIdLegacy:
+      in: query
+      name: team_id[]
+      deprecated: true
+      schema:
+        type: array
+        items:
+          type: string
+      description: Legacy team id filter. Prefer `filters[team][value]`.
+    V3PropertyListTeamValue:
+      in: query
+      name: filters[team][value]
+      schema:
+        type: string
+      description: List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `"filters.teamIds.value" must contain at least 1 items`.
+    V3PropertyListLastCompletedStart:
+      in: query
+      name: last_completed_inspection_start_date
+      schema:
+        oneOf:
+        - type: string
+          format: date
+        - type: string
+          format: date-time
+        - type: string
+          enum:
+          - ''
+      description: ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as "no filter".
+    V3PropertyListLastCompletedEnd:
+      in: query
+      name: last_completed_inspection_end_date
+      schema:
+        oneOf:
+        - type: string
+          format: date
+        - type: string
+          format: date-time
+        - type: string
+          enum:
+          - ''
+      description: ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as "no filter".
+    V3PropertyListSortType:
+      in: query
+      name: sort_type
+      schema:
+        type: string
+        default: asc
+        pattern: ^(?:[Aa][Ss][Cc]|[Dd][Ee][Ss][Cc])$
+        example: asc
+      description: Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted.
+    V3PropertyListTeamCondition:
+      in: query
+      name: filters[team][condition]
+      schema:
+        type: string
+        enum:
+        - any_of
+        - none_of
+      description: Condition to apply to the team filter.
   schemas:
-    building_response_model:
-      type: object
-      required:
-      - id
-      - name
-      - address
-      - city
-      - zip_code
-      - floors
-      - property_type
-      - team
-      - room_names
-      - last_completed_inspection
-      - permissions
-      - created_date
-      - updated_date
-      - rooms_info
-      - rooms
-      - creation_source
-      - created_by
-      - additional_team_ids
-      - unit_ids
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        x_id:
-          type: string
-          description: External property ID that maps to RentCheck properties
-        team:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: The name field is the Team name that is displayed on recipient facing reports and communication.
-              example: The best company
-            internal_label:
-              type: string
-              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-              example: The best company label
-          nullable: true
-          readOnly: true
-          description: Team that owns this building. May be null when the underlying team has been removed.
-        property_type:
-          type: string
-          description: Discriminator value identifying this property as a Building.
-          enum:
-          - Building
-          example: Building
-          readOnly: true
-        name:
-          type: string
-          description: This is the name of the Building.
-          example: Empire State Building
-        address:
-          type: string
-          description: This is the street address for the Building.
-          example: 2001 Red Gates
-        address_2:
-          type: string
-          description: Additional address information for the Building.
-          example: Apt. 4B
-        city:
-          type: string
-          description: This is the city of the Building.
-          example: New Orleans
-        region:
-          type: string
-          description: The broader region or area in which the Building is located.
-          example: Orleans
-        zip_code:
-          type: string
-          description: This is the Postal Code for the Building.
-          example: '70130'
-        floors:
-          type: number
-          maximum: 100
-          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
-          example: 7
-        additional_team_ids:
-          type: array
-          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        unit_ids:
-          type: array
-          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        creation_source:
-          type: string
-          description: App that perform the entity creation.
-          enum:
-          - zapier
-          - rentmanager
-          - flatfile
-          - 365connect
-          - appfolio
-          - yardi
-          - rentvine
-          - test_app_id
-          example: zapier
-          readOnly: true
-        created_by:
-          type: object
-          properties:
-            name:
-              type: string
-              description: Name of the user that created the property
-          description: Info about the user that created the property.
-          readOnly: true
-        created_date:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-          readOnly: true
-        updated_date:
-          type: string
-          description: Entity last update date, in ISO format
-          example: 2023-10-04 14:15:37.925000
-          readOnly: true
-        rooms:
-          type: array
-          items:
-            type: string
-          deprecated: true
-          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
-          example:
-          - Living Room
-          - Den
-          - Balcony
-          readOnly: true
-        room_names:
-          type: array
-          deprecated: true
-          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. Returned unit room names.'
-          enum:
-          - Front Door
-          - Back Door
-          - Kitchen
-          - Dining Room
-          - Living Room
-          - Family Room
-          - Den
-          - Office
-          - Bedroom
-          - First Bedroom
-          - Second Bedroom
-          - Third Bedroom
-          - Fourth Bedroom
-          - Fifth Bedroom
-          - Sixth Bedroom
-          - Seventh Bedroom
-          - Eighth Bedroom
-          - Ninth Bedroom
-          - Tenth Bedroom
-          - Bathroom
-          - First Bathroom
-          - Second Bathroom
-          - Third Bathroom
-          - Fourth Bathroom
-          - Fifth Bathroom
-          - Sixth Bathroom
-          - Seventh Bathroom
-          - Eighth Bathroom
-          - Ninth Bathroom
-          - Tenth Bathroom
-          - Full Bathroom
-          - First Full Bathroom
-          - Second Full Bathroom
-          - Third Full Bathroom
-          - Fourth Full Bathroom
-          - Fifth Full Bathroom
-          - Sixth Full Bathroom
-          - Seventh Full Bathroom
-          - Eighth Full Bathroom
-          - Ninth Full Bathroom
-          - Tenth Full Bathroom
-          - Half Bathroom
-          - First Half Bathroom
-          - Second Half Bathroom
-          - Third Half Bathroom
-          - Fourth Half Bathroom
-          - Fifth Half Bathroom
-          - Sixth Half Bathroom
-          - Seventh Half Bathroom
-          - Eighth Half Bathroom
-          - Ninth Half Bathroom
-          - Tenth Half Bathroom
-          - Laundry Room
-          - Stairway
-          - Stairs
-          - Hallway
-          - Basement
-          - Loft
-          - Attic
-          - Storage Room
-          - Garage
-          - Carport
-          - Patio
-          - Balcony
-          - General
-          - Property Exterior & Grounds
-          - Multi-Unit Common Areas
-          readOnly: true
-        rooms_info:
-          type: array
-          description: Structured per-room metadata and the source of truth for room labeling. `rooms` and `room_names` are derived from this. `type` is the no-ordinal room kind (e.g. "Bedroom"), `name` is the ordinal name (e.g. "First Bedroom"), and `label` is a human-meaningful label that defaults to `name`.
-          items:
-            $ref: '#/components/schemas/room_info'
-          readOnly: true
-        last_completed_inspection:
-          type: object
-          readOnly: true
-          nullable: true
-          required:
-          - date
-          - id
-          - type
-          properties:
-            date:
-              type: string
-              description: Inspection completion date, in ISO format
-              example: 2022-12-02 14:15:37.925000
-            type:
-              type: string
-              description: The inspection template name
-            id:
-              type: string
-              description: Inspection ID
-        permissions:
-          type: object
-          readOnly: true
-          required:
-          - can_delete
-          - can_create_inspection
-          - can_add_to_parent_property
-          - can_reassign_team
-          properties:
-            can_delete:
-              type: boolean
-            can_create_inspection:
-              type: boolean
-            can_add_to_parent_property:
-              type: boolean
-            can_reassign_team:
-              type: boolean
-        sync_data:
-          type: object
-          readOnly: true
-          nullable: true
-          required:
-          - vendor
-          - last_sync
-          description: Single sync envelope used for whichever integration owns the property; null when the property is not synced.
-          properties:
-            last_sync:
-              type: string
-              description: Sync date, in ISO format
-              example: 2022-12-02 14:15:37.925000
-            vendor:
-              type: string
-              description: The third party vendor for this sync
-              enum:
-              - rentmanager
-              - yardi
-              - appfolio
-              - jenark
-              - rentvine
-              - buildium
-            status:
-              type: string
-              description: Latest manual-sync status. Only present on integrations that expose it (e.g. Buildium).
-              enum:
-              - scheduled
-              - processing
-              - success
-              - error
-            error:
-              type: string
-              nullable: true
-              description: Error message from the most recent sync attempt, if any.
-            id:
-              oneOf:
-              - type: string
-              - type: integer
-              description: External vendor id for the property/unit (string for most vendors; integer for AppFolio).
-            x_id:
-              type: string
-              description: Vendor-native external id echo for the legacy Rentvine / Rent Manager envelope. Kept for debugging/audit parity with the historic `sync_data`.
-            location_id:
-              type: string
-              description: Rent Manager location (property) id — legacy `sync_data`, debugging/audit.
-            integration_id:
-              type: string
-              description: RentCheck integration record id (Rent Manager legacy sync) — debugging/audit.
-            short_property_id:
-              type: string
-              description: AppFolio short property id, when synced from AppFolio.
-            short_unit_id:
-              type: string
-              description: AppFolio short unit id, when synced from AppFolio.
-            upload_response:
-              type: array
-              description: AppFolio per-destination inspection-upload outcomes.
-              items:
-                type: object
-                required:
-                - resource
-                - resource_id
-                - uploaded_id
-                properties:
-                  resource:
-                    type: string
-                    enum:
-                    - units
-                    - properties
-                    - occupancies
-                  resource_id:
-                    type: string
-                  uploaded_id:
-                    type: string
     room_info:
       type: object
       required:
@@ -1411,89 +1159,341 @@ components:
               type: boolean
             can_reassign_team:
               type: boolean
-  parameters:
-    V3PropertyListTeamCondition:
-      in: query
-      name: filters[team][condition]
-      schema:
-        type: string
-        enum:
-        - any_of
-        - none_of
-      description: Condition to apply to the team filter.
-    V3PropertyListLastCompletedEnd:
-      in: query
-      name: last_completed_inspection_end_date
-      schema:
-        oneOf:
-        - type: string
-          format: date
-        - type: string
-          format: date-time
-        - type: string
-          enum:
-          - ''
-      description: ISO-8601 date (`YYYY-MM-DD`) or date-time upper bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as "no filter".
-    V3PropertyListLastCompletedStart:
-      in: query
-      name: last_completed_inspection_start_date
-      schema:
-        oneOf:
-        - type: string
-          format: date
-        - type: string
-          format: date-time
-        - type: string
-          enum:
-          - ''
-      description: ISO-8601 date (`YYYY-MM-DD`) or date-time lower bound for the last completed inspection filter. Both date and date-time forms are accepted, and an empty string is treated as "no filter".
-    V3PropertyListTeamValue:
-      in: query
-      name: filters[team][value]
-      schema:
-        type: string
-      description: List of team ids to filter by. Multiple values are concatenated with `|`. When `filters[team][condition]` is supplied, this must resolve to at least one id, so an empty list surfaces as 400 `"filters.teamIds.value" must contain at least 1 items`.
-    V3PropertyListSortType:
-      in: query
-      name: sort_type
-      schema:
-        type: string
-        default: asc
-        pattern: ^(?:[Aa][Ss][Cc]|[Dd][Ee][Ss][Cc])$
-        example: asc
-      description: Sort direction. Case-insensitive, so `asc`/`ASC`/`Asc` and `desc`/`DESC`/`Desc` are all accepted.
-    V3PropertyListTeamIdLegacy:
-      in: query
-      name: team_id[]
-      deprecated: true
-      schema:
-        type: array
-        items:
+    building_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - city
+      - zip_code
+      - floors
+      - property_type
+      - team
+      - room_names
+      - last_completed_inspection
+      - permissions
+      - created_date
+      - updated_date
+      - rooms_info
+      - rooms
+      - creation_source
+      - created_by
+      - additional_team_ids
+      - unit_ids
+      properties:
+        id:
           type: string
-      description: Legacy team id filter. Prefer `filters[team][value]`.
-  responses:
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 401
-              error:
-                type: string
-                description: Error message
-                enum:
-                - token is not valid
-                - authorization header is empty
-                - authorization header is not valid
-                - 'format for Authorization must be: Bearer [token]'
-                - refresh token is not valid for resources
-                - not well-formed token
-                example: token is not valid
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        x_id:
+          type: string
+          description: External property ID that maps to RentCheck properties
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+          nullable: true
+          readOnly: true
+          description: Team that owns this building. May be null when the underlying team has been removed.
+        property_type:
+          type: string
+          description: Discriminator value identifying this property as a Building.
+          enum:
+          - Building
+          example: Building
+          readOnly: true
+        name:
+          type: string
+          description: This is the name of the Building.
+          example: Empire State Building
+        address:
+          type: string
+          description: This is the street address for the Building.
+          example: 2001 Red Gates
+        address_2:
+          type: string
+          description: Additional address information for the Building.
+          example: Apt. 4B
+        city:
+          type: string
+          description: This is the city of the Building.
+          example: New Orleans
+        region:
+          type: string
+          description: The broader region or area in which the Building is located.
+          example: Orleans
+        zip_code:
+          type: string
+          description: This is the Postal Code for the Building.
+          example: '70130'
+        floors:
+          type: number
+          maximum: 100
+          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
+          example: 7
+        additional_team_ids:
+          type: array
+          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        unit_ids:
+          type: array
+          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        creation_source:
+          type: string
+          description: App that perform the entity creation.
+          enum:
+          - zapier
+          - rentmanager
+          - flatfile
+          - 365connect
+          - appfolio
+          - yardi
+          - rentvine
+          - test_app_id
+          example: zapier
+          readOnly: true
+        created_by:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the user that created the property
+          description: Info about the user that created the property.
+          readOnly: true
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+          readOnly: true
+        updated_date:
+          type: string
+          description: Entity last update date, in ISO format
+          example: 2023-10-04 14:15:37.925000
+          readOnly: true
+        rooms:
+          type: array
+          items:
+            type: string
+          deprecated: true
+          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
+          example:
+          - Living Room
+          - Den
+          - Balcony
+          readOnly: true
+        room_names:
+          type: array
+          deprecated: true
+          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. Returned unit room names.'
+          enum:
+          - Front Door
+          - Back Door
+          - Kitchen
+          - Dining Room
+          - Living Room
+          - Family Room
+          - Den
+          - Office
+          - Bedroom
+          - First Bedroom
+          - Second Bedroom
+          - Third Bedroom
+          - Fourth Bedroom
+          - Fifth Bedroom
+          - Sixth Bedroom
+          - Seventh Bedroom
+          - Eighth Bedroom
+          - Ninth Bedroom
+          - Tenth Bedroom
+          - Bathroom
+          - First Bathroom
+          - Second Bathroom
+          - Third Bathroom
+          - Fourth Bathroom
+          - Fifth Bathroom
+          - Sixth Bathroom
+          - Seventh Bathroom
+          - Eighth Bathroom
+          - Ninth Bathroom
+          - Tenth Bathroom
+          - Full Bathroom
+          - First Full Bathroom
+          - Second Full Bathroom
+          - Third Full Bathroom
+          - Fourth Full Bathroom
+          - Fifth Full Bathroom
+          - Sixth Full Bathroom
+          - Seventh Full Bathroom
+          - Eighth Full Bathroom
+          - Ninth Full Bathroom
+          - Tenth Full Bathroom
+          - Half Bathroom
+          - First Half Bathroom
+          - Second Half Bathroom
+          - Third Half Bathroom
+          - Fourth Half Bathroom
+          - Fifth Half Bathroom
+          - Sixth Half Bathroom
+          - Seventh Half Bathroom
+          - Eighth Half Bathroom
+          - Ninth Half Bathroom
+          - Tenth Half Bathroom
+          - Laundry Room
+          - Stairway
+          - Stairs
+          - Hallway
+          - Basement
+          - Loft
+          - Attic
+          - Storage Room
+          - Garage
+          - Carport
+          - Patio
+          - Balcony
+          - General
+          - Property Exterior & Grounds
+          - Multi-Unit Common Areas
+          readOnly: true
+        rooms_info:
+          type: array
+          description: Structured per-room metadata and the source of truth for room labeling. `rooms` and `room_names` are derived from this. `type` is the no-ordinal room kind (e.g. "Bedroom"), `name` is the ordinal name (e.g. "First Bedroom"), and `label` is a human-meaningful label that defaults to `name`.
+          items:
+            $ref: '#/components/schemas/room_info'
+          readOnly: true
+        last_completed_inspection:
+          type: object
+          readOnly: true
+          nullable: true
+          required:
+          - date
+          - id
+          - type
+          properties:
+            date:
+              type: string
+              description: Inspection completion date, in ISO format
+              example: 2022-12-02 14:15:37.925000
+            type:
+              type: string
+              description: The inspection template name
+            id:
+              type: string
+              description: Inspection ID
+        permissions:
+          type: object
+          readOnly: true
+          required:
+          - can_delete
+          - can_create_inspection
+          - can_add_to_parent_property
+          - can_reassign_team
+          properties:
+            can_delete:
+              type: boolean
+            can_create_inspection:
+              type: boolean
+            can_add_to_parent_property:
+              type: boolean
+            can_reassign_team:
+              type: boolean
+        sync_data:
+          type: object
+          readOnly: true
+          nullable: true
+          required:
+          - vendor
+          - last_sync
+          description: Single sync envelope used for whichever integration owns the property; null when the property is not synced.
+          properties:
+            last_sync:
+              type: string
+              description: Sync date, in ISO format
+              example: 2022-12-02 14:15:37.925000
+            vendor:
+              type: string
+              description: The third party vendor for this sync
+              enum:
+              - rentmanager
+              - yardi
+              - appfolio
+              - jenark
+              - rentvine
+              - buildium
+            status:
+              type: string
+              description: Latest manual-sync status. Only present on integrations that expose it (e.g. Buildium).
+              enum:
+              - scheduled
+              - processing
+              - success
+              - error
+            error:
+              type: string
+              nullable: true
+              description: Error message from the most recent sync attempt, if any.
+            id:
+              oneOf:
+              - type: string
+              - type: integer
+              description: External vendor id for the property/unit (string for most vendors; integer for AppFolio).
+            x_id:
+              type: string
+              description: Vendor-native external id echo for the legacy Rentvine / Rent Manager envelope. Kept for debugging/audit parity with the historic `sync_data`.
+            location_id:
+              type: string
+              description: Rent Manager location (property) id — legacy `sync_data`, debugging/audit.
+            integration_id:
+              type: string
+              description: RentCheck integration record id (Rent Manager legacy sync) — debugging/audit.
+            short_property_id:
+              type: string
+              description: AppFolio short property id, when synced from AppFolio.
+            short_unit_id:
+              type: string
+              description: AppFolio short unit id, when synced from AppFolio.
+            upload_response:
+              type: array
+              description: AppFolio per-destination inspection-upload outcomes.
+              items:
+                type: object
+                required:
+                - resource
+                - resource_id
+                - uploaded_id
+                properties:
+                  resource:
+                    type: string
+                    enum:
+                    - units
+                    - properties
+                    - occupancies
+                  resource_id:
+                    type: string
+                  uploaded_id:
+                    type: string
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

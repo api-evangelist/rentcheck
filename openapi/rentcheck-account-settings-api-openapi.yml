@@ -752,6 +752,94 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    signature_acknowledgements_update_request_model:
+      x-internal: true
+      type: object
+      required:
+      - signature_acknowledgements
+      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
+      properties:
+        signature_acknowledgements:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - id
+            - text
+            properties:
+              id:
+                type: string
+                description: Either the literal string 'default' or an inspection template id.
+              text:
+                type: string
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    signature_acknowledgements_response_model:
+      x-internal: true
+      type: object
+      required:
+      - default
+      description: Signature acknowledgements grouped by inspection template.
+      properties:
+        default:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        global:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        templates:
+          type: array
+          items:
+            type: object
+            required:
+            - inspection_template
+            properties:
+              inspection_template:
+                type: object
+                required:
+                - id
+                - name
+                - display_name
+                - internal_label
+                - description
+                - is_deleted
+                - is_rc_template
+                - is_published
+                - property_type
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  display_name:
+                    type: string
+                  internal_label:
+                    type: string
+                  description:
+                    type: string
+                  is_deleted:
+                    type: boolean
+                  is_rc_template:
+                    type: boolean
+                  is_published:
+                    type: boolean
+                  property_type:
+                    type: string
+                    description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+                    enum:
+                    - ''
+                    - Single-Family
+                    - Multi-Family
+                    - Apartment or Condo
+                    - Commercial
+                    example: Single-Family
+              customization:
+                $ref: '#/components/schemas/api_signature_acknowledgement'
     api_signature_acknowledgement:
       x-internal: true
       type: object
@@ -840,71 +928,6 @@ components:
             updated_date:
               type: string
               format: date-time
-    rev_share_prospect_create_request_model:
-      type: object
-      required:
-      - prospect_email
-      - total_properties
-      - chargebee_plan_id
-      properties:
-        prospect_email:
-          type: string
-          format: email
-          description: Email address of the prospect being onboarded.
-        user_name:
-          type: string
-          description: Optional display name to assign to the newly-created prospect user.
-        total_properties:
-          type: string
-          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
-        chargebee_plan_id:
-          type: string
-          description: Chargebee plan id the prospect should be associated with.
-        chargebee_addon_ids:
-          type: array
-          items:
-            type: string
-          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
-    email_customization_test_request_model:
-      x-internal: true
-      type: object
-      required:
-      - recipients
-      - content
-      - property_id
-      - inspection_template_id
-      - email_type_id
-      description: Request body for sending a test email customization.
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-            format: email
-          minItems: 1
-        content:
-          type: string
-        property_id:
-          type: string
-        inspection_template_id:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-    notification_preference_no_email:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
     notifications_preferences_response_model:
       type: object
       required:
@@ -935,65 +958,29 @@ components:
           $ref: '#/components/schemas/notification_preference'
         automation_failures:
           $ref: '#/components/schemas/notification_preference_no_email'
-    email_customization_upsert_request_model:
+    account_settings_delete_rooms_request_model:
       x-internal: true
       type: object
       required:
-      - content
-      - email_type_id
-      - inspection_template_ids
-      description: Request body for upserting an email customization.
+      - property_type
+      - rooms
+      description: Request body for deleting rooms.
       properties:
-        content:
+        property_type:
           type: string
-        email_type_id:
-          type: string
+          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
           enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        inspection_template_ids:
+          - ''
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+          example: Single-Family
+        rooms:
           type: array
-          items:
-            type: string
-    notification_preference:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-        email:
-          type: string
-          enum:
-          - all
-          - created_by_me
-          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
-    signature_acknowledgements_update_request_model:
-      x-internal: true
-      type: object
-      required:
-      - signature_acknowledgements
-      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
-      properties:
-        signature_acknowledgements:
-          type: array
-          minItems: 1
           items:
             type: object
-            required:
-            - id
-            - text
-            properties:
-              id:
-                type: string
-                description: Either the literal string 'default' or an inspection template id.
-              text:
-                type: string
+          description: List of room entries to remove.
     api_email_customization:
       x-internal: true
       type: object
@@ -1073,29 +1060,30 @@ components:
             updated_date:
               type: string
               format: date-time
-    account_settings_delete_rooms_request_model:
+    email_customization_upsert_request_model:
       x-internal: true
       type: object
       required:
-      - property_type
-      - rooms
-      description: Request body for deleting rooms.
+      - content
+      - email_type_id
+      - inspection_template_ids
+      description: Request body for upserting an email customization.
       properties:
-        property_type:
+        content:
           type: string
-          description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
+        email_type_id:
+          type: string
           enum:
-          - ''
-          - Single-Family
-          - Multi-Family
-          - Apartment or Condo
-          - Commercial
-          example: Single-Family
-        rooms:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        inspection_template_ids:
           type: array
           items:
-            type: object
-          description: List of room entries to remove.
+            type: string
     api_account_settings:
       type: object
       required:
@@ -1463,6 +1451,52 @@ components:
               type: string
             phone_number:
               type: string
+    notification_preference:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+        email:
+          type: string
+          enum:
+          - all
+          - created_by_me
+          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+    email_customization_test_request_model:
+      x-internal: true
+      type: object
+      required:
+      - recipients
+      - content
+      - property_id
+      - inspection_template_id
+      - email_type_id
+      description: Request body for sending a test email customization.
+      properties:
+        recipients:
+          type: array
+          items:
+            type: string
+            format: email
+          minItems: 1
+        content:
+          type: string
+        property_id:
+          type: string
+        inspection_template_id:
+          type: string
+        email_type_id:
+          type: string
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
     account_settings_update_request_model:
       type: object
       description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
@@ -1785,66 +1819,47 @@ components:
               type: string
             phone_number:
               type: string
-    signature_acknowledgements_response_model:
-      x-internal: true
+    rev_share_prospect_create_request_model:
       type: object
       required:
-      - default
-      description: Signature acknowledgements grouped by inspection template.
+      - prospect_email
+      - total_properties
+      - chargebee_plan_id
       properties:
-        default:
-          $ref: '#/components/schemas/api_signature_acknowledgement'
-        global:
-          $ref: '#/components/schemas/api_signature_acknowledgement'
-        templates:
+        prospect_email:
+          type: string
+          format: email
+          description: Email address of the prospect being onboarded.
+        user_name:
+          type: string
+          description: Optional display name to assign to the newly-created prospect user.
+        total_properties:
+          type: string
+          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
+        chargebee_plan_id:
+          type: string
+          description: Chargebee plan id the prospect should be associated with.
+        chargebee_addon_ids:
           type: array
           items:
-            type: object
-            required:
-            - inspection_template
-            properties:
-              inspection_template:
-                type: object
-                required:
-                - id
-                - name
-                - display_name
-                - internal_label
-                - description
-                - is_deleted
-                - is_rc_template
-                - is_published
-                - property_type
-                properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-                  display_name:
-                    type: string
-                  internal_label:
-                    type: string
-                  description:
-                    type: string
-                  is_deleted:
-                    type: boolean
-                  is_rc_template:
-                    type: boolean
-                  is_published:
-                    type: boolean
-                  property_type:
-                    type: string
-                    description: The property type designates which type of property the Unit is. `""` is allowed as a legacy value for units created before the enum was tightened.
-                    enum:
-                    - ''
-                    - Single-Family
-                    - Multi-Family
-                    - Apartment or Condo
-                    - Commercial
-                    example: Single-Family
-              customization:
-                $ref: '#/components/schemas/api_signature_acknowledgement'
+            type: string
+          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
   responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 404
+              error:
+                type: string
+                description: Error message describing the missing resource
+                example: property not found
     '401':
       description: Unauthorized
       content:
@@ -1867,21 +1882,6 @@ components:
                 - refresh token is not valid for resources
                 - not well-formed token
                 example: token is not valid
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 404
-              error:
-                type: string
-                description: Error message describing the missing resource
-                example: property not found
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

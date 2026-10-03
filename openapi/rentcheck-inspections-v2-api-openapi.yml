@@ -532,6 +532,67 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    api_integration_sync:
+      x-internal: true
+      type: object
+      nullable: true
+      description: Canonical API shape for an inspection's integration sync state. Every vendor is mapped into this envelope — engine-native AppFolio / Buildium pass through, and legacy Rent Manager / Rentvine per-vendor sync objects are mapped up — so the client reads one uniform structure regardless of source vendor. Returns `null` on the inspection response when the inspection has no active integration sync.
+      required:
+      - vendor
+      - vendor_integration_id
+      - last_sync
+      - status
+      properties:
+        vendor:
+          type: string
+          enum:
+          - appfolio
+          - rentvine
+          - rentmanager
+          - buildium
+        vendor_integration_id:
+          type: string
+        last_sync:
+          type: string
+          nullable: true
+          description: ISO string of the most recent successful sync; `null` when the record has never synced successfully.
+        status:
+          type: string
+          description: '`scheduled` / `processing` mark in-flight manual re-syncs.'
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+        error:
+          type: object
+          nullable: true
+          required:
+          - message
+          description: 'Failure detail. Populated for `status: ''error''` even when the engine envelope only carried the failure per-resource on `upload_response` — the builder aggregates the per-resource messages up so the client always has a message to show.'
+          properties:
+            message:
+              type: string
+            vendor_request_id:
+              type: string
+        upload_response:
+          type: object
+          description: Per-destination upload outcome, keyed by resource. Any of the keys may be absent when the corresponding resource has not been attempted.
+          properties:
+            units:
+              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+            properties:
+              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+            occupancies:
+              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+            work_orders:
+              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+            inspections:
+              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+        pending_since:
+          type: string
+          nullable: true
+          description: ISO string set while `status` is `scheduled` / `processing`; used by the API to expire stale pending state past a TTL.
     api_signature_acknowledgement:
       x-internal: true
       type: object
@@ -559,691 +620,6 @@ components:
             updated_date:
               type: string
               format: date-time
-    inspection_template_v1_get_by_id_response_model:
-      type: object
-      description: Extends the template digest with a full `sections` list. Optional properties (`is_pro`, `new_until`, `subscription_id`, `signature_acknowledgement`, `is_resident_template`, `resident_template_info`) are omitted rather than nulled when not applicable.
-      required:
-      - id
-      - name
-      - internal_label
-      - display_name
-      - description
-      - is_rc_template
-      - is_fast_track_enabled
-      - template_type
-      - is_published
-      - team_ids
-      - property_type
-      - created_at
-      - contact_info
-      - permission_groups
-      - is_deleted
-      - is_new
-      - sections
-      properties:
-        id:
-          type: string
-          description: Inspection template ID.
-          example: rc_move_in
-        name:
-          type: string
-          description: The inspection template name.
-        internal_label:
-          type: string
-          description: The inspection template internal label.
-        display_name:
-          type: string
-          description: 'Resolved display name for the inspection template: the `internal_label` for users whose teams have access to the template, otherwise the public-facing `name`.'
-        description:
-          type: string
-          description: The inspection template description.
-        is_rc_template:
-          type: boolean
-          description: '`true` indicates that the inspection template was created by RentCheck. While `false` indicates that the inspection template was created by a user.'
-        is_fast_track_enabled:
-          type: boolean
-          description: Indicates whether the template supports fast track or not.
-        is_pro:
-          type: boolean
-          description: Whether the template is gated behind a Pro subscription. Defaults to `false` when absent.
-        new_until:
-          type: string
-          format: date-time
-          description: Optional ISO timestamp until which the template is marked as new in the UI.
-        is_new:
-          type: boolean
-          description: Whether the template should be flagged as new (computed from `new_until`).
-        is_deleted:
-          type: boolean
-          description: Whether the template has been soft-deleted (every team has lost access and it is not an RC template). Only set on the API response — not stored on the underlying document.
-        template_type:
-          type: string
-          description: When set to all-rooms the inspection will be created with all the rooms in the property. When set to specific-features the inspection will require features to be selected when creating the inspection.
-          enum:
-          - all-rooms
-          - specific-features
-        is_published:
-          type: boolean
-          description: Indicates if the template will be available for use on inspection creation. For RentCheck templates this is recomputed per subscription against the `unpublished_sub_ids` list.
-        team_ids:
-          type: array
-          items:
-            type: string
-          description: An array of team ids that have access to this template.
-        subscription_id:
-          type: string
-          description: The subscription id for the user that created this template.
-        property_type:
-          type: string
-          description: What property type this template applies to.
-          enum:
-          - unit
-          - building
-          - community
-        created_at:
-          type: string
-          description: The inspection template creation date.
-          example: 2021-12-02 14:15:37.925000
-        contact_info:
-          type: object
-          description: Optional contact email / phone surfaced to performers on the inspection.
-          properties:
-            email:
-              type: string
-            phone_number:
-              type: string
-        permission_groups:
-          type: array
-          description: Permission groups that grant access to this template. Each entry is `{ id, name }`.
-          items:
-            type: object
-            required:
-            - id
-            - name
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              name:
-                type: string
-                description: Permission group display name.
-        signature_acknowledgement:
-          $ref: '#/components/schemas/api_signature_acknowledgement'
-        is_resident_template:
-          type: boolean
-          description: Whether the template is a resident-facing template (rendered inside the resident app on the home screen).
-        resident_template_info:
-          type: object
-          description: Optional resident-template metadata used to render the entry in the resident app. Only populated when `is_resident_template` is `true`.
-          properties:
-            icon:
-              type: object
-              required:
-              - name
-              - color
-              properties:
-                name:
-                  type: string
-                  enum:
-                  - house
-                  - truck
-                  - clock
-                  description: Icon name displayed for the resident template.
-                color:
-                  type: string
-                  description: Icon color (hex string).
-            description:
-              type: string
-              description: Short description displayed under the template entry.
-        sections:
-          type: array
-          description: Array with the inspection template sections
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID of the template section.
-              name:
-                type: string
-                description: Name of the template section.
-              type:
-                type: string
-                description: Sections with type `room` are only added to the inspection if the property has those rooms configured. Sections with type `section` do not depend on the property configuration and are always added to the inspection
-                enum:
-                - room
-                - section
-              features:
-                description: Array with the section features
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: ID of the template section feature.
-                    name:
-                      type: string
-                      description: Name of the template section feature.
-                    description:
-                      type: string
-                      description: The instructions text shown to the inspection performer when they are in the camera view.
-                    is_rating_required:
-                      type: boolean
-                      description: When set to true the inspection performer will be required to enter a feature rating. If false the rating options will not be shown.
-                    is_video_enabled:
-                      type: boolean
-                      description: When set to true the inspection performer will be able to record a video wherever they can add media.
-                    number_of_photos_required:
-                      type: number
-                      description: How many photos are required for this feature. When set to 0 the inspection performer will not be required to take any photos for this feature
-                    reference_photos:
-                      type: array
-                      items:
-                        type: string
-                      description: An array of reference photos for this feature. These photos will be shown to the inspection performer when they are in the camera view
-                    questions:
-                      description: Array with the feature questions
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                            description: Entity ID
-                            example: 00BRcZPSakXz6w7RYoE
-                          title:
-                            type: string
-                            description: Question title
-                          type:
-                            type: string
-                            description: Question type
-                            enum:
-                            - yes/no
-                            - free text
-                            - multiple choice
-                            - asset capture
-                          answer_type:
-                            type: string
-                            description: Answer type
-                            enum:
-                            - single
-                            - multi
-                          asset_category:
-                            type: string
-                            description: Asset Category
-                            enum:
-                            - Air Filter
-                            - Air Conditioner
-                            - Air Handler Unit (AHU)
-                            - Barbecue Grill
-                            - Bathroom Heater
-                            - Cooktop
-                            - Condenser
-                            - Dishwasher
-                            - Dryer
-                            - Electric Fireplace
-                            - Evaporator
-                            - Freezer
-                            - Furnace
-                            - Furnace (AHU)
-                            - Garbage Disposal
-                            - Heat Pump
-                            - Microwave
-                            - Package Unit
-                            - Pool Heater
-                            - PTAC
-                            - Range Hood
-                            - Range
-                            - Refrigerator
-                            - Stackable Laundry
-                            - Thermostat
-                            - Wall Oven
-                            - Washer
-                            - Water Heater
-                            - Other
-                          answers:
-                            type: object
-                            properties:
-                              id:
-                                type: string
-                                description: Entity ID
-                                example: 00BRcZPSakXz6w7RYoE
-                              title:
-                                type: string
-                                description: Answer title
-                              requires_photo:
-                                type: boolean
-                              requires_note:
-                                type: boolean
-    inspection_v2_response_model:
-      type: object
-      required:
-      - success
-      - errors
-      - warnings
-      properties:
-        success:
-          type: array
-          description: List of the created inspections
-          items:
-            type: object
-            required:
-            - property
-            - inspection
-            properties:
-              property:
-                type: object
-                required:
-                - id
-                - address
-                - city
-                - zipcode
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  x_id:
-                    type: string
-                    description: External property ID that maps to RentCheck properties
-                  address:
-                    type: string
-                    description: This is the street address for the Unit.
-                    example: 2001 Red Gates
-                  city:
-                    type: string
-                    description: This is the city of the Unit.
-                    example: New Orleans
-                  zipcode:
-                    type: string
-                    description: This is the Postal Code for the Unit.
-                    example: '70130'
-              inspection:
-                type: object
-                required:
-                - id
-                - type
-                - due_date
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  x_id:
-                    type: string
-                    description: External inspection ID that maps to RentCheck inspections
-                  type:
-                    type: string
-                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
-                    enum:
-                    - Move-in
-                    - Move-out
-                    - Annual
-                    - Turn
-                    - Periodic
-                    - Maintenance Check
-                    - Exterior
-                    - Pre-Acquisition
-                    - RV Lot
-                    - Maintenance / Safety Check
-                    - Community Maintenance Check
-                  due_date:
-                    type: string
-                    description: The inspection due date (legacy) is the original date by which the recipient must complete the inspection.
-                    example: 2021-12-02 14:15:37.925000
-        errors:
-          type: array
-          description: List of the failed inspection creations
-          items:
-            type: object
-            required:
-            - inspection
-            - reason
-            properties:
-              property:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  x_id:
-                    type: string
-                    description: External property ID that maps to RentCheck properties
-                  address:
-                    type: string
-                    description: This is the street address for the Unit.
-                    example: 2001 Red Gates
-                  city:
-                    type: string
-                    description: This is the city of the Unit.
-                    example: New Orleans
-                  zipcode:
-                    type: string
-                    description: This is the Postal Code for the Unit.
-                    example: '70130'
-              inspection:
-                type: object
-                properties:
-                  x_id:
-                    type: string
-                    description: External inspection ID that maps to RentCheck inspections
-                  type:
-                    type: string
-                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
-                    enum:
-                    - Move-in
-                    - Move-out
-                    - Annual
-                    - Turn
-                    - Periodic
-                    - Maintenance Check
-                    - Exterior
-                    - Pre-Acquisition
-                    - RV Lot
-                    - Maintenance / Safety Check
-                    - Community Maintenance Check
-                  template:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: Inspection template identifier
-                      name:
-                        type: string
-                        description: Inspection template name.
-                      internal_label:
-                        type: string
-                        description: Inspection template internal label.
-              reason:
-                type: string
-                description: Detail of the creation error for the inspection
-                example: invalid property
-              status:
-                type: string
-                description: Optional machine-readable status code categorizing the error.
-        warnings:
-          type: array
-          description: Inspections that succeeded but produced a non-fatal warning the caller should surface (for example, a soft validation hit that did not block creation).
-          items:
-            type: object
-            required:
-            - property
-            - inspection
-            - reason
-            properties:
-              property:
-                type: object
-                required:
-                - id
-                - address
-                - city
-                - zipcode
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  x_id:
-                    type: string
-                    description: External property ID that maps to RentCheck properties
-                  address:
-                    type: string
-                    description: This is the street address for the Unit.
-                    example: 2001 Red Gates
-                  city:
-                    type: string
-                    description: This is the city of the Unit.
-                    example: New Orleans
-                  zipcode:
-                    type: string
-                    description: This is the Postal Code for the Unit.
-                    example: '70130'
-              inspection:
-                type: object
-                required:
-                - id
-                - type
-                - due_date
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  x_id:
-                    type: string
-                    description: External inspection ID that maps to RentCheck inspections
-                  type:
-                    type: string
-                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
-                    enum:
-                    - Move-in
-                    - Move-out
-                    - Annual
-                    - Turn
-                    - Periodic
-                    - Maintenance Check
-                    - Exterior
-                    - Pre-Acquisition
-                    - RV Lot
-                    - Maintenance / Safety Check
-                    - Community Maintenance Check
-                  due_date:
-                    type: string
-                    description: The inspection due date (legacy) is the original date by which the recipient must complete the inspection.
-                    example: 2021-12-02 14:15:37.925000
-              reason:
-                type: string
-                description: Detail of the warning produced for the inspection
-              status:
-                type: string
-                description: Optional machine-readable status code categorizing the warning.
-        conflict:
-          type: object
-          description: Present when `check_automation_conflict_validation` was set and the request matched an existing automation. When present, no inspections are created — the caller is expected to resolve the conflict before retrying.
-          properties:
-            type:
-              type: string
-              enum:
-              - automation
-              description: Discriminator for the conflicting resource.
-            info:
-              type: object
-              description: Conflicting automation.
-              additionalProperties: true
-    api_inspection_creator:
-      type: object
-      required:
-      - id
-      - name
-      - email
-      - status
-      properties:
-        id:
-          type: string
-          description: Creator user ID
-        name:
-          type: string
-          description: Creator display name
-        email:
-          type: string
-          description: Creator email address
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: Whether the creator is currently an active member of the organization
-    inspection_v2_create_request_model:
-      type: object
-      description: Provide either `inspection_template_id` or `inspection_type` — when `inspection_type` is supplied the matching template is resolved automatically, otherwise `inspection_template_id` is required. Provide either `property_ids` or `property_x_ids` — when `property_x_ids` is supplied it replaces `property_ids`, and when `x_id` is supplied at most one property id is allowed.
-      required:
-      - due_date
-      - recipients
-      properties:
-        inspection_template_id:
-          type: string
-          description: The inspection_template_id designates which inspection will be created, based on the inspection template. Some inspection templates require the user to select which features they would like to include in the inspection. These features are designated in the `selected_features` field
-          example: rc_move_in
-        inspection_type:
-          type: string
-          description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
-          enum:
-          - Move-in
-          - Move-out
-          - Annual
-          - Turn
-          - Periodic
-          - Maintenance Check
-          - Exterior
-          - Pre-Acquisition
-          - RV Lot
-          - Maintenance / Safety Check
-          - Community Maintenance Check
-        x_id:
-          type: string
-          description: External inspection ID that maps to RentCheck inspections
-        label:
-          type: string
-          description: Inspection label
-          example: Inspection Label
-        due_date:
-          type: string
-          description: The inspection due date is the date that the recipient must complete the inspection by. If recurrence is other that "None", this will be used as the starting date.
-          example: 2021-12-02 14:15:37.925000
-        invite_date:
-          type: string
-          description: The inspection invite date is the date at which the recipient will receive the email invites for the inspection.
-          example: 2021-12-02 14:15:37.925000
-        user_timezone:
-          type: string
-          description: IANA timezone identifier used to interpret `due_date` / `invite_date` / recurrence dates on behalf of the caller.
-          example: America/New_York
-        fast_track:
-          type: boolean
-          description: When `true`, the created inspection skips the standard review step and is moved straight to a completable state.
-        property_ids:
-          type: array
-          description: List of properties id to create inspections
-          items:
-            type: string
-            description: Selected property's id for the new inspection
-          example:
-          - property 1 id
-          - property 2 id
-        property_x_ids:
-          type: array
-          description: List of properties x_id to create inspections, when provided, replaces property_ids
-          items:
-            type: string
-            description: Selected property's x_id for the new inspection
-          example:
-          - property 1 id
-          - property 2 id
-        recipients:
-          type: object
-          required:
-          - type
-          description: Used to notify about the created inspections.
-          properties:
-            type:
-              type: string
-              enum:
-              - self-perform
-              - emails
-              - teammates
-              - myself
-              - residents
-            emails:
-              type: array
-              description: Only mandatory if type is emails
-              items:
-                type: string
-                description: Recipients' email
-              example:
-              - email1@domain.com
-              - email2@domain.com
-            teammate_emails:
-              type: object
-              description: Only mandatory if type is `teammates`. Keys are the target property ids; values are the arrays of teammate emails to assign for that property. Any property-id key is accepted, and each value must contain at least one email address.
-              additionalProperties:
-                type: array
-                description: Teammate emails assigned to this property id.
-                minItems: 1
-                items:
-                  type: string
-                  format: email
-              example:
-                property123:
-                - email1@domain.com
-                - email2@domain.com
-                property456:
-                - email3@domain.com
-            resident_type:
-              type: string
-              enum:
-              - current
-              - future
-        recurrence:
-          type: object
-          required:
-          - type
-          description: Used to create several inspection with a recurrence strategy. Inspection due_date will be used as the starting point. Daily recurrence can not exceed 30 days between due_date and end_date. The rest can not exceed 2 years. When `x_id` is supplied, `type` is forced to `None`.
-          properties:
-            type:
-              type: string
-              description: This value specify the recurrence for an inspection on each provided property. "end_date" is mandatory for other that None. When the top-level `x_id` is set only `None` is accepted.
-              enum:
-              - None
-              - Daily
-              - Weekly
-              - Monthly
-              - Quarterly
-              - Semi-Annually
-              - Annually
-            end_date:
-              type: string
-              description: The inspection recurrence end date. If recurrence is not "None", this value will be used as a limit.
-              example: 2024-12-02 14:15:37.925000
-        selected_features:
-          type: array
-          description: This field is an array of the areas and features selected for the inspection. Each Area contains a name and a list of the names of the applicable Features. This field is required depending on the inspection type.
-          items:
-            type: object
-            properties:
-              area:
-                type: string
-                description: Inspection's selected property area name to check
-                example: Laundry Room
-              features:
-                type: array
-                description: A specific feature inside the selected area
-                items:
-                  type: string
-                example:
-                - Laundry Room Walls
-                - Laundry Room Floor, Ceiling, Walls
-            example:
-            - area: Laundry Room
-              features:
-              - Laundry Room Walls
-              - Laundry Room Floor, Ceiling, Walls
-            - area: Kitchen
-              features:
-              - Dishwasher Exterior
-              - Freezer Interior
-        notify_residents:
-          type: object
-          description: Optional resident-notification payload. Only used when `recipients.type` is `teammates` — in that flow the current residents are emailed to let them know a teammate has been assigned to inspect their unit. Ignored for other recipient types.
-          properties:
-            note:
-              type: string
-              description: Free-form note added to the resident notification email.
-        check_automation_conflict_validation:
-          type: boolean
-          description: When `true`, the create request first checks for a conflicting automation. If a conflict is found, no inspections are created and the response includes a `conflict` payload the caller is expected to resolve before retrying. When `false` (or omitted) the conflict check is skipped.
     inspection_v1_response_model:
       type: object
       description: Optional properties (`x_id`, `invite_date`, `inspection_label`, `fast_track`, `team_id`, `team`, `approval`, `rejection`, `signer`, `signature`, `completed_by`, `current_performer`, `edits`, `pdf_reports`, `pdf_report_location`, `pdf_images_location`, `health_score`, `review`, `sections_progress`) are omitted rather than nulled when not applicable.
@@ -2085,67 +1461,242 @@ components:
               is_na:
                 type: boolean
                 description: Whether the performer marked the section not applicable.
-    api_integration_sync:
-      x-internal: true
+    inspection_v2_response_model:
       type: object
-      nullable: true
-      description: Canonical API shape for an inspection's integration sync state. Every vendor is mapped into this envelope — engine-native AppFolio / Buildium pass through, and legacy Rent Manager / Rentvine per-vendor sync objects are mapped up — so the client reads one uniform structure regardless of source vendor. Returns `null` on the inspection response when the inspection has no active integration sync.
       required:
-      - vendor
-      - vendor_integration_id
-      - last_sync
-      - status
+      - success
+      - errors
+      - warnings
       properties:
-        vendor:
-          type: string
-          enum:
-          - appfolio
-          - rentvine
-          - rentmanager
-          - buildium
-        vendor_integration_id:
-          type: string
-        last_sync:
-          type: string
-          nullable: true
-          description: ISO string of the most recent successful sync; `null` when the record has never synced successfully.
-        status:
-          type: string
-          description: '`scheduled` / `processing` mark in-flight manual re-syncs.'
-          enum:
-          - scheduled
-          - processing
-          - success
-          - error
-        error:
-          type: object
-          nullable: true
-          required:
-          - message
-          description: 'Failure detail. Populated for `status: ''error''` even when the engine envelope only carried the failure per-resource on `upload_response` — the builder aggregates the per-resource messages up so the client always has a message to show.'
-          properties:
-            message:
-              type: string
-            vendor_request_id:
-              type: string
-        upload_response:
-          type: object
-          description: Per-destination upload outcome, keyed by resource. Any of the keys may be absent when the corresponding resource has not been attempted.
-          properties:
-            units:
-              $ref: '#/components/schemas/api_inspection_upload_response_entry'
+        success:
+          type: array
+          description: List of the created inspections
+          items:
+            type: object
+            required:
+            - property
+            - inspection
             properties:
-              $ref: '#/components/schemas/api_inspection_upload_response_entry'
-            occupancies:
-              $ref: '#/components/schemas/api_inspection_upload_response_entry'
-            work_orders:
-              $ref: '#/components/schemas/api_inspection_upload_response_entry'
-            inspections:
-              $ref: '#/components/schemas/api_inspection_upload_response_entry'
-        pending_since:
-          type: string
-          nullable: true
-          description: ISO string set while `status` is `scheduled` / `processing`; used by the API to expire stale pending state past a TTL.
+              property:
+                type: object
+                required:
+                - id
+                - address
+                - city
+                - zipcode
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  x_id:
+                    type: string
+                    description: External property ID that maps to RentCheck properties
+                  address:
+                    type: string
+                    description: This is the street address for the Unit.
+                    example: 2001 Red Gates
+                  city:
+                    type: string
+                    description: This is the city of the Unit.
+                    example: New Orleans
+                  zipcode:
+                    type: string
+                    description: This is the Postal Code for the Unit.
+                    example: '70130'
+              inspection:
+                type: object
+                required:
+                - id
+                - type
+                - due_date
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  x_id:
+                    type: string
+                    description: External inspection ID that maps to RentCheck inspections
+                  type:
+                    type: string
+                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
+                    enum:
+                    - Move-in
+                    - Move-out
+                    - Annual
+                    - Turn
+                    - Periodic
+                    - Maintenance Check
+                    - Exterior
+                    - Pre-Acquisition
+                    - RV Lot
+                    - Maintenance / Safety Check
+                    - Community Maintenance Check
+                  due_date:
+                    type: string
+                    description: The inspection due date (legacy) is the original date by which the recipient must complete the inspection.
+                    example: 2021-12-02 14:15:37.925000
+        errors:
+          type: array
+          description: List of the failed inspection creations
+          items:
+            type: object
+            required:
+            - inspection
+            - reason
+            properties:
+              property:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  x_id:
+                    type: string
+                    description: External property ID that maps to RentCheck properties
+                  address:
+                    type: string
+                    description: This is the street address for the Unit.
+                    example: 2001 Red Gates
+                  city:
+                    type: string
+                    description: This is the city of the Unit.
+                    example: New Orleans
+                  zipcode:
+                    type: string
+                    description: This is the Postal Code for the Unit.
+                    example: '70130'
+              inspection:
+                type: object
+                properties:
+                  x_id:
+                    type: string
+                    description: External inspection ID that maps to RentCheck inspections
+                  type:
+                    type: string
+                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
+                    enum:
+                    - Move-in
+                    - Move-out
+                    - Annual
+                    - Turn
+                    - Periodic
+                    - Maintenance Check
+                    - Exterior
+                    - Pre-Acquisition
+                    - RV Lot
+                    - Maintenance / Safety Check
+                    - Community Maintenance Check
+                  template:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Inspection template identifier
+                      name:
+                        type: string
+                        description: Inspection template name.
+                      internal_label:
+                        type: string
+                        description: Inspection template internal label.
+              reason:
+                type: string
+                description: Detail of the creation error for the inspection
+                example: invalid property
+              status:
+                type: string
+                description: Optional machine-readable status code categorizing the error.
+        warnings:
+          type: array
+          description: Inspections that succeeded but produced a non-fatal warning the caller should surface (for example, a soft validation hit that did not block creation).
+          items:
+            type: object
+            required:
+            - property
+            - inspection
+            - reason
+            properties:
+              property:
+                type: object
+                required:
+                - id
+                - address
+                - city
+                - zipcode
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  x_id:
+                    type: string
+                    description: External property ID that maps to RentCheck properties
+                  address:
+                    type: string
+                    description: This is the street address for the Unit.
+                    example: 2001 Red Gates
+                  city:
+                    type: string
+                    description: This is the city of the Unit.
+                    example: New Orleans
+                  zipcode:
+                    type: string
+                    description: This is the Postal Code for the Unit.
+                    example: '70130'
+              inspection:
+                type: object
+                required:
+                - id
+                - type
+                - due_date
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  x_id:
+                    type: string
+                    description: External inspection ID that maps to RentCheck inspections
+                  type:
+                    type: string
+                    description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
+                    enum:
+                    - Move-in
+                    - Move-out
+                    - Annual
+                    - Turn
+                    - Periodic
+                    - Maintenance Check
+                    - Exterior
+                    - Pre-Acquisition
+                    - RV Lot
+                    - Maintenance / Safety Check
+                    - Community Maintenance Check
+                  due_date:
+                    type: string
+                    description: The inspection due date (legacy) is the original date by which the recipient must complete the inspection.
+                    example: 2021-12-02 14:15:37.925000
+              reason:
+                type: string
+                description: Detail of the warning produced for the inspection
+              status:
+                type: string
+                description: Optional machine-readable status code categorizing the warning.
+        conflict:
+          type: object
+          description: Present when `check_automation_conflict_validation` was set and the request matched an existing automation. When present, no inspections are created — the caller is expected to resolve the conflict before retrying.
+          properties:
+            type:
+              type: string
+              enum:
+              - automation
+              description: Discriminator for the conflicting resource.
+            info:
+              type: object
+              description: Conflicting automation.
+              additionalProperties: true
     api_inspection_upload_response_entry:
       x-internal: true
       type: object
@@ -2176,6 +1727,455 @@ components:
         last_sync:
           type: string
           description: ISO string of the last successful upload to this resource.
+    api_inspection_creator:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - status
+      properties:
+        id:
+          type: string
+          description: Creator user ID
+        name:
+          type: string
+          description: Creator display name
+        email:
+          type: string
+          description: Creator email address
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: Whether the creator is currently an active member of the organization
+    inspection_v2_create_request_model:
+      type: object
+      description: Provide either `inspection_template_id` or `inspection_type` — when `inspection_type` is supplied the matching template is resolved automatically, otherwise `inspection_template_id` is required. Provide either `property_ids` or `property_x_ids` — when `property_x_ids` is supplied it replaces `property_ids`, and when `x_id` is supplied at most one property id is allowed.
+      required:
+      - due_date
+      - recipients
+      properties:
+        inspection_template_id:
+          type: string
+          description: The inspection_template_id designates which inspection will be created, based on the inspection template. Some inspection templates require the user to select which features they would like to include in the inspection. These features are designated in the `selected_features` field
+          example: rc_move_in
+        inspection_type:
+          type: string
+          description: Inspection Type designates which type of inspection will be issued. Some inspection types require the user to select which features apply to the inspection. These features are designated in the 'selected_features' field.
+          enum:
+          - Move-in
+          - Move-out
+          - Annual
+          - Turn
+          - Periodic
+          - Maintenance Check
+          - Exterior
+          - Pre-Acquisition
+          - RV Lot
+          - Maintenance / Safety Check
+          - Community Maintenance Check
+        x_id:
+          type: string
+          description: External inspection ID that maps to RentCheck inspections
+        label:
+          type: string
+          description: Inspection label
+          example: Inspection Label
+        due_date:
+          type: string
+          description: The inspection due date is the date that the recipient must complete the inspection by. If recurrence is other that "None", this will be used as the starting date.
+          example: 2021-12-02 14:15:37.925000
+        invite_date:
+          type: string
+          description: The inspection invite date is the date at which the recipient will receive the email invites for the inspection.
+          example: 2021-12-02 14:15:37.925000
+        user_timezone:
+          type: string
+          description: IANA timezone identifier used to interpret `due_date` / `invite_date` / recurrence dates on behalf of the caller.
+          example: America/New_York
+        fast_track:
+          type: boolean
+          description: When `true`, the created inspection skips the standard review step and is moved straight to a completable state.
+        property_ids:
+          type: array
+          description: List of properties id to create inspections
+          items:
+            type: string
+            description: Selected property's id for the new inspection
+          example:
+          - property 1 id
+          - property 2 id
+        property_x_ids:
+          type: array
+          description: List of properties x_id to create inspections, when provided, replaces property_ids
+          items:
+            type: string
+            description: Selected property's x_id for the new inspection
+          example:
+          - property 1 id
+          - property 2 id
+        recipients:
+          type: object
+          required:
+          - type
+          description: Used to notify about the created inspections.
+          properties:
+            type:
+              type: string
+              enum:
+              - self-perform
+              - emails
+              - teammates
+              - myself
+              - residents
+            emails:
+              type: array
+              description: Only mandatory if type is emails
+              items:
+                type: string
+                description: Recipients' email
+              example:
+              - email1@domain.com
+              - email2@domain.com
+            teammate_emails:
+              type: object
+              description: Only mandatory if type is `teammates`. Keys are the target property ids; values are the arrays of teammate emails to assign for that property. Any property-id key is accepted, and each value must contain at least one email address.
+              additionalProperties:
+                type: array
+                description: Teammate emails assigned to this property id.
+                minItems: 1
+                items:
+                  type: string
+                  format: email
+              example:
+                property123:
+                - email1@domain.com
+                - email2@domain.com
+                property456:
+                - email3@domain.com
+            resident_type:
+              type: string
+              enum:
+              - current
+              - future
+        recurrence:
+          type: object
+          required:
+          - type
+          description: Used to create several inspection with a recurrence strategy. Inspection due_date will be used as the starting point. Daily recurrence can not exceed 30 days between due_date and end_date. The rest can not exceed 2 years. When `x_id` is supplied, `type` is forced to `None`.
+          properties:
+            type:
+              type: string
+              description: This value specify the recurrence for an inspection on each provided property. "end_date" is mandatory for other that None. When the top-level `x_id` is set only `None` is accepted.
+              enum:
+              - None
+              - Daily
+              - Weekly
+              - Monthly
+              - Quarterly
+              - Semi-Annually
+              - Annually
+            end_date:
+              type: string
+              description: The inspection recurrence end date. If recurrence is not "None", this value will be used as a limit.
+              example: 2024-12-02 14:15:37.925000
+        selected_features:
+          type: array
+          description: This field is an array of the areas and features selected for the inspection. Each Area contains a name and a list of the names of the applicable Features. This field is required depending on the inspection type.
+          items:
+            type: object
+            properties:
+              area:
+                type: string
+                description: Inspection's selected property area name to check
+                example: Laundry Room
+              features:
+                type: array
+                description: A specific feature inside the selected area
+                items:
+                  type: string
+                example:
+                - Laundry Room Walls
+                - Laundry Room Floor, Ceiling, Walls
+            example:
+            - area: Laundry Room
+              features:
+              - Laundry Room Walls
+              - Laundry Room Floor, Ceiling, Walls
+            - area: Kitchen
+              features:
+              - Dishwasher Exterior
+              - Freezer Interior
+        notify_residents:
+          type: object
+          description: Optional resident-notification payload. Only used when `recipients.type` is `teammates` — in that flow the current residents are emailed to let them know a teammate has been assigned to inspect their unit. Ignored for other recipient types.
+          properties:
+            note:
+              type: string
+              description: Free-form note added to the resident notification email.
+        check_automation_conflict_validation:
+          type: boolean
+          description: When `true`, the create request first checks for a conflicting automation. If a conflict is found, no inspections are created and the response includes a `conflict` payload the caller is expected to resolve before retrying. When `false` (or omitted) the conflict check is skipped.
+    inspection_template_v1_get_by_id_response_model:
+      type: object
+      description: Extends the template digest with a full `sections` list. Optional properties (`is_pro`, `new_until`, `subscription_id`, `signature_acknowledgement`, `is_resident_template`, `resident_template_info`) are omitted rather than nulled when not applicable.
+      required:
+      - id
+      - name
+      - internal_label
+      - display_name
+      - description
+      - is_rc_template
+      - is_fast_track_enabled
+      - template_type
+      - is_published
+      - team_ids
+      - property_type
+      - created_at
+      - contact_info
+      - permission_groups
+      - is_deleted
+      - is_new
+      - sections
+      properties:
+        id:
+          type: string
+          description: Inspection template ID.
+          example: rc_move_in
+        name:
+          type: string
+          description: The inspection template name.
+        internal_label:
+          type: string
+          description: The inspection template internal label.
+        display_name:
+          type: string
+          description: 'Resolved display name for the inspection template: the `internal_label` for users whose teams have access to the template, otherwise the public-facing `name`.'
+        description:
+          type: string
+          description: The inspection template description.
+        is_rc_template:
+          type: boolean
+          description: '`true` indicates that the inspection template was created by RentCheck. While `false` indicates that the inspection template was created by a user.'
+        is_fast_track_enabled:
+          type: boolean
+          description: Indicates whether the template supports fast track or not.
+        is_pro:
+          type: boolean
+          description: Whether the template is gated behind a Pro subscription. Defaults to `false` when absent.
+        new_until:
+          type: string
+          format: date-time
+          description: Optional ISO timestamp until which the template is marked as new in the UI.
+        is_new:
+          type: boolean
+          description: Whether the template should be flagged as new (computed from `new_until`).
+        is_deleted:
+          type: boolean
+          description: Whether the template has been soft-deleted (every team has lost access and it is not an RC template). Only set on the API response — not stored on the underlying document.
+        template_type:
+          type: string
+          description: When set to all-rooms the inspection will be created with all the rooms in the property. When set to specific-features the inspection will require features to be selected when creating the inspection.
+          enum:
+          - all-rooms
+          - specific-features
+        is_published:
+          type: boolean
+          description: Indicates if the template will be available for use on inspection creation. For RentCheck templates this is recomputed per subscription against the `unpublished_sub_ids` list.
+        team_ids:
+          type: array
+          items:
+            type: string
+          description: An array of team ids that have access to this template.
+        subscription_id:
+          type: string
+          description: The subscription id for the user that created this template.
+        property_type:
+          type: string
+          description: What property type this template applies to.
+          enum:
+          - unit
+          - building
+          - community
+        created_at:
+          type: string
+          description: The inspection template creation date.
+          example: 2021-12-02 14:15:37.925000
+        contact_info:
+          type: object
+          description: Optional contact email / phone surfaced to performers on the inspection.
+          properties:
+            email:
+              type: string
+            phone_number:
+              type: string
+        permission_groups:
+          type: array
+          description: Permission groups that grant access to this template. Each entry is `{ id, name }`.
+          items:
+            type: object
+            required:
+            - id
+            - name
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: Permission group display name.
+        signature_acknowledgement:
+          $ref: '#/components/schemas/api_signature_acknowledgement'
+        is_resident_template:
+          type: boolean
+          description: Whether the template is a resident-facing template (rendered inside the resident app on the home screen).
+        resident_template_info:
+          type: object
+          description: Optional resident-template metadata used to render the entry in the resident app. Only populated when `is_resident_template` is `true`.
+          properties:
+            icon:
+              type: object
+              required:
+              - name
+              - color
+              properties:
+                name:
+                  type: string
+                  enum:
+                  - house
+                  - truck
+                  - clock
+                  description: Icon name displayed for the resident template.
+                color:
+                  type: string
+                  description: Icon color (hex string).
+            description:
+              type: string
+              description: Short description displayed under the template entry.
+        sections:
+          type: array
+          description: Array with the inspection template sections
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the template section.
+              name:
+                type: string
+                description: Name of the template section.
+              type:
+                type: string
+                description: Sections with type `room` are only added to the inspection if the property has those rooms configured. Sections with type `section` do not depend on the property configuration and are always added to the inspection
+                enum:
+                - room
+                - section
+              features:
+                description: Array with the section features
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ID of the template section feature.
+                    name:
+                      type: string
+                      description: Name of the template section feature.
+                    description:
+                      type: string
+                      description: The instructions text shown to the inspection performer when they are in the camera view.
+                    is_rating_required:
+                      type: boolean
+                      description: When set to true the inspection performer will be required to enter a feature rating. If false the rating options will not be shown.
+                    is_video_enabled:
+                      type: boolean
+                      description: When set to true the inspection performer will be able to record a video wherever they can add media.
+                    number_of_photos_required:
+                      type: number
+                      description: How many photos are required for this feature. When set to 0 the inspection performer will not be required to take any photos for this feature
+                    reference_photos:
+                      type: array
+                      items:
+                        type: string
+                      description: An array of reference photos for this feature. These photos will be shown to the inspection performer when they are in the camera view
+                    questions:
+                      description: Array with the feature questions
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Entity ID
+                            example: 00BRcZPSakXz6w7RYoE
+                          title:
+                            type: string
+                            description: Question title
+                          type:
+                            type: string
+                            description: Question type
+                            enum:
+                            - yes/no
+                            - free text
+                            - multiple choice
+                            - asset capture
+                          answer_type:
+                            type: string
+                            description: Answer type
+                            enum:
+                            - single
+                            - multi
+                          asset_category:
+                            type: string
+                            description: Asset Category
+                            enum:
+                            - Air Filter
+                            - Air Conditioner
+                            - Air Handler Unit (AHU)
+                            - Barbecue Grill
+                            - Bathroom Heater
+                            - Cooktop
+                            - Condenser
+                            - Dishwasher
+                            - Dryer
+                            - Electric Fireplace
+                            - Evaporator
+                            - Freezer
+                            - Furnace
+                            - Furnace (AHU)
+                            - Garbage Disposal
+                            - Heat Pump
+                            - Microwave
+                            - Package Unit
+                            - Pool Heater
+                            - PTAC
+                            - Range Hood
+                            - Range
+                            - Refrigerator
+                            - Stackable Laundry
+                            - Thermostat
+                            - Wall Oven
+                            - Washer
+                            - Water Heater
+                            - Other
+                          answers:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                description: Entity ID
+                                example: 00BRcZPSakXz6w7RYoE
+                              title:
+                                type: string
+                                description: Answer title
+                              requires_photo:
+                                type: boolean
+                              requires_note:
+                                type: boolean
   responses:
     '401':
       description: Unauthorized

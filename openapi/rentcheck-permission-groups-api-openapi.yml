@@ -486,6 +486,81 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    permission_group_get_all_response_model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: Name of the permission group
+        user_count:
+          type: number
+          description: Total amount of users on the permission group
+        allow_billing_plan_editing:
+          type: boolean
+          description: Whether users on this permission group can edit billing plans.
+        allow_automation_editing:
+          type: boolean
+          description: Whether users on this permission group can edit automations.
+        allow_notifications_preferences_editing:
+          type: boolean
+          description: Whether users on this permission group can edit notification preferences.
+        allow_inspection_messaging_editing:
+          type: boolean
+          description: Whether users on this permission group can edit inspection messaging.
+        allow_ai_manual_scan:
+          type: boolean
+          description: Whether users on this permission group can run manual AI damage scans.
+    permission_group_delete_request_model:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          description: IDs of the permission groups to be deleted. Must contain at least one id.
+    permission_group_update_request_model:
+      type: object
+      required:
+      - name
+      - inspection_template_ids
+      - user_ids
+      - allow_billing_plan_editing
+      properties:
+        name:
+          type: string
+          description: Name for the permission group, must be unique in the subscription context
+        inspection_template_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of the inspection templates to be associated with the permission group
+        user_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of the users to be associated with the permission group
+        allow_billing_plan_editing:
+          type: boolean
+          description: Enable or disable billing plan editing for users on this permission group
+        allow_automation_editing:
+          type: boolean
+          description: Enable or disable automation editing for users on this permission group
+        allow_notifications_preferences_editing:
+          type: boolean
+          description: Enable or disable notification preferences editing for users on this permission group
+        allow_inspection_messaging_editing:
+          type: boolean
+          description: Enable or disable inspection messaging editing for users on this permission group
+        allow_ai_manual_scan:
+          type: boolean
+          description: Enable or disable manual AI damage scans for users on this permission group
     api_permission_group:
       type: object
       required:
@@ -618,81 +693,6 @@ components:
           items:
             type: string
           description: IDs of the users to be associated with the new permission group
-    permission_group_update_request_model:
-      type: object
-      required:
-      - name
-      - inspection_template_ids
-      - user_ids
-      - allow_billing_plan_editing
-      properties:
-        name:
-          type: string
-          description: Name for the permission group, must be unique in the subscription context
-        inspection_template_ids:
-          type: array
-          items:
-            type: string
-          description: IDs of the inspection templates to be associated with the permission group
-        user_ids:
-          type: array
-          items:
-            type: string
-          description: IDs of the users to be associated with the permission group
-        allow_billing_plan_editing:
-          type: boolean
-          description: Enable or disable billing plan editing for users on this permission group
-        allow_automation_editing:
-          type: boolean
-          description: Enable or disable automation editing for users on this permission group
-        allow_notifications_preferences_editing:
-          type: boolean
-          description: Enable or disable notification preferences editing for users on this permission group
-        allow_inspection_messaging_editing:
-          type: boolean
-          description: Enable or disable inspection messaging editing for users on this permission group
-        allow_ai_manual_scan:
-          type: boolean
-          description: Enable or disable manual AI damage scans for users on this permission group
-    permission_group_get_all_response_model:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: Name of the permission group
-        user_count:
-          type: number
-          description: Total amount of users on the permission group
-        allow_billing_plan_editing:
-          type: boolean
-          description: Whether users on this permission group can edit billing plans.
-        allow_automation_editing:
-          type: boolean
-          description: Whether users on this permission group can edit automations.
-        allow_notifications_preferences_editing:
-          type: boolean
-          description: Whether users on this permission group can edit notification preferences.
-        allow_inspection_messaging_editing:
-          type: boolean
-          description: Whether users on this permission group can edit inspection messaging.
-        allow_ai_manual_scan:
-          type: boolean
-          description: Whether users on this permission group can run manual AI damage scans.
-    permission_group_delete_request_model:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          minItems: 1
-          items:
-            type: string
-          description: IDs of the permission groups to be deleted. Must contain at least one id.
   responses:
     '401':
       description: Unauthorized

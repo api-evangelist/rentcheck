@@ -366,225 +366,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    filter_segment_update_request_model:
-      type: object
-      required:
-      - name
-      - color
-      - icon
-      - filters
-      description: Request body for updating a filter segment. Full replace — same shape and rules as create.
-      properties:
-        name:
-          type: string
-          description: Segment name. Must be unique per owner (trimmed, case-insensitive); keeping the segment’s current name is allowed.
-        color:
-          type: string
-          enum:
-          - grey
-          - blue
-          - light_blue
-          - orange
-          - green
-          - red
-        icon:
-          type: string
-          enum:
-          - paint-roller
-          - traffic-cone
-          - inbox
-          - file-signature
-          - exclamation-triangle
-          - user-circle
-          - archive
-          - hammer
-          - truck-container
-          - user-helmet-safety
-          - house
-          - house-tree
-          - house-chimney-crack
-          - house-flood-water
-          - snowflake
-          - sun
-          - umbrella-simple
-          - cloud-rainbow
-          - rainbow
-          - dog
-          - raccoon
-          - city
-          - roller-coaster
-          - house-flag
-          - tree-city
-          - star-shooting
-          - clock
-          - repeat
-          - pen
-          - tag
-          - shower
-          - bed
-          - shield-check
-          - circle-check
-          - circle-xmark
-          - files
-          description: FontAwesome icon name from the allowlist.
-          example: house
-        filters:
-          type: object
-          description: The inspections-list filter combo. At least one filter must be provided.
-          minProperties: 1
-          properties:
-            search:
-              type: string
-            archived:
-              type: boolean
-            has_flags:
-              type: boolean
-            due_date:
-              type: object
-              properties:
-                start_date:
-                  type: string
-                end_date:
-                  type: string
-            due_date_legacy:
-              type: object
-              properties:
-                start_date:
-                  type: string
-                end_date:
-                  type: string
-            completed_date:
-              type: object
-              properties:
-                start_date:
-                  type: string
-                end_date:
-                  type: string
-            assigned_to:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-            team:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-                  - none_of
-            inspection_template:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-                  - none_of
-            inspection_status:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-                  - none_of
-            rating:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-            property:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-                  - none_of
-            review_step:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-            created_by:
-              type: object
-              required:
-              - value
-              - condition
-              properties:
-                value:
-                  type: array
-                  items:
-                    type: string
-                  description: Filter values. Duplicate values are rejected.
-                condition:
-                  type: string
-                  enum:
-                  - any_of
-                  - none_of
     filter_segment_response_model:
       type: object
       required:
@@ -901,6 +682,225 @@ components:
           type: string
           format: date-time
           description: ISO timestamp.
+    filter_segment_update_request_model:
+      type: object
+      required:
+      - name
+      - color
+      - icon
+      - filters
+      description: Request body for updating a filter segment. Full replace — same shape and rules as create.
+      properties:
+        name:
+          type: string
+          description: Segment name. Must be unique per owner (trimmed, case-insensitive); keeping the segment’s current name is allowed.
+        color:
+          type: string
+          enum:
+          - grey
+          - blue
+          - light_blue
+          - orange
+          - green
+          - red
+        icon:
+          type: string
+          enum:
+          - paint-roller
+          - traffic-cone
+          - inbox
+          - file-signature
+          - exclamation-triangle
+          - user-circle
+          - archive
+          - hammer
+          - truck-container
+          - user-helmet-safety
+          - house
+          - house-tree
+          - house-chimney-crack
+          - house-flood-water
+          - snowflake
+          - sun
+          - umbrella-simple
+          - cloud-rainbow
+          - rainbow
+          - dog
+          - raccoon
+          - city
+          - roller-coaster
+          - house-flag
+          - tree-city
+          - star-shooting
+          - clock
+          - repeat
+          - pen
+          - tag
+          - shower
+          - bed
+          - shield-check
+          - circle-check
+          - circle-xmark
+          - files
+          description: FontAwesome icon name from the allowlist.
+          example: house
+        filters:
+          type: object
+          description: The inspections-list filter combo. At least one filter must be provided.
+          minProperties: 1
+          properties:
+            search:
+              type: string
+            archived:
+              type: boolean
+            has_flags:
+              type: boolean
+            due_date:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+            due_date_legacy:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+            completed_date:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+            assigned_to:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+            team:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+                  - none_of
+            inspection_template:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+                  - none_of
+            inspection_status:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+                  - none_of
+            rating:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+            property:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+                  - none_of
+            review_step:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+            created_by:
+              type: object
+              required:
+              - value
+              - condition
+              properties:
+                value:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter values. Duplicate values are rejected.
+                condition:
+                  type: string
+                  enum:
+                  - any_of
+                  - none_of
     filter_segment_create_request_model:
       type: object
       required:

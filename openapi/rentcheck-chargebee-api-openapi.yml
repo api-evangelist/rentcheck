@@ -131,6 +131,41 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    api_chargebee_addon:
+      x-internal: true
+      type: object
+      required:
+      - id
+      - name
+      - invoice_name
+      - description
+      - pricing_model
+      - price
+      properties:
+        id:
+          type: string
+          description: Chargebee addon id.
+        name:
+          type: string
+          description: Addon name.
+        invoice_name:
+          type: string
+          description: Name shown on the invoice line item.
+        description:
+          type: string
+          description: Addon description.
+        pricing_model:
+          type: string
+          enum:
+          - flat_fee
+          - per_unit
+          - tiered
+          - volume
+          - stairstep
+          description: Chargebee pricing model for the addon.
+        price:
+          type: integer
+          description: Price in cents (Chargebee stores money as integer cents).
     api_chargebee_plan:
       x-internal: true
       type: object
@@ -175,6 +210,18 @@ components:
         price:
           type: integer
           description: Price in cents (Chargebee stores money as integer cents).
+    chargebee_get_all_plans_response_model:
+      x-internal: true
+      type: array
+      description: List of Chargebee plans available to the caller.
+      items:
+        $ref: '#/components/schemas/api_chargebee_plan'
+    chargebee_get_all_addons_response_model:
+      x-internal: true
+      type: array
+      description: List of Chargebee addons available to the caller.
+      items:
+        $ref: '#/components/schemas/api_chargebee_addon'
     api_chargebee_subscription:
       x-internal: true
       type: object
@@ -312,53 +359,6 @@ components:
           type: integer
           format: int64
           description: Trial end timestamp, in seconds since epoch.
-    chargebee_get_all_addons_response_model:
-      x-internal: true
-      type: array
-      description: List of Chargebee addons available to the caller.
-      items:
-        $ref: '#/components/schemas/api_chargebee_addon'
-    chargebee_get_all_plans_response_model:
-      x-internal: true
-      type: array
-      description: List of Chargebee plans available to the caller.
-      items:
-        $ref: '#/components/schemas/api_chargebee_plan'
-    api_chargebee_addon:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - name
-      - invoice_name
-      - description
-      - pricing_model
-      - price
-      properties:
-        id:
-          type: string
-          description: Chargebee addon id.
-        name:
-          type: string
-          description: Addon name.
-        invoice_name:
-          type: string
-          description: Name shown on the invoice line item.
-        description:
-          type: string
-          description: Addon description.
-        pricing_model:
-          type: string
-          enum:
-          - flat_fee
-          - per_unit
-          - tiered
-          - volume
-          - stairstep
-          description: Chargebee pricing model for the addon.
-        price:
-          type: integer
-          description: Price in cents (Chargebee stores money as integer cents).
   responses:
     '401':
       description: Unauthorized

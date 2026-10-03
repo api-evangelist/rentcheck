@@ -1087,197 +1087,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    team_invite_update_response_model:
-      type: object
-      required:
-      - id
-      - email
-      - role
-      - created_at
-      - created_by
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        email:
-          type: string
-          description: User email
-          example: user@email.com
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-        created_at:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-        created_by:
-          type: object
-          required:
-          - id
-          - name
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: User full name
-    team_update_request_model:
-      type: object
-      required: []
-      properties:
-        name:
-          type: string
-          description: The name field is the Team name that is displayed on recipient facing reports and communication.
-          example: The best company
-        internal_label:
-          type: string
-          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-          example: The best company label
-        logo:
-          type: string
-          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
-    team_invite_accept_all_response_model:
-      type: object
-      required:
-      - id
-      - email
-      - role
-      - created_at
-      - created_by
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        email:
-          type: string
-          description: User email
-          example: user@email.com
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-        created_at:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-        created_by:
-          type: object
-          required:
-          - id
-          - name
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: User full name
-    latchel_integration_delete_request_model:
-      x-internal: true
-      type: object
-      required:
-      - api_key
-      - team_ids
-      description: Request body for deleting a Latchel integration.
-      properties:
-        api_key:
-          type: string
-          description: Latchel's API key.
-          example: awd30j1894asd098afokasmd8971238asc8ca12c
-        team_ids:
-          type: array
-          description: Id of the Teams who created or administers the Entity.
-          items:
-            type: string
-          example:
-          - 05fDGZRKp4nVmlmEwjsv
-    team_invite_create_request_model:
-      type: object
-      required:
-      - emails
-      properties:
-        emails:
-          type: array
-          minItems: 1
-          description: List of users to be invited to team. Must contain at least one valid email; invalid addresses are rejected.
-          items:
-            type: string
-            format: email
-          example:
-          - pm1@email.com
-          - pm2@email.com
-        role:
-          type: string
-          enum:
-          - admin
-          - manager
-          - none
-          description: Optional team membership role to assign to the invited users. Defaults to `manager` when omitted.
-    latchel_integration_delete_response_model:
-      x-internal: true
-      type: object
-      required:
-      - teams
-      description: The `teams` array contains the teams from which the Latchel integration was removed.
-      properties:
-        teams:
-          type: array
-          items:
-            type: object
-            required:
-            - id
-            - name
-            - internal_label
-            - user_role
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              name:
-                type: string
-                description: The name field is the Team name that is displayed on recipient facing reports and communication.
-                example: The best company
-              internal_label:
-                type: string
-                description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-                example: The best company label
-              logo:
-                type: string
-                description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
-              user_role:
-                type: string
-                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-                enum:
-                - admin
-                - manager
-                - none
-                example: admin
-    team_invite_update_request_model:
-      type: object
-      properties:
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
     team_integration_latchel_response_model:
       type: object
       required:
@@ -1358,7 +1167,7 @@ components:
         logo:
           type: string
           description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
-    team_invite_reminder_response_model:
+    team_invite_accept_all_response_model:
       type: object
       required:
       - id
@@ -1400,17 +1209,6 @@ components:
             name:
               type: string
               description: User full name
-    team_member_update_request_model:
-      type: object
-      properties:
-        role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
     team_integration_latchel_request_model:
       x-internal: true
       type: object
@@ -1429,6 +1227,295 @@ components:
             type: string
           example:
           - 05fDGZRKp4nVmlmEwjsv
+    team_update_request_model:
+      type: object
+      required: []
+      properties:
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: A base64 string of the image that is goint to be used to co-brand RentCheck reports and email communication.
+    latchel_integration_delete_response_model:
+      x-internal: true
+      type: object
+      required:
+      - teams
+      description: The `teams` array contains the teams from which the Latchel integration was removed.
+      properties:
+        teams:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - internal_label
+            - user_role
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              name:
+                type: string
+                description: The name field is the Team name that is displayed on recipient facing reports and communication.
+                example: The best company
+              internal_label:
+                type: string
+                description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+                example: The best company label
+              logo:
+                type: string
+                description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+              user_role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+    team_invite_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+    team_get_by_id_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - internal_label
+      - user_role
+      - users
+      - pending_users
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        user_role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        users:
+          type: array
+          description: A list of users with their info and role that belong to a team.
+          items:
+            type: object
+            required:
+            - id
+            - user_name
+            - email
+            - role
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              user_name:
+                type: string
+                description: User full name.
+              email:
+                type: string
+                description: User email
+                example: user@email.com
+              role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+        pending_users:
+          type: array
+          description: A list of users and their info that have not yet accepted their invitation to a team.
+          items:
+            type: object
+            required:
+            - id
+            - email
+            - role
+            - created_at
+            - created_by
+            properties:
+              id:
+                type: string
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              email:
+                type: string
+                description: User email
+                example: user@email.com
+              role:
+                type: string
+                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+                enum:
+                - admin
+                - manager
+                - none
+                example: admin
+              created_at:
+                type: string
+                description: Entity creation date, in ISO format
+                example: 2022-12-02 14:15:37.925000
+              created_by:
+                type: object
+                required:
+                - id
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: Entity ID
+                    example: 00BRcZPSakXz6w7RYoE
+                  name:
+                    type: string
+                    description: User full name
+    team_invite_update_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_invite_get_all_response_model:
+      type: object
+      required:
+      - id
+      - email
+      - role
+      - created_at
+      - created_by
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        email:
+          type: string
+          description: User email
+          example: user@email.com
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
+        created_at:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+        created_by:
+          type: object
+          required:
+          - id
+          - name
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: User full name
+    team_get_all_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - internal_label
+      - user_role
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+          description: The name field is the Team name that is displayed on recipient facing reports and communication.
+          example: The best company
+        internal_label:
+          type: string
+          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+          example: The best company label
+        logo:
+          type: string
+          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
+        user_role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
     team_invite_create_response_model:
       type: object
       required:
@@ -1575,146 +1662,48 @@ components:
                 type: string
               name:
                 type: string
-    team_get_all_response_model:
+    latchel_integration_delete_request_model:
+      x-internal: true
       type: object
       required:
-      - id
-      - name
-      - internal_label
-      - user_role
+      - api_key
+      - team_ids
+      description: Request body for deleting a Latchel integration.
       properties:
-        id:
+        api_key:
           type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
+          description: Latchel's API key.
+          example: awd30j1894asd098afokasmd8971238asc8ca12c
+        team_ids:
+          type: array
+          description: Id of the Teams who created or administers the Entity.
+          items:
+            type: string
+          example:
+          - 05fDGZRKp4nVmlmEwjsv
+    team_invite_create_request_model:
+      type: object
+      required:
+      - emails
+      properties:
+        emails:
+          type: array
+          minItems: 1
+          description: List of users to be invited to team. Must contain at least one valid email; invalid addresses are rejected.
+          items:
+            type: string
+            format: email
+          example:
+          - pm1@email.com
+          - pm2@email.com
+        role:
           type: string
-          description: The name field is the Team name that is displayed on recipient facing reports and communication.
-          example: The best company
-        internal_label:
-          type: string
-          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-          example: The best company label
-        logo:
-          type: string
-          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
-        user_role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
           enum:
           - admin
           - manager
           - none
-          example: admin
-    team_get_by_id_response_model:
-      type: object
-      required:
-      - id
-      - name
-      - internal_label
-      - user_role
-      - users
-      - pending_users
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-          description: The name field is the Team name that is displayed on recipient facing reports and communication.
-          example: The best company
-        internal_label:
-          type: string
-          description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-          example: The best company label
-        logo:
-          type: string
-          description: The location of a hosted image file that is used to co-brand RentCheck reports and email communication.
-        user_role:
-          type: string
-          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-          enum:
-          - admin
-          - manager
-          - none
-          example: admin
-        users:
-          type: array
-          description: A list of users with their info and role that belong to a team.
-          items:
-            type: object
-            required:
-            - id
-            - user_name
-            - email
-            - role
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              user_name:
-                type: string
-                description: User full name.
-              email:
-                type: string
-                description: User email
-                example: user@email.com
-              role:
-                type: string
-                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-                enum:
-                - admin
-                - manager
-                - none
-                example: admin
-        pending_users:
-          type: array
-          description: A list of users and their info that have not yet accepted their invitation to a team.
-          items:
-            type: object
-            required:
-            - id
-            - email
-            - role
-            - created_at
-            - created_by
-            properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              email:
-                type: string
-                description: User email
-                example: user@email.com
-              role:
-                type: string
-                description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
-                enum:
-                - admin
-                - manager
-                - none
-                example: admin
-              created_at:
-                type: string
-                description: Entity creation date, in ISO format
-                example: 2022-12-02 14:15:37.925000
-              created_by:
-                type: object
-                required:
-                - id
-                - name
-                properties:
-                  id:
-                    type: string
-                    description: Entity ID
-                    example: 00BRcZPSakXz6w7RYoE
-                  name:
-                    type: string
-                    description: User full name
-    team_invite_get_all_response_model:
+          description: Optional team membership role to assign to the invited users. Defaults to `manager` when omitted.
+    team_invite_reminder_response_model:
       type: object
       required:
       - id
@@ -1756,6 +1745,17 @@ components:
             name:
               type: string
               description: User full name
+    team_member_update_request_model:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Team role for the user. Falls back to `'none'` when the caller isn't a member of the returned team (e.g. the internal-admin “All teams” pseudo-team); any of the three values can be persisted.
+          enum:
+          - admin
+          - manager
+          - none
+          example: admin
   responses:
     '401':
       description: Unauthorized

@@ -403,487 +403,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    building_response_model:
-      type: object
-      required:
-      - id
-      - name
-      - address
-      - city
-      - zip_code
-      - floors
-      - property_type
-      - team
-      - room_names
-      - last_completed_inspection
-      - permissions
-      - created_date
-      - updated_date
-      - rooms_info
-      - rooms
-      - creation_source
-      - created_by
-      - additional_team_ids
-      - unit_ids
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        x_id:
-          type: string
-          description: External property ID that maps to RentCheck properties
-        team:
-          type: object
-          required:
-          - id
-          - name
-          - internal_label
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: The name field is the Team name that is displayed on recipient facing reports and communication.
-              example: The best company
-            internal_label:
-              type: string
-              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
-              example: The best company label
-          nullable: true
-          readOnly: true
-          description: Team that owns this building. May be null when the underlying team has been removed.
-        property_type:
-          type: string
-          description: Discriminator value identifying this property as a Building.
-          enum:
-          - Building
-          example: Building
-          readOnly: true
-        name:
-          type: string
-          description: This is the name of the Building.
-          example: Empire State Building
-        address:
-          type: string
-          description: This is the street address for the Building.
-          example: 2001 Red Gates
-        address_2:
-          type: string
-          description: Additional address information for the Building.
-          example: Apt. 4B
-        city:
-          type: string
-          description: This is the city of the Building.
-          example: New Orleans
-        region:
-          type: string
-          description: The broader region or area in which the Building is located.
-          example: Orleans
-        zip_code:
-          type: string
-          description: This is the Postal Code for the Building.
-          example: '70130'
-        floors:
-          type: number
-          maximum: 100
-          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
-          example: 7
-        additional_team_ids:
-          type: array
-          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        unit_ids:
-          type: array
-          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
-          items:
-            type: string
-            description: Entity ID
-            example: 00BRcZPSakXz6w7RYoE
-        creation_source:
-          type: string
-          description: App that perform the entity creation.
-          enum:
-          - zapier
-          - rentmanager
-          - flatfile
-          - 365connect
-          - appfolio
-          - yardi
-          - rentvine
-          - test_app_id
-          example: zapier
-          readOnly: true
-        created_by:
-          type: object
-          properties:
-            name:
-              type: string
-              description: Name of the user that created the property
-          description: Info about the user that created the property.
-          readOnly: true
-        created_date:
-          type: string
-          description: Entity creation date, in ISO format
-          example: 2022-12-02 14:15:37.925000
-          readOnly: true
-        updated_date:
-          type: string
-          description: Entity last update date, in ISO format
-          example: 2023-10-04 14:15:37.925000
-          readOnly: true
-        rooms:
-          type: array
-          items:
-            type: string
-          deprecated: true
-          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
-          example:
-          - Living Room
-          - Den
-          - Balcony
-          readOnly: true
-        room_names:
-          type: array
-          deprecated: true
-          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. Returned unit room names.'
-          enum:
-          - Front Door
-          - Back Door
-          - Kitchen
-          - Dining Room
-          - Living Room
-          - Family Room
-          - Den
-          - Office
-          - Bedroom
-          - First Bedroom
-          - Second Bedroom
-          - Third Bedroom
-          - Fourth Bedroom
-          - Fifth Bedroom
-          - Sixth Bedroom
-          - Seventh Bedroom
-          - Eighth Bedroom
-          - Ninth Bedroom
-          - Tenth Bedroom
-          - Bathroom
-          - First Bathroom
-          - Second Bathroom
-          - Third Bathroom
-          - Fourth Bathroom
-          - Fifth Bathroom
-          - Sixth Bathroom
-          - Seventh Bathroom
-          - Eighth Bathroom
-          - Ninth Bathroom
-          - Tenth Bathroom
-          - Full Bathroom
-          - First Full Bathroom
-          - Second Full Bathroom
-          - Third Full Bathroom
-          - Fourth Full Bathroom
-          - Fifth Full Bathroom
-          - Sixth Full Bathroom
-          - Seventh Full Bathroom
-          - Eighth Full Bathroom
-          - Ninth Full Bathroom
-          - Tenth Full Bathroom
-          - Half Bathroom
-          - First Half Bathroom
-          - Second Half Bathroom
-          - Third Half Bathroom
-          - Fourth Half Bathroom
-          - Fifth Half Bathroom
-          - Sixth Half Bathroom
-          - Seventh Half Bathroom
-          - Eighth Half Bathroom
-          - Ninth Half Bathroom
-          - Tenth Half Bathroom
-          - Laundry Room
-          - Stairway
-          - Stairs
-          - Hallway
-          - Basement
-          - Loft
-          - Attic
-          - Storage Room
-          - Garage
-          - Carport
-          - Patio
-          - Balcony
-          - General
-          - Property Exterior & Grounds
-          - Multi-Unit Common Areas
-          readOnly: true
-        rooms_info:
-          type: array
-          description: Structured per-room metadata and the source of truth for room labeling. `rooms` and `room_names` are derived from this. `type` is the no-ordinal room kind (e.g. "Bedroom"), `name` is the ordinal name (e.g. "First Bedroom"), and `label` is a human-meaningful label that defaults to `name`.
-          items:
-            $ref: '#/components/schemas/room_info'
-          readOnly: true
-        last_completed_inspection:
-          type: object
-          readOnly: true
-          nullable: true
-          required:
-          - date
-          - id
-          - type
-          properties:
-            date:
-              type: string
-              description: Inspection completion date, in ISO format
-              example: 2022-12-02 14:15:37.925000
-            type:
-              type: string
-              description: The inspection template name
-            id:
-              type: string
-              description: Inspection ID
-        permissions:
-          type: object
-          readOnly: true
-          required:
-          - can_delete
-          - can_create_inspection
-          - can_add_to_parent_property
-          - can_reassign_team
-          properties:
-            can_delete:
-              type: boolean
-            can_create_inspection:
-              type: boolean
-            can_add_to_parent_property:
-              type: boolean
-            can_reassign_team:
-              type: boolean
-        sync_data:
-          type: object
-          readOnly: true
-          nullable: true
-          required:
-          - vendor
-          - last_sync
-          description: Single sync envelope used for whichever integration owns the property; null when the property is not synced.
-          properties:
-            last_sync:
-              type: string
-              description: Sync date, in ISO format
-              example: 2022-12-02 14:15:37.925000
-            vendor:
-              type: string
-              description: The third party vendor for this sync
-              enum:
-              - rentmanager
-              - yardi
-              - appfolio
-              - jenark
-              - rentvine
-              - buildium
-            status:
-              type: string
-              description: Latest manual-sync status. Only present on integrations that expose it (e.g. Buildium).
-              enum:
-              - scheduled
-              - processing
-              - success
-              - error
-            error:
-              type: string
-              nullable: true
-              description: Error message from the most recent sync attempt, if any.
-            id:
-              oneOf:
-              - type: string
-              - type: integer
-              description: External vendor id for the property/unit (string for most vendors; integer for AppFolio).
-            x_id:
-              type: string
-              description: Vendor-native external id echo for the legacy Rentvine / Rent Manager envelope. Kept for debugging/audit parity with the historic `sync_data`.
-            location_id:
-              type: string
-              description: Rent Manager location (property) id — legacy `sync_data`, debugging/audit.
-            integration_id:
-              type: string
-              description: RentCheck integration record id (Rent Manager legacy sync) — debugging/audit.
-            short_property_id:
-              type: string
-              description: AppFolio short property id, when synced from AppFolio.
-            short_unit_id:
-              type: string
-              description: AppFolio short unit id, when synced from AppFolio.
-            upload_response:
-              type: array
-              description: AppFolio per-destination inspection-upload outcomes.
-              items:
-                type: object
-                required:
-                - resource
-                - resource_id
-                - uploaded_id
-                properties:
-                  resource:
-                    type: string
-                    enum:
-                    - units
-                    - properties
-                    - occupancies
-                  resource_id:
-                    type: string
-                  uploaded_id:
-                    type: string
-    rentvine_sync:
-      type: object
-      required:
-      - last_sync
-      description: Rentvine sync metadata.
-      properties:
-        id:
-          type: string
-          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
-        x_id:
-          type: string
-          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
-        x_property_id:
-          type: string
-          description: Rentvine property id. When the property type is a unit, this points at the building id.
-        last_sync:
-          type: string
-          format: date-time
-          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
-        status:
-          type: string
-          enum:
-          - scheduled
-          - processing
-          - success
-          - error
-          description: Job orchestration and terminal outcome for the most recent sync.
-        error:
-          type: string
-          nullable: true
-          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
-        upload_response:
-          type: array
-          description: Per-destination upload outcomes for inspection PDF uploads.
-          items:
-            type: object
-            additionalProperties: true
-        excluded_inspection_upload_destinations:
-          type: array
-          description: Destinations to skip on the next inspection-report upload retry.
-          items:
-            type: string
-            enum:
-            - properties
-            - tenants
-            - inspections
-    unit_update_request_model:
-      type: object
-      properties:
-        x_id:
-          type: string
-          description: External property ID that maps to RentCheck properties
-        building_id:
-          type: string
-          description: Entity ID of the building the unit belongs to.
-          example: 00BRcZPSakXz6w7RYoE
-        property_type:
-          type: string
-          description: 'The property type designates which type of property the Unit is. Write-only: the legacy `""` value is read-only and rejected on update — an empty string is rejected.'
-          enum:
-          - Single-Family
-          - Multi-Family
-          - Apartment or Condo
-          - Commercial
-          example: Single-Family
-        address:
-          type: string
-          description: This is the street address for the Unit.
-          example: 2001 Red Gates
-        address_2:
-          type: string
-          description: Additional address information for the Unit.
-          example: Apt. 4B
-        city:
-          type: string
-          description: This is the city of the Unit.
-          example: New Orleans
-        region:
-          type: string
-          description: The broader region or area in which the Unit is located.
-          example: Orleans
-        state:
-          type: string
-          description: Two-letter US state code. Optional alias of `region` for callers that prefer the postal-style name.
-          example: CA
-        zip_code:
-          type: string
-          description: This is the Postal Code for the Unit.
-          example: '70130'
-        rooms:
-          type: array
-          items:
-            type: string
-          deprecated: true
-          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
-          example:
-          - Living Room
-          - Den
-          - Balcony
-        rooms_info:
-          type: array
-          description: 'Structured per-room configuration and, when supplied, the authoritative room set: `rooms`/`room_names` are derived from these entries. `name` is the source of truth (required); `type` is recomputed from it and `label` defaults to `name`, so both are optional. The bedroom/bathroom counts always come from the dedicated `bedrooms`/`full_bathrooms`/`half_bathrooms` fields, never from this array. Mutually exclusive with `rooms` — sending both is a validation error. Omit both `rooms` and `rooms_info` to leave the existing room arrays unchanged (only the counts are updated).'
-          items:
-            $ref: '#/components/schemas/room_info_request'
-        bedrooms:
-          type: integer
-          minimum: 0
-          maximum: 10
-          description: The number of bedrooms the Unit has. Must be an integer in `[0, 10]`.
-          example: 2
-        full_bathrooms:
-          type: number
-          minimum: 0
-          maximum: 10
-          description: The number of full bathrooms the Unit has. Must be a number in `[0, 10]` — decimals are allowed.
-          example: 2
-        half_bathrooms:
-          type: integer
-          minimum: 0
-          maximum: 10
-          description: The number of half bathrooms the Unit has. Must be an integer in `[0, 10]`.
-          example: 1
-        team_id:
-          type: string
-          description: Id of the Team who created or administers the Entity.
-          example: 05fDGZRKp4nVmlmEwjsv
-        rentvine_sync:
-          $ref: '#/components/schemas/rentvine_sync'
-    room_info_request:
-      type: object
-      required:
-      - name
-      description: Structured room entry (write shape). Only `name` is required; the server normalizes the other fields.
-      properties:
-        type:
-          type: string
-          description: 'Accepted but ignored: the server recomputes it from `name`.'
-          example: Bedroom
-        name:
-          type: string
-          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
-          example: First Bedroom
-        label:
-          type: string
-          description: 'Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Optional: defaults to `name`.'
-          example: First Bedroom
     room_info:
       type: object
       required:
@@ -1233,6 +752,24 @@ components:
                     type: string
                   uploaded_id:
                     type: string
+    room_info_request:
+      type: object
+      required:
+      - name
+      description: Structured room entry (write shape). Only `name` is required; the server normalizes the other fields.
+      properties:
+        type:
+          type: string
+          description: 'Accepted but ignored: the server recomputes it from `name`.'
+          example: Bedroom
+        name:
+          type: string
+          description: The ordinal room name (e.g. "First Bedroom") and the source of truth for the entry.
+          example: First Bedroom
+        label:
+          type: string
+          description: 'Human-meaningful display label that lets multiple rooms of the same kind be differentiated. Optional: defaults to `name`.'
+          example: First Bedroom
     unit_create_request_model:
       type: object
       required:
@@ -1322,55 +859,6 @@ components:
           example: 1
         rentvine_sync:
           $ref: '#/components/schemas/rentvine_sync'
-    zapier_property_create_request_model:
-      x-internal: true
-      type: object
-      required:
-      - address
-      - city
-      - state
-      - postal_code
-      - property_type
-      - bedrooms
-      - bathrooms
-      properties:
-        address:
-          type: string
-          description: Street address of the unit being created.
-        city:
-          type: string
-          description: City of the unit.
-        state:
-          type: string
-          description: US state code. Used to derive the persisted `region` value.
-        postal_code:
-          type: string
-          description: Postal code (ZIP) of the unit.
-        property_type:
-          type: string
-          description: Unit property type.
-          enum:
-          - ''
-          - Single-Family
-          - Multi-Family
-          - Apartment or Condo
-          - Commercial
-        bedrooms:
-          type: integer
-          minimum: 0
-          maximum: 10
-          description: Number of bedrooms. Enforced to `[0, 10]`.
-        bathrooms:
-          type: number
-          minimum: 0
-          description: Total number of bathrooms. Split into `full_bathrooms` / `half_bathrooms` before delegating to the v1 unit create flow.
-    properties_merge_request_model:
-      type: object
-      properties:
-        transfer_rooms:
-          type: boolean
-          description: When `true`, the rooms of the origin property are merged onto the target property.
-          default: false
     unit_response_model:
       type: object
       required:
@@ -1718,23 +1206,519 @@ components:
               type: boolean
             can_reassign_team:
               type: boolean
-  responses:
-    synced_property_merge_forbidden:
-      description: Forbidden — either the origin or target property of a merge is currently synced from an external integration.
-      content:
-        application/json:
-          schema:
+    unit_update_request_model:
+      type: object
+      properties:
+        x_id:
+          type: string
+          description: External property ID that maps to RentCheck properties
+        building_id:
+          type: string
+          description: Entity ID of the building the unit belongs to.
+          example: 00BRcZPSakXz6w7RYoE
+        property_type:
+          type: string
+          description: 'The property type designates which type of property the Unit is. Write-only: the legacy `""` value is read-only and rejected on update — an empty string is rejected.'
+          enum:
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+          example: Single-Family
+        address:
+          type: string
+          description: This is the street address for the Unit.
+          example: 2001 Red Gates
+        address_2:
+          type: string
+          description: Additional address information for the Unit.
+          example: Apt. 4B
+        city:
+          type: string
+          description: This is the city of the Unit.
+          example: New Orleans
+        region:
+          type: string
+          description: The broader region or area in which the Unit is located.
+          example: Orleans
+        state:
+          type: string
+          description: Two-letter US state code. Optional alias of `region` for callers that prefer the postal-style name.
+          example: CA
+        zip_code:
+          type: string
+          description: This is the Postal Code for the Unit.
+          example: '70130'
+        rooms:
+          type: array
+          items:
+            type: string
+          deprecated: true
+          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
+          example:
+          - Living Room
+          - Den
+          - Balcony
+        rooms_info:
+          type: array
+          description: 'Structured per-room configuration and, when supplied, the authoritative room set: `rooms`/`room_names` are derived from these entries. `name` is the source of truth (required); `type` is recomputed from it and `label` defaults to `name`, so both are optional. The bedroom/bathroom counts always come from the dedicated `bedrooms`/`full_bathrooms`/`half_bathrooms` fields, never from this array. Mutually exclusive with `rooms` — sending both is a validation error. Omit both `rooms` and `rooms_info` to leave the existing room arrays unchanged (only the counts are updated).'
+          items:
+            $ref: '#/components/schemas/room_info_request'
+        bedrooms:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: The number of bedrooms the Unit has. Must be an integer in `[0, 10]`.
+          example: 2
+        full_bathrooms:
+          type: number
+          minimum: 0
+          maximum: 10
+          description: The number of full bathrooms the Unit has. Must be a number in `[0, 10]` — decimals are allowed.
+          example: 2
+        half_bathrooms:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: The number of half bathrooms the Unit has. Must be an integer in `[0, 10]`.
+          example: 1
+        team_id:
+          type: string
+          description: Id of the Team who created or administers the Entity.
+          example: 05fDGZRKp4nVmlmEwjsv
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+    properties_merge_request_model:
+      type: object
+      properties:
+        transfer_rooms:
+          type: boolean
+          description: When `true`, the rooms of the origin property are merged onto the target property.
+          default: false
+    building_response_model:
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - city
+      - zip_code
+      - floors
+      - property_type
+      - team
+      - room_names
+      - last_completed_inspection
+      - permissions
+      - created_date
+      - updated_date
+      - rooms_info
+      - rooms
+      - creation_source
+      - created_by
+      - additional_team_ids
+      - unit_ids
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        x_id:
+          type: string
+          description: External property ID that maps to RentCheck properties
+        team:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: The name field is the Team name that is displayed on recipient facing reports and communication.
+              example: The best company
+            internal_label:
+              type: string
+              description: The internal label is a convenience label to help differentiate similar teams a user may belong to. It's displayed to you and your team members.
+              example: The best company label
+          nullable: true
+          readOnly: true
+          description: Team that owns this building. May be null when the underlying team has been removed.
+        property_type:
+          type: string
+          description: Discriminator value identifying this property as a Building.
+          enum:
+          - Building
+          example: Building
+          readOnly: true
+        name:
+          type: string
+          description: This is the name of the Building.
+          example: Empire State Building
+        address:
+          type: string
+          description: This is the street address for the Building.
+          example: 2001 Red Gates
+        address_2:
+          type: string
+          description: Additional address information for the Building.
+          example: Apt. 4B
+        city:
+          type: string
+          description: This is the city of the Building.
+          example: New Orleans
+        region:
+          type: string
+          description: The broader region or area in which the Building is located.
+          example: Orleans
+        zip_code:
+          type: string
+          description: This is the Postal Code for the Building.
+          example: '70130'
+        floors:
+          type: number
+          maximum: 100
+          description: The number of floors contained in the Building. This number allows us to customize Building inspections to target features on certain floors. Required on create, optional on update. Must be ≤ 100. On read, a missing value defaults to `1`.
+          example: 7
+        additional_team_ids:
+          type: array
+          description: Building can be accessed by multiple teams. This field lists the entity ids of Teams that have access to the Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        unit_ids:
+          type: array
+          description: Building can have 1+ Units associated with them. unit_ids is a list of entity ids of the Units that belong to a Building
+          items:
+            type: string
+            description: Entity ID
+            example: 00BRcZPSakXz6w7RYoE
+        creation_source:
+          type: string
+          description: App that perform the entity creation.
+          enum:
+          - zapier
+          - rentmanager
+          - flatfile
+          - 365connect
+          - appfolio
+          - yardi
+          - rentvine
+          - test_app_id
+          example: zapier
+          readOnly: true
+        created_by:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the user that created the property
+          description: Info about the user that created the property.
+          readOnly: true
+        created_date:
+          type: string
+          description: Entity creation date, in ISO format
+          example: 2022-12-02 14:15:37.925000
+          readOnly: true
+        updated_date:
+          type: string
+          description: Entity last update date, in ISO format
+          example: 2023-10-04 14:15:37.925000
+          readOnly: true
+        rooms:
+          type: array
+          items:
+            type: string
+          deprecated: true
+          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. An array of strings representing the room configuration for the property. Only rooms that are not bedrooms and bathrooms can be set this way.'
+          example:
+          - Living Room
+          - Den
+          - Balcony
+          readOnly: true
+        room_names:
+          type: array
+          deprecated: true
+          description: 'Deprecated: derived from `rooms_info` on read; use `rooms_info` instead. Returned unit room names.'
+          enum:
+          - Front Door
+          - Back Door
+          - Kitchen
+          - Dining Room
+          - Living Room
+          - Family Room
+          - Den
+          - Office
+          - Bedroom
+          - First Bedroom
+          - Second Bedroom
+          - Third Bedroom
+          - Fourth Bedroom
+          - Fifth Bedroom
+          - Sixth Bedroom
+          - Seventh Bedroom
+          - Eighth Bedroom
+          - Ninth Bedroom
+          - Tenth Bedroom
+          - Bathroom
+          - First Bathroom
+          - Second Bathroom
+          - Third Bathroom
+          - Fourth Bathroom
+          - Fifth Bathroom
+          - Sixth Bathroom
+          - Seventh Bathroom
+          - Eighth Bathroom
+          - Ninth Bathroom
+          - Tenth Bathroom
+          - Full Bathroom
+          - First Full Bathroom
+          - Second Full Bathroom
+          - Third Full Bathroom
+          - Fourth Full Bathroom
+          - Fifth Full Bathroom
+          - Sixth Full Bathroom
+          - Seventh Full Bathroom
+          - Eighth Full Bathroom
+          - Ninth Full Bathroom
+          - Tenth Full Bathroom
+          - Half Bathroom
+          - First Half Bathroom
+          - Second Half Bathroom
+          - Third Half Bathroom
+          - Fourth Half Bathroom
+          - Fifth Half Bathroom
+          - Sixth Half Bathroom
+          - Seventh Half Bathroom
+          - Eighth Half Bathroom
+          - Ninth Half Bathroom
+          - Tenth Half Bathroom
+          - Laundry Room
+          - Stairway
+          - Stairs
+          - Hallway
+          - Basement
+          - Loft
+          - Attic
+          - Storage Room
+          - Garage
+          - Carport
+          - Patio
+          - Balcony
+          - General
+          - Property Exterior & Grounds
+          - Multi-Unit Common Areas
+          readOnly: true
+        rooms_info:
+          type: array
+          description: Structured per-room metadata and the source of truth for room labeling. `rooms` and `room_names` are derived from this. `type` is the no-ordinal room kind (e.g. "Bedroom"), `name` is the ordinal name (e.g. "First Bedroom"), and `label` is a human-meaningful label that defaults to `name`.
+          items:
+            $ref: '#/components/schemas/room_info'
+          readOnly: true
+        last_completed_inspection:
+          type: object
+          readOnly: true
+          nullable: true
+          required:
+          - date
+          - id
+          - type
+          properties:
+            date:
+              type: string
+              description: Inspection completion date, in ISO format
+              example: 2022-12-02 14:15:37.925000
+            type:
+              type: string
+              description: The inspection template name
+            id:
+              type: string
+              description: Inspection ID
+        permissions:
+          type: object
+          readOnly: true
+          required:
+          - can_delete
+          - can_create_inspection
+          - can_add_to_parent_property
+          - can_reassign_team
+          properties:
+            can_delete:
+              type: boolean
+            can_create_inspection:
+              type: boolean
+            can_add_to_parent_property:
+              type: boolean
+            can_reassign_team:
+              type: boolean
+        sync_data:
+          type: object
+          readOnly: true
+          nullable: true
+          required:
+          - vendor
+          - last_sync
+          description: Single sync envelope used for whichever integration owns the property; null when the property is not synced.
+          properties:
+            last_sync:
+              type: string
+              description: Sync date, in ISO format
+              example: 2022-12-02 14:15:37.925000
+            vendor:
+              type: string
+              description: The third party vendor for this sync
+              enum:
+              - rentmanager
+              - yardi
+              - appfolio
+              - jenark
+              - rentvine
+              - buildium
+            status:
+              type: string
+              description: Latest manual-sync status. Only present on integrations that expose it (e.g. Buildium).
+              enum:
+              - scheduled
+              - processing
+              - success
+              - error
+            error:
+              type: string
+              nullable: true
+              description: Error message from the most recent sync attempt, if any.
+            id:
+              oneOf:
+              - type: string
+              - type: integer
+              description: External vendor id for the property/unit (string for most vendors; integer for AppFolio).
+            x_id:
+              type: string
+              description: Vendor-native external id echo for the legacy Rentvine / Rent Manager envelope. Kept for debugging/audit parity with the historic `sync_data`.
+            location_id:
+              type: string
+              description: Rent Manager location (property) id — legacy `sync_data`, debugging/audit.
+            integration_id:
+              type: string
+              description: RentCheck integration record id (Rent Manager legacy sync) — debugging/audit.
+            short_property_id:
+              type: string
+              description: AppFolio short property id, when synced from AppFolio.
+            short_unit_id:
+              type: string
+              description: AppFolio short unit id, when synced from AppFolio.
+            upload_response:
+              type: array
+              description: AppFolio per-destination inspection-upload outcomes.
+              items:
+                type: object
+                required:
+                - resource
+                - resource_id
+                - uploaded_id
+                properties:
+                  resource:
+                    type: string
+                    enum:
+                    - units
+                    - properties
+                    - occupancies
+                  resource_id:
+                    type: string
+                  uploaded_id:
+                    type: string
+    zapier_property_create_request_model:
+      x-internal: true
+      type: object
+      required:
+      - address
+      - city
+      - state
+      - postal_code
+      - property_type
+      - bedrooms
+      - bathrooms
+      properties:
+        address:
+          type: string
+          description: Street address of the unit being created.
+        city:
+          type: string
+          description: City of the unit.
+        state:
+          type: string
+          description: US state code. Used to derive the persisted `region` value.
+        postal_code:
+          type: string
+          description: Postal code (ZIP) of the unit.
+        property_type:
+          type: string
+          description: Unit property type.
+          enum:
+          - ''
+          - Single-Family
+          - Multi-Family
+          - Apartment or Condo
+          - Commercial
+        bedrooms:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: Number of bedrooms. Enforced to `[0, 10]`.
+        bathrooms:
+          type: number
+          minimum: 0
+          description: Total number of bathrooms. Split into `full_bathrooms` / `half_bathrooms` before delegating to the v1 unit create flow.
+    rentvine_sync:
+      type: object
+      required:
+      - last_sync
+      description: Rentvine sync metadata.
+      properties:
+        id:
+          type: string
+          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
+        x_id:
+          type: string
+          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
+        x_property_id:
+          type: string
+          description: Rentvine property id. When the property type is a unit, this points at the building id.
+        last_sync:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
+        status:
+          type: string
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+          description: Job orchestration and terminal outcome for the most recent sync.
+        error:
+          type: string
+          nullable: true
+          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
+        upload_response:
+          type: array
+          description: Per-destination upload outcomes for inspection PDF uploads.
+          items:
             type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 403
-              error:
-                type: string
-                enum:
-                - Synced property cannot be used for merge
-                example: Synced property cannot be used for merge
+            additionalProperties: true
+        excluded_inspection_upload_destinations:
+          type: array
+          description: Destinations to skip on the next inspection-report upload retry.
+          items:
+            type: string
+            enum:
+            - properties
+            - tenants
+            - inspections
+  responses:
     synced_property_delete_forbidden:
       description: Forbidden — at least one requested property is currently synced from an external integration (Latchel/Yardi/AppFolio/etc.) and cannot be deleted without first disconnecting the sync.
       content:
@@ -1751,6 +1735,22 @@ components:
                 enum:
                 - Cannot delete property when integration sync is active
                 example: Cannot delete property when integration sync is active
+    synced_property_merge_forbidden:
+      description: Forbidden — either the origin or target property of a merge is currently synced from an external integration.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 403
+              error:
+                type: string
+                enum:
+                - Synced property cannot be used for merge
+                example: Synced property cannot be used for merge
     '401':
       description: Unauthorized
       content:

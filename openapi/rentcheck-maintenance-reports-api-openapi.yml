@@ -227,29 +227,6 @@ paths:
       operationId: getV1MaintenanceReportsByMaintenanceReportId
       x-operation-id-source: derived
 components:
-  responses:
-    '401':
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 401
-              error:
-                type: string
-                description: Error message
-                enum:
-                - token is not valid
-                - authorization header is empty
-                - authorization header is not valid
-                - 'format for Authorization must be: Bearer [token]'
-                - refresh token is not valid for resources
-                - not well-formed token
-                example: token is not valid
   schemas:
     api_maintenance_report:
       type: object
@@ -624,6 +601,29 @@ components:
                 type: string
                 description: Entity ID
                 example: 00BRcZPSakXz6w7RYoE
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 401
+              error:
+                type: string
+                description: Error message
+                enum:
+                - token is not valid
+                - authorization header is empty
+                - authorization header is not valid
+                - 'format for Authorization must be: Bearer [token]'
+                - refresh token is not valid for resources
+                - not well-formed token
+                example: token is not valid
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API

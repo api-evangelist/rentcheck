@@ -605,55 +605,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    oauth2_email_password_auth_request_model:
-      description: Credentials for `POST /v1/oAuth2/emailPasswordAuth`. Either the account password OR the integration password (never both) must accompany the email.
-      oneOf:
-      - type: object
-        required:
-        - email
-        - password
-        properties:
-          email:
-            type: string
-            format: email
-            description: The user's email.
-            example: user@email.com
-          password:
-            type: string
-            description: The account password used on login.
-            example: password123
-      - type: object
-        required:
-        - email
-        - integration_password
-        properties:
-          email:
-            type: string
-            format: email
-            description: The user's email.
-            example: user@email.com
-          integration_password:
-            type: string
-            description: The integration password issued to the user via the RentCheck API integrations page. Callers presenting this value are authenticated as the underlying RentCheck user with no additional login round-trip.
-            example: integration-abcdef123456
-    oauth2_token_request_model:
-      x-internal: true
+    oauth2_refresh_token_response_model:
       type: object
-      description: Body for `POST /v1/oAuth2/token`. Used to complete the RentCheck OAuth2 authorization-code exchange (primary consumer is the Zapier integration).
       required:
-      - client_id
-      - client_secret
-      - code
+      - access_token
+      - refresh_token
       properties:
-        client_id:
+        access_token:
           type: string
-          description: Integration application id issued by RentCheck (aka `x-app-id`).
-        client_secret:
+          description: The access token is used to validate a request to the RentCheck API.
+        refresh_token:
           type: string
-          description: Integration application secret issued by RentCheck (aka `x-app-secret`).
-        code:
-          type: string
-          description: One-time authorization code returned by the RentCheck OAuth2 login flow. Consumed on success (the same code cannot be exchanged twice).
+          description: The refresh token is used to request a fresh access token.
     oauth2_email_password_auth_response_model:
       type: object
       required:
@@ -692,18 +655,6 @@ components:
         org_id:
           type: string
           description: Organization id the tokens are scoped to (the caller's Zapier-configured `org_id`).
-    oauth2_refresh_token_response_model:
-      type: object
-      required:
-      - access_token
-      - refresh_token
-      properties:
-        access_token:
-          type: string
-          description: The access token is used to validate a request to the RentCheck API.
-        refresh_token:
-          type: string
-          description: The refresh token is used to request a fresh access token.
     oauth2_me_response_model:
       x-internal: true
       type: object
@@ -731,6 +682,55 @@ components:
         appId:
           type: string
           description: Integration application id decoded from the caller's access token.
+    oauth2_token_request_model:
+      x-internal: true
+      type: object
+      description: Body for `POST /v1/oAuth2/token`. Used to complete the RentCheck OAuth2 authorization-code exchange (primary consumer is the Zapier integration).
+      required:
+      - client_id
+      - client_secret
+      - code
+      properties:
+        client_id:
+          type: string
+          description: Integration application id issued by RentCheck (aka `x-app-id`).
+        client_secret:
+          type: string
+          description: Integration application secret issued by RentCheck (aka `x-app-secret`).
+        code:
+          type: string
+          description: One-time authorization code returned by the RentCheck OAuth2 login flow. Consumed on success (the same code cannot be exchanged twice).
+    oauth2_email_password_auth_request_model:
+      description: Credentials for `POST /v1/oAuth2/emailPasswordAuth`. Either the account password OR the integration password (never both) must accompany the email.
+      oneOf:
+      - type: object
+        required:
+        - email
+        - password
+        properties:
+          email:
+            type: string
+            format: email
+            description: The user's email.
+            example: user@email.com
+          password:
+            type: string
+            description: The account password used on login.
+            example: password123
+      - type: object
+        required:
+        - email
+        - integration_password
+        properties:
+          email:
+            type: string
+            format: email
+            description: The user's email.
+            example: user@email.com
+          integration_password:
+            type: string
+            description: The integration password issued to the user via the RentCheck API integrations page. Callers presenting this value are authenticated as the underlying RentCheck user with no additional login round-trip.
+            example: integration-abcdef123456
   securitySchemes:
     bearerAuth:
       description: Authorization key needed to use the API
