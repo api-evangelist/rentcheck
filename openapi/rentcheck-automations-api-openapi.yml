@@ -918,12 +918,6 @@ components:
           type: string
           format: date-time
           description: ISO timestamp of the last automation update.
-    automation_get_all_response_model:
-      x-internal: true
-      type: array
-      description: Paginated list of automations.
-      items:
-        $ref: '#/components/schemas/api_automation'
     automation_update_request_model:
       x-internal: true
       type: object
@@ -1046,6 +1040,12 @@ components:
               enum:
               - move_out
               - lease_end
+    automation_get_all_response_model:
+      x-internal: true
+      type: array
+      description: Paginated list of automations.
+      items:
+        $ref: '#/components/schemas/api_automation'
   responses:
     '401':
       description: Unauthorized

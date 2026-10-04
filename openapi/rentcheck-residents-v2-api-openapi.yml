@@ -454,6 +454,91 @@ components:
           - '+17035556390'
         rentvine_sync:
           $ref: '#/components/schemas/rentvine_sync'
+    resident_v2_create_request_model:
+      type: object
+      required:
+      - first_name
+      - last_name
+      - emails
+      properties:
+        organization_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        first_name:
+          type: string
+          description: The Resident's first name.
+          example: Resident Name
+        last_name:
+          type: string
+          description: The Resident's last name.
+          example: Resident Lastname
+        emails:
+          type: array
+          description: Resident's emails
+          items:
+            type: string
+          example:
+          - resident@email.com
+        phone_numbers:
+          type: array
+          items:
+            type: string
+          description: Resident's phone numbers
+          example:
+          - '+17035556390'
+        rentvine_sync:
+          $ref: '#/components/schemas/rentvine_sync'
+        user_id:
+          type: string
+          description: Optional RentCheck user id to associate with the resident on creation.
+          example: 00BRcZPSakXz6w7RYoE
+    rentvine_sync:
+      type: object
+      required:
+      - last_sync
+      description: Rentvine sync metadata.
+      properties:
+        id:
+          type: string
+          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
+        x_id:
+          type: string
+          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
+        x_property_id:
+          type: string
+          description: Rentvine property id. When the property type is a unit, this points at the building id.
+        last_sync:
+          type: string
+          format: date-time
+          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
+        status:
+          type: string
+          enum:
+          - scheduled
+          - processing
+          - success
+          - error
+          description: Job orchestration and terminal outcome for the most recent sync.
+        error:
+          type: string
+          nullable: true
+          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
+        upload_response:
+          type: array
+          description: Per-destination upload outcomes for inspection PDF uploads.
+          items:
+            type: object
+            additionalProperties: true
+        excluded_inspection_upload_destinations:
+          type: array
+          description: Destinations to skip on the next inspection-report upload retry.
+          items:
+            type: string
+            enum:
+            - properties
+            - tenants
+            - inspections
     resident_v2_response_model:
       type: object
       required:
@@ -824,91 +909,6 @@ components:
               error:
                 type: string
                 nullable: true
-    rentvine_sync:
-      type: object
-      required:
-      - last_sync
-      description: Rentvine sync metadata.
-      properties:
-        id:
-          type: string
-          description: Vendor id. For tenants this is the Rentvine tenant id. For properties this is the Rentvine id with a `unit-` or `building-` prefix indicating the basic property type.
-        x_id:
-          type: string
-          description: Rentvine id without the basic-property-type prefix that RentCheck adds in `id`.
-        x_property_id:
-          type: string
-          description: Rentvine property id. When the property type is a unit, this points at the building id.
-        last_sync:
-          type: string
-          format: date-time
-          description: ISO-8601 timestamp of the most recent sync. Marked required for schema completeness; in practice the integration engine writes it and callers do not set it on create / update requests (the request validator only checks that the field is an object).
-        status:
-          type: string
-          enum:
-          - scheduled
-          - processing
-          - success
-          - error
-          description: Job orchestration and terminal outcome for the most recent sync.
-        error:
-          type: string
-          nullable: true
-          description: Top-level error message; prefer the per-destination `upload_response[].error` for inspection-upload failures.
-        upload_response:
-          type: array
-          description: Per-destination upload outcomes for inspection PDF uploads.
-          items:
-            type: object
-            additionalProperties: true
-        excluded_inspection_upload_destinations:
-          type: array
-          description: Destinations to skip on the next inspection-report upload retry.
-          items:
-            type: string
-            enum:
-            - properties
-            - tenants
-            - inspections
-    resident_v2_create_request_model:
-      type: object
-      required:
-      - first_name
-      - last_name
-      - emails
-      properties:
-        organization_id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        first_name:
-          type: string
-          description: The Resident's first name.
-          example: Resident Name
-        last_name:
-          type: string
-          description: The Resident's last name.
-          example: Resident Lastname
-        emails:
-          type: array
-          description: Resident's emails
-          items:
-            type: string
-          example:
-          - resident@email.com
-        phone_numbers:
-          type: array
-          items:
-            type: string
-          description: Resident's phone numbers
-          example:
-          - '+17035556390'
-        rentvine_sync:
-          $ref: '#/components/schemas/rentvine_sync'
-        user_id:
-          type: string
-          description: Optional RentCheck user id to associate with the resident on creation.
-          example: 00BRcZPSakXz6w7RYoE
   responses:
     '401':
       description: Unauthorized

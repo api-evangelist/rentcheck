@@ -1229,84 +1229,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    api_image_metadata_damage_item:
-      type: object
-      required:
-      - id
-      - damage_type
-      - damage_description
-      - damage_severity
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        damage_type:
-          type: string
-          description: The type of damage incurred.
-        damage_description:
-          type: string
-          description: A description providing details about the damage.
-        damage_severity:
-          type: number
-          minimum: 1
-          maximum: 10
-          description: Severity rating from 1 to 10, where 10 is the most severe.
-        skill_guess:
-          type: string
-          description: Skill guess inferred by the image-analysis pipeline that maps to the damage item.
-        user_feedback:
-          type: string
-          enum:
-          - correct
-          - incorrect
-          description: Optional user feedback acknowledging or correcting the inferred damage.
-        confidence:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Model-reported confidence (0-1) that this is real damage rather than normal wear, a reflection, a shadow, or dust. Populated by both the Gemini-backed and OpenAI damage-detection paths. Absent on damage items persisted before this field was added.
-        polygon:
-          type: array
-          description: Optional polygon outlining the damage region. Each vertex is an `{x, y}` object in 0-1 normalized image coordinates (top-left origin). Populated by the Gemini-backed damage-detection path; the OpenAI path leaves this field undefined. Typical polygons have 12-24 vertices.
-          items:
-            type: object
-            required:
-            - x
-            - y
-            properties:
-              x:
-                type: number
-                minimum: 0
-                maximum: 1
-                description: Horizontal coordinate of the vertex, normalized to the image width (0 = left edge, 1 = right edge).
-              y:
-                type: number
-                minimum: 0
-                maximum: 1
-                description: Vertical coordinate of the vertex, normalized to the image height (0 = top edge, 1 = bottom edge).
-    inspection_feature_edit_request_model:
-      x-internal: true
-      type: object
-      description: Partial update to an existing inspection feature.
-      properties:
-        rating:
-          type: string
-          enum:
-          - Poor
-          - Good
-          - Fair
-          - ''
-        responses:
-          type: array
-          items:
-            type: string
-        notes:
-          type: string
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/inspection_feature_media_input_model'
     api_inspection_feature_media:
       x-internal: true
       type: object
@@ -1366,212 +1288,6 @@ components:
           - remove
           - keep
           description: Collaborative-edit operation for the media item. On submit endpoints `operation` is optional and an omitted value is treated as `add` for legacy clients.
-    api_image_metadata:
-      type: object
-      required:
-      - id
-      - status
-      - inspection_feature
-      - damage_items
-      - associated_flags
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        status:
-          type: string
-          enum:
-          - THROTTLED
-          - CREATED
-          - PROCESSING
-          - PROCESSED
-          - FAILED
-          description: Lifecycle status of the AI image-analysis run for this metadata document.
-        inspection_feature:
-          type: object
-          required:
-          - id
-          - image_key
-          - inspection_id
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            image_key:
-              type: string
-              description: Storage key for the analyzed image.
-            inspection_id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-        damage_items:
-          type: array
-          items:
-            $ref: '#/components/schemas/api_image_metadata_damage_item'
-        associated_flags:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-          description: Maintenance flags on the underlying inspection feature that this image is currently associated with.
-    maintenance_flag_response_model:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        room:
-          type: string
-          description: Maintenance flag's room.
-        feature_name:
-          type: string
-          description: Maintenance flag's feature name (`feature_name` on the wire — aliased from the stored `feature` field).
-        feature_id:
-          type: string
-          description: Maintenance flag's feature ID.
-        created_date:
-          type: string
-          description: Feature creation date, ISO format
-          example: 2022-01-15 00:00:00
-        created_by:
-          type: object
-          description: User that created the flag.
-          required:
-          - id
-          - name
-          - type
-          properties:
-            id:
-              type: string
-              description: Entity ID
-              example: 00BRcZPSakXz6w7RYoE
-            name:
-              type: string
-              description: Name of the user that created the flag.
-            type:
-              type: string
-              description: User type.
-        responsibility:
-          type: string
-          description: Maintenance flag's responsibility
-          enum:
-          - OWNER
-          - RESIDENT
-          - ''
-        note:
-          type: string
-          description: Maintenance flag's notes
-        internal_note:
-          type: string
-          description: Maintenance flag's internal note.
-        image_urls:
-          type: array
-          description: Maintenance flag's images
-          items:
-            type: string
-            description: URL links to images related to the maintenance flags
-        cost:
-          type: number
-          description: Maintenance flag's cost
-        skill:
-          type: string
-          description: Maintenance flag's required skill.
-        custom_fields:
-          type: array
-          description: Custom-field values captured for this flag.
-          items:
-            type: object
-            required:
-            - id
-            - value
-            properties:
-              id:
-                type: string
-                description: Stable identifier of the custom field (chosen by the user when the field was created).
-              value:
-                type: array
-                description: Selected/entered values. Always an array of strings even for single-select fields.
-                items:
-                  type: string
-    api_maintenance_flag_with_media_input:
-      x-internal: true
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        feature_id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        note:
-          type: string
-          description: Maintenance flag's note.
-        internal_note:
-          type: string
-          description: Maintenance flag's internal note.
-        skill:
-          type: string
-          description: Required skill to address this flag.
-        vendor:
-          type: string
-          enum:
-          - Latchel
-          - AppFolio
-          - Yardi
-          - Jenark
-          - RentCheck
-          - Rent Manager
-          - Rentvine
-          description: Vendor assigned to address the flag, when set.
-        cost:
-          type: number
-          description: Estimated or actual cost.
-        responsibility:
-          type: string
-          enum:
-          - OWNER
-          - RESIDENT
-          - ''
-          description: Party responsible for the flag.
-        custom_fields:
-          type: array
-          description: Caller-defined custom fields keyed by id, each holding a list of selected values.
-          items:
-            type: object
-            required:
-            - id
-            - value
-            properties:
-              id:
-                type: string
-              value:
-                type: array
-                items:
-                  type: string
-        linked_damage_item_ids:
-          type: array
-          items:
-            type: string
-          description: Ids of damage items this flag is linked to (when the AI damage pipeline produced any).
-        media:
-          type: array
-          description: Structured media entries. Items use the input variant so `operation` may be omitted (treated as an implicit `add` for legacy clients).
-          items:
-            $ref: '#/components/schemas/inspection_feature_media_input_model'
-        operation:
-          type: string
-          enum:
-          - add
-          - remove
-          - keep
-          description: Collaborative-edit operation for the flag. Optional — when omitted on submit the entry is treated as an implicit `add` for legacy clients.
     inspection_feature_revision_request_model:
       x-internal: true
       type: object
@@ -1582,73 +1298,84 @@ components:
           nullable: true
         updated:
           type: boolean
-    inspection_feature_submit_request_model:
+    inspection_feature_edit_request_model:
       x-internal: true
       type: object
-      required:
-      - name
-      - section
+      description: Partial update to an existing inspection feature.
       properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        name:
-          type: string
-        section:
-          type: object
-          required:
-          - name
-          - name_with_ordinal
-          - type
-          properties:
-            name:
-              type: string
-            name_with_ordinal:
-              type: string
-            type:
-              type: string
-              enum:
-              - room
-              - section
         rating:
           type: string
-          nullable: true
           enum:
           - Poor
           - Good
           - Fair
           - ''
-        notes:
-          type: string
-          nullable: true
-        not_applicable:
-          type: boolean
         responses:
           type: array
           items:
             type: string
+        notes:
+          type: string
         media:
           type: array
           items:
             $ref: '#/components/schemas/inspection_feature_media_input_model'
-        maintenance_flags:
+    api_image_metadata_damage_item:
+      type: object
+      required:
+      - id
+      - damage_type
+      - damage_description
+      - damage_severity
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        damage_type:
+          type: string
+          description: The type of damage incurred.
+        damage_description:
+          type: string
+          description: A description providing details about the damage.
+        damage_severity:
+          type: number
+          minimum: 1
+          maximum: 10
+          description: Severity rating from 1 to 10, where 10 is the most severe.
+        skill_guess:
+          type: string
+          description: Skill guess inferred by the image-analysis pipeline that maps to the damage item.
+        user_feedback:
+          type: string
+          enum:
+          - correct
+          - incorrect
+          description: Optional user feedback acknowledging or correcting the inferred damage.
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Model-reported confidence (0-1) that this is real damage rather than normal wear, a reflection, a shadow, or dust. Populated by both the Gemini-backed and OpenAI damage-detection paths. Absent on damage items persisted before this field was added.
+        polygon:
           type: array
-          description: Maintenance flags to upsert alongside the feature. Each entry uses the input variant so inner `media.operation` may be omitted (legacy compatibility).
+          description: Optional polygon outlining the damage region. Each vertex is an `{x, y}` object in 0-1 normalized image coordinates (top-left origin). Populated by the Gemini-backed damage-detection path; the OpenAI path leaves this field undefined. Typical polygons have 12-24 vertices.
           items:
-            $ref: '#/components/schemas/api_maintenance_flag_with_media_input'
-        review:
-          type: object
-          properties:
-            notes:
-              type: string
-              nullable: true
-        revision:
-          type: object
-          properties:
-            notes:
-              type: string
-              nullable: true
+            type: object
+            required:
+            - x
+            - y
+            properties:
+              x:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: Horizontal coordinate of the vertex, normalized to the image width (0 = left edge, 1 = right edge).
+              y:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: Vertical coordinate of the vertex, normalized to the image height (0 = top edge, 1 = bottom edge).
     api_inspection_feature:
       x-internal: true
       type: object
@@ -1904,6 +1631,348 @@ components:
           items:
             type: string
           description: Answers given to the template questions.
+    image_metadata_get_all_response_model:
+      type: array
+      items:
+        $ref: '#/components/schemas/api_image_metadata'
+    maintenance_flag_upsert_request_model:
+      x-internal: true
+      type: object
+      description: Partial update to an existing maintenance flag. All fields from `maintenance_flag_create_request_model` are accepted as optional.
+      properties:
+        note:
+          type: string
+        internal_note:
+          type: string
+        responsibility:
+          type: string
+          enum:
+          - OWNER
+          - RESIDENT
+          - ''
+        cost:
+          type: number
+        skill:
+          type: string
+        image_urls:
+          type: array
+          items:
+            type: string
+        video_urls:
+          type: array
+          items:
+            type: string
+        vendor:
+          type: string
+          enum:
+          - Latchel
+          - AppFolio
+          - Yardi
+          - Jenark
+          - RentCheck
+          - Rent Manager
+          - Rentvine
+        custom_fields:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - value
+            properties:
+              id:
+                type: string
+              value:
+                type: array
+                items:
+                  type: string
+        damage_item_ids:
+          type: array
+          items:
+            type: string
+    api_maintenance_flag_with_media_input:
+      x-internal: true
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        feature_id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        note:
+          type: string
+          description: Maintenance flag's note.
+        internal_note:
+          type: string
+          description: Maintenance flag's internal note.
+        skill:
+          type: string
+          description: Required skill to address this flag.
+        vendor:
+          type: string
+          enum:
+          - Latchel
+          - AppFolio
+          - Yardi
+          - Jenark
+          - RentCheck
+          - Rent Manager
+          - Rentvine
+          description: Vendor assigned to address the flag, when set.
+        cost:
+          type: number
+          description: Estimated or actual cost.
+        responsibility:
+          type: string
+          enum:
+          - OWNER
+          - RESIDENT
+          - ''
+          description: Party responsible for the flag.
+        custom_fields:
+          type: array
+          description: Caller-defined custom fields keyed by id, each holding a list of selected values.
+          items:
+            type: object
+            required:
+            - id
+            - value
+            properties:
+              id:
+                type: string
+              value:
+                type: array
+                items:
+                  type: string
+        linked_damage_item_ids:
+          type: array
+          items:
+            type: string
+          description: Ids of damage items this flag is linked to (when the AI damage pipeline produced any).
+        media:
+          type: array
+          description: Structured media entries. Items use the input variant so `operation` may be omitted (treated as an implicit `add` for legacy clients).
+          items:
+            $ref: '#/components/schemas/inspection_feature_media_input_model'
+        operation:
+          type: string
+          enum:
+          - add
+          - remove
+          - keep
+          description: Collaborative-edit operation for the flag. Optional — when omitted on submit the entry is treated as an implicit `add` for legacy clients.
+    feature_rotate_photo_request_model:
+      type: object
+      required:
+      - photo_url
+      properties:
+        photo_url:
+          type: string
+          description: URL for the image that needs to be rotated
+        angle:
+          type: number
+    maintenance_flag_response_model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        room:
+          type: string
+          description: Maintenance flag's room.
+        feature_name:
+          type: string
+          description: Maintenance flag's feature name (`feature_name` on the wire — aliased from the stored `feature` field).
+        feature_id:
+          type: string
+          description: Maintenance flag's feature ID.
+        created_date:
+          type: string
+          description: Feature creation date, ISO format
+          example: 2022-01-15 00:00:00
+        created_by:
+          type: object
+          description: User that created the flag.
+          required:
+          - id
+          - name
+          - type
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            name:
+              type: string
+              description: Name of the user that created the flag.
+            type:
+              type: string
+              description: User type.
+        responsibility:
+          type: string
+          description: Maintenance flag's responsibility
+          enum:
+          - OWNER
+          - RESIDENT
+          - ''
+        note:
+          type: string
+          description: Maintenance flag's notes
+        internal_note:
+          type: string
+          description: Maintenance flag's internal note.
+        image_urls:
+          type: array
+          description: Maintenance flag's images
+          items:
+            type: string
+            description: URL links to images related to the maintenance flags
+        cost:
+          type: number
+          description: Maintenance flag's cost
+        skill:
+          type: string
+          description: Maintenance flag's required skill.
+        custom_fields:
+          type: array
+          description: Custom-field values captured for this flag.
+          items:
+            type: object
+            required:
+            - id
+            - value
+            properties:
+              id:
+                type: string
+                description: Stable identifier of the custom field (chosen by the user when the field was created).
+              value:
+                type: array
+                description: Selected/entered values. Always an array of strings even for single-select fields.
+                items:
+                  type: string
+    api_image_metadata:
+      type: object
+      required:
+      - id
+      - status
+      - inspection_feature
+      - damage_items
+      - associated_flags
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        status:
+          type: string
+          enum:
+          - THROTTLED
+          - CREATED
+          - PROCESSING
+          - PROCESSED
+          - FAILED
+          description: Lifecycle status of the AI image-analysis run for this metadata document.
+        inspection_feature:
+          type: object
+          required:
+          - id
+          - image_key
+          - inspection_id
+          properties:
+            id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+            image_key:
+              type: string
+              description: Storage key for the analyzed image.
+            inspection_id:
+              type: string
+              description: Entity ID
+              example: 00BRcZPSakXz6w7RYoE
+        damage_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/api_image_metadata_damage_item'
+        associated_flags:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Maintenance flags on the underlying inspection feature that this image is currently associated with.
+    inspection_feature_submit_request_model:
+      x-internal: true
+      type: object
+      required:
+      - name
+      - section
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        name:
+          type: string
+        section:
+          type: object
+          required:
+          - name
+          - name_with_ordinal
+          - type
+          properties:
+            name:
+              type: string
+            name_with_ordinal:
+              type: string
+            type:
+              type: string
+              enum:
+              - room
+              - section
+        rating:
+          type: string
+          nullable: true
+          enum:
+          - Poor
+          - Good
+          - Fair
+          - ''
+        notes:
+          type: string
+          nullable: true
+        not_applicable:
+          type: boolean
+        responses:
+          type: array
+          items:
+            type: string
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/inspection_feature_media_input_model'
+        maintenance_flags:
+          type: array
+          description: Maintenance flags to upsert alongside the feature. Each entry uses the input variant so inner `media.operation` may be omitted (legacy compatibility).
+          items:
+            $ref: '#/components/schemas/api_maintenance_flag_with_media_input'
+        review:
+          type: object
+          properties:
+            notes:
+              type: string
+              nullable: true
+        revision:
+          type: object
+          properties:
+            notes:
+              type: string
+              nullable: true
     inspection_feature_response_model:
       type: object
       properties:
@@ -2072,123 +2141,28 @@ components:
                     type: boolean
                   requires_note:
                     type: boolean
-    maintenance_flag_create_request_model:
-      x-internal: true
+    image_metadata_update_request_model:
       type: object
-      required:
-      - note
-      - skill
+      description: Partial update for a single image metadata document. Currently only `damage_items` is editable, and entries are matched by their `id`.
       properties:
-        note:
-          type: string
-        internal_note:
-          type: string
-        responsibility:
-          type: string
-          enum:
-          - OWNER
-          - RESIDENT
-          - ''
-        cost:
-          type: number
-        skill:
-          type: string
-        image_urls:
+        damage_items:
           type: array
-          items:
-            type: string
-        video_urls:
-          type: array
-          items:
-            type: string
-        vendor:
-          type: string
-          enum:
-          - Latchel
-          - AppFolio
-          - Yardi
-          - Jenark
-          - RentCheck
-          - Rent Manager
-          - Rentvine
-        custom_fields:
-          type: array
+          description: Subset of damage items to update. Each entry must include the existing `id` of the damage item being patched.
           items:
             type: object
             required:
             - id
-            - value
             properties:
               id:
                 type: string
-              value:
-                type: array
-                items:
-                  type: string
-        damage_item_ids:
-          type: array
-          items:
-            type: string
-    inspection_feature_media_input_model:
-      x-internal: true
-      type: object
-      required:
-      - path
-      - type
-      properties:
-        path:
-          type: string
-        type:
-          type: string
-          enum:
-          - image
-          - video
-          - 360-image
-        flags:
-          type: array
-          items:
-            type: string
-            enum:
-            - -revision
-            - -review
-            - -camera-roll
-            - -360-image
-            - -dualfisheye
-            - -equirectangular
-        image_metadata:
-          type: object
-          additionalProperties: true
-        links:
-          type: array
-          items:
-            type: object
-            required:
-            - type
-            - linked_object_id
-            properties:
-              type:
+                description: Entity ID
+                example: 00BRcZPSakXz6w7RYoE
+              user_feedback:
                 type: string
                 enum:
-                - no_answer
-              linked_object_id:
-                type: string
-        operation:
-          type: string
-          enum:
-          - add
-          - remove
-          - keep
-          description: Optional on submit; when omitted the entry is treated as an implicit `add` for legacy clients.
-    feature_rotate_photo_request_model:
-      type: object
-      required:
-      - photo_url
-      properties:
-        photo_url:
-          type: string
-          description: URL for the image that needs to be rotated
-        angle:
-          type: number
+                - correct
+                - incorrect
+                description: User feedback acknowledging or correcting the inferred damage.
     api_maintenance_flag_with_media:
       x-internal: true
       type: object
@@ -2412,10 +2386,12 @@ components:
           - remove
           - keep
           description: Collaborative-edit operation for the flag itself. Optional — omitted on API responses; set by clients during submit. When omitted on submit, the entry is treated as an implicit `add` for legacy clients.
-    maintenance_flag_upsert_request_model:
+    maintenance_flag_create_request_model:
       x-internal: true
       type: object
-      description: Partial update to an existing maintenance flag. All fields from `maintenance_flag_create_request_model` are accepted as optional.
+      required:
+      - note
+      - skill
       properties:
         note:
           type: string
@@ -2467,33 +2443,71 @@ components:
           type: array
           items:
             type: string
-    image_metadata_update_request_model:
+    inspection_feature_media_input_model:
+      x-internal: true
       type: object
-      description: Partial update for a single image metadata document. Currently only `damage_items` is editable, and entries are matched by their `id`.
+      required:
+      - path
+      - type
       properties:
-        damage_items:
+        path:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - 360-image
+        flags:
           type: array
-          description: Subset of damage items to update. Each entry must include the existing `id` of the damage item being patched.
+          items:
+            type: string
+            enum:
+            - -revision
+            - -review
+            - -camera-roll
+            - -360-image
+            - -dualfisheye
+            - -equirectangular
+        image_metadata:
+          type: object
+          additionalProperties: true
+        links:
+          type: array
           items:
             type: object
             required:
-            - id
+            - type
+            - linked_object_id
             properties:
-              id:
-                type: string
-                description: Entity ID
-                example: 00BRcZPSakXz6w7RYoE
-              user_feedback:
+              type:
                 type: string
                 enum:
-                - correct
-                - incorrect
-                description: User feedback acknowledging or correcting the inferred damage.
-    image_metadata_get_all_response_model:
-      type: array
-      items:
-        $ref: '#/components/schemas/api_image_metadata'
+                - no_answer
+              linked_object_id:
+                type: string
+        operation:
+          type: string
+          enum:
+          - add
+          - remove
+          - keep
+          description: Optional on submit; when omitted the entry is treated as an implicit `add` for legacy clients.
   responses:
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: HTTP status code
+                example: 403
+              error:
+                type: string
+                description: Error message describing why the caller is not allowed to perform the action.
     '404':
       description: Not Found
       content:
@@ -2509,20 +2523,6 @@ components:
                 type: string
                 description: Error message describing the missing resource
                 example: property not found
-    '403':
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                description: HTTP status code
-                example: 403
-              error:
-                type: string
-                description: Error message describing why the caller is not allowed to perform the action.
     '401':
       description: Unauthorized
       content:

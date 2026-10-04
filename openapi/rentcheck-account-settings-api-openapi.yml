@@ -752,35 +752,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    signature_acknowledgements_update_request_model:
-      x-internal: true
-      type: object
-      required:
-      - signature_acknowledgements
-      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
-      properties:
-        signature_acknowledgements:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            required:
-            - id
-            - text
-            properties:
-              id:
-                type: string
-                description: Either the literal string 'default' or an inspection template id.
-              text:
-                type: string
-    notification_preference_no_email:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
     signature_acknowledgements_response_model:
       x-internal: true
       type: object
@@ -867,97 +838,328 @@ components:
             updated_date:
               type: string
               format: date-time
-    notifications_preferences_update_request_model:
+    account_settings_update_request_model:
       type: object
-      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
+      description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
       properties:
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
-    basic_email_customization:
-      x-internal: true
-      type: object
-      required:
-      - id
-      - email_type_id
-      - email_title
-      - email_explanatory_text
-      - template
-      description: Basic email customization.
-      properties:
-        id:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        email_title:
-          type: string
-        email_explanatory_text:
-          type: string
-        template:
+        skills:
+          type: array
+          items:
+            type: object
+            title: skills
+            required:
+            - category
+            - is_default
+            properties:
+              category:
+                type: string
+              sub_category:
+                type: string
+              is_default:
+                type: boolean
+        rooms:
+          type: object
+          title: rooms
+          required:
+          - unit
+          - building
+          - community
+          properties:
+            unit:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - interior
+                    - exterior
+                    - other
+            building:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - building
+                    - other
+            community:
+              type: array
+              items:
+                type: object
+                required:
+                - category
+                - name
+                properties:
+                  name:
+                    type: string
+                  category:
+                    type: string
+                    enum:
+                    - community
+                    - other
+        inspection_report_templates:
+          type: object
+          title: inspection_report_templates
+          properties:
+            default:
+              type: object
+              required:
+              - name
+              - summary_section
+              - inspection_features_section
+              - maintenance_flags_section
+              properties:
+                name:
+                  type: string
+                summary_section:
+                  type: object
+                  required:
+                  - section_active
+                  - resident_info
+                  - summary_page
+                  - table_of_contents
+                  - inspection_label
+                  - summary_note
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    resident_info:
+                      type: boolean
+                      default: false
+                    summary_page:
+                      type: boolean
+                      default: true
+                    table_of_contents:
+                      type: boolean
+                      default: true
+                    inspection_label:
+                      type: boolean
+                      default: true
+                    summary_note:
+                      type: boolean
+                      default: false
+                inspection_features_section:
+                  type: object
+                  required:
+                  - section_active
+                  - questions_answers
+                  - images
+                  - notes
+                  - ratings
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    questions_answers:
+                      type: boolean
+                      default: true
+                    images:
+                      type: boolean
+                      default: true
+                    notes:
+                      type: boolean
+                      default: true
+                    ratings:
+                      type: boolean
+                      default: true
+                maintenance_flags_section:
+                  type: object
+                  required:
+                  - section_active
+                  - owner_flags
+                  - uncategorized_flags
+                  - resident_flags
+                  properties:
+                    section_active:
+                      type: boolean
+                      default: true
+                    owner_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    uncategorized_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+                    resident_flags:
+                      type: object
+                      required:
+                      - section_active
+                      - cost
+                      - notes
+                      - internal_notes
+                      properties:
+                        section_active:
+                          type: boolean
+                          default: false
+                        cost:
+                          type: boolean
+                          default: false
+                        notes:
+                          type: boolean
+                          default: false
+                        internal_notes:
+                          type: boolean
+                          default: false
+        is_resident_reported_maintenance_enabled:
+          type: boolean
+          title: is_resident_reported_maintenance_enabled
+          default: false
+        is_maintenance_flag_default_photos_enabled:
+          type: boolean
+          title: is_maintenance_flag_default_photos_enabled
+          default: false
+        is_inspection_review_autoapproval_enabled:
+          type: boolean
+          description: When true, submitted inspections skip manual review and are approved automatically.
+          default: false
+        custom_maintenance_fields:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - title
+            - selection_type
+            - options
+            - template_ids
+            - enabled
+            description: Custom maintenance field setting.
+            properties:
+              id:
+                type: string
+                maxLength: 30
+              title:
+                type: string
+                maxLength: 30
+              description:
+                type: string
+                maxLength: 100
+              selection_type:
+                type: string
+                enum:
+                - single
+                - multiple
+              options:
+                type: array
+                items:
+                  type: string
+                minItems: 2
+                description: The options that the user can select. Minimum of two.
+              template_ids:
+                type: array
+                items:
+                  type: string
+                description: Inspection template ids the field is enabled for. Include `'*'` to apply to every template.
+              required:
+                type: boolean
+              enabled:
+                type: boolean
+          description: Custom fields the account applies to maintenance flags on inspections.
+        two_step_inspection_approval:
           type: object
           required:
-          - id
-          - name
-          - internal_label
+          - enabled
+          - template_ids
+          description: '`template_ids` accepts the wildcard `[''*'']` to opt every template in.'
           properties:
-            id:
-              type: string
-            name:
-              type: string
-            internal_label:
-              type: string
-        updated_by:
+            enabled:
+              type: boolean
+            template_ids:
+              type: array
+              items:
+                type: string
+              description: Inspection template ids requiring two-step approval. Include `'*'` to apply to every template.
+        ai_settings:
           type: object
+          additionalProperties: false
           properties:
-            username:
-              type: string
+            damage_detection:
+              type: object
+              description: Update surface for damage detection. Only `automatic_scanning` and `manual_scanning` are accepted; `free_scans_*` and `open_ai_model` are server-managed.
+              additionalProperties: false
+              properties:
+                automatic_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  - template_ids
+                  additionalProperties: false
+                  properties:
+                    enabled:
+                      type: boolean
+                    template_ids:
+                      type: array
+                      items:
+                        type: string
+                      minItems: 1
+                      description: Inspection template ids automatic scanning is enabled for. Include `'*'` to apply to every template.
+                manual_scanning:
+                  type: object
+                  required:
+                  - enabled
+                  additionalProperties: false
+                  properties:
+                    enabled:
+                      type: boolean
+        inspection_tab_backsync_modal_shown:
+          type: boolean
+          description: Whether the user has been shown the backsync confirmation modal after enabling the inspection tab sync destination.
+        inspection_contact_info:
+          type: object
+          title: inspection_contact_info
+          properties:
             email:
               type: string
-            updated_date:
+            phone_number:
               type: string
-              format: date-time
-    notifications_preferences_response_model:
-      type: object
-      required:
-      - id
-      - inspections_awaiting_review
-      - inspections_in_revision_review
-      - inspections_completed
-      - automation_failures
-      properties:
-        id:
-          type: string
-          description: Entity ID
-          example: 00BRcZPSakXz6w7RYoE
-        user_id:
-          type: string
-          description: Set when the preferences belong to a registered RentCheck user.
-        user_email:
-          type: string
-          description: Set when the preferences belong to an unregistered recipient managing settings via an emailed token.
-        subscription_id:
-          type: string
-          description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
-        inspections_awaiting_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_in_revision_review:
-          $ref: '#/components/schemas/notification_preference'
-        inspections_completed:
-          $ref: '#/components/schemas/notification_preference'
-        automation_failures:
-          $ref: '#/components/schemas/notification_preference_no_email'
     account_settings_delete_rooms_request_model:
       x-internal: true
       type: object
@@ -981,6 +1183,65 @@ components:
           items:
             type: object
           description: List of room entries to remove.
+    notification_preference:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+        email:
+          type: string
+          enum:
+          - all
+          - created_by_me
+          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+    notification_preference_no_email:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether notifications for this category are enabled at all.
+    rev_share_prospect_create_request_model:
+      type: object
+      required:
+      - prospect_email
+      - total_properties
+      - chargebee_plan_id
+      properties:
+        prospect_email:
+          type: string
+          format: email
+          description: Email address of the prospect being onboarded.
+        user_name:
+          type: string
+          description: Optional display name to assign to the newly-created prospect user.
+        total_properties:
+          type: string
+          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
+        chargebee_plan_id:
+          type: string
+          description: Chargebee plan id the prospect should be associated with.
+        chargebee_addon_ids:
+          type: array
+          items:
+            type: string
+          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
+    notifications_preferences_update_request_model:
+      type: object
+      description: Partial update — any combination of the fields on the preferences document may be provided. Server merges the supplied values onto the current preferences.
+      properties:
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
     api_email_customization:
       x-internal: true
       type: object
@@ -1060,30 +1321,27 @@ components:
             updated_date:
               type: string
               format: date-time
-    email_customization_upsert_request_model:
+    signature_acknowledgements_update_request_model:
       x-internal: true
       type: object
       required:
-      - content
-      - email_type_id
-      - inspection_template_ids
-      description: Request body for upserting an email customization.
+      - signature_acknowledgements
+      description: Use the literal id `default` to update the subscription-wide acknowledgement, or an inspection template id to scope the change.
       properties:
-        content:
-          type: string
-        email_type_id:
-          type: string
-          enum:
-          - inspection_invitation_new_to_rentcheck
-          - inspection_invitation_existing_rentcheck_users
-          - final_inspection_reminder_3_days_overdue
-          - inspection_approval_confirmation
-          - inspection_review_request
-          description: Allowed email-customization types.
-        inspection_template_ids:
+        signature_acknowledgements:
           type: array
+          minItems: 1
           items:
-            type: string
+            type: object
+            required:
+            - id
+            - text
+            properties:
+              id:
+                type: string
+                description: Either the literal string 'default' or an inspection template id.
+              text:
+                type: string
     api_account_settings:
       type: object
       required:
@@ -1451,20 +1709,60 @@ components:
               type: string
             phone_number:
               type: string
-    notification_preference:
+    email_customization_upsert_request_model:
+      x-internal: true
       type: object
       required:
-      - enabled
+      - content
+      - email_type_id
+      - inspection_template_ids
+      description: Request body for upserting an email customization.
       properties:
-        enabled:
-          type: boolean
-          description: Whether notifications for this category are enabled at all.
-        email:
+        content:
+          type: string
+        email_type_id:
           type: string
           enum:
-          - all
-          - created_by_me
-          description: Optional email-scoping rule when enabled. Defaults to all matching events when omitted.
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        inspection_template_ids:
+          type: array
+          items:
+            type: string
+    notifications_preferences_response_model:
+      type: object
+      required:
+      - id
+      - inspections_awaiting_review
+      - inspections_in_revision_review
+      - inspections_completed
+      - automation_failures
+      properties:
+        id:
+          type: string
+          description: Entity ID
+          example: 00BRcZPSakXz6w7RYoE
+        user_id:
+          type: string
+          description: Set when the preferences belong to a registered RentCheck user.
+        user_email:
+          type: string
+          description: Set when the preferences belong to an unregistered recipient managing settings via an emailed token.
+        subscription_id:
+          type: string
+          description: Set when the preferences are the subscription-level defaults applied when no per-user preferences exist.
+        inspections_awaiting_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_in_revision_review:
+          $ref: '#/components/schemas/notification_preference'
+        inspections_completed:
+          $ref: '#/components/schemas/notification_preference'
+        automation_failures:
+          $ref: '#/components/schemas/notification_preference_no_email'
     email_customization_test_request_model:
       x-internal: true
       type: object
@@ -1497,353 +1795,55 @@ components:
           - inspection_approval_confirmation
           - inspection_review_request
           description: Allowed email-customization types.
-    account_settings_update_request_model:
-      type: object
-      description: Partial update of account settings. All keys optional; the server merges supplied values onto the current document.
-      properties:
-        skills:
-          type: array
-          items:
-            type: object
-            title: skills
-            required:
-            - category
-            - is_default
-            properties:
-              category:
-                type: string
-              sub_category:
-                type: string
-              is_default:
-                type: boolean
-        rooms:
-          type: object
-          title: rooms
-          required:
-          - unit
-          - building
-          - community
-          properties:
-            unit:
-              type: array
-              items:
-                type: object
-                required:
-                - category
-                - name
-                properties:
-                  name:
-                    type: string
-                  category:
-                    type: string
-                    enum:
-                    - interior
-                    - exterior
-                    - other
-            building:
-              type: array
-              items:
-                type: object
-                required:
-                - category
-                - name
-                properties:
-                  name:
-                    type: string
-                  category:
-                    type: string
-                    enum:
-                    - building
-                    - other
-            community:
-              type: array
-              items:
-                type: object
-                required:
-                - category
-                - name
-                properties:
-                  name:
-                    type: string
-                  category:
-                    type: string
-                    enum:
-                    - community
-                    - other
-        inspection_report_templates:
-          type: object
-          title: inspection_report_templates
-          properties:
-            default:
-              type: object
-              required:
-              - name
-              - summary_section
-              - inspection_features_section
-              - maintenance_flags_section
-              properties:
-                name:
-                  type: string
-                summary_section:
-                  type: object
-                  required:
-                  - section_active
-                  - resident_info
-                  - summary_page
-                  - table_of_contents
-                  - inspection_label
-                  - summary_note
-                  properties:
-                    section_active:
-                      type: boolean
-                      default: true
-                    resident_info:
-                      type: boolean
-                      default: false
-                    summary_page:
-                      type: boolean
-                      default: true
-                    table_of_contents:
-                      type: boolean
-                      default: true
-                    inspection_label:
-                      type: boolean
-                      default: true
-                    summary_note:
-                      type: boolean
-                      default: false
-                inspection_features_section:
-                  type: object
-                  required:
-                  - section_active
-                  - questions_answers
-                  - images
-                  - notes
-                  - ratings
-                  properties:
-                    section_active:
-                      type: boolean
-                      default: true
-                    questions_answers:
-                      type: boolean
-                      default: true
-                    images:
-                      type: boolean
-                      default: true
-                    notes:
-                      type: boolean
-                      default: true
-                    ratings:
-                      type: boolean
-                      default: true
-                maintenance_flags_section:
-                  type: object
-                  required:
-                  - section_active
-                  - owner_flags
-                  - uncategorized_flags
-                  - resident_flags
-                  properties:
-                    section_active:
-                      type: boolean
-                      default: true
-                    owner_flags:
-                      type: object
-                      required:
-                      - section_active
-                      - cost
-                      - notes
-                      - internal_notes
-                      properties:
-                        section_active:
-                          type: boolean
-                          default: false
-                        cost:
-                          type: boolean
-                          default: false
-                        notes:
-                          type: boolean
-                          default: false
-                        internal_notes:
-                          type: boolean
-                          default: false
-                    uncategorized_flags:
-                      type: object
-                      required:
-                      - section_active
-                      - cost
-                      - notes
-                      - internal_notes
-                      properties:
-                        section_active:
-                          type: boolean
-                          default: false
-                        cost:
-                          type: boolean
-                          default: false
-                        notes:
-                          type: boolean
-                          default: false
-                        internal_notes:
-                          type: boolean
-                          default: false
-                    resident_flags:
-                      type: object
-                      required:
-                      - section_active
-                      - cost
-                      - notes
-                      - internal_notes
-                      properties:
-                        section_active:
-                          type: boolean
-                          default: false
-                        cost:
-                          type: boolean
-                          default: false
-                        notes:
-                          type: boolean
-                          default: false
-                        internal_notes:
-                          type: boolean
-                          default: false
-        is_resident_reported_maintenance_enabled:
-          type: boolean
-          title: is_resident_reported_maintenance_enabled
-          default: false
-        is_maintenance_flag_default_photos_enabled:
-          type: boolean
-          title: is_maintenance_flag_default_photos_enabled
-          default: false
-        is_inspection_review_autoapproval_enabled:
-          type: boolean
-          description: When true, submitted inspections skip manual review and are approved automatically.
-          default: false
-        custom_maintenance_fields:
-          type: array
-          items:
-            type: object
-            required:
-            - id
-            - title
-            - selection_type
-            - options
-            - template_ids
-            - enabled
-            description: Custom maintenance field setting.
-            properties:
-              id:
-                type: string
-                maxLength: 30
-              title:
-                type: string
-                maxLength: 30
-              description:
-                type: string
-                maxLength: 100
-              selection_type:
-                type: string
-                enum:
-                - single
-                - multiple
-              options:
-                type: array
-                items:
-                  type: string
-                minItems: 2
-                description: The options that the user can select. Minimum of two.
-              template_ids:
-                type: array
-                items:
-                  type: string
-                description: Inspection template ids the field is enabled for. Include `'*'` to apply to every template.
-              required:
-                type: boolean
-              enabled:
-                type: boolean
-          description: Custom fields the account applies to maintenance flags on inspections.
-        two_step_inspection_approval:
-          type: object
-          required:
-          - enabled
-          - template_ids
-          description: '`template_ids` accepts the wildcard `[''*'']` to opt every template in.'
-          properties:
-            enabled:
-              type: boolean
-            template_ids:
-              type: array
-              items:
-                type: string
-              description: Inspection template ids requiring two-step approval. Include `'*'` to apply to every template.
-        ai_settings:
-          type: object
-          additionalProperties: false
-          properties:
-            damage_detection:
-              type: object
-              description: Update surface for damage detection. Only `automatic_scanning` and `manual_scanning` are accepted; `free_scans_*` and `open_ai_model` are server-managed.
-              additionalProperties: false
-              properties:
-                automatic_scanning:
-                  type: object
-                  required:
-                  - enabled
-                  - template_ids
-                  additionalProperties: false
-                  properties:
-                    enabled:
-                      type: boolean
-                    template_ids:
-                      type: array
-                      items:
-                        type: string
-                      minItems: 1
-                      description: Inspection template ids automatic scanning is enabled for. Include `'*'` to apply to every template.
-                manual_scanning:
-                  type: object
-                  required:
-                  - enabled
-                  additionalProperties: false
-                  properties:
-                    enabled:
-                      type: boolean
-        inspection_tab_backsync_modal_shown:
-          type: boolean
-          description: Whether the user has been shown the backsync confirmation modal after enabling the inspection tab sync destination.
-        inspection_contact_info:
-          type: object
-          title: inspection_contact_info
-          properties:
-            email:
-              type: string
-            phone_number:
-              type: string
-    rev_share_prospect_create_request_model:
+    basic_email_customization:
+      x-internal: true
       type: object
       required:
-      - prospect_email
-      - total_properties
-      - chargebee_plan_id
+      - id
+      - email_type_id
+      - email_title
+      - email_explanatory_text
+      - template
+      description: Basic email customization.
       properties:
-        prospect_email:
+        id:
           type: string
-          format: email
-          description: Email address of the prospect being onboarded.
-        user_name:
+        email_type_id:
           type: string
-          description: Optional display name to assign to the newly-created prospect user.
-        total_properties:
+          enum:
+          - inspection_invitation_new_to_rentcheck
+          - inspection_invitation_existing_rentcheck_users
+          - final_inspection_reminder_3_days_overdue
+          - inspection_approval_confirmation
+          - inspection_review_request
+          description: Allowed email-customization types.
+        email_title:
           type: string
-          description: Self-reported portfolio size for the prospect, as a numeric string parsed by the backend.
-        chargebee_plan_id:
+        email_explanatory_text:
           type: string
-          description: Chargebee plan id the prospect should be associated with.
-        chargebee_addon_ids:
-          type: array
-          items:
-            type: string
-          description: Chargebee addon ids to attach to the prospect alongside the selected plan.
+        template:
+          type: object
+          required:
+          - id
+          - name
+          - internal_label
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            internal_label:
+              type: string
+        updated_by:
+          type: object
+          properties:
+            username:
+              type: string
+            email:
+              type: string
+            updated_date:
+              type: string
+              format: date-time
   responses:
     '404':
       description: Not Found

@@ -275,93 +275,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    file_request_create_request_model:
-      x-internal: true
-      description: 'A file request is the API surface for asynchronous PDF/ZIP/CSV report generation. The required fields depend on `document_type`: for per-record exports (`INSPECTION_REPORT`, `MAINTENANCE_REPORT`, `WORK_ORDER`, `INSPECTION_IMAGES`) `document_id` is required; for list exports (`*_LIST_EXPORT`) `document_id` is omitted and the server generates one for the resulting file.'
-      oneOf:
-      - type: object
-        required:
-        - document_type
-        - export_type
-        - document_id
-        properties:
-          document_type:
-            type: string
-            description: Name of the report to be generated.
-            enum:
-            - INSPECTION_REPORT
-            - MAINTENANCE_REPORT
-            - WORK_ORDER
-            - INSPECTION_IMAGES
-            example: INSPECTION_REPORT
-          export_type:
-            type: string
-            description: Format of the exported report.
-            enum:
-            - PDF
-            - ZIP
-            - CSV
-            example: PDF
-          document_id:
-            type: string
-            description: ID of the document you are trying to export
-            example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
-          dont_notify:
-            type: boolean
-            description: Specify whether to email the requestor a copy of the file
-            example: true
-          throttled:
-            type: boolean
-            description: When true, the request is debounced against any other pending throttled request for the same `document_id` — the prior pending request is deleted before the new one is enqueued.
-          filters:
-            type: object
-            description: Optional per-record export delivery filters. When `send_to` is provided the resulting file is emailed to those recipients in addition to the requesting user; `note` is included in the email body.
-            properties:
-              send_to:
-                type: array
-                items:
-                  type: string
-                  format: email
-                description: Email addresses to send the resulting file to once generation completes.
-              note:
-                type: string
-                description: Free-form note appended to the recipient email.
-      - type: object
-        required:
-        - document_type
-        - export_type
-        properties:
-          document_type:
-            type: string
-            description: Name of the report to be generated.
-            enum:
-            - BUILDINGS_LIST_EXPORT
-            - COMMUNITIES_LIST_EXPORT
-            - INSPECTION_LIST_EXPORT
-            - MAINTENANCE_REPORTS_LIST_EXPORT
-            - MAINTENANCE_FLAGS_LIST_EXPORT
-            - UNITS_LIST_EXPORT
-            - SUBSCRIPTION_REPORT_LIST_EXPORT
-            example: INSPECTION_REPORT
-          export_type:
-            type: string
-            description: Format of the exported report.
-            enum:
-            - PDF
-            - ZIP
-            - CSV
-            example: PDF
-          dont_notify:
-            type: boolean
-            description: Specify whether to email the requestor a copy of the file
-            example: true
-          throttled:
-            type: boolean
-            description: When true, the request is debounced against any other pending throttled request — the prior pending request is deleted before the new one is enqueued.
-          filters:
-            type: object
-            description: Optional list-export filter criteria. Shape varies by `document_type` — for `INSPECTION_LIST_EXPORT` it matches the inspection-list filter shape (`search`, `archived`, `assigned_to`, `inspection_template`, `inspection_status`, `team`, `property`, `due_date`, `completed_date`, etc.); for `*_LIST_EXPORT` variants it matches the matching list endpoint filter shape.
-            additionalProperties: true
     file_request_v1_get_by_id_response_model:
       x-internal: true
       type: object
@@ -462,6 +375,103 @@ components:
                 format: email
             note:
               type: string
+    file_request_response_model:
+      x-internal: true
+      type: object
+      required:
+      - fileRequestId
+      properties:
+        fileRequestId:
+          type: string
+          description: Entity ID
+          example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
+    file_request_create_request_model:
+      x-internal: true
+      description: 'A file request is the API surface for asynchronous PDF/ZIP/CSV report generation. The required fields depend on `document_type`: for per-record exports (`INSPECTION_REPORT`, `MAINTENANCE_REPORT`, `WORK_ORDER`, `INSPECTION_IMAGES`) `document_id` is required; for list exports (`*_LIST_EXPORT`) `document_id` is omitted and the server generates one for the resulting file.'
+      oneOf:
+      - type: object
+        required:
+        - document_type
+        - export_type
+        - document_id
+        properties:
+          document_type:
+            type: string
+            description: Name of the report to be generated.
+            enum:
+            - INSPECTION_REPORT
+            - MAINTENANCE_REPORT
+            - WORK_ORDER
+            - INSPECTION_IMAGES
+            example: INSPECTION_REPORT
+          export_type:
+            type: string
+            description: Format of the exported report.
+            enum:
+            - PDF
+            - ZIP
+            - CSV
+            example: PDF
+          document_id:
+            type: string
+            description: ID of the document you are trying to export
+            example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
+          dont_notify:
+            type: boolean
+            description: Specify whether to email the requestor a copy of the file
+            example: true
+          throttled:
+            type: boolean
+            description: When true, the request is debounced against any other pending throttled request for the same `document_id` — the prior pending request is deleted before the new one is enqueued.
+          filters:
+            type: object
+            description: Optional per-record export delivery filters. When `send_to` is provided the resulting file is emailed to those recipients in addition to the requesting user; `note` is included in the email body.
+            properties:
+              send_to:
+                type: array
+                items:
+                  type: string
+                  format: email
+                description: Email addresses to send the resulting file to once generation completes.
+              note:
+                type: string
+                description: Free-form note appended to the recipient email.
+      - type: object
+        required:
+        - document_type
+        - export_type
+        properties:
+          document_type:
+            type: string
+            description: Name of the report to be generated.
+            enum:
+            - BUILDINGS_LIST_EXPORT
+            - COMMUNITIES_LIST_EXPORT
+            - INSPECTION_LIST_EXPORT
+            - MAINTENANCE_REPORTS_LIST_EXPORT
+            - MAINTENANCE_FLAGS_LIST_EXPORT
+            - UNITS_LIST_EXPORT
+            - SUBSCRIPTION_REPORT_LIST_EXPORT
+            example: INSPECTION_REPORT
+          export_type:
+            type: string
+            description: Format of the exported report.
+            enum:
+            - PDF
+            - ZIP
+            - CSV
+            example: PDF
+          dont_notify:
+            type: boolean
+            description: Specify whether to email the requestor a copy of the file
+            example: true
+          throttled:
+            type: boolean
+            description: When true, the request is debounced against any other pending throttled request — the prior pending request is deleted before the new one is enqueued.
+          filters:
+            type: object
+            description: Optional list-export filter criteria. Shape varies by `document_type` — for `INSPECTION_LIST_EXPORT` it matches the inspection-list filter shape (`search`, `archived`, `assigned_to`, `inspection_template`, `inspection_status`, `team`, `property`, `due_date`, `completed_date`, etc.); for `*_LIST_EXPORT` variants it matches the matching list endpoint filter shape.
+            additionalProperties: true
     api_file_request:
       type: object
       required:
@@ -530,16 +540,6 @@ components:
           type: string
           format: date-time
           description: ISO-8601 timestamp of the most recent update to the file request.
-    file_request_response_model:
-      x-internal: true
-      type: object
-      required:
-      - fileRequestId
-      properties:
-        fileRequestId:
-          type: string
-          description: Entity ID
-          example: fbb2fcf6-4bf5-48b5-9283-4d284a11d317
   responses:
     '401':
       description: Unauthorized

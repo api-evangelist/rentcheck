@@ -398,6 +398,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    subscription_update_request_model:
+      x-internal: true
+      type: object
+      description: At least one of `plan` or `addons` should be supplied.
+      properties:
+        plan:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: Chargebee plan id to switch to.
+        addons:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            properties:
+              id:
+                type: string
+                description: Chargebee addon id.
     subscription_invoice_response_model:
       x-internal: true
       type: object
@@ -684,29 +707,6 @@ components:
                 type: number
               discount_percentage:
                 type: number
-    subscription_update_request_model:
-      x-internal: true
-      type: object
-      description: At least one of `plan` or `addons` should be supplied.
-      properties:
-        plan:
-          type: object
-          required:
-          - id
-          properties:
-            id:
-              type: string
-              description: Chargebee plan id to switch to.
-        addons:
-          type: array
-          items:
-            type: object
-            required:
-            - id
-            properties:
-              id:
-                type: string
-                description: Chargebee addon id.
   responses:
     '401':
       description: Unauthorized
