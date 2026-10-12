@@ -1,0 +1,164 @@
+generated: '2026-10-13'
+method: searched
+source:
+- https://zapier.com/apps/rentcheck/integrations
+checked:
+- https://composio.dev/toolkits/rentcheck
+- https://monid.ai/tools/rentcheck
+- https://n8n.io/integrations/rentcheck/
+- https://zapier.com/apps/rentcheck/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: rentcheck
+  url: https://zapier.com/apps/rentcheck/integrations
+  external_url: https://app.getrentcheck.com/
+  partner_tier: BRONZE
+  triggers:
+  - key: approved_inspection
+    label: Approved Inspection
+  - key: completed_inspection
+    label: Completed Inspection
+  - key: created_maintenance_flag_webhook
+    label: Created Maintenance Flag (Web Hook)
+  - key: inspection_approval_wh
+    label: Inspection Approval (Web Hook)
+  - key: inspection_completed_wh
+    label: Inspection Completed (Web Hook)
+  - key: inspection_revisions_submitted_for_review
+    label: Inspection Revisions Submitted for Review (Web Hook)
+  - key: inspection_submitted_for_review
+    label: Inspection Submitted for Review (Web Hook)
+  - key: new_maintenance_report
+    label: New Maintenance Report Created
+  - key: new_unit
+    label: Unit Added
+  - key: submitted_for_review
+    label: Inspection Submitted for Review
+  actions:
+  - key: create_inspection_prod
+    label: Create Inspection
+  - key: create_property_prod
+    label: Create Property
+  - key: create_resident_prod
+    label: Create Resident
+  searches: []
+edges:
+- partner_name: Rentec Direct
+  partner: rentec
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/rentcheck/integrations/rentec-direct
+  direction: third-party
+  category: Productivity
+  partner_url: https://rentecdirect.com/
+- partner_name: Google Docs
+  partner: google-docs
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/rentcheck/integrations/google-docs
+  direction: third-party
+  category: Documents
+  partner_url: http://google.com/
+- partner_name: Plaud
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/rentcheck/integrations/plaud
+  direction: third-party
+  category: AI Assistants
+  partner_url: https://www.plaud.ai/
+- partner_name: Zillow Tech Connect
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/rentcheck/integrations/zillow
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.zillow.com/
+- partner_name: RentCast
+  partner: rentcast
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/rentcheck/integrations/rentcast
+  direction: third-party
+  category: Analytics
+  partner_url: https://rentcast.io/api
+templates:
+- title: Create new monday.com items from RentCheck inspection approvals
+  url: https://zapier.com/apps/monday/integrations/rentcheck/1627650/create-new-mondaycom-items-from-rentcheck-inspection-approvals
+  apps:
+  - rentcheck
+  - monday
+- title: Submit inspections for review in RentCheck and send emails in Gmail
+  url: https://zapier.com/apps/gmail/integrations/rentcheck/1628417/submit-inspections-for-review-in-rentcheck-and-send-emails-in-gmail
+  apps:
+  - rentcheck
+  - gmail
+- title: Create new items in monday.com when inspections are submitted for review in RentCheck
+  url: https://zapier.com/apps/monday/integrations/rentcheck/1637326/create-new-items-in-mondaycom-when-inspections-are-submitted-for-review-in-rentcheck
+  apps:
+  - rentcheck
+  - monday
+- title: Complete inspections in RentCheck and send emails in Microsoft Outlook
+  url: https://zapier.com/apps/microsoft-outlook/integrations/rentcheck/1643726/complete-inspections-in-rentcheck-and-send-emails-in-microsoft-outlook
+  apps:
+  - rentcheck
+  - microsoft-outlook
+- title: Create new Google Sheets rows for each review submitted in RentCheck
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1688858/create-new-google-sheets-rows-for-each-review-submitted-in-rentcheck
+  apps:
+  - rentcheck
+  - google-sheets
+- title: Create new Google Sheets rows for completed RentCheck inspections
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1698296/create-new-google-sheets-rows-for-completed-rentcheck-inspections
+  apps:
+  - rentcheck
+  - google-sheets
+- title: Create Google Sheets rows from new RentCheck inspection approvals
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1739354/create-google-sheets-rows-from-new-rentcheck-inspection-approvals
+  apps:
+  - rentcheck
+  - google-sheets
+- title: Create new monday.com items when inspections are submitted for review in RentCheck
+  url: https://zapier.com/apps/monday/integrations/rentcheck/1739673/create-new-mondaycom-items-when-inspections-are-submitted-for-review-in-rentcheck
+  apps:
+  - rentcheck
+  - monday
+- title: Create Google Sheets rows from new approved inspections in RentCheck
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1741052/create-google-sheets-rows-from-new-approved-inspections-in-rentcheck
+  apps:
+  - rentcheck
+  - google-sheets
+- title: Create new monday.com items from completed RentCheck inspections
+  url: https://zapier.com/apps/monday/integrations/rentcheck/1748748/create-new-mondaycom-items-from-completed-rentcheck-inspections
+  apps:
+  - rentcheck
+  - monday
+- title: Create Google Sheets row for each updated inspection revision submitted for review in RentCheck
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1749748/create-google-sheets-row-for-each-updated-inspection-revision-submitted-for-review-in-rentcheck
+  apps:
+  - rentcheck
+  - google-sheets
+- title: Create RentCheck inspections from new Google Sheets rows
+  url: https://zapier.com/apps/google-sheets/integrations/rentcheck/1769789/create-rentcheck-inspections-from-new-google-sheets-rows
+  apps:
+  - google-sheets
+  - rentcheck
+template_total: 20
