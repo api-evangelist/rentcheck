@@ -64,6 +64,168 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-RentCheck is a company surfaced as a portfolio company of techstars and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+RentCheck is a resident-led property inspection platform used by 1,000+ property management companies to run guided move-in, move-out, routine, and maintenance inspections that residents complete from their smartphone, producing standardized, time-stamped photo reports. Its REST API (OpenAPI 3.1, 160 paths / 217 operations) lets developers pull property, unit, building, community, and resident data, schedule and create inspections from customizable templates, review inspection features and photos, flag maintenance issues, and wire results into property-management systems such as AppFolio, Rent Manager, Rentvine, Buildium, Latchel, and Zapier.
 
-Backed by: techstars — https://getrentcheck.com/
+**Areas:** Company · Property Management · Property Inspection · Real Estate · PropTech · Inspection · Maintenance · Rentals
+
+## RentCheck on APIs.io
+
+Everything profiled for RentCheck is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rentcheck/](https://apis.io/providers/rentcheck/)** — or go straight to one of the APIs or properties below.
+
+### APIs (31)
+
+- [RentCheck Account Settings API](https://apis.io/apis/rentcheck/rentcheck-account-settings-api/) — The Account Settings API from RentCheck — 9 operation(s) for account settings.
+- [RentCheck Automations API](https://apis.io/apis/rentcheck/rentcheck-automations-api/) — The Automations API from RentCheck — 2 operation(s) for automations.
+- [RentCheck Buildings API](https://apis.io/apis/rentcheck/rentcheck-buildings-api/) — The Buildings API from RentCheck — 3 operation(s) for buildings.
+- [RentCheck Chargebee API](https://apis.io/apis/rentcheck/rentcheck-chargebee-api/) — The Chargebee API from RentCheck — 3 operation(s) for chargebee.
+- [RentCheck Communities API](https://apis.io/apis/rentcheck/rentcheck-communities-api/) — The Communities API from RentCheck — 3 operation(s) for communities.
+- [RentCheck Dashboard API](https://apis.io/apis/rentcheck/rentcheck-dashboard-api/) — The Dashboard API from RentCheck — 2 operation(s) for dashboard.
+- [RentCheck File Requests API](https://apis.io/apis/rentcheck/rentcheck-file-requests-api/) — The File Requests API from RentCheck — 2 operation(s) for file requests.
+- [RentCheck Filter Segments API](https://apis.io/apis/rentcheck/rentcheck-filter-segments-api/) — The Filter Segments API from RentCheck — 2 operation(s) for filter segments.
+- [RentCheck Inspection Features API](https://apis.io/apis/rentcheck/rentcheck-inspection-features-api/) — The Inspection Features API from RentCheck — 13 operation(s) for inspection features.
+- [RentCheck Inspections API](https://apis.io/apis/rentcheck/rentcheck-inspections-api/) — The Inspections API from RentCheck — 26 operation(s) for inspections.
+- [RentCheck Inspections Templates API](https://apis.io/apis/rentcheck/rentcheck-inspections-templates-api/) — The Inspections Templates API from RentCheck — 4 operation(s) for inspections templates.
+- [RentCheck Inspections V2 API](https://apis.io/apis/rentcheck/rentcheck-inspections-v2-api/) — The Inspections V2 API from RentCheck — 2 operation(s) for inspections v2.
+- [RentCheck Integrations API](https://apis.io/apis/rentcheck/rentcheck-integrations-api/) — The Integrations API from RentCheck — 1 operation(s) for integrations.
+- [RentCheck LatchelProxy API](https://apis.io/apis/rentcheck/rentcheck-latchelproxy-api/) — The LatchelProxy API from RentCheck — 6 operation(s) for latchelproxy.
+- [RentCheck Leases API](https://apis.io/apis/rentcheck/rentcheck-leases-api/) — The Leases API from RentCheck — 9 operation(s) for leases.
+- [RentCheck Maintenance Flags API](https://apis.io/apis/rentcheck/rentcheck-maintenance-flags-api/) — The Maintenance Flags API from RentCheck — 3 operation(s) for maintenance flags.
+- [RentCheck Maintenance Reports API](https://apis.io/apis/rentcheck/rentcheck-maintenance-reports-api/) — The Maintenance Reports API from RentCheck — 2 operation(s) for maintenance reports.
+- [RentCheck Maintenance Reports V2 API](https://apis.io/apis/rentcheck/rentcheck-maintenance-reports-v2-api/) — The Maintenance Reports V2 API from RentCheck — 1 operation(s) for maintenance reports v2.
+- [RentCheck Permission Groups API](https://apis.io/apis/rentcheck/rentcheck-permission-groups-api/) — The Permission Groups API from RentCheck — 2 operation(s) for permission groups.
+- [RentCheck Properties V2 API](https://apis.io/apis/rentcheck/rentcheck-properties-v2-api/) — The Properties V2 API from RentCheck — 4 operation(s) for properties v2.
+- [RentCheck Properties V3 API](https://apis.io/apis/rentcheck/rentcheck-properties-v3-api/) — The Properties V3 API from RentCheck — 4 operation(s) for properties v3.
+- [RentCheck Residents (deprecated) API](https://apis.io/apis/rentcheck/rentcheck-residents-deprecated-api/) — The Residents (deprecated) API from RentCheck — 3 operation(s) for residents (deprecated).
+- [RentCheck Residents V2 API](https://apis.io/apis/rentcheck/rentcheck-residents-v2-api/) — The Residents V2 API from RentCheck — 2 operation(s) for residents v2.
+- [RentCheck Residents V3 API](https://apis.io/apis/rentcheck/rentcheck-residents-v3-api/) — The Residents V3 API from RentCheck — 1 operation(s) for residents v3.
+- [RentCheck Subscriptions API](https://apis.io/apis/rentcheck/rentcheck-subscriptions-api/) — The Subscriptions API from RentCheck — 6 operation(s) for subscriptions.
+- [RentCheck Teams API](https://apis.io/apis/rentcheck/rentcheck-teams-api/) — The Teams API from RentCheck — 11 operation(s) for teams.
+- [RentCheck Units API](https://apis.io/apis/rentcheck/rentcheck-units-api/) — The Units API from RentCheck — 4 operation(s) for units.
+- [RentCheck Users API](https://apis.io/apis/rentcheck/rentcheck-users-api/) — The Users API from RentCheck — 20 operation(s) for users.
+- [RentCheck Work Orders API](https://apis.io/apis/rentcheck/rentcheck-work-orders-api/) — The Work Orders API from RentCheck — 3 operation(s) for work orders.
+- [RentCheck Work Orders V2 API](https://apis.io/apis/rentcheck/rentcheck-work-orders-v2-api/) — The Work Orders V2 API from RentCheck — 1 operation(s) for work orders v2.
+- [RentCheck O Auth2 API](https://apis.io/apis/rentcheck/rentcheck-oauth2-api/) — The oAuth2 API from RentCheck — 8 operation(s) for oauth2.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [rentcheck](https://apis.io/servers/rentcheck/rentcheck/)
+
+#### Collections (31)
+
+Postman and Open Collection request collections.
+
+- [RentCheck REST Account Settings API](https://apis.io/collections/rentcheck/open-rentcheck-account-settings-api/)
+- [RentCheck REST Account Settings Automations API](https://apis.io/collections/rentcheck/open-rentcheck-automations-api/)
+- [RentCheck REST Account Settings Buildings API](https://apis.io/collections/rentcheck/open-rentcheck-buildings-api/)
+- [RentCheck REST Account Settings Chargebee API](https://apis.io/collections/rentcheck/open-rentcheck-chargebee-api/)
+- [RentCheck REST Account Settings Communities API](https://apis.io/collections/rentcheck/open-rentcheck-communities-api/)
+- [RentCheck REST Account Settings Dashboard API](https://apis.io/collections/rentcheck/open-rentcheck-dashboard-api/)
+- [RentCheck REST Account Settings File Requests API](https://apis.io/collections/rentcheck/open-rentcheck-file-requests-api/)
+- [RentCheck REST Account Settings Filter Segments API](https://apis.io/collections/rentcheck/open-rentcheck-filter-segments-api/)
+- [RentCheck REST Account Settings Inspection Features API](https://apis.io/collections/rentcheck/open-rentcheck-inspection-features-api/)
+- [RentCheck REST Account Settings Inspections API](https://apis.io/collections/rentcheck/open-rentcheck-inspections-api/)
+- [RentCheck REST Account Settings Inspections Templates API](https://apis.io/collections/rentcheck/open-rentcheck-inspections-templates-api/)
+- [RentCheck REST Account Settings Inspections V2 API](https://apis.io/collections/rentcheck/open-rentcheck-inspections-v2-api/)
+- [RentCheck REST Account Settings Integrations API](https://apis.io/collections/rentcheck/open-rentcheck-integrations-api/)
+- [RentCheck REST Account Settings LatchelProxy API](https://apis.io/collections/rentcheck/open-rentcheck-latchelproxy-api/)
+- [RentCheck REST Account Settings Leases API](https://apis.io/collections/rentcheck/open-rentcheck-leases-api/)
+- [RentCheck REST Account Settings Maintenance Flags API](https://apis.io/collections/rentcheck/open-rentcheck-maintenance-flags-api/)
+- [RentCheck REST Account Settings Maintenance Reports API](https://apis.io/collections/rentcheck/open-rentcheck-maintenance-reports-api/)
+- [RentCheck REST Account Settings Maintenance Reports V2 API](https://apis.io/collections/rentcheck/open-rentcheck-maintenance-reports-v2-api/)
+- [RentCheck REST Account Settings oAuth2 API](https://apis.io/collections/rentcheck/open-rentcheck-oauth2-api/)
+- [RentCheck REST Account Settings Permission Groups API](https://apis.io/collections/rentcheck/open-rentcheck-permission-groups-api/)
+- [RentCheck REST Account Settings Properties V2 API](https://apis.io/collections/rentcheck/open-rentcheck-properties-v2-api/)
+- [RentCheck REST Account Settings Properties V3 API](https://apis.io/collections/rentcheck/open-rentcheck-properties-v3-api/)
+- [RentCheck REST Account Settings Residents (deprecated) API](https://apis.io/collections/rentcheck/open-rentcheck-residents-deprecated-api/)
+- [RentCheck REST Account Settings Residents V2 API](https://apis.io/collections/rentcheck/open-rentcheck-residents-v2-api/)
+- [RentCheck REST Account Settings Residents V3 API](https://apis.io/collections/rentcheck/open-rentcheck-residents-v3-api/)
+- …and 6 more published on APIs.io
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Rentcheck Openapi Overlay](https://apis.io/overlays/rentcheck/rentcheck-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Rentcheck Authentication](https://apis.io/security/rentcheck/rentcheck-authentication/)
+- [Rentcheck Domain Security](https://apis.io/security/rentcheck/rentcheck-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://getrentcheck.com/)
+- [Documentation](https://developers.getrentcheck.com/)
+- [Getting started](https://app.getrentcheck.com/account/integrations/rentcheck-api)
+- [Pricing](https://www.getrentcheck.com/pricing)
+- [Sign up](https://app.getrentcheck.com/get-started)
+- [Support](https://help.getrentcheck.com/en/)
+- [Blog](https://www.getrentcheck.com/blog)
+- [Terms of service](https://www.getrentcheck.com/terms-of-service)
+- [Privacy policy](https://www.getrentcheck.com/privacy-policy)
+- [GitHub](https://github.com/getrentcheck)
+
+## API Evangelist rating
+
+**Kin Score 50.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 56.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 38.2 |
+
+**Agent readiness 24.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rentcheck/](https://apis.io/providers/rentcheck/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for RentCheck: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rentcheck/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
